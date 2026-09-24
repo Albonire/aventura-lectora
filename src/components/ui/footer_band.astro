@@ -1,0 +1,42 @@
+---
+import { sitio } from '../../config/sitio';
+---
+
+<footer class="bg-sunshine-pop text-ink-black">
+  <div class="contenedor flex flex-col gap-8 py-12 md:flex-row md:items-end md:justify-between md:py-16">
+    <div class="max-w-xl">
+      <p class="text-heading-sm font-medium tracking-tight">{sitio.nombre_curso}</p>
+      <p class="mt-3 text-body-sm">
+        {sitio.pie_portada}. Hecho por el equipo de la {sitio.programa}, {sitio.universidad}.
+      </p>
+      <p class="mt-2 text-body-sm">
+        Los podcasts, videos, infografías y tarjetas marcados con la etiqueta de IA se generaron con
+        Gemini Notebook a partir de textos del equipo y se revisaron antes de publicarse.
+      </p>
+    </div>
+    <nav aria-label="Pie de página">
+      <ul class="flex flex-wrap gap-x-6 gap-y-2 text-body-sm font-medium">
+        <li>
+          <a class="underline decoration-2 underline-offset-4" href="/referencias">
+            Referencias
+          </a>
+        </li>
+        <li>
+          <a class="underline decoration-2 underline-offset-4" href="/docentes">
+            Para docentes
+          </a>
+        </li>
+        <li>
+          <a class="underline decoration-2 underline-offset-4" href="/ficha">
+            Ficha de diseño
+          </a>
+        </li>
+        <li>
+          <a class="underline decoration-2 underline-offset-4" href="/">
+            Portada
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</footer>

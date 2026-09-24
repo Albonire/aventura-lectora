@@ -1,0 +1,27 @@
+---
+// numbered section of the book with a stable id (the /ficha page links to it)
+interface Props {
+  id: string;
+  titulo: string;
+  etiqueta?: string;
+  fondo?: 'crema' | 'arena';
+  class?: string;
+}
+const { id, titulo, etiqueta, fondo = 'crema', class: clase = '' } = Astro.props;
+---
+
+<section
+  id={id}
+  aria-labelledby={`${id}-titulo`}
+  class:list={['scroll-mt-24 py-section', fondo === 'arena' ? 'bg-sandstone/60' : '', clase]}
+>
+  <div class="contenedor">
+    <header class="mb-10 flex flex-col gap-3 md:mb-14">
+      {etiqueta && <p class="text-body-sm font-medium text-stone-text">{etiqueta}</p>}
+      <h2 id={`${id}-titulo`} class="text-heading-lg font-medium">
+        {titulo}
+      </h2>
+    </header>
+    <slot />
+  </div>
+</section>

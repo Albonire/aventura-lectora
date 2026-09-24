@@ -1,0 +1,43 @@
+---
+// book fore-edge on the right side: page lines that thin out with reading progress (decorative)
+const total = 24;
+const lineas = Array.from({ length: total }, (_, i) => i);
+---
+
+<div data-canto aria-hidden="true" class="canto">
+  {lineas.map((i) => (
+    <i style={`--i:${i};--r:${(i * 37) % 7}`} />
+  ))}
+</div>
+
+<style>
+  .canto {
+    --p: 0;
+    position: fixed;
+    top: 50%;
+    right: 0;
+    z-index: 30;
+    display: none;
+    height: min(58vh, 30rem);
+    translate: 0 -50%;
+    pointer-events: none;
+    justify-content: flex-end;
+    gap: 2px;
+    padding-right: 3px;
+  }
+  @media (min-width: 900px) {
+    .canto {
+      display: flex;
+    }
+  }
+  i {
+    display: block;
+    width: 2px;
+    align-self: center;
+    height: calc(100% - var(--r) * 6px);
+    background: var(--color-stone-gray);
+    border-radius: 2px;
+    /* the first lines fade out as pages are read; the last three always stay */
+    opacity: clamp(0, calc(var(--i) + 1 - var(--p) * 21), 1);
+  }
+</style>

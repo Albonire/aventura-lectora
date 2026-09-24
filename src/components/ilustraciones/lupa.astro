@@ -1,0 +1,29 @@
+---
+// course symbol: ink ring and green handle
+interface Props {
+  size?: number;
+  class?: string;
+}
+const { size = 32, class: clase = '' } = Astro.props;
+---
+
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 64 64"
+  width={size}
+  height={size}
+  class={clase}
+  aria-hidden="true"
+  focusable="false"
+>
+  <path d="M40 40 L54 54" stroke="#8ed462" stroke-width="10" stroke-linecap="round"></path>
+  <circle cx="27" cy="27" r="17" fill="#f5f1e4" stroke="#2c2e2a" stroke-width="6"></circle>
+  <path
+    d="M17 24 A10 10 0 0 1 25 17"
+    stroke="#ffffff"
+    stroke-width="4"
+    stroke-linecap="round"
+    fill="none"
+    opacity="0.9"
+  ></path>
+</svg>
