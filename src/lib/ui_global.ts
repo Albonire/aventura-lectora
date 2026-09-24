@@ -134,6 +134,7 @@ function recordar_lugar() {
   secciones.forEach((s) => observador.observe(s));
 }
 
+document.addEventListener('progreso:cambio', pintar_estados);
 iniciar_interruptores();
 iniciar_menu();
 pintar_estados();
