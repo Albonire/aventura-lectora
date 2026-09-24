@@ -1,13 +1,284 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/base_layout.astro';
+import TapaLibro from '../components/libro/tapa_libro.astro';
+import Seccion from '../components/ui/seccion.astro';
+import ContentCard from '../components/ui/content_card.astro';
+import ButtonGhost from '../components/ui/button_ghost.astro';
+
+const unidades = (await getCollection('unidades')).sort((a, b) => a.data.numero - b.data.numero);
+
+const fondos: Record<string, string> = {
+  'fresh-grass': 'bg-fresh-grass',
+  'sky-pop': 'bg-sky-pop',
+  'sunshine-pop': 'bg-sunshine-pop',
+  'coral-pop': 'bg-coral-pop',
+  mixto: 'bg-fresh-grass',
+};
+
+const momentos = [
+  {
+    n: 1,
+    titulo: 'Abrir el caso',
+    nombre: 'Exploración',
+    texto: 'Activamos lo que ya sabemos, miramos imágenes y títulos, predecimos.',
+  },
+  {
+    n: 2,
+    titulo: 'Seguir las pistas',
+    nombre: 'Estructuración',
+    texto: 'Leemos con pausas, vemos el material de estudio y aprendemos los conceptos del caso.',
+  },
+  {
+    n: 3,
+    titulo: 'Entrenar la lupa',
+    nombre: 'Práctica',
+    texto:
+      'Resolvemos actividades interactivas con retroalimentación inmediata. Nos podemos equivocar y volver a intentar.',
+  },
+  {
+    n: 4,
+    titulo: 'Cerrar el caso',
+    nombre: 'Valoración',
+    texto: 'Hacemos el reto del caso, nos autoevaluamos y ganamos la insignia.',
+  },
+];
+
+const evidencias = [
+  ['Reto caso 1: bitácora del detective lector', '15 %'],
+  ['Reto caso 2: el sendero completo', '15 %'],
+  ['Reto caso 3: mis preguntas de detective', '15 %'],
+  ['Reto caso 4: análisis de una noticia con la lista LUPA', '15 %'],
+  ['Reto caso 5: mi texto de opinión', '15 %'],
+  ['Producto final: expediente del detective lector', '15 %'],
+  ['Autoevaluación y participación en las sesiones', '10 %'],
+];
+
+const otros = [
+  'Accesibilidad: botón "Escuchar" en las lecturas, opción de letra grande, opción para apagar el movimiento, uso completo con teclado.',
+  'Sin registro y sin recolección de datos: el progreso se guarda solo en el navegador del estudiante.',
+  'Funciona en celular, tableta y computador. Se recomienda audífonos para los videos.',
+  'Para familias: cada caso trae una sugerencia corta para conversar en casa sobre lo leído.',
+  'Todo el curso es digital. Los retos se responden dentro del sitio, se descargan como PDF y se entregan en la plataforma del curso (Classroom o Moodle).',
+  'Recursos hechos con inteligencia artificial: cada caso trae un podcast de repaso, un video explicativo, una infografía y un mazo de tarjetas generados por el equipo en Gemini Notebook a partir de los textos del curso, revisados antes de publicarse y marcados como hechos con IA. Todos tienen transcripción o versión en texto.',
+];
 ---
 
-<BaseLayout titulo="Aventura lectora">
-  <div class="contenedor pt-32 pb-24">
-    <h1 class="text-display font-medium">Aventura lectora</h1>
-    <p class="mt-6 rounded-card bg-pure-white p-card text-body">Prueba de base</p>
-    <div class="mt-6 p-4 bg-sandstone" id="p4">
-      p-4
+<BaseLayout titulo="Aventura lectora" sin_canto={false}>
+  <TapaLibro />
+
+  <Seccion
+    id="bienvenida"
+    titulo="Bienvenidos, exploradores de historias"
+    etiqueta="Bienvenida al curso"
+  >
+    <div class="lectura">
+      <p>
+        En este curso nos convertiremos en verdaderos detectives de la lectura: aprenderemos a
+        predecir, a preguntar, a distinguir hechos de opiniones y a construir nuestras propias ideas
+        frente a lo que leemos. A lo largo de 5 unidades leeremos cuentos, noticias y textos
+        informativos, resolveremos misterios de comprensión y aprenderemos a pensar de forma crítica
+        sobre todo lo que llega a nuestras manos... ¡y a nuestras pantallas! Preparen su lupa y su
+        curiosidad: la aventura comienza ahora.
+      </p>
     </div>
-  </div>
+    <div class="mt-10">
+      <ButtonGhost href="/unidad/1" color="grass">
+        Abrir el caso 1
+      </ButtonGhost>
+    </div>
+  </Seccion>
+
+  <Seccion
+    id="competencias"
+    titulo="Lo que vas a lograr"
+    etiqueta="Competencias y objetivos"
+    fondo="arena"
+  >
+    <ContentCard class="max-w-4xl">
+      <p class="max-w-reading text-reading">
+        Al finalizar el curso, el estudiante de quinto de primaria será capaz de: aplicar
+        estrategias de comprensión antes, durante y después de la lectura; reconocer la estructura
+        de distintos tipos de texto; formular preguntas en los tres niveles de comprensión lectora
+        (literal, inferencial y crítico); evaluar la confiabilidad de una fuente de información; y
+        construir y argumentar una opinión propia frente a un texto, articulando ideas con razones y
+        ejemplos.
+      </p>
+    </ContentCard>
+  </Seccion>
+
+  <Seccion id="ruta" titulo="Cómo funciona" etiqueta="Ruta de aprendizaje">
+    <p class="lectura">
+      Cada caso tiene cuatro pasos: abrir el caso, seguir las pistas, entrenar la lupa y cerrar el
+      caso. Al cerrar cada caso ganas una insignia para tu pasaporte de detective.
+    </p>
+    <ol class="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+      {momentos.map((m) => (
+        <li class="flex flex-col rounded-soft bg-pure-white p-7">
+          <span
+            class="flex size-12 items-center justify-center rounded-full border-2 border-ink-black bg-sunshine-pop text-subheading font-medium"
+            aria-hidden="true"
+          >
+            {m.n}
+          </span>
+          <p class="mt-5 text-body-sm font-medium text-stone-text">
+            <span class="sr-only">Paso {m.n}: </span>
+            {m.nombre}
+          </p>
+          <h3 class="mt-1 text-heading-sm font-medium leading-tight tracking-tight">{m.titulo}</h3>
+          <p class="mt-3 text-body">{m.texto}</p>
+        </li>
+      ))}
+    </ol>
+    <p class="mt-10 max-w-3xl text-body text-stone-text">
+      Metodología: aprendizaje activo con gamificación narrativa. Cada estudiante es un detective de
+      la lectura y cada unidad es un caso. El docente acompaña, modela la lectura en voz alta, hace
+      preguntas y retroalimenta; el estudiante lee, pregunta, prueba hipótesis, explica sus
+      respuestas y escucha las de otros. Duración sugerida: 5 semanas, un caso por semana, más una
+      sesión final de socialización.
+    </p>
+  </Seccion>
+
+  <Seccion id="casos" titulo="Elige tu caso" etiqueta="Los cinco casos" fondo="arena">
+    <ol class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+      {unidades.map((u) => (
+        <li class="flex">
+          <a
+            href={`/unidad/${u.data.numero}`}
+            class="group flex w-full flex-col rounded-card bg-pure-white p-7 text-ink-black transition-colors hover:bg-cream-paper md:p-8"
+          >
+            <span
+              class:list={[
+                'flex size-16 items-center justify-center rounded-full border-2 border-ink-black text-heading-sm font-medium',
+                fondos[u.data.color],
+              ]}
+              aria-hidden="true"
+            >
+              0{u.data.numero}
+            </span>
+            <span class="mt-5 text-body-sm font-medium text-stone-text">Caso {u.data.numero}</span>
+            <span class="mt-1 text-heading-sm font-medium leading-tight tracking-tight">
+              {u.data.titulo}
+            </span>
+            <span class="mt-3 flex-1 text-body">{u.data.mision}</span>
+            <span class="mt-5 text-body-sm font-medium">Insignia: {u.data.insignia.nombre}</span>
+            <span class="mt-4 inline-flex min-h-11 items-center gap-2 text-body-sm font-medium underline decoration-2 underline-offset-4">
+              Abrir el caso {u.data.numero}
+            </span>
+          </a>
+        </li>
+      ))}
+    </ol>
+    <p class="mt-10 max-w-3xl text-body text-stone-text">
+      La ruta va de cómo leo (1), a qué leo (2), a qué tan profundo leo (3), a en qué confío (4), a
+      qué pienso y por qué (5).
+    </p>
+  </Seccion>
+
+  <Seccion id="evaluacion" titulo="Cómo se evalúa" etiqueta="Evaluación">
+    <div class="grid gap-6 lg:grid-cols-3">
+      <div class="rounded-soft bg-pure-white p-7">
+        <h3 class="text-subheading font-medium">Formativa</h3>
+        <p class="mt-3 text-body">
+          Durante todo el curso: cuestionarios autocorregibles, sopa de letras, ruleta,
+          clasificaciones y pistas. Dan retroalimentación inmediata y no llevan nota.
+        </p>
+      </div>
+      <div class="rounded-soft bg-pure-white p-7">
+        <h3 class="text-subheading font-medium">Sumativa</h3>
+        <p class="mt-3 text-body">Un reto por caso y un producto final.</p>
+      </div>
+      <div class="rounded-soft bg-pure-white p-7">
+        <h3 class="text-subheading font-medium">Autoevaluación</h3>
+        <p class="mt-3 text-body">
+          Al cierre de cada caso, con tres frases: "Ya lo sé hacer", "Lo hago con ayuda", "Todavía
+          se me dificulta".
+        </p>
+      </div>
+    </div>
+
+    <div
+      class="mt-8 overflow-x-auto rounded-soft bg-pure-white p-2 md:p-4"
+      tabindex="0"
+      role="region"
+      aria-label="Tabla con desplazamiento horizontal"
+    >
+      <table class="w-full min-w-[28rem] text-left text-body-sm">
+        <caption class="px-4 pb-2 pt-4 text-left text-body font-medium">
+          Evidencias y su peso
+        </caption>
+        <thead>
+          <tr class="border-b border-hairline-mist">
+            <th scope="col" class="px-4 py-3 font-medium">
+              Evidencia
+            </th>
+            <th scope="col" class="px-4 py-3 text-right font-medium">
+              Peso
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {evidencias.map(([e, p]) => (
+            <tr class="border-b border-hairline-mist last:border-0">
+              <td class="px-4 py-3">{e}</td>
+              <td class="px-4 py-3 text-right">{p}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="mt-6 max-w-3xl text-body text-stone-text">
+      Escala: la del Sistema Institucional de Evaluación de cada colegio, con los desempeños de la
+      escala nacional del Decreto 1290 de 2009 (Superior, Alto, Básico y Bajo). Cada reto trae su
+      rúbrica con esos cuatro niveles.
+    </p>
+  </Seccion>
+
+  <Seccion id="momentos" titulo="Síncrono y asíncrono" etiqueta="Momentos del curso" fondo="arena">
+    <div class="grid gap-6 lg:grid-cols-3">
+      <div class="rounded-soft bg-pure-white p-7">
+        <p class="text-body-sm font-medium text-stone-text">Por videollamada</p>
+        <h3 class="mt-1 text-subheading font-medium">Síncrono</h3>
+        <p class="mt-3 text-body">
+          Uno por caso, de 50 minutos: apertura del caso, lectura en voz alta compartida, dudas y
+          socialización del reto de la semana anterior.
+        </p>
+      </div>
+      <div class="rounded-soft bg-pure-white p-7">
+        <p class="text-body-sm font-medium text-stone-text">En este sitio web</p>
+        <h3 class="mt-1 text-subheading font-medium">Asíncrono</h3>
+        <p class="mt-3 text-body">
+          De 60 a 90 minutos por caso: recorrido de la unidad, actividades de práctica y reto del
+          caso. Se puede hacer desde cualquier computador, tableta o celular con internet.
+        </p>
+      </div>
+      <div class="rounded-soft bg-pure-white p-7">
+        <p class="text-body-sm font-medium text-stone-text">Al final del curso</p>
+        <h3 class="mt-1 text-subheading font-medium">Feria de detectives</h3>
+        <p class="mt-3 text-body">
+          Sesión final síncrona por videollamada. Cada estudiante presenta su expediente en PDF y
+          reproduce o lee su texto de opinión.
+        </p>
+      </div>
+    </div>
+  </Seccion>
+
+  <Seccion id="otros" titulo="Otros aspectos" etiqueta="Antes de empezar">
+    <ul class="grid max-w-4xl gap-4">
+      {otros.map((o) => (
+        <li class="rounded-soft bg-pure-white p-5 text-body">{o}</li>
+      ))}
+    </ul>
+    <div class="mt-12 flex flex-wrap gap-4">
+      <ButtonGhost href="/unidad/1" color="grass">
+        Empezar por el caso 1
+      </ButtonGhost>
+      <ButtonGhost href="/docentes" color="sky">
+        Para docentes
+      </ButtonGhost>
+      <ButtonGhost href="/referencias" color="sun">
+        Referencias
+      </ButtonGhost>
+    </div>
+  </Seccion>
 </BaseLayout>

@@ -1,0 +1,40 @@
+---
+// open book
+interface Props {
+  size?: number;
+  class?: string;
+}
+const { size = 80, class: clase = '' } = Astro.props;
+---
+
+<svg
+  viewBox="0 0 110 84"
+  height={size}
+  width={(size * 110) / 84}
+  class={clase}
+  aria-hidden="true"
+  focusable="false"
+>
+  <path
+    d="M6 66 V20 Q32 12 55 24 Q78 12 104 20 V66 Q78 58 55 70 Q32 58 6 66 Z"
+    fill="#ff705d"
+    stroke="#2c2e2a"
+    stroke-width="3"
+    stroke-linejoin="round"
+  ></path>
+  <path
+    d="M12 60 V18 Q34 12 55 22 Q76 12 98 18 V60 Q76 52 55 64 Q34 52 12 60 Z"
+    fill="#ffffff"
+    stroke="#2c2e2a"
+    stroke-width="3"
+    stroke-linejoin="round"
+  ></path>
+  <path d="M55 22 V64" stroke="#2c2e2a" stroke-width="3"></path>
+  <path
+    d="M20 28 Q32 24 46 30 M20 37 Q32 33 46 39 M20 46 Q32 42 46 48 M64 30 Q78 24 90 28 M64 39 Q78 33 90 37 M64 48 Q78 42 90 46"
+    stroke="#d5d5d4"
+    stroke-width="3"
+    stroke-linecap="round"
+    fill="none"
+  ></path>
+</svg>

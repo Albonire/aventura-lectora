@@ -1,0 +1,104 @@
+---
+// horizontal path with one station per text type. Stacked cards without scripts and on small screens.
+import Libro from '../ilustraciones/libro.astro';
+import Periodico from '../ilustraciones/periodico.astro';
+import ListaPasos from '../ilustraciones/lista_pasos.astro';
+
+interface Estacion {
+  id: string;
+  titulo: string;
+  mision: string;
+  partes: string[][];
+  pistas: string;
+}
+interface Props {
+  estaciones: Estacion[];
+}
+const { estaciones } = Astro.props;
+const arte = [Libro, Periodico, ListaPasos];
+const colores = ['bg-coral-pop', 'bg-sunshine-pop', 'bg-fresh-grass'];
+---
+
+<div data-sendero class="sendero">
+  <div data-escenario class="sendero-escenario">
+    <ol data-pista class="sendero-pista">
+      {estaciones.map((e, i) => {
+        const Arte = arte[i % arte.length];
+        return (
+          <li id={e.id} data-estacion class="sendero-estacion scroll-mt-28">
+            <div class="rounded-card bg-pure-white p-7 text-ink-black md:p-9">
+              <div class="flex items-start justify-between gap-4">
+                <div>
+                  <p class="text-body-sm font-medium text-stone-text">Estación {i + 1}</p>
+                  <h4 class="mt-1 text-heading-sm font-medium leading-tight tracking-tight">
+                    {e.titulo}
+                  </h4>
+                </div>
+                <div
+                  class:list={[
+                    'flex size-24 shrink-0 items-center justify-center rounded-full',
+                    colores[i % colores.length],
+                  ]}
+                  aria-hidden="true"
+                >
+                  <Arte size={64} />
+                </div>
+              </div>
+              <p class="mt-4 text-body font-medium">Misión: {e.mision}</p>
+              <p class="mt-4 text-body-sm font-medium text-stone-text">Partes</p>
+              <ul class="mt-1 space-y-1 text-body">
+                {e.partes.map(([nombre, detalle]) => (
+                  <li>
+                    <span class="font-medium">{nombre}</span>
+                    {detalle ? `: ${detalle}` : ''}
+                  </li>
+                ))}
+              </ul>
+              <p class="mt-4 text-body-sm font-medium text-stone-text">Pistas para reconocerlo</p>
+              <p class="mt-1 text-body">{e.pistas}</p>
+            </div>
+          </li>
+        );
+      })}
+    </ol>
+  </div>
+</div>
+
+<style>
+  .sendero-pista {
+    display: grid;
+    gap: 1.5rem;
+  }
+  /* pinned horizontal mode, switched on by the scroll script */
+  :global(.sendero-activo) .sendero-escenario {
+    position: relative;
+    display: flex;
+    min-height: 100svh;
+    align-items: center;
+    overflow: hidden;
+  }
+  :global(.sendero-activo) .sendero-pista {
+    position: relative;
+    display: flex;
+    gap: 2.5rem;
+    padding-inline: max(1.25rem, calc((100vw - 75rem) / 2 + 2rem));
+    will-change: transform;
+  }
+  :global(.sendero-activo) .sendero-pista::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    border-top: 8px dotted var(--color-stone-gray);
+  }
+  :global(.sendero-activo) .sendero-estacion {
+    position: relative;
+    width: min(34rem, 82vw);
+    flex-shrink: 0;
+  }
+</style>
+
+<script>
+  import '../../lib/scroll/sendero';
+</script>

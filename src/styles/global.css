@@ -2,49 +2,50 @@
 @import './design_tokens.css';
 @import '@fontsource-variable/inter/wght.css';
 
-/* ---------- base ---------- */
+/* ---------- base (inside the base layer so utilities can override it) ---------- */
+@layer base {
+  html {
+    color-scheme: light;
+    scroll-padding-top: 6rem;
+    -webkit-text-size-adjust: 100%;
+  }
 
-html {
-  color-scheme: light;
-  scroll-padding-top: 6rem;
-  -webkit-text-size-adjust: 100%;
-}
+  body {
+    min-height: 100dvh;
+    overflow-x: clip;
+  }
 
-body {
-  min-height: 100dvh;
-  overflow-x: clip;
-}
+  a {
+    color: inherit;
+  }
 
-a {
-  color: inherit;
-}
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-weight: var(--font-weight-medium);
+    text-wrap: balance;
+  }
 
-h1,
-h2,
-h3,
-h4 {
-  font-weight: var(--font-weight-medium);
-  text-wrap: balance;
-}
+  p,
+  li {
+    text-wrap: pretty;
+  }
 
-p,
-li {
-  text-wrap: pretty;
-}
+  img,
+  svg,
+  video {
+    max-width: 100%;
+  }
 
-img,
-svg,
-video {
-  max-width: 100%;
-}
-
-/* tap targets of at least 44px for every interactive control */
-button,
-summary,
-[role='button'],
-input[type='checkbox'],
-input[type='radio'] {
-  cursor: pointer;
+  /* tap targets of at least 44px for every interactive control */
+  button,
+  summary,
+  [role='button'],
+  input[type='checkbox'],
+  input[type='radio'] {
+    cursor: pointer;
+  }
 }
 
 /* ---------- layout helpers ---------- */
@@ -238,4 +239,47 @@ html[data-movimiento='no']::view-transition-group(*),
 html[data-movimiento='no']::view-transition-old(*),
 html[data-movimiento='no']::view-transition-new(*) {
   animation-duration: 0.01ms !important;
+}
+
+/* argument tower: a block falls into place when the student completes it */
+@keyframes torre-cae {
+  0% {
+    opacity: 0;
+    transform: translateY(-3rem);
+  }
+  70% {
+    opacity: 1;
+    transform: translateY(0.35rem);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.torre-cae {
+  animation: torre-cae 480ms cubic-bezier(0.34, 1.2, 0.64, 1) both;
+}
+
+/* certificate stamp: a single 600ms press */
+@keyframes sello-estampa {
+  0% {
+    opacity: 0;
+    transform: scale(2.2) rotate(-24deg);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(0.94) rotate(-6deg);
+  }
+  100% {
+    transform: scale(1) rotate(-6deg);
+  }
+}
+
+.sello-estampa {
+  animation: sello-estampa 600ms cubic-bezier(0.2, 0.9, 0.3, 1) both;
+}
+
+/* scroll wrappers clip visually hidden helpers that are positioned absolutely inside them */
+.overflow-x-auto {
+  position: relative;
 }

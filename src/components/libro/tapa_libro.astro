@@ -1,0 +1,138 @@
+---
+// book cover that opens with the scroll (P1) and the title page underneath it
+import PortadaLibro from '../ilustraciones/portada_libro.astro';
+import Lupa from '../ilustraciones/lupa.astro';
+import { CaretDown } from '@phosphor-icons/react/ssr';
+import { integrantes, sitio } from '../../config/sitio';
+---
+
+<div data-apertura class="apertura">
+  <section
+    id="tapa"
+    data-cubierta
+    aria-label="Portada del curso"
+    class="cubierta relative isolate overflow-hidden bg-fresh-grass text-ink-black"
+  >
+    <div class="absolute inset-y-0 left-0 z-10 w-6 bg-[#6fbb47] sm:w-10" aria-hidden="true">
+      <div class="absolute inset-y-6 left-1/2 w-0 -translate-x-1/2 border-l-4 border-dotted border-cream-paper/80"></div>
+    </div>
+    <div
+      class="absolute inset-3 left-9 rounded-[2rem] border-[3px] border-ink-black sm:inset-5 sm:left-14 sm:rounded-[3rem]"
+      aria-hidden="true"
+    ></div>
+
+    <div class="contenedor relative z-20 flex h-full flex-col justify-between pb-10 pl-12 pt-24 sm:pl-16 sm:pt-28">
+      <div class="text-center">
+        <p class="text-body font-medium">{sitio.pie_portada}</p>
+        <h1 class="mt-3 text-display font-medium leading-[0.9] tracking-tighter">
+          {sitio.nombre_curso}
+        </h1>
+        <p class="mx-auto mt-4 max-w-2xl text-subheading font-medium sm:text-heading-sm">
+          {sitio.subtitulo}
+        </p>
+      </div>
+
+      <div class="my-3 flex min-h-0 flex-1 items-center justify-center">
+        <PortadaLibro />
+      </div>
+
+      <div class="text-center">
+        <p class="mx-auto max-w-3xl text-body-sm font-medium">
+          {sitio.universidad} · {sitio.programa}
+        </p>
+        <p class="mx-auto mt-1 max-w-3xl text-body-sm">
+          {sitio.seminario} · Actividad: {sitio.actividad}
+        </p>
+        <p
+          class="mt-4 flex items-center justify-center gap-2 text-body-sm font-medium"
+          data-indicio
+        >
+          <CaretDown size={18} weight="bold" aria-hidden="true" />
+          Baja para abrir el libro
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section
+    id="portadilla"
+    data-portadilla
+    aria-labelledby="portadilla-titulo"
+    class="portadilla flex items-center bg-cream-paper py-24"
+  >
+    <div class="contenedor">
+      <div class="mx-auto max-w-3xl text-center">
+        <Lupa size={44} class="mx-auto" />
+        <p class="mt-6 text-body font-medium">{sitio.universidad}</p>
+        <p class="text-body-sm text-stone-text">{sitio.sede}</p>
+        <p class="mt-4 text-body-sm">{sitio.division}</p>
+        <p class="text-body-sm">{sitio.facultad}</p>
+        <p class="text-body-sm font-medium">{sitio.programa}</p>
+
+        <div class="mx-auto my-8 h-0.5 w-24 bg-ink-black" aria-hidden="true"></div>
+
+        <p class="text-body-sm text-stone-text">{sitio.seminario}</p>
+        <p class="text-body-sm text-stone-text">Actividad: {sitio.actividad}</p>
+        <h2
+          id="portadilla-titulo"
+          class="mt-6 text-heading-lg font-medium leading-none tracking-tighter"
+        >
+          {sitio.nombre_curso}
+        </h2>
+        <p class="mx-auto mt-4 max-w-xl text-subheading">
+          {sitio.nombre_largo
+            .replace('Aventura lectora: ', '')
+            .replace(/^./, (c) => c.toUpperCase())}
+        </p>
+        <p class="mt-2 text-body-sm">{sitio.pie_portada}</p>
+
+        <div class="mx-auto my-8 h-0.5 w-24 bg-ink-black" aria-hidden="true"></div>
+
+        <p class="text-body-sm font-medium text-stone-text">Equipo de trabajo</p>
+        <ul class="mt-2 grid gap-x-8 text-body sm:grid-cols-2">
+          {integrantes.map((i) => (
+            <li class="py-0.5">{i.nombre}</li>
+          ))}
+        </ul>
+        <p class="mt-5 text-body-sm font-medium text-stone-text">Docente</p>
+        <p class="text-body">{sitio.docente}</p>
+        <p class="mt-6 text-body-sm text-stone-text">{sitio.anio}</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<style>
+  .cubierta {
+    min-height: 100svh;
+    height: 100svh;
+  }
+  .portadilla {
+    min-height: 100svh;
+  }
+  /* pinned mode, switched on by the scroll script */
+  :global(.apertura-activa) {
+    position: relative;
+    height: 100svh;
+    overflow: hidden;
+    perspective: 5200px;
+  }
+  :global(.apertura-activa) .portadilla {
+    position: absolute;
+    inset: 0;
+    min-height: 0;
+    padding-block: 0;
+    overflow: hidden;
+  }
+  :global(.apertura-activa) .cubierta {
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    transform-origin: left center;
+    backface-visibility: hidden;
+  }
+</style>
+
+<script>
+  import '../../lib/scroll/tapa';
+</script>

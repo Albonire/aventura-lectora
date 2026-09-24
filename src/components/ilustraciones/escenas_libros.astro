@@ -1,0 +1,232 @@
+---
+// scenes for the side panel of "Los libros viajeros de la vereda": one scene per step of the reading
+const colores = ['#ff705d', '#2ba0ff', '#f5e211', '#8ed462', '#ffffff', '#e0dbce'];
+const libros = Array.from({ length: 12 }, (_, i) => ({
+  x: 44 + (i % 6) * 50,
+  fila: Math.floor(i / 6),
+  c: colores[i % colores.length],
+  h: 58 + ((i * 7) % 4) * 6,
+}));
+const casas = Array.from({ length: 9 }, (_, i) => ({ x: 34 + (i % 5) * 76, y: i < 5 ? 250 : 320 }));
+---
+
+<div class="relative aspect-square w-full overflow-hidden rounded-card bg-cream-paper" data-escenas>
+  <!-- 1: the shelf with twelve books -->
+  <svg
+    data-escena="1"
+    viewBox="0 0 400 400"
+    class="absolute inset-0 h-full w-full"
+    focusable="false"
+  >
+    <rect x="20" y="150" width="360" height="12" rx="5" fill="#8b6b4a"></rect>
+    <rect x="20" y="270" width="360" height="12" rx="5" fill="#8b6b4a"></rect>
+    {libros.map((l) => (
+      <rect
+        x={l.x}
+        y={(l.fila === 0 ? 150 : 270) - l.h}
+        width="34"
+        height={l.h}
+        rx="4"
+        fill={l.c}
+        stroke="#2c2e2a"
+        stroke-width="3"
+      ></rect>
+    ))}
+    <text x="200" y="345" text-anchor="middle" font-size="26" font-weight="500" fill="#2c2e2a">
+      12 libros, siempre los mismos
+    </text>
+  </svg>
+  <!-- 2: the teacher's idea -->
+  <svg
+    data-escena="2"
+    viewBox="0 0 400 400"
+    class="absolute inset-0 h-full w-full"
+    style="opacity:0"
+    focusable="false"
+  >
+    <circle cx="200" cy="170" r="110" fill="#f5e211"></circle>
+    <path
+      d="M160 200 Q130 150 168 118 Q200 92 234 118 Q270 150 240 200 Z"
+      fill="#ffffff"
+      stroke="#2c2e2a"
+      stroke-width="7"
+      stroke-linejoin="round"
+    ></path>
+    <path
+      d="M172 226 H228 M180 246 H220"
+      stroke="#2c2e2a"
+      stroke-width="9"
+      stroke-linecap="round"
+    ></path>
+    <rect
+      x="70"
+      y="300"
+      width="260"
+      height="56"
+      rx="28"
+      fill="#ffffff"
+      stroke="#2c2e2a"
+      stroke-width="5"
+    ></rect>
+    <text x="200" y="336" text-anchor="middle" font-size="24" font-weight="500" fill="#2c2e2a">
+      Cada familia presta un libro
+    </text>
+  </svg>
+  <!-- 3: the trunk and the red notebook -->
+  <svg
+    data-escena="3"
+    viewBox="0 0 400 400"
+    class="absolute inset-0 h-full w-full"
+    style="opacity:0"
+    focusable="false"
+  >
+    <rect
+      x="70"
+      y="200"
+      width="260"
+      height="130"
+      rx="18"
+      fill="#8b6b4a"
+      stroke="#2c2e2a"
+      stroke-width="6"
+    ></rect>
+    <path
+      d="M70 218 C70 150 330 150 330 218 Z"
+      fill="#a4805a"
+      stroke="#2c2e2a"
+      stroke-width="6"
+      stroke-linejoin="round"
+    ></path>
+    <rect
+      x="182"
+      y="238"
+      width="36"
+      height="30"
+      rx="6"
+      fill="#f5e211"
+      stroke="#2c2e2a"
+      stroke-width="5"
+    ></rect>
+    <g transform="rotate(-10 200 130)">
+      <rect
+        x="150"
+        y="50"
+        width="100"
+        height="130"
+        rx="10"
+        fill="#ff705d"
+        stroke="#2c2e2a"
+        stroke-width="6"
+      ></rect>
+      <g fill="#2c2e2a">
+        <circle cx="150" cy="78" r="5"></circle>
+        <circle cx="150" cy="108" r="5"></circle>
+        <circle cx="150" cy="138" r="5"></circle>
+      </g>
+      <rect x="172" y="84" width="60" height="30" rx="8" fill="#ffffff"></rect>
+    </g>
+  </svg>
+  <!-- 4: the notebook on the shelf, with shaky hands -->
+  <svg
+    data-escena="4"
+    viewBox="0 0 400 400"
+    class="absolute inset-0 h-full w-full"
+    style="opacity:0"
+    focusable="false"
+  >
+    <rect x="20" y="230" width="360" height="12" rx="5" fill="#8b6b4a"></rect>
+    {libros.slice(0, 6).map((l) => (
+      <rect
+        x={l.x}
+        y={230 - l.h}
+        width="34"
+        height={l.h}
+        rx="4"
+        fill={l.c}
+        stroke="#2c2e2a"
+        stroke-width="3"
+      ></rect>
+    ))}
+    <rect
+      x="330"
+      y="150"
+      width="46"
+      height="80"
+      rx="6"
+      fill="#ff705d"
+      stroke="#2c2e2a"
+      stroke-width="5"
+    ></rect>
+    <g stroke="#2c2e2a" stroke-width="5" stroke-linecap="round" fill="none">
+      <path d="M318 170 Q308 180 318 190 M310 160 Q296 180 310 200"></path>
+    </g>
+    <text x="200" y="310" text-anchor="middle" font-size="26" font-weight="500" fill="#2c2e2a">
+      "No es un libro de verdad"
+    </text>
+  </svg>
+  <!-- 5: nine houses -->
+  <svg
+    data-escena="5"
+    viewBox="0 0 400 400"
+    class="absolute inset-0 h-full w-full"
+    style="opacity:0"
+    focusable="false"
+  >
+    {casas.map((c, i) => (
+      <g transform={`translate(${c.x} ${c.y - 120})`}>
+        <path
+          d="M0 40 L30 8 L60 40 V80 H0 Z"
+          fill={i % 2 ? '#e0dbce' : '#ffffff'}
+          stroke="#2c2e2a"
+          stroke-width="4"
+          stroke-linejoin="round"
+        ></path>
+        <rect x="22" y="52" width="16" height="28" fill="#2ba0ff"></rect>
+      </g>
+    ))}
+    <path
+      d="M40 150 Q200 110 360 150 M40 220 Q200 180 360 220"
+      stroke="#8ed462"
+      stroke-width="10"
+      stroke-dasharray="2 18"
+      stroke-linecap="round"
+      fill="none"
+    ></path>
+    <g transform="translate(150 280) rotate(-8 50 40)">
+      <rect width="80" height="100" rx="8" fill="#ff705d" stroke="#2c2e2a" stroke-width="5"></rect>
+    </g>
+    <text x="200" y="392" text-anchor="middle" font-size="24" font-weight="500" fill="#2c2e2a">
+      Nueve casas en un mes
+    </text>
+  </svg>
+  <!-- 6: applause -->
+  <svg
+    data-escena="6"
+    viewBox="0 0 400 400"
+    class="absolute inset-0 h-full w-full"
+    style="opacity:0"
+    focusable="false"
+  >
+    <g transform="translate(140 110) rotate(-6 60 80)">
+      <rect
+        width="120"
+        height="160"
+        rx="12"
+        fill="#ff705d"
+        stroke="#2c2e2a"
+        stroke-width="6"
+      ></rect>
+      <rect x="22" y="40" width="76" height="40" rx="10" fill="#ffffff"></rect>
+    </g>
+    <g stroke="#2c2e2a" stroke-width="7" stroke-linecap="round">
+      <path d="M80 130 L56 104 M70 176 L38 172 M320 130 L344 104 M330 176 L362 172 M200 74 L200 44"></path>
+    </g>
+    <g fill="#f5e211" stroke="#2c2e2a" stroke-width="4" stroke-linejoin="round">
+      <path d="M100 300 L108 320 L128 328 L108 336 L100 356 L92 336 L72 328 L92 320 Z"></path>
+      <path d="M300 290 L306 306 L322 312 L306 318 L300 334 L294 318 L278 312 L294 306 Z"></path>
+    </g>
+    <text x="200" y="384" text-anchor="middle" font-size="26" font-weight="500" fill="#2c2e2a">
+      Todos aplaudieron
+    </text>
+  </svg>
+</div>

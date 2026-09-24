@@ -1,0 +1,45 @@
+---
+// Rinrín renacuajo: green tadpole with a hat with ribbon and a bow tie
+interface Props {
+  size?: number;
+  class?: string;
+}
+const { size = 130, class: clase = '' } = Astro.props;
+const TINTA = '#2c2e2a';
+---
+
+<svg
+  viewBox="0 0 120 152"
+  height={size}
+  width={(size * 120) / 152}
+  class={clase}
+  aria-hidden="true"
+  focusable="false"
+>
+  <path
+    d="M62 104 C36 122 74 132 50 148"
+    stroke="#8ed462"
+    stroke-width="11"
+    stroke-linecap="round"
+    fill="none"
+  ></path>
+  <ellipse cx="60" cy="80" rx="36" ry="32" fill="#8ed462"></ellipse>
+  <ellipse cx="60" cy="94" rx="23" ry="15" fill="#b8e594"></ellipse>
+  <circle cx="44" cy="64" r="11" fill="#ffffff" stroke={TINTA} stroke-width="2.5"></circle>
+  <circle cx="76" cy="64" r="11" fill="#ffffff" stroke={TINTA} stroke-width="2.5"></circle>
+  <circle cx="47" cy="66" r="4.4" fill={TINTA}></circle>
+  <circle cx="79" cy="66" r="4.4" fill={TINTA}></circle>
+  <path
+    d="M44 88 Q60 100 76 88"
+    stroke={TINTA}
+    stroke-width="2.8"
+    stroke-linecap="round"
+    fill="none"
+  ></path>
+  <path d="M60 106 L44 98 L44 114 Z" fill="#ff705d"></path>
+  <path d="M60 106 L76 98 L76 114 Z" fill="#ff705d"></path>
+  <circle cx="60" cy="106" r="4" fill="#c94a3a"></circle>
+  <rect x="42" y="22" width="36" height="26" rx="3" fill={TINTA}></rect>
+  <rect x="42" y="38" width="36" height="7" fill="#ff705d"></rect>
+  <ellipse cx="60" cy="48" rx="34" ry="6.5" fill={TINTA}></ellipse>
+</svg>

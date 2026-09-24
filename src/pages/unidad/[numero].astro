@@ -1,6 +1,6 @@
 ---
 import { getCollection, render } from 'astro:content';
-import BaseLayout from '../../layouts/base_layout.astro';
+import UnidadLayout from '../../layouts/unidad_layout.astro';
 
 export async function getStaticPaths() {
   const unidades = await getCollection('unidades');
@@ -11,13 +11,6 @@ const { unidad } = Astro.props;
 const { Content } = await render(unidad);
 ---
 
-<BaseLayout titulo={`Caso ${unidad.data.numero}: ${unidad.data.titulo}`}>
-  <div class="contenedor pt-32 pb-24">
-    <h1 class="text-heading-lg">
-      Caso {unidad.data.numero}: {unidad.data.titulo}
-    </h1>
-    <div class="prosa mt-8">
-      <Content />
-    </div>
-  </div>
-</BaseLayout>
+<UnidadLayout unidad={unidad}>
+  <Content />
+</UnidadLayout>

@@ -34,4 +34,162 @@ insignia:
 para_familias: "Busquen en casa un cuento, una receta o una etiqueta y jueguen a adivinar qué tipo de texto es."
 ---
 
-Contenido de la unidad en construcción.
+import Seccion from '../../components/ui/seccion.astro';
+import Subseccion from '../../components/ui/subseccion.astro';
+import ListaPistas from '../../components/ui/lista_pistas.astro';
+import InfographicViewer from '../../components/ui/infographic_viewer.astro';
+import Podcast from '../../components/ui/podcast.astro';
+import Video from '../../components/ui/video.astro';
+import Tarjetas from '../../components/ui/tarjetas.astro';
+import ResourceTag from '../../components/ui/resource_tag.astro';
+import Pendiente from '../../components/ui/pendiente.astro';
+import { QuizCard } from '../../components/islas/quiz_card';
+import { ChallengeCard } from '../../components/islas/challenge_card';
+import datos_retos from '../../data/retos.json';
+import CamaraVinetas from '../../components/libro/camara_vinetas.astro';
+import ComicTresTextos from '../../components/ilustraciones/comic_tres_textos.astro';
+import Sendero from '../../components/libro/sendero.astro';
+import { TextHighlighter } from '../../components/islas/text_highlighter';
+import { StepOrderer } from '../../components/islas/step_orderer';
+import { DragSort } from '../../components/islas/drag_sort';
+import { LienzoDibujo } from '../../components/islas/lienzo_dibujo';
+import act from '../../data/actividades/unidad_2.json';
+
+export const focos_comic = act.comic.vinetas.map((v, i) => ({
+  id: v.id,
+  x: (i % 3) * (100 / 3),
+  y: Math.floor(i / 3) * 50,
+  w: 100 / 3,
+  h: 50,
+  titulo: `Viñeta ${i + 1}`,
+  texto: v.dialogos.map((d) => `${d.personaje}: ${d.texto}`).join(' '),
+}));
+
+<Seccion id="introduccion" titulo="Introducción" etiqueta="Antes de empezar">
+
+<div class="lectura">
+
+¡Bienvenidos! En esta unidad descubriremos las distintas formas de leer un texto, ya que no es lo mismo contar un cuento que dar una receta. Identificaremos las distintas características que puede tener cada texto, aprenderemos a reconocerlos a simple vista y a usar cada uno de ellos según nuestra intención comunicativa.
+
+</div>
+
+</Seccion>
+
+<Seccion id="contenidos" titulo="Las pistas del caso" etiqueta="Contenidos">
+
+<ListaPistas items={frontmatter.contenidos} />
+
+<div class="mt-14">
+  <InfographicViewer id="c2_infografia" />
+</div>
+
+</Seccion>
+
+<Seccion id="desarrollo" titulo="Sigue las pistas" etiqueta="Desarrollo y materiales de estudio">
+
+<Video id="c2_video" descripcion="Sofía y Mateo abren una caja con tres textos y descubren la misión de cada uno. Este video complementa el cómic que sigue." />
+
+<Subseccion id="comic" etiqueta="Actividad 1" titulo="Cómic: tres textos, tres misiones">
+
+<p class="lectura">Se explica el tema con un cómic. Baja despacio: la cámara se mueve por cada viñeta. También puedes tocar la pantalla o usar las flechas del teclado.</p>
+
+<CamaraVinetas id="comic-camara" titulo={act.comic.titulo} ratio={2} focos={focos_comic} etiqueta_paso="Viñeta" mostrar_leyenda={false}>
+  <ComicTresTextos />
+</CamaraVinetas>
+
+<ResourceTag id="p2_modelos" />
+
+</Subseccion>
+
+<Subseccion id="sendero" etiqueta="El sendero de los textos" titulo="Una estación por cada tipo de texto">
+
+<p class="lectura">Recorre el sendero y conoce la misión, las partes y las pistas de cada tipo de texto.</p>
+
+<Sendero estaciones={act.sendero} />
+
+</Subseccion>
+
+<Subseccion id="cuento" etiqueta="Actividad 2" titulo={'El cuento "El renacuajo paseador", de Rafael Pombo'}>
+
+<div class="max-w-reading text-body space-y-3">
+
+Rafael Pombo murió en 1912, así que su obra es de dominio público en Colombia. El texto que sigue se tomó del anexo 1 de la guía "Un paseo diferente" (MinTIC, Colombia Programa).
+
+</div>
+
+<TextHighlighter client:visible estrofas={act.renacuajo.estrofas} unidad={2} id="renacuajo" clave={act.renacuajo.clave} etiqueta="Recurso propio con un texto de la web" instruccion="Lee el cuento y marca cada estrofa como inicio, nudo o desenlace. Luego pide revisar." />
+
+<p><Pendiente texto="el equipo verifica la clave estrofa por estrofa contra el texto de Cervantes Virtual" /></p>
+
+<ResourceTag id="w2_renacuajo" />
+
+</Subseccion>
+
+<Subseccion id="informativo" etiqueta="Material informativo" titulo={act.pombo.titulo}>
+
+<div class="lectura">
+
+{act.pombo.parrafos.map((p) => <p>{p}</p>)}
+
+</div>
+
+<p class="max-w-reading text-body font-medium">{act.pombo.pregunta_enlace}</p>
+
+<p><Pendiente texto="el equipo confirma los datos con una segunda fuente antes de publicar" /></p>
+
+<ResourceTag id="w2_pombo_bio" />
+
+</Subseccion>
+
+<Subseccion id="instructivo" etiqueta="Material instructivo" titulo={act.instructivo.titulo}>
+
+<div class="max-w-reading space-y-3 text-body">
+
+<p class="font-medium">Materiales: <span class="font-regular">{act.instructivo.materiales}</span></p>
+
+<p>{act.instructivo.nota}</p>
+
+</div>
+
+<StepOrderer client:visible pasos={act.instructivo.pasos} unidad={2} id="separador" etiqueta="Recurso propio" instruccion="Los pasos están desordenados. Arrástralos o usa las flechas para ponerlos en orden." retro_error={act.instructivo.retro_error} retro_acierto={act.instructivo.retro_acierto} />
+
+<div>
+  <p class="mb-3 max-w-reading text-body">Para reforzar: los tipos de texto en la voz de una pantalla de Colombia Aprende.</p>
+  <ResourceTag id="w2_textos_info" />
+</div>
+
+</Subseccion>
+
+</Seccion>
+
+<Seccion id="practica" titulo="Entrena tu lupa" etiqueta="Actividades formativas" fondo="arena">
+
+<p class="lectura mb-10">Estas actividades no llevan nota: sirven para practicar. Puedes equivocarte y volver a intentar.</p>
+
+<div class="flex flex-col gap-8">
+
+<Podcast id="c2_podcast" />
+
+<QuizCard client:visible preguntas={act.quiz} unidad={2} titulo="Cuestionario sobre el cuento" etiqueta="Resuélvelo para ganar la insignia" marca_caso />
+
+<DragSort client:visible items={act.clasificador.items} cajas={act.clasificador.cajas} unidad={2} id="textos" titulo="Clasificador de textos" etiqueta="Recurso propio" instruccion="Cada fragmento es narrativo, informativo o instructivo. Ponlo en su caja." />
+
+<Tarjetas tarjetas={act.tarjetas} unidad={2} />
+
+<ResourceTag id="p2_practica" />
+
+</div>
+
+</Seccion>
+
+<Seccion id="reto" titulo="Reto del caso" etiqueta="Actividad sumativa">
+
+<div class="flex flex-col gap-8">
+
+<LienzoDibujo client:visible unidad={2} />
+
+<ChallengeCard client:visible reto={datos_retos.retos[1]} unidad={2} titulo_caso={frontmatter.titulo} />
+
+</div>
+
+</Seccion>

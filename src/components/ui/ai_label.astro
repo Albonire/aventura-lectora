@@ -1,0 +1,13 @@
+---
+import { Sparkle } from '@phosphor-icons/react/ssr';
+
+interface Props {
+  class?: string;
+}
+const { class: clase = '' } = Astro.props;
+---
+
+<p class:list={['flex items-center gap-2 text-micro text-stone-text', clase]}>
+  <Sparkle size={16} weight="fill" aria-hidden="true" />
+  Hecho con IA (Gemini Notebook) y revisado por el equipo
+</p>

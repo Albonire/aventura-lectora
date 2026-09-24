@@ -1,0 +1,269 @@
+---
+// six-panel comic strip, 3 columns by 2 rows. Each panel is 480 x 360 units.
+import Sofia from './sofia.astro';
+import Mateo from './mateo.astro';
+import Burbuja from './burbuja.astro';
+import Libro from './libro.astro';
+import Periodico from './periodico.astro';
+import ListaPasos from './lista_pasos.astro';
+import Renacuajo from './renacuajo.astro';
+
+const W = 480;
+const H = 360;
+const fondos = ['#cfe6f7', '#fde0da', '#e6f4d4', '#fbf4bd', '#d9ecfa', '#f5f1e4'];
+const paneles = Array.from({ length: 6 }, (_, i) => ({
+  x: (i % 3) * W,
+  y: Math.floor(i / 3) * H,
+  fondo: fondos[i],
+}));
+---
+
+<svg
+  viewBox={`0 0 ${W * 3} ${H * 2}`}
+  class="block h-full w-full"
+  focusable="false"
+  role="img"
+  aria-label="Cómic de seis viñetas: Sofía y Mateo descubren un texto narrativo, uno informativo y uno instructivo."
+>
+  <rect width={W * 3} height={H * 2} fill="#2c2e2a"></rect>
+  {paneles.map((p) => (
+    <rect x={p.x + 8} y={p.y + 8} width={W - 16} height={H - 16} rx="26" fill={p.fondo}></rect>
+  ))}
+
+  <!-- panel 1: the box with three sheets -->
+  <svg x="0" y="0" width={W} height={H} viewBox={`0 0 ${W} ${H}`}>
+    <rect x="150" y="248" width="180" height="82" rx="8" fill="#c9a26b"></rect>
+    <rect x="150" y="248" width="180" height="20" rx="8" fill="#b58c52"></rect>
+    <g stroke="#2c2e2a" stroke-width="3">
+      <rect
+        x="176"
+        y="188"
+        width="52"
+        height="70"
+        rx="5"
+        fill="#ffffff"
+        transform="rotate(-8 202 224)"
+      ></rect>
+      <rect x="214" y="176" width="52" height="82" rx="5" fill="#ffffff"></rect>
+      <rect
+        x="252"
+        y="188"
+        width="52"
+        height="70"
+        rx="5"
+        fill="#ffffff"
+        transform="rotate(8 278 224)"
+      ></rect>
+    </g>
+    <g transform="translate(22 128)">
+      <Mateo size={214} pose="libreta" />
+    </g>
+    <g transform="translate(298 128)">
+      <Sofia size={214} pose="lupa" />
+    </g>
+    <Burbuja
+      x={24}
+      y={28}
+      ancho={206}
+      tamano={14}
+      texto="¡Tres textos misteriosos! ¿Cómo sabemos qué es cada uno?"
+      cola_x={0.3}
+    />
+    <Burbuja
+      x={256}
+      y={28}
+      ancho={206}
+      tamano={14}
+      texto="Un detective se pregunta para qué sirve el texto."
+      cola_x={0.7}
+    />
+  </svg>
+
+  <!-- panel 2: narrative -->
+  <svg x={W} y="0" width={W} height={H} viewBox={`0 0 ${W} ${H}`}>
+    <g transform="translate(40 60) rotate(-4 90 110)">
+      <rect
+        width="190"
+        height="240"
+        rx="10"
+        fill="#ffffff"
+        stroke="#2c2e2a"
+        stroke-width="3.5"
+      ></rect>
+      <text x="16" y="34" font-size="15" font-weight="500" fill="#5f615e">
+        Hoja 1
+      </text>
+      <text x="16" y="66" font-size="17" font-weight="500" fill="#2c2e2a">
+        Había una vez
+      </text>
+      <text x="16" y="88" font-size="17" font-weight="500" fill="#2c2e2a">
+        un renacuajo...
+      </text>
+      <g transform="translate(58 104)">
+        <Renacuajo size={118} />
+      </g>
+    </g>
+    <g transform="translate(292 130)">
+      <Sofia size={224} pose="senala" />
+    </g>
+    <Burbuja
+      x={218}
+      y={22}
+      ancho={236}
+      tamano={13.5}
+      texto="Este cuenta una historia con personajes. Es un texto narrativo y tiene inicio, nudo y desenlace."
+      cola_x={0.75}
+    />
+  </svg>
+
+  <!-- panel 3: informative -->
+  <svg x={W * 2} y="0" width={W} height={H} viewBox={`0 0 ${W} ${H}`}>
+    <g transform="translate(250 60) rotate(4 90 110)">
+      <rect
+        width="190"
+        height="240"
+        rx="10"
+        fill="#ffffff"
+        stroke="#2c2e2a"
+        stroke-width="3.5"
+      ></rect>
+      <text x="16" y="34" font-size="15" font-weight="500" fill="#5f615e">
+        Hoja 2
+      </text>
+      <text x="16" y="64" font-size="15.5" font-weight="500" fill="#2c2e2a">
+        Rafael Pombo nació
+      </text>
+      <text x="16" y="85" font-size="15.5" font-weight="500" fill="#2c2e2a">
+        en Bogotá en 1833...
+      </text>
+      <rect x="16" y="112" width="62" height="60" rx="8" fill="#ff705d"></rect>
+      <text x="47" y="150" text-anchor="middle" font-size="30" font-weight="500" fill="#2c2e2a">
+        1833
+      </text>
+      <g stroke="#d5d5d4" stroke-width="7" stroke-linecap="round">
+        <path d="M92 122 H172 M92 142 H172 M92 162 H150 M16 194 H172 M16 212 H140"></path>
+      </g>
+    </g>
+    <g transform="translate(26 130)">
+      <Mateo size={224} pose="libreta" />
+    </g>
+    <Burbuja
+      x={30}
+      y={22}
+      ancho={226}
+      tamano={13.5}
+      texto="Este da datos reales. Es un texto informativo: quiere que aprendamos algo."
+      cola_x={0.3}
+    />
+  </svg>
+
+  <!-- panel 4: instructive -->
+  <svg x="0" y={H} width={W} height={H} viewBox={`0 0 ${W} ${H}`}>
+    <g transform="translate(40 58) rotate(-3 90 110)">
+      <rect
+        width="190"
+        height="244"
+        rx="10"
+        fill="#ffffff"
+        stroke="#2c2e2a"
+        stroke-width="3.5"
+      ></rect>
+      <text x="16" y="34" font-size="15" font-weight="500" fill="#5f615e">
+        Hoja 3
+      </text>
+      <text x="16" y="64" font-size="16" font-weight="500" fill="#2c2e2a">
+        Materiales...
+      </text>
+      <text x="16" y="92" font-size="16" font-weight="500" fill="#2c2e2a">
+        Paso 1...
+      </text>
+      <text x="16" y="120" font-size="16" font-weight="500" fill="#2c2e2a">
+        Paso 2...
+      </text>
+      <g transform="translate(96 132)">
+        <ListaPasos size={98} />
+      </g>
+    </g>
+    <g transform="translate(292 130)">
+      <Sofia size={224} pose="lupa" />
+    </g>
+    <Burbuja
+      x={222}
+      y={22}
+      ancho={234}
+      tamano={13.5}
+      texto="Este dice cómo hacer algo en orden. Es un texto instructivo."
+      cola_x={0.75}
+    />
+  </svg>
+
+  <!-- panel 5: mixed steps -->
+  <svg x={W} y={H} width={W} height={H} viewBox={`0 0 ${W} ${H}`}>
+    <g stroke="#2c2e2a" stroke-width="3" fill="#ffffff">
+      <rect x="150" y="238" width="64" height="44" rx="6" transform="rotate(-14 182 260)"></rect>
+      <rect x="226" y="262" width="64" height="44" rx="6" transform="rotate(10 258 284)"></rect>
+      <rect x="182" y="292" width="64" height="44" rx="6" transform="rotate(-4 214 314)"></rect>
+    </g>
+    <g font-size="15" font-weight="500" fill="#2c2e2a">
+      <text x="166" y="266" transform="rotate(-14 182 260)">
+        Paso 3
+      </text>
+      <text x="242" y="290" transform="rotate(10 258 284)">
+        Paso 1
+      </text>
+      <text x="198" y="320" transform="rotate(-4 214 314)">
+        Paso 2
+      </text>
+    </g>
+    <g transform="translate(20 128)">
+      <Mateo size={214} pose="levanta" />
+    </g>
+    <g transform="translate(300 128)">
+      <Sofia size={214} pose="cadera" />
+    </g>
+    <Burbuja x={16} y={24} ancho={168} tamano={14} texto="¿Y si mezclo los pasos?" cola_x={0.35} />
+    <Burbuja
+      x={214}
+      y={24}
+      ancho={250}
+      tamano={13.5}
+      texto="¡El separador te quedaría mal! En un instructivo el orden importa."
+      cola_x={0.8}
+    />
+  </svg>
+
+  <!-- panel 6: the clue of the day -->
+  <svg x={W * 2} y={H} width={W} height={H} viewBox={`0 0 ${W} ${H}`}>
+    <g transform="translate(60 110)">
+      <Libro size={62} />
+    </g>
+    <g transform="translate(206 104)">
+      <Periodico size={66} />
+    </g>
+    <g transform="translate(356 106)">
+      <ListaPasos size={66} />
+    </g>
+    <g transform="translate(70 138)">
+      <Mateo size={214} pose="libreta" />
+    </g>
+    <g transform="translate(258 138)">
+      <Sofia size={214} pose="lupa" />
+    </g>
+    <Burbuja
+      x={26}
+      y={22}
+      ancho={428}
+      tamano={14.5}
+      texto="Pista del día: pregúntate si el texto te cuenta, te informa o te enseña a hacer algo."
+      cola_x={0.5}
+      fondo="#f5e211"
+    />
+  </svg>
+
+  <!-- panel frames -->
+  <g fill="none" stroke="#2c2e2a" stroke-width="8">
+    {paneles.map((p) => (
+      <rect x={p.x + 8} y={p.y + 8} width={W - 16} height={H - 16} rx="26"></rect>
+    ))}
+  </g>
+</svg>

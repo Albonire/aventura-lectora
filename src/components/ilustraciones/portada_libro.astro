@@ -1,0 +1,56 @@
+---
+// front cover art: the two detectives over an open book from which the characters of the course come out
+import Sofia from './sofia.astro';
+import Mateo from './mateo.astro';
+import Liebre from './liebre.astro';
+import Tortuga from './tortuga.astro';
+import Renacuajo from './renacuajo.astro';
+import Periodico from './periodico.astro';
+---
+
+<svg
+  viewBox="0 0 900 560"
+  class="mx-auto block h-full max-h-full w-auto max-w-full"
+  aria-hidden="true"
+  focusable="false"
+>
+  <g transform="translate(112 236)">
+    <path
+      d="M0 250 V60 Q140 20 338 90 Q536 20 676 60 V250 Q536 210 338 280 Q140 210 0 250 Z"
+      fill="#ff705d"
+      stroke="#2c2e2a"
+      stroke-width="7"
+      stroke-linejoin="round"
+    ></path>
+    <path
+      d="M22 232 V52 Q152 20 338 82 Q524 20 654 52 V232 Q524 196 338 262 Q152 196 22 232 Z"
+      fill="#ffffff"
+      stroke="#2c2e2a"
+      stroke-width="7"
+      stroke-linejoin="round"
+    ></path>
+    <path d="M338 82 V262" stroke="#2c2e2a" stroke-width="7"></path>
+    <g stroke="#d5d5d4" stroke-width="10" stroke-linecap="round" fill="none">
+      <path d="M70 100 Q170 86 296 130 M70 138 Q170 124 296 168 M70 176 Q170 162 296 206"></path>
+      <path d="M380 130 Q506 86 606 100 M380 168 Q506 124 606 138 M380 206 Q506 162 606 176"></path>
+    </g>
+  </g>
+  <g transform="translate(300 60)">
+    <Liebre size={130} pose="parada" />
+  </g>
+  <g transform="translate(560 128)">
+    <Tortuga size={84} />
+  </g>
+  <g transform="translate(422 80)">
+    <Renacuajo size={150} />
+  </g>
+  <g transform="translate(160 138) rotate(-14 40 40)">
+    <Periodico size={96} />
+  </g>
+  <g transform="translate(-6 210)">
+    <Sofia size={330} pose="lupa" />
+  </g>
+  <g transform="translate(716 216)">
+    <Mateo size={320} pose="libreta" />
+  </g>
+</svg>

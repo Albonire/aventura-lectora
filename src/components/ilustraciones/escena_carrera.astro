@@ -1,0 +1,49 @@
+---
+// the hare and the tortoise at the starting line, with the big tree on the hill as the goal
+import Liebre from './liebre.astro';
+import Tortuga from './tortuga.astro';
+---
+
+<svg
+  viewBox="0 0 800 360"
+  class="block h-auto w-full rounded-soft"
+  role="img"
+  aria-label="Ilustración de una liebre y una tortuga en la línea de salida, con un árbol grande al fondo en lo alto de una colina."
+>
+  <rect width="800" height="360" fill="#cfe6f7"></rect>
+  <circle cx="90" cy="70" r="40" fill="#f5e211"></circle>
+  <g fill="#ffffff">
+    <ellipse cx="300" cy="60" rx="64" ry="20"></ellipse>
+    <ellipse cx="332" cy="46" rx="36" ry="22"></ellipse>
+    <ellipse cx="520" cy="96" rx="54" ry="18"></ellipse>
+  </g>
+  <path
+    d="M0 240 C160 210 300 226 420 190 C560 148 680 150 800 168 V360 H0 Z"
+    fill="#8ed462"
+  ></path>
+  <path d="M0 300 C200 270 380 290 800 250 V360 H0 Z" fill="#6fbb47"></path>
+  <path
+    d="M120 350 C260 300 420 270 640 176"
+    stroke="#f5f1e4"
+    stroke-width="26"
+    stroke-linecap="round"
+    fill="none"
+  ></path>
+  <g transform="translate(660 60)">
+    <rect x="-9" y="60" width="18" height="90" rx="6" fill="#8b6b4a"></rect>
+    <circle cx="0" cy="34" r="50" fill="#4f9a34"></circle>
+    <circle cx="-34" cy="60" r="34" fill="#4f9a34"></circle>
+    <circle cx="36" cy="62" r="32" fill="#5aa03a"></circle>
+    <circle cx="-8" cy="12" r="28" fill="#5aa03a"></circle>
+  </g>
+  <g transform="translate(120 250)">
+    <rect x="0" y="-10" width="8" height="100" rx="3" fill="#2c2e2a"></rect>
+    <path d="M8 -10 L52 6 L8 24 Z" fill="#ff705d"></path>
+  </g>
+  <g transform="translate(150 224)">
+    <Liebre size={104} pose="parada" />
+  </g>
+  <g transform="translate(262 262)">
+    <Tortuga size={72} />
+  </g>
+</svg>
