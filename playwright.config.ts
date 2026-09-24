@@ -5,12 +5,12 @@ export default defineConfig({
   fullyParallel: true,
   reporter: 'list',
   use: {
-    baseURL: 'http://localhost:4321',
+    baseURL: 'http://localhost:4322',
     trace: 'retain-on-failure',
   },
   webServer: {
-    command: 'pnpm build && pnpm preview --port 4321',
-    url: 'http://localhost:4321',
+    command: 'pnpm build && pnpm exec astro preview --port 4322 --ignore-lock',
+    url: 'http://localhost:4322',
     reuseExistingServer: true,
     timeout: 240_000,
   },
