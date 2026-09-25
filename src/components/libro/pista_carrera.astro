@@ -9,10 +9,13 @@ interface Props {
 const { descripcion } = Astro.props;
 ---
 
-<div class="rounded-card bg-cream-paper p-3 md:p-4" data-carrera>
+<div
+  class="mx-auto max-w-lg rounded-soft border-2 border-ink-black bg-cream-paper p-1.5"
+  data-carrera
+>
   <p class="sr-only">{descripcion}</p>
-  <svg viewBox="0 0 900 190" class="block h-auto w-full" aria-hidden="true" focusable="false">
-    <rect width="900" height="190" rx="28" fill="#cfe6f7"></rect>
+  <svg viewBox="0 0 900 162" class="block h-auto w-full" aria-hidden="true" focusable="false">
+    <rect width="900" height="162" rx="24" fill="#cfe6f7"></rect>
     <path
       d="M0 132 C200 116 380 128 560 108 C700 92 800 100 900 96 V190 H0 Z"
       fill="#8ed462"
@@ -43,12 +46,6 @@ const { descripcion } = Astro.props;
       <circle cx="24" cy="52" r="22" fill="#5aa03a"></circle>
       <circle cx="-4" cy="10" r="19" fill="#5aa03a"></circle>
     </g>
-    <text x="52" y="184" font-size="15" font-weight="500" fill="#2c2e2a">
-      Salida
-    </text>
-    <text x="800" y="184" font-size="15" font-weight="500" fill="#2c2e2a">
-      Meta
-    </text>
 
     <!-- the wrapper groups hold the lane position; the inner groups are the ones the script moves -->
     <g transform="translate(60 44)">

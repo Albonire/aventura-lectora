@@ -1,5 +1,7 @@
 ---
-// book cover that opens with the scroll (P1) and the title page underneath it
+// the book as an object: a closed cover that opens with the scroll into a spread of two pages
+// (inside of the cover with the institution on the left, title page with the team on the right).
+// Without scripts, on small screens or with reduced motion the same three pieces are plain stacked pages.
 import PortadaLibro from '../ilustraciones/portada_libro.astro';
 import Lupa from '../ilustraciones/lupa.astro';
 import { CaretDown } from '@phosphor-icons/react/ssr';
@@ -7,129 +9,229 @@ import { integrantes, sitio } from '../../config/sitio';
 ---
 
 <div data-apertura class="apertura">
-  <section
-    id="tapa"
-    data-cubierta
-    aria-label="Portada del curso"
-    class="cubierta relative isolate overflow-hidden bg-fresh-grass text-ink-black"
-  >
-    <div class="absolute inset-y-0 left-0 z-10 w-6 bg-[#6fbb47] sm:w-10" aria-hidden="true">
-      <div class="absolute inset-y-6 left-1/2 w-0 -translate-x-1/2 border-l-4 border-dotted border-cream-paper/80"></div>
-    </div>
-    <div
-      class="absolute inset-3 left-9 rounded-[2rem] border-[3px] border-ink-black sm:inset-5 sm:left-14 sm:rounded-[3rem]"
-      aria-hidden="true"
-    ></div>
+  <div data-libro class="libro">
+    <section id="tapa" data-cubierta aria-label="Portada del curso" class="cubierta">
+      <div class="cara frente">
+        <div class="lomo" aria-hidden="true"></div>
+        <div class="frente-contenido">
+          <div class="text-center">
+            <p class="interfaz text-body-sm font-medium">{sitio.pie_portada}</p>
+            <h1 class="mt-2 text-[clamp(2.75rem,1.6rem+3.4vw,4.25rem)] leading-[0.95]">
+              {sitio.nombre_curso}
+            </h1>
+            <p class="mx-auto mt-3 max-w-sm text-subheading font-medium">{sitio.subtitulo}</p>
+          </div>
 
-    <div class="contenedor relative z-20 flex h-full flex-col justify-between pb-10 pl-12 pt-24 sm:pl-16 sm:pt-28">
+          <div class="my-3 flex min-h-0 flex-1 items-center justify-center">
+            <PortadaLibro />
+          </div>
+
+          <div class="text-center">
+            <p class="interfaz text-body-sm font-medium">{sitio.universidad}</p>
+            <p class="interfaz text-micro">{sitio.programa}</p>
+            <p
+              class="interfaz mt-3 flex items-center justify-center gap-2 text-body-sm font-medium"
+              data-indicio
+            >
+              <CaretDown size={18} weight="bold" aria-hidden="true" />
+              Baja para abrir el libro
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="cara dorso pagina">
+        <div class="text-center">
+          <Lupa size={40} class="mx-auto" />
+          <p class="mt-4 text-body font-bold">{sitio.universidad}</p>
+          <p class="text-body-sm text-stone-text">{sitio.sede}</p>
+          <p class="mt-3 text-body-sm">{sitio.division}</p>
+          <p class="text-body-sm">{sitio.facultad}</p>
+          <p class="text-body-sm font-bold">{sitio.programa}</p>
+
+          <div class="mx-auto my-5 h-0.5 w-20 bg-ink-black" aria-hidden="true"></div>
+
+          <p class="text-body-sm text-stone-text">{sitio.seminario}</p>
+          <p class="text-body-sm text-stone-text">Actividad: {sitio.actividad}</p>
+        </div>
+      </div>
+    </section>
+
+    <section
+      id="portadilla"
+      data-portadilla
+      aria-labelledby="portadilla-titulo"
+      class="pagina portadilla"
+    >
       <div class="text-center">
-        <p class="text-body font-medium">{sitio.pie_portada}</p>
-        <h1 class="mt-3 text-display font-medium leading-[0.9] tracking-tighter">
-          {sitio.nombre_curso}
-        </h1>
-        <p class="mx-auto mt-4 max-w-2xl text-subheading font-medium sm:text-heading-sm">
-          {sitio.subtitulo}
-        </p>
-      </div>
-
-      <div class="my-3 flex min-h-0 flex-1 items-center justify-center">
-        <PortadaLibro />
-      </div>
-
-      <div class="text-center">
-        <p class="mx-auto max-w-3xl text-body-sm font-medium">
-          {sitio.universidad} · {sitio.programa}
-        </p>
-        <p class="mx-auto mt-1 max-w-3xl text-body-sm">
-          {sitio.seminario} · Actividad: {sitio.actividad}
-        </p>
-        <p
-          class="mt-4 flex items-center justify-center gap-2 text-body-sm font-medium"
-          data-indicio
-        >
-          <CaretDown size={18} weight="bold" aria-hidden="true" />
-          Baja para abrir el libro
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <section
-    id="portadilla"
-    data-portadilla
-    aria-labelledby="portadilla-titulo"
-    class="portadilla flex items-center bg-cream-paper py-24"
-  >
-    <div class="contenedor">
-      <div class="mx-auto max-w-3xl text-center">
-        <Lupa size={44} class="mx-auto" />
-        <p class="mt-6 text-body font-medium">{sitio.universidad}</p>
-        <p class="text-body-sm text-stone-text">{sitio.sede}</p>
-        <p class="mt-4 text-body-sm">{sitio.division}</p>
-        <p class="text-body-sm">{sitio.facultad}</p>
-        <p class="text-body-sm font-medium">{sitio.programa}</p>
-
-        <div class="mx-auto my-8 h-0.5 w-24 bg-ink-black" aria-hidden="true"></div>
-
-        <p class="text-body-sm text-stone-text">{sitio.seminario}</p>
-        <p class="text-body-sm text-stone-text">Actividad: {sitio.actividad}</p>
-        <h2
-          id="portadilla-titulo"
-          class="mt-6 text-heading-lg font-medium leading-none tracking-tighter"
-        >
+        <h2 id="portadilla-titulo" class="text-[clamp(2rem,1.2rem+2.2vw,2.75rem)] leading-none">
           {sitio.nombre_curso}
         </h2>
-        <p class="mx-auto mt-4 max-w-xl text-subheading">
+        <p class="mx-auto mt-3 max-w-xs text-body">
           {sitio.nombre_largo
             .replace('Aventura lectora: ', '')
             .replace(/^./, (c) => c.toUpperCase())}
         </p>
-        <p class="mt-2 text-body-sm">{sitio.pie_portada}</p>
+        <p class="mt-1 text-body-sm text-stone-text">{sitio.pie_portada}</p>
 
-        <div class="mx-auto my-8 h-0.5 w-24 bg-ink-black" aria-hidden="true"></div>
+        <div class="mx-auto my-5 h-0.5 w-20 bg-ink-black" aria-hidden="true"></div>
 
-        <p class="text-body-sm font-medium text-stone-text">Equipo de trabajo</p>
-        <ul class="mt-2 grid gap-x-8 text-body sm:grid-cols-2">
+        <p class="interfaz text-body-sm font-medium text-stone-text">Equipo de trabajo</p>
+        <ul class="mt-1 text-body-sm">
           {integrantes.map((i) => (
-            <li class="py-0.5">{i.nombre}</li>
+            <li class="py-px">{i.nombre}</li>
           ))}
         </ul>
-        <p class="mt-5 text-body-sm font-medium text-stone-text">Docente</p>
-        <p class="text-body">{sitio.docente}</p>
-        <p class="mt-6 text-body-sm text-stone-text">{sitio.anio}</p>
+        <p class="interfaz mt-4 text-body-sm font-medium text-stone-text">Docente</p>
+        <p class="text-body-sm">{sitio.docente}</p>
+        <p class="mt-3 text-body-sm text-stone-text">{sitio.anio}</p>
       </div>
-    </div>
-  </section>
+    </section>
+  </div>
 </div>
 
 <style>
+  .apertura {
+    --w: min(92vw, 30rem);
+    --h: min(calc(100svh - 7.5rem), 40rem);
+    background: var(--color-sandstone);
+    padding: 2rem 1rem 3rem;
+  }
+
+  /* plain mode: cover, then the two pages, stacked (side by side on wide screens) */
+  .libro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem;
+    margin-inline: auto;
+    max-width: 62rem;
+  }
   .cubierta {
-    min-height: 100svh;
-    height: 100svh;
+    display: contents;
   }
-  .portadilla {
-    min-height: 100svh;
+  .cara {
+    width: 100%;
+    max-width: 30rem;
   }
-  /* pinned mode, switched on by the scroll script */
-  :global(.apertura-activa) {
+  .frente {
     position: relative;
-    height: 100svh;
+    display: flex;
+    min-height: 36rem;
     overflow: hidden;
-    perspective: 5200px;
+    border: 3px solid var(--color-ink-black);
+    border-radius: 1.25rem;
+    background: var(--color-fresh-grass);
+    color: var(--color-ink-black);
+  }
+  .lomo {
+    position: absolute;
+    inset-block: 0;
+    left: 0;
+    width: 1.75rem;
+    background: #6fbb47;
+    border-right: 3px solid var(--color-ink-black);
+  }
+  .lomo::after {
+    content: '';
+    position: absolute;
+    inset-block: 1.5rem;
+    left: 50%;
+    border-left: 4px dotted rgb(245 241 228 / 0.85);
+  }
+  .frente-contenido {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 2rem 1.5rem 1.5rem 3.25rem;
+  }
+  .pagina {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 30rem;
+    overflow: hidden;
+    border: 2px solid var(--color-ink-black);
+    border-radius: 1.25rem;
+    background: var(--color-cream-paper);
+    padding: 1.75rem 1.5rem;
+  }
+  @media (min-width: 768px) {
+    .libro {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      justify-items: stretch;
+    }
+    .frente {
+      grid-column: 1 / -1;
+      justify-self: center;
+      width: 30rem;
+    }
+    .dorso {
+      grid-column: 1;
+      justify-self: end;
+    }
+    .portadilla {
+      grid-column: 2;
+      justify-self: start;
+    }
+  }
+
+  /* 3D mode, switched on by the scroll script: the closed book opens while the page is pinned */
+  :global(.apertura-activa) {
+    display: grid;
+    height: 100svh;
+    place-items: center;
+    padding: 3.5rem 0 0;
+    overflow: hidden;
+    perspective: 2800px;
+  }
+  :global(.apertura-activa) .libro {
+    display: block;
+    position: relative;
+    width: calc(var(--w) * 2);
+    max-width: none;
+    height: var(--h);
+  }
+  :global(.apertura-activa) .cubierta {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 5;
+    width: var(--w);
+    height: var(--h);
+    transform-origin: left center;
+    transform-style: preserve-3d;
   }
   :global(.apertura-activa) .portadilla {
     position: absolute;
-    inset: 0;
-    min-height: 0;
-    padding-block: 0;
-    overflow: hidden;
+    top: 0;
+    right: 0;
+    width: var(--w);
+    max-width: none;
+    height: var(--h);
   }
-  :global(.apertura-activa) .cubierta {
+  :global(.apertura-activa) .cara {
     position: absolute;
     inset: 0;
-    z-index: 5;
-    transform-origin: left center;
+    width: 100%;
+    max-width: none;
+    height: 100%;
+    min-height: 0;
     backface-visibility: hidden;
+  }
+  :global(.apertura-activa) .dorso {
+    transform: rotateY(180deg);
+    border-radius: 0 1.25rem 1.25rem 0;
+  }
+  :global(.apertura-activa) .frente {
+    border-radius: 0 1.25rem 1.25rem 0;
+  }
+  :global(.apertura-activa) .portadilla {
+    border-radius: 0 1.25rem 1.25rem 0;
   }
 </style>
 

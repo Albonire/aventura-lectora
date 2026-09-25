@@ -5,6 +5,10 @@ import { crear_patron, gsap, limitar, ScrollTrigger } from './base';
 const RELLENO = 0.9;
 const RITMO_VH = 0.62;
 
+// height of the fixed course bar: the stage sticks right under it
+const altura_cabecera = () =>
+  document.querySelector<HTMLElement>('[data-cabecera]')?.offsetHeight ?? 0;
+
 function preparar(seccion: HTMLElement) {
   const estatica = seccion.querySelector<HTMLElement>('[data-estatica]');
   const tira_estatica = seccion.querySelector<HTMLElement>('[data-tira-estatica]');
@@ -82,6 +86,12 @@ function iniciar(seccion: HTMLElement) {
   tira.replaceChildren(clon);
   clon.style.width = '100%';
   clon.style.height = '100%';
+  // the strip is scaled up several times: ask for the biggest image so the zoom stays sharp
+  if (tira_estatica.dataset.nitida !== undefined) {
+    clon
+      .querySelectorAll<HTMLElement>('source, img')
+      .forEach((el) => el.setAttribute('sizes', '2400px'));
+  }
   const plegables = Array.from(tira.querySelectorAll<HTMLElement>('[data-plegable]'));
 
   seccion.classList.add('camara-activa');
@@ -89,16 +99,22 @@ function iniciar(seccion: HTMLElement) {
   escenario.hidden = false;
 
   let vh = window.innerHeight;
-  let ancho = window.innerWidth;
+  let cabecera = altura_cabecera();
+  let alto_escena = vh - cabecera;
+  let ancho = seccion.clientWidth;
   let indice = -1;
   let disparador: ScrollTrigger | null = null;
 
   const dimensionar = () => {
     vh = window.innerHeight;
-    ancho = window.innerWidth;
-    seccion.style.height = `${vh + (total - 1) * vh * RITMO_VH}px`;
-    escenario.style.height = `${vh}px`;
-    const ancho_base = Math.min(ancho * 0.98, vh * 0.98 * ratio);
+    cabecera = altura_cabecera();
+    alto_escena = vh - cabecera;
+    // the stage fills the width of its column (the page of the book), not the whole window
+    ancho = escenario.parentElement?.clientWidth ?? seccion.clientWidth;
+    seccion.style.height = `${alto_escena + (total - 1) * vh * RITMO_VH}px`;
+    escenario.style.height = `${alto_escena}px`;
+    escenario.style.top = `${cabecera}px`;
+    const ancho_base = Math.min(ancho * 0.98, alto_escena * 0.98 * ratio);
     tira.style.width = `${ancho_base}px`;
     tira.style.height = `${ancho_base / ratio}px`;
   };
@@ -159,8 +175,9 @@ function iniciar(seccion: HTMLElement) {
     if (anterior) anterior.disabled = nuevo === 0;
   };
 
-  const posicion_inicio = () => seccion.getBoundingClientRect().top + window.scrollY;
-  const tramo = () => Math.max(1, seccion.offsetHeight - vh);
+  // scroll position at which the stage gets stuck under the bar
+  const posicion_inicio = () => seccion.getBoundingClientRect().top + window.scrollY - cabecera;
+  const tramo = () => Math.max(1, seccion.offsetHeight - alto_escena);
 
   const desplazar_a = (i: number) => {
     const destino = posicion_inicio() + ((limitar(i, 0, total - 1) + 0.5) / total) * tramo();
@@ -179,15 +196,16 @@ function iniciar(seccion: HTMLElement) {
 
   disparador = ScrollTrigger.create({
     trigger: seccion,
-    start: 'top top',
+    start: () => `top top+=${cabecera}`,
     end: 'bottom bottom',
+    invalidateOnRefresh: true,
     onUpdate: (self) => ir_a_indice(Math.floor(self.progress * total)),
     onRefresh: (self) => ir_a_indice(Math.floor(self.progress * total), true),
   });
 
   const al_teclear = (e: KeyboardEvent) => {
     const r = seccion.getBoundingClientRect();
-    const en_escena = r.top <= 0 && r.bottom > vh;
+    const en_escena = r.top <= cabecera + 1 && r.bottom > vh;
     if (!en_escena) return;
     const objetivo = e.target as HTMLElement | null;
     if (objetivo && /^(INPUT|TEXTAREA|SELECT)$/.test(objetivo.tagName)) return;
@@ -230,6 +248,8 @@ function iniciar(seccion: HTMLElement) {
     tira.replaceChildren();
     tira.removeAttribute('style');
     seccion.style.height = '';
+    escenario.style.height = '';
+    escenario.style.top = '';
     seccion.classList.remove('camara-activa');
     estatica.classList.remove('camara-estatica-oculta');
     escenario.hidden = true;

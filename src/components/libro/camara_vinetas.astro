@@ -25,6 +25,8 @@ interface Props {
   focos: Foco[];
   etiqueta_paso?: string;
   mostrar_leyenda?: boolean;
+  // the strip is an image that gets zoomed a lot: the script asks for its biggest size
+  nitida?: boolean;
 }
 const {
   id,
@@ -34,6 +36,7 @@ const {
   focos,
   etiqueta_paso = 'Paso',
   mostrar_leyenda = true,
+  nitida = false,
 } = Astro.props;
 ---
 
@@ -41,6 +44,7 @@ const {
   <div data-estatica class="camara-estatica">
     <div
       data-tira-estatica
+      data-nitida={nitida ? '' : undefined}
       class="camara-tira-estatica overflow-hidden rounded-card bg-ink-black"
       style={`--ratio:${ratio};--ratio-m:${ratio_movil ?? ratio}`}
     >
@@ -77,7 +81,7 @@ const {
   <div
     data-escenario
     hidden
-    class="camara-escenario sticky top-0 overflow-hidden bg-ink-black text-cream-paper"
+    class="camara-escenario sticky top-14 overflow-hidden rounded-card bg-ink-black text-cream-paper"
   >
     <div
       data-vista
@@ -99,7 +103,7 @@ const {
       <div data-barra class="h-full bg-fresh-grass" style="width:0%"></div>
     </div>
 
-    <p class="pointer-events-none absolute left-4 top-24 rounded-pill bg-pure-white px-4 py-1.5 text-micro font-medium text-ink-black sm:left-6">
+    <p class="pointer-events-none absolute left-4 top-6 rounded-pill bg-pure-white px-4 py-1.5 text-micro font-medium text-ink-black sm:left-6">
       {etiqueta_paso} <span data-contador>1 de {focos.length}</span>
     </p>
     {mostrar_leyenda && (
@@ -155,14 +159,6 @@ const {
     overflow: hidden;
     clip-path: inset(50%);
     white-space: nowrap;
-  }
-  :global(.camara-activa) .camara-escenario {
-    height: 100svh;
-  }
-  /* the active stage breaks out of the page column and fills the screen width */
-  :global(.camara-activa) {
-    width: 100vw;
-    margin-left: calc(50% - 50vw);
   }
 </style>
 
