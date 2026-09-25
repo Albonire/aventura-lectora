@@ -1,6 +1,8 @@
 ---
 import '../styles/global.css';
 import interLatin from '@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url';
+import andika400 from '@fontsource/andika/files/andika-latin-400-normal.woff2?url';
+import andika700 from '@fontsource/andika/files/andika-latin-700-normal.woff2?url';
 import { sitio } from '../config/sitio';
 
 interface Props {
@@ -24,6 +26,8 @@ const titulo_pagina = titulo === sitio.nombre_curso ? titulo : `${titulo} | ${si
     <meta name="referrer" content="strict-origin-when-cross-origin" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preload" href={interLatin} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={andika400} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={andika700} as="font" type="font/woff2" crossorigin />
     <title>{titulo_pagina}</title>
     <script is:inline>
       // apply saved accessibility settings before first paint to avoid a flash

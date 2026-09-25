@@ -39,6 +39,7 @@ export function PredictionBoard({ preguntas, unidad, modo, titulo, etiqueta }: P
   if (modo === 'escribir') {
     return (
       <Superficie
+        tipo="escribe"
         titulo={titulo ?? 'Antes de leer: tus predicciones'}
         etiqueta={etiqueta ?? 'Tablero de predicciones'}
       >
@@ -94,6 +95,7 @@ export function PredictionBoard({ preguntas, unidad, modo, titulo, etiqueta }: P
 
   return (
     <Superficie
+      tipo="escribe"
       titulo={titulo ?? 'Después de leer: compara'}
       etiqueta={etiqueta ?? 'Tablero de predicciones'}
     >

@@ -104,7 +104,7 @@ export function QuizCard({
   const es_ultima = estado.indice >= preguntas.length - 1;
 
   return (
-    <Superficie titulo={titulo} etiqueta={etiqueta}>
+    <Superficie tipo="practica" titulo={titulo} etiqueta={etiqueta}>
       <div ref={foco} tabIndex={-1} className="outline-none">
         {en_resumen ? (
           <div>

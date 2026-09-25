@@ -164,7 +164,7 @@ export function LienzoDibujo({
   }
 
   return (
-    <Superficie titulo={titulo} etiqueta={etiqueta} tono="blanco">
+    <Superficie tipo="escribe" titulo={titulo} etiqueta={etiqueta} tono="blanco">
       <p className="max-w-reading text-body">{ayuda}</p>
 
       <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3">

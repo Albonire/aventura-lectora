@@ -44,7 +44,7 @@ export function TextHighlighter({
   }
 
   return (
-    <Superficie titulo={titulo} etiqueta={etiqueta}>
+    <Superficie tipo="practica" titulo={titulo} etiqueta={etiqueta}>
       {instruccion && <p className="max-w-reading text-body">{instruccion}</p>}
       <p className="mt-2 text-body-sm text-stone-text">
         Elige, estrofa por estrofa, si es el inicio, el nudo o el desenlace. Cada marca lleva su

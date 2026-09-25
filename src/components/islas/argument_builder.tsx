@@ -90,6 +90,7 @@ export function ArgumentBuilder({
 
   return (
     <Superficie
+      tipo="escribe"
       id="constructor"
       titulo="Constructor de argumentos"
       etiqueta="Arma tu opinión como una torre"

@@ -77,7 +77,7 @@ export function AudioPodcast({
   }
 
   return (
-    <Superficie titulo={titulo} etiqueta={etiqueta} tono="blanco">
+    <Superficie tipo="escucha" titulo={titulo} etiqueta={etiqueta} tono="blanco">
       {descripcion && <p className="-mt-3 mb-6 max-w-reading text-body">{descripcion}</p>}
       <audio
         ref={audio}

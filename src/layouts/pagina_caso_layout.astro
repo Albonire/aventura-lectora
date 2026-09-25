@@ -60,14 +60,14 @@ const Portada = { 1: Portada1, 2: Portada2, 3: Portada3, 4: Portada4, 5: Portada
   )}
 
   {pagina === 'abrir' && (
-    <section id="mision" aria-labelledby="mision-titulo" class="scroll-mt-24 py-section">
+    <section id="mision" aria-labelledby="mision-titulo" class="scroll-mt-20 py-10 md:py-14">
       <div class="contenedor">
-        <div class="max-w-4xl rounded-card bg-pure-white p-7 md:p-12">
-          <p class="text-body-sm font-medium text-stone-text">Caso {d.numero}</p>
-          <h2 id="mision-titulo" class="mt-1 text-heading font-medium leading-tight tracking-tight">
+        <div class="max-w-4xl rounded-card border-2 border-ink-black bg-pure-white p-6 md:p-10">
+          <p class="interfaz text-body-sm font-medium text-stone-text">Caso {d.numero}</p>
+          <h2 id="mision-titulo" class="mt-1 text-heading-sm leading-tight md:text-[2.25rem]">
             Tu misión en este caso
           </h2>
-          <p class="mt-6 max-w-reading text-[clamp(1.25rem,2.4vw,1.75rem)] font-medium leading-snug">
+          <p class="mt-5 max-w-reading text-[clamp(1.25rem,2.4vw,1.6rem)] leading-snug">
             {d.mision}
           </p>
 
@@ -116,32 +116,27 @@ const Portada = { 1: Portada1, 2: Portada2, 3: Portada3, 4: Portada4, 5: Portada
   <slot />
 
   {pagina === 'cerrar' && (
-    <section
-      id="cierre-caso"
-      aria-labelledby="cierre-titulo"
-      class="scroll-mt-24 bg-sunshine-pop py-section"
-    >
+    <section id="cierre-caso" aria-labelledby="cierre-titulo" class="scroll-mt-20 py-10 md:py-14">
       <div class="contenedor">
-        <p class="text-body-sm font-medium">Caso {d.numero}</p>
-        <h2
-          id="cierre-titulo"
-          class="mt-1 text-heading-lg font-medium leading-none tracking-tighter"
-        >
-          Cerrar el caso
+        <p class="interfaz text-body-sm font-medium text-stone-text">Cierre del caso {d.numero}</p>
+        <h2 id="cierre-titulo" class="mt-1 text-heading-sm leading-tight md:text-[2.25rem]">
+          Gana tu insignia
         </h2>
 
-        <div class="mt-10 grid gap-6 lg:grid-cols-2">
+        <div class="mt-6 grid gap-6 lg:grid-cols-2">
           <BadgeTracker client:visible modo="caso" unidad={d.numero} insignias={insignias} />
           <Autoevaluacion client:visible unidad={d.numero} />
         </div>
 
-        <div class="mt-10 grid gap-6 md:grid-cols-2">
-          <div class="rounded-soft bg-pure-white p-6">
-            <p class="text-body-sm font-medium text-stone-text">Responsable de esta unidad</p>
-            <p class="mt-1 text-subheading font-medium">{nombre_de(d.responsable)}</p>
+        <div class="mt-6 grid gap-6 md:grid-cols-2">
+          <div class="rounded-soft border-2 border-ink-black bg-pure-white p-5">
+            <p class="interfaz text-body-sm font-medium text-stone-text">
+              Responsable de esta unidad
+            </p>
+            <p class="mt-1 text-subheading font-bold">{nombre_de(d.responsable)}</p>
           </div>
-          <div class="rounded-soft bg-pure-white p-6">
-            <p class="text-body-sm font-medium text-stone-text">Para conversar en casa</p>
+          <div class="rounded-soft border-2 border-ink-black bg-sunshine-pop p-5">
+            <p class="interfaz text-body-sm font-medium">Para conversar en casa</p>
             <p class="mt-1 text-body">{d.para_familias}</p>
           </div>
         </div>

@@ -29,7 +29,7 @@ const existe = existsSync(new URL(`../../../public${base}.mp4`, import.meta.url)
     descripcion={descripcion}
   />
 ) : (
-  <div class="rounded-card bg-pure-white p-7 md:p-10">
+  <div class="rounded-card border-2 border-ink-black bg-pure-white p-5 md:p-8">
     <Pendiente texto={`falta el video ${base}.mp4`} />
   </div>
 )}

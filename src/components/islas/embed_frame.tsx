@@ -48,7 +48,11 @@ export function EmbedFrame({
   }
 
   return (
-    <Superficie titulo={titulo} etiqueta={etiqueta ?? 'Recurso de la web'}>
+    <Superficie
+      tipo={es_video ? 'mira' : 'web'}
+      titulo={titulo}
+      etiqueta={etiqueta ?? 'Recurso de la web'}
+    >
       {descripcion && <p className="max-w-reading text-body">{descripcion}</p>}
       {acceso && <p className="mt-2 max-w-reading text-body-sm text-stone-text">{acceso}</p>}
       <p className="mt-3 max-w-reading text-body-sm text-stone-text [overflow-wrap:anywhere]">

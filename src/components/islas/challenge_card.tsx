@@ -4,7 +4,7 @@ import type { CampoReto, Reto, RetoGuardado } from '../../lib/tipos';
 import { armar_texto } from '../../lib/opinion';
 import { sitio } from '../../config/sitio';
 import { usar_almacen, usar_nombre } from './hooks';
-import { Chip, area_texto, boton_reto, campo_texto } from './ui';
+import { Chip, Pastilla, area_texto, boton_reto, campo_texto } from './ui';
 
 interface Props {
   reto: Reto;
@@ -82,12 +82,10 @@ export function ChallengeCard({
   return (
     <article
       aria-labelledby={`reto-${unidad}-titulo`}
-      className="rounded-card bg-pure-white p-7 text-ink-black md:p-12"
+      className="rounded-card border-2 border-ink-black bg-pure-white p-5 text-ink-black md:p-8"
     >
       <div className="flex flex-wrap items-center gap-3">
-        <span className="rounded-pill bg-coral-pop px-4 py-1 text-body-sm font-medium">
-          Reto del caso {unidad}
-        </span>
+        <Pastilla tipo="reto" />
         <Chip>
           <Clock size={14} weight="bold" className="mr-1.5" aria-hidden="true" />
           {reto.duracion}
@@ -95,7 +93,7 @@ export function ChallengeCard({
       </div>
       <h3
         id={`reto-${unidad}-titulo`}
-        className="mt-5 text-heading font-medium leading-tight tracking-tight"
+        className="mt-4 text-[1.75rem] leading-tight md:text-[2.25rem]"
       >
         {reto.titulo}
       </h3>

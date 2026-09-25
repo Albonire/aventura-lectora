@@ -126,7 +126,7 @@ export function MuroDetective({
   }
 
   return (
-    <Superficie titulo={titulo} etiqueta={etiqueta} tono="arena">
+    <Superficie tipo="conversa" titulo={titulo} etiqueta={etiqueta} tono="arena">
       <p className="max-w-reading text-reading font-medium">{pregunta}</p>
       <p className="mt-3 max-w-reading text-body-sm text-stone-text">
         Este muro vive en tu navegador y no se envía a ningún servidor. Usa un apodo de detective:

@@ -34,7 +34,7 @@ export function ModeloOpinion({
   const actual = partes.find((p) => p.id === activa);
 
   return (
-    <Superficie titulo={titulo} etiqueta={etiqueta}>
+    <Superficie tipo="lee" titulo={titulo} etiqueta={etiqueta}>
       <p className="text-body-sm font-medium text-stone-text">Pregunta</p>
       <p className="text-subheading font-medium">{pregunta}</p>
 

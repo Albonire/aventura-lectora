@@ -40,7 +40,7 @@ export function FlashcardDeck({ tarjetas, unidad, titulo = 'Tarjetas del detecti
   }
 
   return (
-    <Superficie titulo={titulo} etiqueta="Repasa lo que aprendiste" tono="arena">
+    <Superficie tipo="practica" titulo={titulo} etiqueta="Repasa lo que aprendiste" tono="arena">
       <p className="text-body-sm text-stone-text" id={`mazo-${unidad}-contador`}>
         Tarjeta {indice + 1} de {mazo.length}
       </p>

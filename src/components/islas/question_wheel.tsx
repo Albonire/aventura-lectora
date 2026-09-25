@@ -54,7 +54,7 @@ export function QuestionWheel({ preguntas, titulo = 'Ruleta de preguntas', etiqu
   }
 
   return (
-    <Superficie titulo={titulo} etiqueta={etiqueta}>
+    <Superficie tipo="conversa" titulo={titulo} etiqueta={etiqueta}>
       <div className="grid items-center gap-8 md:grid-cols-[minmax(0,22rem)_1fr]">
         <div className="relative mx-auto w-full max-w-[22rem]">
           <svg viewBox="0 0 200 212" className="w-full" aria-hidden="true" focusable="false">

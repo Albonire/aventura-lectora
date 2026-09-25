@@ -29,7 +29,7 @@ export function VideoOverview({
   const [cargado, set_cargado] = useState(false);
 
   return (
-    <Superficie titulo={titulo} etiqueta={etiqueta}>
+    <Superficie tipo="mira" titulo={titulo} etiqueta={etiqueta}>
       <div className="grid gap-8 md:grid-cols-[minmax(0,20rem)_1fr] md:items-start">
         <div className="mx-auto w-full max-w-[20rem]">
           <div className="relative aspect-[9/16] overflow-hidden rounded-soft bg-ink-black">

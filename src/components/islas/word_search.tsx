@@ -177,7 +177,7 @@ export function WordSearch({
   const completa = halladas.length >= sopa.palabras.length;
 
   return (
-    <Superficie titulo={titulo} etiqueta={etiqueta}>
+    <Superficie tipo="practica" titulo={titulo} etiqueta={etiqueta}>
       {instruccion && <p className="max-w-reading text-body">{instruccion}</p>}
       <p className="mt-2 text-body-sm text-stone-text">
         Arrastra sobre las letras, o toca la primera y luego la última. Con teclado: flechas para

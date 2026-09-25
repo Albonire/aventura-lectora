@@ -170,7 +170,7 @@ export function StepOrderer({
   const acierto = es_orden_correcto(orden_valido, correcto);
 
   return (
-    <Superficie titulo={titulo} etiqueta={etiqueta}>
+    <Superficie tipo="practica" titulo={titulo} etiqueta={etiqueta}>
       {instruccion && <p className="max-w-reading text-body">{instruccion}</p>}
       <DndContext
         id={`pasos-${unidad}-${id}`}

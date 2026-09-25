@@ -25,7 +25,7 @@ export function SayingCard({
   const [respuestas, set_respuestas] = usar_almacen<string[]>(`refran:${unidad}`, []);
 
   return (
-    <Superficie titulo={titulo} etiqueta={etiqueta} tono="arena">
+    <Superficie tipo="conversa" titulo={titulo} etiqueta={etiqueta} tono="arena">
       <TarjetaVolteable
         volteada={volteada}
         frente={

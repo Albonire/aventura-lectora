@@ -4,6 +4,7 @@
 import { ArrowSquareOut } from '@phosphor-icons/react/ssr';
 import recursos from '../../data/recursos.json';
 import Apa from './apa.astro';
+import BloqueCabecera from './bloque_cabecera.astro';
 
 interface Props {
   id: string;
@@ -18,12 +19,14 @@ const actividad = (recurso as { actividad?: string[] }).actividad ?? [];
 
 <section
   aria-labelledby={`${id}-titulo`}
-  class="rounded-card bg-pure-white p-7 text-ink-black md:p-10"
+  class="rounded-card border-2 border-ink-black bg-pure-white p-5 text-ink-black md:p-8"
 >
-  <p class="text-body-sm font-medium text-stone-text">{etiqueta}</p>
-  <h3 id={`${id}-titulo`} class="mt-1 text-heading-sm font-medium tracking-tight">
-    {recurso.titulo}
-  </h3>
+  <BloqueCabecera
+    tipo="web"
+    etiqueta={etiqueta}
+    titulo={recurso.titulo}
+    id_titulo={`${id}-titulo`}
+  />
   <p class="mt-3 max-w-reading text-body">{descripcion ?? recurso.uso}</p>
   {recurso.acceso && (
     <p class="mt-2 max-w-reading text-body-sm text-stone-text">{recurso.acceso}</p>

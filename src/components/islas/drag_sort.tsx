@@ -229,7 +229,7 @@ export function DragSort({
   const item_activo = activa ? por_id.get(activa) : null;
 
   return (
-    <Superficie titulo={titulo} etiqueta={etiqueta}>
+    <Superficie tipo="practica" titulo={titulo} etiqueta={etiqueta}>
       {instruccion && <p className="max-w-reading text-body">{instruccion}</p>}
       <p className="mt-2 text-body-sm text-stone-text">
         Arrastra cada tarjeta a su caja. Si prefieres, usa el menú &quot;Enviar a&quot; de la

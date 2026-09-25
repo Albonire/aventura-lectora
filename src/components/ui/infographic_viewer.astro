@@ -29,17 +29,15 @@ const grande = await getImage({
 });
 const parrafos = (pieza.texto_alternativo ?? '').split('\n').filter(Boolean);
 const nombre_descarga = pieza.archivo.replace('.png', '.webp');
+import BloqueCabecera from './bloque_cabecera.astro';
 ---
 
 <section
   aria-labelledby={`${id}-titulo`}
-  class="rounded-card bg-pure-white p-7 text-ink-black md:p-10"
+  class="rounded-card border-2 border-ink-black bg-pure-white p-5 text-ink-black md:p-8"
   data-infografia
 >
-  <p class="text-body-sm font-medium text-stone-text">{titulo}</p>
-  <h3 id={`${id}-titulo`} class="mt-1 text-heading-sm font-medium tracking-tight">
-    {pieza.titulo}
-  </h3>
+  <BloqueCabecera tipo="mira" etiqueta={titulo} titulo={pieza.titulo} id_titulo={`${id}-titulo`} />
 
   <button
     type="button"

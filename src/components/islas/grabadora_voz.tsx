@@ -132,7 +132,7 @@ export function GrabadoraVoz({
 
   if (!soportado) {
     return (
-      <Superficie titulo={titulo} etiqueta={etiqueta}>
+      <Superficie tipo="conversa" titulo={titulo} etiqueta={etiqueta}>
         <p className="max-w-reading text-body">
           Este navegador no puede grabar audio. Puedes grabar tu lectura con el grabador de voz de
           tu equipo y entregar el archivo en la plataforma.
@@ -142,7 +142,7 @@ export function GrabadoraVoz({
   }
 
   return (
-    <Superficie titulo={titulo} etiqueta={etiqueta}>
+    <Superficie tipo="conversa" titulo={titulo} etiqueta={etiqueta}>
       <p className="max-w-reading text-body">
         Lee tu texto de opinión en voz alta. Tu grabación se queda en tu dispositivo: no se envía a
         ningún lado hasta que tú la entregues en la plataforma. Puedes grabar hasta{' '}

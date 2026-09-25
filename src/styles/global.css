@@ -1,6 +1,13 @@
 @import 'tailwindcss';
 @import './design_tokens.css';
 @import '@fontsource-variable/inter/wght.css';
+@import '@fontsource/andika/latin-400.css';
+@import '@fontsource/andika/latin-700.css';
+
+/* the blocks of a book page use a softer corner than the 50px pill radius of the marketing tokens */
+@theme {
+  --radius-card: 1.25rem;
+}
 
 /* ---------- base (inside the base layer so utilities can override it) ---------- */
 @layer base {
@@ -115,6 +122,31 @@
     border-radius: var(--radius-soft);
     background: var(--color-cream-paper);
   }
+}
+
+/* ---------- typography of the book pages ---------- */
+
+/* the page reads in Andika. Controls and table headers stay in Inter. Unlayered on purpose:
+   these rules must win over the font and tracking utilities that the components carry. */
+.hoja,
+.hoja-portada {
+  font-family: var(--font-lectura);
+}
+
+.hoja :is(button, input, select, textarea, summary, th, .interfaz),
+.hoja-portada :is(button, input, select, textarea, summary, th, .interfaz) {
+  font-family: var(--font-sans);
+}
+
+.hoja :is(h1, h2, h3, h4),
+.hoja-portada :is(h1, h2, h3, h4) {
+  font-weight: 700;
+  letter-spacing: -0.005em;
+}
+
+/* sections of a page are separated by a thin rule, not by colored bands */
+.hoja > section + section {
+  border-top: 2px solid var(--color-hairline-mist);
 }
 
 /* ---------- typography for authored text ---------- */
