@@ -45,6 +45,7 @@ import InfographicViewer from '../../components/ui/infographic_viewer.astro';
 import Podcast from '../../components/ui/podcast.astro';
 import Video from '../../components/ui/video.astro';
 import Tarjetas from '../../components/ui/tarjetas.astro';
+import Embed from '../../components/ui/embed.astro';
 import ResourceTag from '../../components/ui/resource_tag.astro';
 import Pendiente from '../../components/ui/pendiente.astro';
 import { QuizCard } from '../../components/islas/quiz_card';
@@ -123,12 +124,11 @@ Ya sabes leer antes, durante y después; reconoces los tipos de texto; preguntas
 
 <Tarjetas tarjetas={act.tarjetas} unidad={5} />
 
-<div class="flex flex-col gap-4">
-  <p class="max-w-reading text-body">Para practicar más: módulos de grado quinto sobre opiniones y argumentos.</p>
-  <ResourceTag id="w5_punto_vista" />
-  <ResourceTag id="w5_debate" />
-  <ResourceTag id="w5_argumentativos" />
-</div>
+<Embed id="w5_punto_vista" etiqueta="Para practicar más" />
+
+<Embed id="w5_debate" etiqueta="Para practicar más" />
+
+<Embed id="w5_argumentativos" etiqueta="Para practicar más" />
 
 </div>
 

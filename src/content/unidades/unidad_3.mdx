@@ -40,6 +40,7 @@ import InfographicViewer from '../../components/ui/infographic_viewer.astro';
 import Podcast from '../../components/ui/podcast.astro';
 import Video from '../../components/ui/video.astro';
 import Tarjetas from '../../components/ui/tarjetas.astro';
+import Embed from '../../components/ui/embed.astro';
 import ResourceTag from '../../components/ui/resource_tag.astro';
 import Pendiente from '../../components/ui/pendiente.astro';
 import { QuizCard } from '../../components/islas/quiz_card';
@@ -111,12 +112,11 @@ Un buen detective no se queda con lo primero que ve. Mira con atención lo que e
 
 <ResourceTag id="p3_practica" />
 
-<div class="flex flex-col gap-4">
-  <p class="max-w-reading text-body">Para practicar más con preguntas de las pruebas Saber y con módulos de grado quinto.</p>
-  <ResourceTag id="w3_icfes" />
-  <ResourceTag id="w3_colombia_aprende" />
-  <ResourceTag id="w3_extra" />
-</div>
+<Embed id="w3_colombia_aprende" etiqueta="Para practicar más" />
+
+<Embed id="w3_extra" etiqueta="Para practicar más" />
+
+<Embed id="w3_literarios" etiqueta="Para practicar más" />
 
 </div>
 

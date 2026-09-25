@@ -254,3 +254,63 @@ test('la camara del comic avanza con el teclado', async ({ page }) => {
   await page.waitForTimeout(1200);
   await expect(comic.locator('[data-contador]')).toHaveText('2 de 6');
 });
+
+test.describe('recursos de terceros', () => {
+  test('no cargan nada externo hasta que el estudiante lo pide', async ({ page }) => {
+    const externos: string[] = [];
+    page.on('request', (r) => {
+      const u = r.url();
+      if (!u.startsWith('http://localhost') && !u.startsWith('data:')) externos.push(u);
+    });
+    await page.goto('/unidad/4');
+    await page.waitForLoadState('networkidle');
+    await expect(page.locator('iframe')).toHaveCount(0);
+    expect(externos).toEqual([]);
+  });
+
+  test('el juego del laberinto se muestra dentro de la pagina al pulsar', async ({ page }) => {
+    await page.goto('/unidad/4');
+    const tarjeta = page.getByRole('region', { name: 'El laberinto de la información' });
+    await hidratada(tarjeta);
+    await tarjeta.getByRole('button', { name: /Cargar el recurso/ }).click();
+    const marco = tarjeta.locator('iframe');
+    await expect(marco).toHaveAttribute(
+      'src',
+      'https://view.genially.com/664dca9c96d30b00146b5513',
+    );
+    await expect(marco).toHaveAttribute('title', 'El laberinto de la información');
+  });
+
+  test('el video de YouTube usa la version sin cookies', async ({ page }) => {
+    await page.goto('/unidad/1');
+    const tarjeta = page.getByRole('region', { name: 'El mensaje oculto' });
+    await hidratada(tarjeta);
+    await tarjeta.getByRole('button', { name: /Cargar el video/ }).click();
+    await expect(tarjeta.locator('iframe')).toHaveAttribute(
+      'src',
+      /^https:\/\/www\.youtube-nocookie\.com\/embed\/yVYG4uvefCQ/,
+    );
+  });
+
+  test('los recursos que no permiten iframe se integran como actividad con enlace', async ({
+    page,
+  }) => {
+    await page.goto('/unidad/1');
+    const tarjeta = page.getByRole('region', { name: /La liebre y la tortuga: la fábula/ });
+    await tarjeta.scrollIntoViewIfNeeded();
+    await expect(tarjeta.getByText('Lee y compara')).toBeVisible();
+    await expect(tarjeta.getByRole('link', { name: /Abrir en otra pestaña/ })).toHaveAttribute(
+      'href',
+      /culturagenial\.com/,
+    );
+  });
+
+  test('cada caso muestra sus recursos de terceros dentro de la pagina', async ({ page }) => {
+    // resources that load in a frame after a click, per case (the youtube video has its own button)
+    const esperados: Record<number, number> = { 1: 1, 2: 2, 3: 3, 4: 3, 5: 3 };
+    for (const [caso, cantidad] of Object.entries(esperados)) {
+      await page.goto(`/unidad/${caso}`);
+      await expect(page.getByRole('button', { name: /Cargar el recurso/ })).toHaveCount(cantidad);
+    }
+  });
+});

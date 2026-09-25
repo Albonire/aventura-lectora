@@ -362,3 +362,19 @@ El entregable para la guía es la URL pública final. Probarla en una ventana pr
 - Confirmar la fuente de la imagen del árbol de libros o aceptar el reemplazo.
 - Generar en Gemini Notebook el kit multimedia con `gemini_notebook/02_prompts.md`, revisarlo y dejar los archivos, las transcripciones y `multimedia.json` en las rutas de la sección 12.
 - Configurar `url_entrega` con el enlace de Classroom o Moodle del curso.
+
+---
+
+## 17. Decisiones de septiembre de 2026 (cambios respecto a las secciones anteriores)
+
+Estas decisiones se tomaron al construir el sitio y prevalecen sobre lo que diga el resto del documento.
+
+1. Los videos de Gemini Notebook se sirven desde el sitio (AV1 en WebM y H.264 de respaldo, con póster y subtítulos), no desde YouTube. Cargan solo al pulsar reproducir. El video del caso 5 también existe.
+2. Las herramientas externas se replican dentro del sitio, sin servidor: el cómic (Pixton) es un cómic en SVG recorrido por una cámara de viñetas; los muros de Padlet son `MuroDetective` (las notas viven en el navegador y se comparten con un enlace que las lleva dentro del fragmento `#`); la imagen de Canva es `LienzoDibujo`; el audio de Padlet es `GrabadoraVoz`.
+3. La mecánica de cámara de la presentación de `trabajo2` (escenario fijo con `position: sticky`, zoom a cada viñeta y atenuación del resto, el scroll como única fuente de verdad) se replica en `CamaraVinetas` y se usa en el cómic del caso 2 y en la noticia del caso 4. Es una excepción a la regla de pines de 150 %: usa `position: sticky` (el scroll nativo no se captura), ofrece "Saltar esta parte", avanza también con clic y teclado, y con movimiento reducido muestra todo el contenido sin cámara.
+4. El cuaderno de docentes de Gemini (presentación, mapa mental y guía para familias) no se hace. `/docentes` se arma con el texto de `CONTENIDO.md`, la rúbrica y el conteo 50/50 calculado desde `recursos.json`.
+5. `/creditos` se reemplaza por `/referencias`, la última página del libro: lista APA 7 más créditos y declaración de IA. Solo aparecen las fuentes con enlace abierto y revisado.
+6. La portada es la tapa del libro (P1) y una portadilla con los datos del seminario, la universidad, el equipo y la docente.
+7. Las réplicas y los PDF usan solo tokens del design system. La grabadora de voz pide permiso de micrófono solo al pulsar (el encabezado `Permissions-Policy` de `vercel.json` lo permite únicamente para el propio sitio).
+8. Responsables de las unidades (editable en `src/config/sitio.ts` y en el frontmatter de cada unidad): caso 1, Luz Marina Castillo Cuadrado; caso 2, Selene María Caballero Valle; caso 3, Ingrid Yuliana González Flores; caso 4, Maribel León Grillo; caso 5, Silvia Gabriela Rincón Pérez.
+9. Las infografías de los casos 1, 2 y 3 se recortan para quitar márgenes vacíos que dejó Gemini (`scripts/procesar_media.sh`). El contenido de las imágenes no se toca.

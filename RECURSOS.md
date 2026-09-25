@@ -146,3 +146,23 @@ Declaración sugerida para `/creditos`: "Los podcasts, videos, infografías y ta
 Si la evaluadora cuenta cada pieza por separado (podcast, video, infografía y tarjetas como cuatro recursos), el lado propio sube a 27 y hay que sumar recursos web. En ese caso, prioricen agregar en cada caso los módulos de Colombia Aprende de grado quinto que no se usaron y videos verificados de Happy Learning Español.
 
 Herramientas usadas por el equipo para crear recursos propios (criterio 3 de la rúbrica): web 2.0, Pixton (cómic) y Padlet (muros de los casos 3 y 5), y opcionalmente Wordwall; web 4.0 o IA, Gemini Notebook (infografías, videos, podcasts y tarjetas). Enlaces: https://www.pixton.com, https://padlet.com, https://wordwall.net/es
+
+---
+
+## 5. Verificación del 24 de septiembre de 2026
+
+Cada enlace se abrió y se leyó su contenido (excepto donde se indica). Cambios respecto a las secciones anteriores:
+
+- Colombia Aprende: los seis módulos de grado quinto de Lenguaje tienen URL directa y coinciden con los títulos del inventario (`/contenidos-para-aprender/<nombre>`). Para el caso 3 se eligieron tres módulos de grado quinto: "Comprensión de diversos tipos de texto", "Reconocimiento de los argumentos básicos de un texto" y "Comprensión de diversos tipos de textos literarios".
+- Icfes: el PDF "Ejemplos de preguntas Saber 5.° Lenguaje" ya no existe en esa dirección (404). Se reemplazó por el tercer módulo de Colombia Aprende del caso 3.
+- Caso 1: el video de la ficha ("El mensaje oculto", canal Miss Edith, 26 de junio de 2020, 9 min 43 s, apto para todo público) carga y permite insertarse. Es un juego de palabras para primeros grados; se publica como pidió la ficha y queda para que el equipo confirme si es adecuado para 5.º. No se usa Happy Learning Español: el canal no tiene un video de comprensión lectora.
+- Caso 2: el texto de "El renacuajo paseador" se tomó del anexo 1 de la guía de MinTIC (abierta). Cervantes Virtual bloquea la verificación automática (Cloudflare) y queda fuera de las referencias. La biografía de Biografías y Vidas confirma los datos del texto informativo: nació en Bogotá en 1833, murió en 1912, estudió matemáticas e ingeniería, fue secretario de la legación colombiana en Nueva York y cónsul, y su obra completa se publicó en 1916 en cuatro volúmenes.
+- Caso 4: "El laberinto de la información" (EduCaixa, con Maldita.es y Verificat, 2024) es un juego interactivo en Genially. La página oficial de EduCaixa se abrió en un navegador y da el enlace https://view.genially.com/664dca9c96d30b00146b5513, que se muestra dentro de la página del caso 4. El kit descargable (PDF y videos de 350 a 440 MB) es de "todos los derechos reservados": no se publica en el sitio. Interland (Google) prohíbe mostrarse en otra página y sale del inventario; entra el módulo "Presentación de una noticia" de Colombia Aprende, que sí se puede mostrar.
+- Gemini Notebook: `notebooklm.google` ahora redirige a https://notebook.google/, titulada "Gemini Notebook".
+- Decreto 1290 de 2009: página oficial del MEN, actualizada el 16 de octubre de 2024.
+- Conteo: 15 recursos propios y 15 de la web, 15 de 15 con enlace confirmado.
+
+### Cómo se integra cada recurso de la web (probado en un navegador el 24 de septiembre de 2026)
+
+- Se muestran dentro de la página, con carga al pulsar (13): el video de YouTube (youtube-nocookie), los 9 módulos de Colombia Aprende (el paquete interactivo directo de cada uno), el juego Genially del laberinto, la biografía de Biografías y Vidas y Reinformados (la diaria).
+- Integrados como actividad, con enlace (2): "La liebre y la tortuga" de Cultura Genial (su sitio prohíbe mostrarse en otra página; se integra como actividad de comparación) y la guía de MinTIC (su PDF prohíbe mostrarse en otra página; el texto de dominio público del anexo 1 se muestra completo en la actividad de marcar inicio, nudo y desenlace).

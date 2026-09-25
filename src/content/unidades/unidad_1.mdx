@@ -40,6 +40,7 @@ import InfographicViewer from '../../components/ui/infographic_viewer.astro';
 import Podcast from '../../components/ui/podcast.astro';
 import Video from '../../components/ui/video.astro';
 import Tarjetas from '../../components/ui/tarjetas.astro';
+import Embed from '../../components/ui/embed.astro';
 import ResourceTag from '../../components/ui/resource_tag.astro';
 import Pendiente from '../../components/ui/pendiente.astro';
 import { QuizCard } from '../../components/islas/quiz_card';
@@ -101,10 +102,7 @@ En esta unidad nos enfocaremos en emplear diversas estrategias que facilitarán 
 
 <Video id="c1_video" descripcion="Sofía y Mateo muestran las tres etapas de la lectura con el caso de la liebre y la tortuga. Mira el video después de leer: cuenta cómo termina la carrera." />
 
-<div>
-  <p class="mb-3 max-w-reading text-body">Para docentes y familias: una versión de la fábula con una guía para conversar en casa.</p>
-  <ResourceTag id="w1_fabula" />
-</div>
+<Embed id="w1_fabula" etiqueta="Compara con otra versión" descripcion="Para docentes y familias: otra versión de la fábula con una guía para conversar en casa." />
 
 </Subseccion>
 
@@ -114,9 +112,15 @@ En esta unidad nos enfocaremos en emplear diversas estrategias que facilitarán 
 
 <InferenceClues client:visible pistas={act.pistas} unidad={1} etiqueta="Recurso propio" />
 
-<div>
-  <p class="mb-3 max-w-reading text-body">Video sugerido para reforzar la inferencia.</p>
-  <ResourceTag id="w1_video" />
+<Embed id="w1_video" etiqueta="Actividad: Mensaje oculto" descripcion="Mira el video y descubre el mensaje que se esconde en él. Recurso de la web elegido por el equipo para practicar la inferencia." />
+
+<div class="max-w-reading rounded-soft bg-pure-white p-6">
+  <p class="text-body-sm font-medium text-stone-text">Después de ver el video, conversa</p>
+  <ul class="mt-3 space-y-2 text-body">
+    <li>¿Qué sucede?</li>
+    <li>¿Qué pistas te ayudaron a entenderlo?</li>
+    <li>¿Qué significa el mensaje?</li>
+  </ul>
 </div>
 
 </Subseccion>
@@ -143,10 +147,7 @@ En esta unidad nos enfocaremos en emplear diversas estrategias que facilitarán 
 
 <Tarjetas tarjetas={act.tarjetas} unidad={1} />
 
-<div>
-  <p class="mb-3 max-w-reading text-body">Para practicar más: predicciones sobre un texto literario.</p>
-  <ResourceTag id="w1_hipotesis" />
-</div>
+<Embed id="w1_hipotesis" etiqueta="Para practicar más" descripcion="Practica cómo hacer predicciones sobre un texto literario, antes de leer." />
 
 </div>
 

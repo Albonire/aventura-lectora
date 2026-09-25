@@ -42,3 +42,7 @@ Sitio web tipo libro, guiado por scroll, del curso "Aventura lectora" para estud
 - No copiar ilustraciones, logos ni composiciones de otros sitios. Ilustraciones propias en SVG o Open Peeps (CC0).
 - No subir la carpeta `gemini_notebook/` al sitio publicado (son insumos de trabajo).
 - No usar la imagen del árbol de libros de la ficha hasta que el equipo confirme fuente y licencia.
+
+## Decisiones de septiembre de 2026
+- Ver la sección 17 de `SPECS.md`. Resumen: videos autoalojados, réplicas propias en lugar de Pixton, Padlet y Canva, cámara de viñetas de `trabajo2`, `/referencias` en lugar de `/creditos` y sin cuaderno de docentes.
+- Al escribir archivos, no uses secuencias `\uXXXX` dentro de comandos de shell: se convierten en el carácter real. Para rayas largas o marcas de acento en expresiones regulares, arma el carácter con `String.fromCharCode` o escribe el archivo con la herramienta de edición.

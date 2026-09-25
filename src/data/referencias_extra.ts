@@ -1,4 +1,4 @@
-// references that are not resources of a case: the source of a text, the AI tool, the evaluation decree.
+// references that are not resources of a case: the AI tool and the evaluation decree.
 // "verificado" is true only after the link was opened and its content read (date in "verificado_el").
 
 export interface ReferenciaExtra {
@@ -10,8 +10,14 @@ export interface ReferenciaExtra {
 
 export const referencias_extra: ReferenciaExtra[] = [
   {
-    apa: 'Ministerio de Tecnologías de la Información y las Comunicaciones. (s.f.). *Guía: Un paseo diferente* [Guía didáctica]. Colombia Programa. https://mintic.gov.co/colombiaprograma/847/articles-407418_recurso_1.pdf',
-    url: 'https://mintic.gov.co/colombiaprograma/847/articles-407418_recurso_1.pdf',
+    apa: 'Google. (2026). *Gemini Notebook* [Herramienta de inteligencia artificial]. https://notebook.google/',
+    url: 'https://notebook.google/',
+    verificado: true,
+    verificado_el: '2026-09-24',
+  },
+  {
+    apa: 'Ministerio de Educación Nacional. (2009). *Decreto 1290 de 2009: Por el cual se reglamenta la evaluación del aprendizaje y promoción de los estudiantes de los niveles de educación básica y media*. https://www.mineducacion.gov.co/1759/w3-article-187765.html',
+    url: 'https://www.mineducacion.gov.co/1759/w3-article-187765.html',
     verificado: true,
     verificado_el: '2026-09-24',
   },

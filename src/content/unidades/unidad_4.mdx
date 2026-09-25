@@ -40,6 +40,7 @@ import InfographicViewer from '../../components/ui/infographic_viewer.astro';
 import Podcast from '../../components/ui/podcast.astro';
 import Video from '../../components/ui/video.astro';
 import Tarjetas from '../../components/ui/tarjetas.astro';
+import Embed from '../../components/ui/embed.astro';
 import ResourceTag from '../../components/ui/resource_tag.astro';
 import Pendiente from '../../components/ui/pendiente.astro';
 import { QuizCard } from '../../components/islas/quiz_card';
@@ -123,6 +124,8 @@ Todos los días nos llegan noticias: por la radio, la televisión, el periódico
 
 <ResourceTag id="p4_noticia" />
 
+<Embed id="w4_noticia" etiqueta="Para practicar más" descripcion="Repasa cómo se presenta una noticia y sus partes." />
+
 </Subseccion>
 
 <Subseccion id="lista-lupa" etiqueta="La lista LUPA" titulo="¿En qué fuente confío?">
@@ -141,12 +144,9 @@ Todos los días nos llegan noticias: por la radio, la televisión, el periódico
 
 <p class="max-w-reading rounded-soft bg-sunshine-pop p-6 text-subheading font-medium">Regla de oro: {act.lupa.regla_de_oro}</p>
 
-<div class="flex flex-col gap-4">
-  <p class="max-w-reading text-body">Para jugar y practicar más con noticias y desinformación.</p>
-  <ResourceTag id="w4_interland" />
-  <ResourceTag id="w4_reinformados" />
-  <ResourceTag id="w4_laberinto" />
-</div>
+<Embed id="w4_laberinto" etiqueta="Para jugar" />
+
+<Embed id="w4_reinformados" etiqueta="Para practicar más" />
 
 </Subseccion>
 
