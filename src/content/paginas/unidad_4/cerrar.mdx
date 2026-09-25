@@ -1,0 +1,9 @@
+import Seccion from '../../../components/ui/seccion.astro';
+import { ChallengeCard } from '../../../components/islas/challenge_card';
+import datos_retos from '../../../data/retos.json';
+
+<Seccion id="reto" titulo="Reto del caso" etiqueta="Actividad sumativa">
+
+<ChallengeCard client:visible reto={datos_retos.retos[3]} unidad={4} titulo_caso={props.unidad.titulo} />
+
+</Seccion>

@@ -1,6 +1,12 @@
-// global behavior shared by every page: settings switches, menu, case states, fore-edge, resume link
+// global behavior shared by every page: settings switches, menu, case and page states, reading progress bar, resume link
 import { leer, guardar } from './almacen';
-import { leer_progreso, estado_de, guardar_lugar, marcar_visitado } from './progreso';
+import {
+  leer_progreso,
+  estado_de,
+  guardar_lugar,
+  marcar_pagina_leida,
+  marcar_visitado,
+} from './progreso';
 
 export interface Ajustes {
   movimiento: boolean;
@@ -71,15 +77,21 @@ const TEXTO_ESTADO = { sin_empezar: '', en_curso: 'En curso', resuelto: 'Resuelt
 
 function pintar_estados() {
   const progreso = leer_progreso();
-  document.querySelectorAll<HTMLElement>('a[data-caso]').forEach((enlace) => {
-    const caso = Number(enlace.dataset.caso);
+  document.querySelectorAll<HTMLElement>('[data-caso]').forEach((elemento) => {
+    const caso = Number(elemento.dataset.caso);
     const estado = estado_de(caso, progreso);
-    enlace.dataset.estado = estado;
-    const etiqueta = enlace.querySelector<HTMLElement>('.estado-etiqueta');
+    elemento.dataset.estado = estado;
+    const etiqueta = elemento.querySelector<HTMLElement>('.estado-etiqueta');
     if (etiqueta) etiqueta.textContent = TEXTO_ESTADO[estado];
-    const lector = enlace.querySelector<HTMLElement>('.estado-texto');
+    const lector = elemento.querySelector<HTMLElement>('.estado-texto');
     if (lector)
       lector.textContent = TEXTO_ESTADO[estado] ? `, ${TEXTO_ESTADO[estado].toLowerCase()}` : '';
+  });
+  document.querySelectorAll<HTMLElement>('a[data-pagina]').forEach((enlace) => {
+    const leida = progreso.paginas_leidas.includes(enlace.dataset.pagina ?? '');
+    enlace.dataset.leida = String(leida);
+    const marca = enlace.querySelector<HTMLElement>('.estado-pagina');
+    if (marca) marca.textContent = leida ? 'Leída' : '';
   });
   const seguir = document.querySelector<HTMLAnchorElement>('[data-seguir]');
   if (seguir && progreso.ultimo) {
@@ -88,15 +100,16 @@ function pintar_estados() {
   }
 }
 
-function iniciar_canto() {
-  const canto = document.querySelector<HTMLElement>('[data-canto]');
-  if (!canto) return;
+// thin bar in the header that fills as the page is read
+function iniciar_avance() {
+  const barra = document.querySelector<HTMLElement>('[data-avance]');
+  if (!barra) return;
   let cuadro = 0;
   const actualizar = () => {
     cuadro = 0;
     const maximo = document.documentElement.scrollHeight - window.innerHeight;
     const p = maximo > 0 ? Math.min(1, Math.max(0, window.scrollY / maximo)) : 0;
-    canto.style.setProperty('--p', p.toFixed(4));
+    barra.style.setProperty('--p', p.toFixed(4));
   };
   window.addEventListener(
     'scroll',
@@ -109,12 +122,55 @@ function iniciar_canto() {
   actualizar();
 }
 
+// highlights, in the index beside the page, the part of the page that is being read
+function iniciar_subindice() {
+  const enlaces = Array.from(document.querySelectorAll<HTMLAnchorElement>('a[data-sub]'));
+  if (!enlaces.length || !('IntersectionObserver' in window)) return;
+  const destinos = new Map<Element, HTMLAnchorElement>();
+  enlaces.forEach((enlace) => {
+    const destino = document.getElementById(enlace.dataset.sub ?? '');
+    if (destino) destinos.set(destino, enlace);
+  });
+  const visibles = new Set<Element>();
+  const marcar = () => {
+    const primero = Array.from(destinos.keys())
+      .filter((el) => visibles.has(el))
+      .sort((a, b) => a.getBoundingClientRect().top - b.getBoundingClientRect().top)[0];
+    enlaces.forEach((enlace) => enlace.removeAttribute('aria-current'));
+    if (primero) destinos.get(primero)?.setAttribute('aria-current', 'location');
+  };
+  const observador = new IntersectionObserver(
+    (entradas) => {
+      entradas.forEach((e) =>
+        e.isIntersecting ? visibles.add(e.target) : visibles.delete(e.target),
+      );
+      marcar();
+    },
+    { rootMargin: '-15% 0px -55% 0px' },
+  );
+  destinos.forEach((_enlace, el) => observador.observe(el));
+}
+
+// remembers the case, the page and the section, and marks a page as read when its end is reached
 function recordar_lugar() {
-  const match = location.pathname.match(/^\/unidad\/(\d)\/?$/);
+  const match = location.pathname.match(/^\/unidad\/(\d)(?:\/([a-z]+))?\/?$/);
   if (!match) return;
   const caso = Number(match[1]);
   marcar_visitado(caso);
   pintar_estados();
+
+  const fin = document.querySelector<HTMLElement>('[data-fin-pagina]');
+  if (fin?.dataset.finPagina && 'IntersectionObserver' in window) {
+    const id = fin.dataset.finPagina;
+    const vigia = new IntersectionObserver((entradas) => {
+      if (!entradas.some((e) => e.isIntersecting)) return;
+      marcar_pagina_leida(id);
+      pintar_estados();
+      vigia.disconnect();
+    });
+    vigia.observe(fin);
+  }
+
   const secciones = Array.from(document.querySelectorAll<HTMLElement>('main section[id]'));
   if (!secciones.length || !('IntersectionObserver' in window)) return;
   let pendiente = 0;
@@ -131,12 +187,13 @@ function recordar_lugar() {
     },
     { threshold: [0.35, 0.6] },
   );
-  secciones.forEach((s) => observador.observe(s));
+  secciones.forEach((seccion) => observador.observe(seccion));
 }
 
 document.addEventListener('progreso:cambio', pintar_estados);
 iniciar_interruptores();
 iniciar_menu();
 pintar_estados();
-iniciar_canto();
+iniciar_avance();
+iniciar_subindice();
 recordar_lugar();

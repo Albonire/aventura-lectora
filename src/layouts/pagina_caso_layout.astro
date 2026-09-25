@@ -1,0 +1,151 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import CursoLayout from './curso_layout.astro';
+import EncabezadoPagina from '../components/curso/encabezado_pagina.astro';
+import Portada1 from '../components/ilustraciones/portadas/portada_1.astro';
+import Portada2 from '../components/ilustraciones/portadas/portada_2.astro';
+import Portada3 from '../components/ilustraciones/portadas/portada_3.astro';
+import Portada4 from '../components/ilustraciones/portadas/portada_4.astro';
+import Portada5 from '../components/ilustraciones/portadas/portada_5.astro';
+import { BadgeTracker } from '../components/islas/badge_tracker';
+import { Autoevaluacion } from '../components/islas/autoevaluacion';
+import { nombre_de } from '../config/sitio';
+import { folio, pagina_por_slug, type SlugPagina } from '../config/paginas';
+
+interface Props {
+  unidad: CollectionEntry<'unidades'>;
+  pagina: SlugPagina;
+}
+const { unidad, pagina } = Astro.props;
+const info = pagina_por_slug(pagina);
+if (!info) throw new Error(`pagina desconocida: ${pagina}`);
+const d = unidad.data;
+
+const todas = (await getCollection('unidades')).sort((a, b) => a.data.numero - b.data.numero);
+const insignias = todas.map((u) => ({
+  caso: u.data.numero,
+  nombre: u.data.insignia.nombre,
+  descripcion: u.data.insignia.descripcion,
+}));
+const color_pestana = (d.color === 'mixto' ? 'fresh-grass' : d.color) as
+  'fresh-grass' | 'sky-pop' | 'sunshine-pop' | 'coral-pop';
+const titulo_pagina =
+  pagina === 'abrir'
+    ? `Caso ${d.numero}: ${d.titulo}`
+    : `${info.titulo}. Caso ${d.numero}: ${d.titulo}`;
+const descripcion_pagina =
+  pagina === 'abrir'
+    ? `Caso ${d.numero} de Aventura lectora: ${d.titulo}. ${d.mision}`
+    : `${info.titulo}, caso ${d.numero} de Aventura lectora: ${d.titulo}. ${info.descripcion}`;
+const Portada = { 1: Portada1, 2: Portada2, 3: Portada3, 4: Portada4, 5: Portada5 }[
+  d.numero as 1 | 2 | 3 | 4 | 5
+];
+---
+
+<CursoLayout
+  titulo={titulo_pagina}
+  descripcion={descripcion_pagina}
+  ubicacion={{ tipo: 'caso', caso: d.numero, pagina }}
+>
+  {pagina === 'abrir' ? (
+    <Portada titulo={d.titulo} alt={d.imagen_portada.alt} />
+  ) : (
+    <EncabezadoPagina
+      etiqueta={`Caso ${d.numero}: ${d.titulo}. ${folio(pagina)}`}
+      titulo={info.titulo}
+      color={color_pestana}
+    >
+      <p>{info.descripcion}</p>
+    </EncabezadoPagina>
+  )}
+
+  {pagina === 'abrir' && (
+    <section id="mision" aria-labelledby="mision-titulo" class="scroll-mt-24 py-section">
+      <div class="contenedor">
+        <div class="max-w-4xl rounded-card bg-pure-white p-7 md:p-12">
+          <p class="text-body-sm font-medium text-stone-text">Caso {d.numero}</p>
+          <h2 id="mision-titulo" class="mt-1 text-heading font-medium leading-tight tracking-tight">
+            Tu misión en este caso
+          </h2>
+          <p class="mt-6 max-w-reading text-[clamp(1.25rem,2.4vw,1.75rem)] font-medium leading-snug">
+            {d.mision}
+          </p>
+
+          <details class="group mt-8 rounded-soft bg-cream-paper">
+            <summary class="flex min-h-12 cursor-pointer list-none items-center justify-between gap-3 rounded-soft px-5 text-body-sm font-medium [&::-webkit-details-marker]:hidden">
+              Para docentes: aprendizajes esperados y referentes
+              <span class="text-stone-text group-open:hidden" aria-hidden="true">
+                Abrir
+              </span>
+              <span class="hidden text-stone-text group-open:inline" aria-hidden="true">
+                Cerrar
+              </span>
+            </summary>
+            <div class="space-y-4 px-5 pb-6 text-body-sm">
+              <div>
+                <p class="font-medium">Aprendizajes esperados</p>
+                <ul class="mt-1 list-disc space-y-1 pl-5 text-stone-text">
+                  {d.aprendizajes_esperados.map((a) => (
+                    <li>{a}</li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <p class="font-medium">Derechos Básicos de Aprendizaje</p>
+                <ul class="mt-1 list-disc space-y-1 pl-5 text-stone-text">
+                  {d.referentes.dba.map((a) => (
+                    <li>{a}</li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <p class="font-medium">Estándar básico de competencias</p>
+                <ul class="mt-1 list-disc space-y-1 pl-5 text-stone-text">
+                  {d.referentes.estandares.map((a) => (
+                    <li>{a}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <slot />
+
+  {pagina === 'cerrar' && (
+    <section
+      id="cierre-caso"
+      aria-labelledby="cierre-titulo"
+      class="scroll-mt-24 bg-sunshine-pop py-section"
+    >
+      <div class="contenedor">
+        <p class="text-body-sm font-medium">Caso {d.numero}</p>
+        <h2
+          id="cierre-titulo"
+          class="mt-1 text-heading-lg font-medium leading-none tracking-tighter"
+        >
+          Cerrar el caso
+        </h2>
+
+        <div class="mt-10 grid gap-6 lg:grid-cols-2">
+          <BadgeTracker client:visible modo="caso" unidad={d.numero} insignias={insignias} />
+          <Autoevaluacion client:visible unidad={d.numero} />
+        </div>
+
+        <div class="mt-10 grid gap-6 md:grid-cols-2">
+          <div class="rounded-soft bg-pure-white p-6">
+            <p class="text-body-sm font-medium text-stone-text">Responsable de esta unidad</p>
+            <p class="mt-1 text-subheading font-medium">{nombre_de(d.responsable)}</p>
+          </div>
+          <div class="rounded-soft bg-pure-white p-6">
+            <p class="text-body-sm font-medium text-stone-text">Para conversar en casa</p>
+            <p class="mt-1 text-body">{d.para_familias}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  )}
+</CursoLayout>

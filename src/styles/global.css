@@ -68,6 +68,55 @@
   max-width: var(--container-reading);
 }
 
+/* ---------- frame of the book: fixed bar, index and the page ---------- */
+
+.curso-cuerpo {
+  padding-top: 3.5rem;
+}
+
+.curso-indice {
+  display: none;
+}
+
+.curso-fondo {
+  min-width: 0;
+}
+
+@media (min-width: 1024px) {
+  .curso-cuerpo {
+    display: flex;
+    align-items: flex-start;
+  }
+
+  .curso-indice {
+    position: sticky;
+    top: 3.5rem;
+    display: block;
+    width: 18rem;
+    flex-shrink: 0;
+    height: calc(100dvh - 3.5rem);
+    overflow-y: auto;
+    border-right: 2px solid var(--color-ink-black);
+    background: var(--color-pure-white);
+    padding: 1.25rem 0.75rem 2rem;
+  }
+
+  .curso-fondo {
+    flex: 1;
+    background: var(--color-sandstone);
+    padding: 1.5rem 1.5rem 0;
+  }
+
+  .hoja {
+    margin-inline: auto;
+    max-width: 62rem;
+    overflow: clip;
+    border: 2px solid var(--color-ink-black);
+    border-radius: var(--radius-soft);
+    background: var(--color-cream-paper);
+  }
+}
+
 /* ---------- typography for authored text ---------- */
 
 .lectura {

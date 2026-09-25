@@ -1,26 +1,15 @@
 ---
 import '../styles/global.css';
 import interLatin from '@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url';
-import NavPill from '../components/ui/nav_pill.astro';
-import FooterBand from '../components/ui/footer_band.astro';
-import CantoPaginas from '../components/ui/canto_paginas.astro';
 import { sitio } from '../config/sitio';
 
 interface Props {
   titulo: string;
   descripcion?: string;
-  sin_pie?: boolean;
-  sin_canto?: boolean;
-  clase_main?: string;
 }
 
-const {
-  titulo,
-  descripcion = `${sitio.nombre_largo}. Curso virtual para ${sitio.grado}.`,
-  sin_pie = false,
-  sin_canto = false,
-  clase_main = '',
-} = Astro.props;
+const { titulo, descripcion = `${sitio.nombre_largo}. Curso virtual para ${sitio.grado}.` } =
+  Astro.props;
 
 const titulo_pagina = titulo === sitio.nombre_curso ? titulo : `${titulo} | ${sitio.nombre_curso}`;
 ---
@@ -63,12 +52,7 @@ const titulo_pagina = titulo === sitio.nombre_curso ? titulo : `${titulo} | ${si
     >
       Saltar al contenido
     </a>
-    <NavPill />
-    <main id="contenido" class={clase_main}>
-      <slot />
-    </main>
-    {!sin_pie && <FooterBand />}
-    {!sin_canto && <CantoPaginas />}
+    <slot />
     <script>
       import '../lib/ui_global';
     </script>

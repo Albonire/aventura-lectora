@@ -29,4 +29,10 @@ const unidades = defineCollection({
   }),
 });
 
-export const collections = { unidades };
+// one MDX file per page of a case (unidad_N/abrir, pistas, lupa, cerrar). They receive the unit data as props.unidad.
+const paginas = defineCollection({
+  loader: glob({ pattern: 'unidad_*/*.mdx', base: './src/content/paginas' }),
+  schema: z.object({}),
+});
+
+export const collections = { unidades, paginas };

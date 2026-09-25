@@ -40,4 +40,25 @@ describe('progreso', () => {
     p.guardar_lugar('/unidad/3', 'practica');
     expect(p.leer_progreso().ultimo).toEqual({ ruta: '/unidad/3', seccion: 'practica' });
   });
+
+  it('remembers read pages without duplicates', async () => {
+    const p = await import('../../src/lib/progreso');
+    p.marcar_pagina_leida('2/pistas');
+    p.marcar_pagina_leida('2/pistas');
+    p.marcar_pagina_leida('2/lupa');
+    expect(p.leer_progreso().paginas_leidas).toEqual(['2/pistas', '2/lupa']);
+  });
+
+  it('reads progress saved before pages existed', async () => {
+    localStorage.setItem(
+      'aventura_lectora:progreso',
+      JSON.stringify({ resueltos: [1], visitados: [1, 2], ultimo: null }),
+    );
+    const p = await import('../../src/lib/progreso');
+    const actual = p.leer_progreso();
+    expect(actual.paginas_leidas).toEqual([]);
+    expect(actual.visitados).toEqual([1, 2]);
+    p.marcar_pagina_leida('1/abrir');
+    expect(p.leer_progreso().resueltos).toEqual([1]);
+  });
 });

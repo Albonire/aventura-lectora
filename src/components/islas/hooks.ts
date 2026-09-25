@@ -61,6 +61,7 @@ export function usar_progreso() {
   const [progreso, set_progreso] = useState<Progreso>({
     resueltos: [],
     visitados: [],
+    paginas_leidas: [],
     ultimo: null,
   });
   useEffect(() => {

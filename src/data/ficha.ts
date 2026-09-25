@@ -29,37 +29,37 @@ export const filas_curso: FilaFicha[] = [
     elemento: 'Unidades temáticas',
     descripcion:
       'Cinco casos: leo y comprendo, el sendero de los textos, preguntas como detective, detectives de noticias y mi voz cuenta.',
-    seccion: '/#casos',
+    seccion: '/#indice',
   },
   {
     elemento: 'Competencias, objetivos, estándares básicos del curso',
     descripcion:
       'Estrategias de comprensión, estructura de los textos, tres niveles de preguntas, fuentes confiables y opinión argumentada.',
-    seccion: '/#competencias',
+    seccion: '/programa#competencias',
   },
   {
     elemento: 'Metodología',
     descripcion:
       'Ruta de aprendizaje en cuatro momentos: exploración, estructuración, práctica y valoración.',
-    seccion: '/#ruta',
+    seccion: '/programa#ruta',
   },
   {
     elemento: 'Evaluación',
     descripcion:
       'Formativa con retroalimentación inmediata, sumativa con un reto por caso y un producto final, y autoevaluación.',
-    seccion: '/#evaluacion',
+    seccion: '/programa#evaluacion',
   },
   {
     elemento: 'Momentos síncronos y asíncronos',
     descripcion:
       'Una videollamada de 50 minutos por caso, trabajo asíncrono en el sitio y la Feria de detectives.',
-    seccion: '/#momentos',
+    seccion: '/programa#momentos',
   },
   {
     elemento: 'Otros aspectos',
     descripcion:
       'Accesibilidad, privacidad, familias, curso digital y recursos hechos con inteligencia artificial.',
-    seccion: '/#otros',
+    seccion: '/programa#otros',
   },
 ];
 

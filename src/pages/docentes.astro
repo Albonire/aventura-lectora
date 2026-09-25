@@ -1,11 +1,13 @@
 ---
 import { getCollection } from 'astro:content';
-import BaseLayout from '../layouts/base_layout.astro';
+import CursoLayout from '../layouts/curso_layout.astro';
+import EncabezadoPagina from '../components/curso/encabezado_pagina.astro';
 import Seccion from '../components/ui/seccion.astro';
 import recursos from '../data/recursos.json';
 import datos_retos from '../data/retos.json';
 import multimedia from '../data/multimedia.json';
 import { integrantes, nombre_de, sitio } from '../config/sitio';
+import { ruta_seccion } from '../config/paginas';
 
 const unidades = (await getCollection('unidades')).sort((a, b) => a.data.numero - b.data.numero);
 
@@ -85,22 +87,22 @@ const tipo_pieza = { audio: 'Podcast', video: 'Video', infografia: 'Infografía'
 >;
 ---
 
-<BaseLayout
+<CursoLayout
   titulo="Para docentes"
   descripcion="Ruta de aprendizaje, mapeo ADDIE, rúbricas, conteo de recursos propios y de la web, referentes y orientaciones para familias."
+  titulo_cabecera="Para docentes"
+  sin_paginador
 >
-  <div class="bg-fresh-grass pb-16 pt-36 md:pb-20 md:pt-44">
-    <div class="contenedor">
-      <p class="text-body font-medium">Socialización del diseño didáctico</p>
-      <h1 class="mt-2 max-w-4xl text-display font-medium leading-[0.92] tracking-tighter">
-        Para docentes
-      </h1>
-      <p class="mt-6 max-w-2xl text-subheading">
-        La ruta de aprendizaje, el mapeo ADDIE, las rúbricas y el conteo de recursos del curso
-        Aventura lectora.
-      </p>
-    </div>
-  </div>
+  <EncabezadoPagina
+    etiqueta="Socialización del diseño didáctico"
+    titulo="Para docentes"
+    color="fresh-grass"
+  >
+    <p>
+      La ruta de aprendizaje, el mapeo ADDIE, las rúbricas y el conteo de recursos del curso
+      Aventura lectora.
+    </p>
+  </EncabezadoPagina>
 
   <Seccion id="ruta" titulo="Ruta de aprendizaje" etiqueta="Metodología">
     <p class="lectura">
@@ -511,7 +513,7 @@ const tipo_pieza = { audio: 'Podcast', video: 'Video', infografia: 'Infografía'
               </td>
               <td class="px-3 py-3">
                 <a
-                  href={`/unidad/${c.n}#contenidos`}
+                  href={ruta_seccion(c.n, 'contenidos')}
                   class="font-medium underline decoration-2 underline-offset-4"
                 >
                   Ver el caso {c.n}
@@ -582,4 +584,4 @@ const tipo_pieza = { audio: 'Podcast', video: 'Video', infografia: 'Infografía'
       </div>
     </div>
   </Seccion>
-</BaseLayout>
+</CursoLayout>

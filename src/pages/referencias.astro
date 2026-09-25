@@ -1,5 +1,6 @@
 ---
-import BaseLayout from '../layouts/base_layout.astro';
+import CursoLayout from '../layouts/curso_layout.astro';
+import EncabezadoPagina from '../components/curso/encabezado_pagina.astro';
 import Seccion from '../components/ui/seccion.astro';
 import ButtonGhost from '../components/ui/button_ghost.astro';
 import Apa from '../components/ui/apa.astro';
@@ -42,21 +43,14 @@ const herramientas = [
 ];
 ---
 
-<BaseLayout
+<CursoLayout
   titulo="Referencias"
   descripcion="Referencias en formato APA 7 y créditos del curso Aventura lectora."
+  ubicacion={{ tipo: 'referencias' }}
 >
-  <div class="bg-coral-pop pb-16 pt-36 md:pb-20 md:pt-44">
-    <div class="contenedor">
-      <p class="text-body font-medium">Última página del libro</p>
-      <h1 class="mt-2 max-w-4xl text-display font-medium leading-[0.92] tracking-tighter">
-        Referencias
-      </h1>
-      <p class="mt-6 max-w-2xl text-subheading">
-        Formato APA 7.ª edición. Solo aparecen las fuentes cuyo enlace se abrió y se revisó.
-      </p>
-    </div>
-  </div>
+  <EncabezadoPagina etiqueta="Última página del libro" titulo="Referencias" color="coral-pop">
+    <p>Formato APA 7.ª edición. Solo aparecen las fuentes cuyo enlace se abrió y se revisó.</p>
+  </EncabezadoPagina>
 
   <Seccion id="lista" titulo="Lista de referencias" etiqueta="APA 7">
     {ordenadas.length === 0 ? (
@@ -144,12 +138,12 @@ const herramientas = [
       <p class="max-w-lg text-heading-sm font-medium leading-tight tracking-tight">
         Fin del libro. Gracias por leer.
       </p>
-      <ButtonGhost href="/" color="grass" data-pasar-pagina>
+      <ButtonGhost href="/" color="grass">
         Volver a la portada
       </ButtonGhost>
     </div>
   </section>
-</BaseLayout>
+</CursoLayout>
 
 <style>
   .ref {

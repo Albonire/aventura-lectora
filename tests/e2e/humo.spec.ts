@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
-import type { Locator } from '@playwright/test';
+import type { Locator, Page } from '@playwright/test';
 import act2 from '../../src/data/actividades/unidad_2.json' with { type: 'json' };
 
 // islands below the fold hydrate when they are close to the viewport: wait until that happened
@@ -10,18 +10,14 @@ async function hidratada(zona: Locator) {
   if ((await isla.count()) > 0) await expect(isla).not.toHaveAttribute('ssr', /.*/);
 }
 
-const RUTAS = [
-  '/',
-  '/unidad/1',
-  '/unidad/2',
-  '/unidad/3',
-  '/unidad/4',
-  '/unidad/5',
-  '/cierre',
-  '/ficha',
-  '/docentes',
-  '/referencias',
-];
+// the four pages of a case: /unidad/N, /pistas, /lupa and /cerrar
+const PAGINAS = ['', '/pistas', '/lupa', '/cerrar'];
+const CASOS = [1, 2, 3, 4, 5];
+const RUTAS_CASOS = CASOS.flatMap((n) => PAGINAS.map((p) => `/unidad/${n}${p}`));
+
+const RUTAS = ['/', '/programa', ...RUTAS_CASOS, '/cierre', '/ficha', '/docentes', '/referencias'];
+
+const boton_menu = (page: Page) => page.locator('summary').filter({ hasText: 'Menú' });
 
 for (const ruta of RUTAS) {
   test.describe(`ruta ${ruta}`, () => {
@@ -86,11 +82,7 @@ test('el texto del proyecto no usa raya larga ni emojis en la interfaz', async (
 test.describe('interruptores y menu', () => {
   test('el interruptor Movimiento cambia el atributo del html y se recuerda', async ({ page }) => {
     await page.goto('/');
-    await page
-      .getByRole('button', { name: 'Menú' })
-      .or(page.locator('summary[aria-label="Menú"]'))
-      .first()
-      .click();
+    await boton_menu(page).click();
     const boton = page.getByRole('switch', { name: /Movimiento/ });
     await expect(boton).toHaveAttribute('aria-checked', 'true');
     await boton.click();
@@ -101,7 +93,7 @@ test.describe('interruptores y menu', () => {
 
   test('la letra grande sube la escala base', async ({ page }) => {
     await page.goto('/');
-    await page.locator('summary[aria-label="Menú"]').click();
+    await boton_menu(page).click();
     await page.getByRole('switch', { name: /Letra grande/ }).click();
     await expect(page.locator('html')).toHaveAttribute('data-letra', 'grande');
     const tamano = await page.evaluate(() => getComputedStyle(document.documentElement).fontSize);
@@ -117,13 +109,13 @@ test.describe('movimiento reducido', () => {
     await page.waitForLoadState('networkidle');
     await expect(page.locator('.apertura-activa')).toHaveCount(0);
     await expect(page.locator('#portadilla')).toBeVisible();
-    await page.goto('/unidad/2');
+    await page.goto('/unidad/2/pistas');
     await page.waitForLoadState('networkidle');
     await expect(page.locator('.camara-activa')).toHaveCount(0);
     await expect(page.locator('.sendero-activo')).toHaveCount(0);
     await expect(page.locator('.pin-spacer')).toHaveCount(0);
     await expect(page.getByText('Hoja 1').first()).toBeAttached();
-    await page.goto('/unidad/3');
+    await page.goto('/unidad/3/pistas');
     await expect(page.locator('.lupas-activo')).toHaveCount(0);
     await expect(page.getByRole('heading', { name: /Lupa 3: lo que pienso/ })).toBeVisible();
   });
@@ -133,11 +125,12 @@ test.describe('sin JavaScript', () => {
   test.use({ javaScriptEnabled: false });
 
   test('la lectura y las pistas se leen completas', async ({ page }) => {
-    await page.goto('/unidad/1');
+    await page.goto('/unidad/1/pistas');
     await expect(page.getByText('En un valle lleno de pasto y flores')).toBeVisible();
     await expect(page.getByText('¿Por qué crees que la tortuga propone una carrera')).toBeVisible();
+    await page.goto('/unidad/1');
     await expect(page.getByText('Leer no se limita a pronunciar')).toBeVisible();
-    await page.goto('/unidad/2');
+    await page.goto('/unidad/2/pistas');
     await expect(page.getByText('Este dice cómo hacer algo en orden').first()).toBeAttached();
     await page.goto('/');
     await expect(page.getByText('Universidad Santo Tomás').first()).toBeVisible();
@@ -146,7 +139,7 @@ test.describe('sin JavaScript', () => {
 
 test.describe('actividades', () => {
   test('el cuestionario del caso 1 se resuelve, marca el caso y se recuerda', async ({ page }) => {
-    await page.goto('/unidad/1');
+    await page.goto('/unidad/1/lupa');
     const tarjeta = page.getByRole('region', { name: 'Cuestionario sobre la lectura' });
     await hidratada(tarjeta);
     await expect(tarjeta).toBeVisible();
@@ -178,7 +171,7 @@ test.describe('actividades', () => {
   test('el clasificador de textos se completa con el menu Enviar a (solo teclado)', async ({
     page,
   }) => {
-    await page.goto('/unidad/2');
+    await page.goto('/unidad/2/lupa');
     const zona = page.getByRole('region', { name: 'Clasificador de textos' });
     await hidratada(zona);
     const items = act2.clasificador.items;
@@ -194,7 +187,7 @@ test.describe('actividades', () => {
   });
 
   test('la sopa de letras responde al teclado', async ({ page }) => {
-    await page.goto('/unidad/1');
+    await page.goto('/unidad/1/pistas');
     const rejilla = page.getByRole('grid', { name: 'Sopa de letras' });
     await hidratada(rejilla);
     await rejilla.locator('[data-fila="0"][data-col="0"]').focus();
@@ -209,7 +202,7 @@ test.describe('actividades', () => {
   });
 
   test('el reto del caso 1 se descarga como PDF', async ({ page }) => {
-    await page.goto('/unidad/1');
+    await page.goto('/unidad/1/cerrar');
     const reto = page.getByRole('article').filter({ hasText: 'Mi bitácora de detective lector' });
     await hidratada(reto);
     await reto.getByLabel('Tu nombre').fill('Ana Prueba');
@@ -239,7 +232,7 @@ test.describe('actividades', () => {
 
 test('la camara del comic avanza con el teclado', async ({ page }) => {
   await page.setViewportSize({ width: 1280, height: 800 });
-  await page.goto('/unidad/2');
+  await page.goto('/unidad/2/pistas');
   await page.waitForLoadState('networkidle');
   const comic = page.locator('#comic-camara');
   await expect(comic).toHaveClass(/camara-activa/);
@@ -262,14 +255,16 @@ test.describe('recursos de terceros', () => {
       const u = r.url();
       if (!u.startsWith('http://localhost') && !u.startsWith('data:')) externos.push(u);
     });
-    await page.goto('/unidad/4');
-    await page.waitForLoadState('networkidle');
-    await expect(page.locator('iframe')).toHaveCount(0);
+    for (const p of PAGINAS) {
+      await page.goto(`/unidad/4${p}`);
+      await page.waitForLoadState('networkidle');
+      await expect(page.locator('iframe')).toHaveCount(0);
+    }
     expect(externos).toEqual([]);
   });
 
   test('el juego del laberinto se muestra dentro de la pagina al pulsar', async ({ page }) => {
-    await page.goto('/unidad/4');
+    await page.goto('/unidad/4/pistas');
     const tarjeta = page.getByRole('region', { name: 'El laberinto de la información' });
     await hidratada(tarjeta);
     await tarjeta.getByRole('button', { name: /Cargar el recurso/ }).click();
@@ -282,7 +277,7 @@ test.describe('recursos de terceros', () => {
   });
 
   test('el video de YouTube usa la version sin cookies', async ({ page }) => {
-    await page.goto('/unidad/1');
+    await page.goto('/unidad/1/pistas');
     const tarjeta = page.getByRole('region', { name: 'El mensaje oculto' });
     await hidratada(tarjeta);
     await tarjeta.getByRole('button', { name: /Cargar el video/ }).click();
@@ -295,7 +290,7 @@ test.describe('recursos de terceros', () => {
   test('los recursos que no permiten iframe se integran como actividad con enlace', async ({
     page,
   }) => {
-    await page.goto('/unidad/1');
+    await page.goto('/unidad/1/pistas');
     const tarjeta = page.getByRole('region', { name: /La liebre y la tortuga: la fábula/ });
     await tarjeta.scrollIntoViewIfNeeded();
     await expect(tarjeta.getByText('Lee y compara')).toBeVisible();
@@ -309,8 +304,88 @@ test.describe('recursos de terceros', () => {
     // resources that load in a frame after a click, per case (the youtube video has its own button)
     const esperados: Record<number, number> = { 1: 1, 2: 2, 3: 3, 4: 3, 5: 3 };
     for (const [caso, cantidad] of Object.entries(esperados)) {
-      await page.goto(`/unidad/${caso}`);
-      await expect(page.getByRole('button', { name: /Cargar el recurso/ })).toHaveCount(cantidad);
+      let total = 0;
+      for (const p of PAGINAS) {
+        await page.goto(`/unidad/${caso}${p}`);
+        total += await page.getByRole('button', { name: /Cargar el recurso/ }).count();
+      }
+      expect(total, `caso ${caso}`).toBe(cantidad);
     }
+  });
+});
+
+test.describe('libro de cuatro paginas por caso', () => {
+  test('cada pagina muestra solo sus secciones', async ({ page }) => {
+    const secciones: Record<string, string[]> = {
+      '': ['portada', 'mision', 'introduccion', 'contenidos'],
+      '/pistas': ['desarrollo'],
+      '/lupa': ['practica'],
+      '/cerrar': ['reto', 'cierre-caso'],
+    };
+    const todas = Object.values(secciones).flat();
+    for (const [p, propias] of Object.entries(secciones)) {
+      await page.goto(`/unidad/3${p}`);
+      for (const id of todas) {
+        const esperado = propias.includes(id) ? 1 : 0;
+        await expect(page.locator(`main section[id="${id}"]`), `${p || '/'} ${id}`).toHaveCount(
+          esperado,
+        );
+      }
+    }
+  });
+
+  test('con Siguiente se recorre todo el libro hasta las referencias', async ({ page }) => {
+    await page.goto('/programa');
+    const visitadas: string[] = ['/programa'];
+    for (let i = 0; i < 40; i++) {
+      const siguiente = page.locator('a[rel="next"]');
+      if ((await siguiente.count()) === 0) break;
+      const href = await siguiente.first().getAttribute('href');
+      visitadas.push(href ?? '');
+      await page.goto(href ?? '/');
+    }
+    expect(visitadas).toEqual(['/programa', ...RUTAS_CASOS, '/cierre', '/referencias']);
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText('Referencias');
+  });
+
+  test('cada enlace de la ficha llega a una pagina que tiene esa seccion', async ({ page }) => {
+    await page.goto('/ficha');
+    const enlaces = await page
+      .locator('main a[href^="/"]')
+      .evaluateAll((els) => [...new Set(els.map((e) => e.getAttribute('href') ?? ''))]);
+    const internos = enlaces.filter((h) => h.includes('#'));
+    expect(internos.length).toBeGreaterThan(30);
+    for (const href of internos) {
+      const [ruta, ancla] = href.split('#');
+      await page.goto(ruta || '/');
+      await expect(page.locator(`[id="${ancla}"]`), href).toBeAttached();
+    }
+  });
+
+  test('llegar al final de una pagina la marca como leida en el indice', async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 800 });
+    await page.goto('/unidad/2/lupa');
+    await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+    const enlace = page.locator('.curso-indice a[data-pagina="2/lupa"]');
+    await expect(enlace).toHaveAttribute('data-leida', 'true');
+    await expect(enlace).toContainText('Leída');
+    const progreso = await page.evaluate(() =>
+      JSON.parse(localStorage.getItem('aventura_lectora:progreso') ?? '{}'),
+    );
+    expect(progreso.paginas_leidas).toContain('2/lupa');
+    expect(progreso.visitados).toContain(2);
+  });
+
+  test('en celular el indice esta dentro del menu', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto('/unidad/3/pistas');
+    await expect(page.locator('.curso-indice')).toBeHidden();
+    await boton_menu(page).click();
+    const indice = page.getByRole('navigation', { name: 'Índice del curso en el menú' });
+    await expect(indice).toBeVisible();
+    await expect(indice.getByRole('link', { name: /Seguir las pistas/ }).first()).toHaveAttribute(
+      'aria-current',
+      'page',
+    );
   });
 });

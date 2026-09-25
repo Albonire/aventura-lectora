@@ -1,12 +1,14 @@
 ---
 import { getCollection } from 'astro:content';
-import BaseLayout from '../layouts/base_layout.astro';
+import CursoLayout from '../layouts/curso_layout.astro';
+import EncabezadoPagina from '../components/curso/encabezado_pagina.astro';
 import Seccion from '../components/ui/seccion.astro';
 import Apa from '../components/ui/apa.astro';
 import recursos from '../data/recursos.json';
 import datos_retos from '../data/retos.json';
 import { filas_curso, resumen_unidades } from '../data/ficha';
 import { nombre_de, sitio } from '../config/sitio';
+import { ruta_seccion } from '../config/paginas';
 
 const unidades = (await getCollection('unidades')).sort((a, b) => a.data.numero - b.data.numero);
 
@@ -17,70 +19,65 @@ const filas_unidad = (n: number) => {
   const u = unidades.find((x) => x.data.numero === n)!;
   const reto = datos_retos.retos[n - 1];
   const resumen = resumen_unidades[n];
-  const base = `/unidad/${n}`;
   return [
     {
       elemento: 'Imagen de la unidad de aprendizaje',
       descripcion: u.data.imagen_portada.alt,
-      seccion: `${base}#portada`,
+      seccion: ruta_seccion(n, 'portada'),
       recurso: u.data.imagen_portada.credito,
     },
     {
       elemento: 'Aprendizajes esperados',
       descripcion: u.data.aprendizajes_esperados.join(' '),
-      seccion: `${base}#mision`,
+      seccion: ruta_seccion(n, 'mision'),
       recurso: 'DBA y estándar de Lenguaje de 5.º (ver la sección Para docentes de la unidad).',
     },
     {
       elemento: 'Introducción a la unidad',
       descripcion: 'Texto de lectura que presenta la unidad.',
-      seccion: `${base}#introduccion`,
+      seccion: ruta_seccion(n, 'introduccion'),
       recurso: 'Creación propia.',
     },
     {
       elemento: 'Contenidos / temáticas',
       descripcion: resumen.contenidos,
-      seccion: `${base}#contenidos`,
+      seccion: ruta_seccion(n, 'contenidos'),
       recurso: 'Creación propia con infografía hecha con IA (Gemini Notebook).',
     },
     {
       elemento: 'Desarrollo de las temáticas y materiales de estudio',
       descripcion: resumen.desarrollo,
-      seccion: `${base}#desarrollo`,
+      seccion: ruta_seccion(n, 'desarrollo'),
       recurso: 'Recursos propios y recursos de la web citados en APA 7.',
     },
     {
       elemento: 'Actividades formativas',
       descripcion: resumen.formativas,
-      seccion: `${base}#practica`,
+      seccion: ruta_seccion(n, 'practica'),
       recurso: 'Recursos propios (sitio) y kit multimedia hecho con IA.',
     },
     {
       elemento: 'Actividades sumativas',
       descripcion: `${reto.titulo}, ${reto.duracion}. Producto: ${reto.producto}`,
-      seccion: `${base}#reto`,
+      seccion: ruta_seccion(n, 'reto'),
       recurso: 'Creación propia con rúbrica de cuatro niveles.',
     },
   ];
 };
 ---
 
-<BaseLayout
+<CursoLayout
   titulo="Ficha de diseño"
   descripcion="La ficha de diseño del curso fila por fila, con el enlace a la sección del sitio donde está montada cada una."
+  titulo_cabecera="Ficha de diseño"
+  sin_paginador
 >
-  <div class="bg-sky-pop pb-16 pt-36 md:pb-20 md:pt-44">
-    <div class="contenedor">
-      <p class="text-body font-medium">Para la evaluadora</p>
-      <h1 class="mt-2 max-w-4xl text-display font-medium leading-[0.92] tracking-tighter">
-        Ficha de diseño
-      </h1>
-      <p class="mt-6 max-w-2xl text-subheading">
-        {sitio.seminario}. Actividad: {sitio.actividad}. Cada fila de la ficha enlaza con la sección
-        del sitio donde está montada.
-      </p>
-    </div>
-  </div>
+  <EncabezadoPagina etiqueta="Para la evaluadora" titulo="Ficha de diseño" color="sky-pop">
+    <p>
+      {sitio.seminario}. Actividad: {sitio.actividad}. Cada fila de la ficha enlaza con la sección
+      del sitio donde está montada.
+    </p>
+  </EncabezadoPagina>
 
   <Seccion id="ficha-curso" titulo="Introducción al curso" etiqueta="Primera parte de la ficha">
     <div
@@ -205,4 +202,4 @@ const filas_unidad = (n: number) => {
       </ul>
     </Seccion>
   ))}
-</BaseLayout>
+</CursoLayout>

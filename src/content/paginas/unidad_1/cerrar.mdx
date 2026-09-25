@@ -1,0 +1,20 @@
+import Seccion from '../../../components/ui/seccion.astro';
+import Pendiente from '../../../components/ui/pendiente.astro';
+import { ChallengeCard } from '../../../components/islas/challenge_card';
+import datos_retos from '../../../data/retos.json';
+import LecturaConPausas from '../../../components/libro/lectura_con_pausas.astro';
+import act from '../../../data/actividades/unidad_1.json';
+
+<Seccion id="reto" titulo="Reto del caso" etiqueta="Actividad sumativa">
+
+<div class="flex flex-col gap-8">
+
+<LecturaConPausas id="fabula-reto" unidad={1} titulo={act.fabula_reto.titulo} autoria={act.fabula_reto.autoria} parrafos={act.fabula_reto.parrafos.map((texto) => ({ texto }))} />
+
+<p><Pendiente texto="el equipo revisa la adaptación de La cigarra y la hormiga antes de publicar" /></p>
+
+<ChallengeCard client:visible reto={datos_retos.retos[0]} unidad={1} titulo_caso={props.unidad.titulo} />
+
+</div>
+
+</Seccion>

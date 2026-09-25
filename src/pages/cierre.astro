@@ -1,8 +1,8 @@
 ---
 import { getCollection } from 'astro:content';
-import BaseLayout from '../layouts/base_layout.astro';
+import CursoLayout from '../layouts/curso_layout.astro';
+import EncabezadoPagina from '../components/curso/encabezado_pagina.astro';
 import Seccion from '../components/ui/seccion.astro';
-import ButtonGhost from '../components/ui/button_ghost.astro';
 import { BadgeTracker } from '../components/islas/badge_tracker';
 import { ExpedienteBuilder } from '../components/islas/expediente_builder';
 import { AutoevaluacionFinal } from '../components/islas/autoevaluacion_final';
@@ -21,21 +21,20 @@ const niveles = ['superior', 'alto', 'basico', 'bajo'] as const;
 const nombres_nivel = { superior: 'Superior', alto: 'Alto', basico: 'Básico', bajo: 'Bajo' };
 ---
 
-<BaseLayout
+<CursoLayout
   titulo="Cierre del curso"
   descripcion="Expediente del detective lector, autoevaluación y certificado de Aventura lectora."
+  ubicacion={{ tipo: 'cierre' }}
 >
-  <div class="bg-sunshine-pop pb-16 pt-36 md:pb-24 md:pt-44">
-    <div class="contenedor">
-      <p class="text-body font-medium">Cierre del curso</p>
-      <h1 class="mt-2 max-w-4xl text-display font-medium leading-[0.92] tracking-tighter">
-        Tu expediente de detective
-      </h1>
-      <p class="mt-6 max-w-2xl text-subheading">
-        Resolviste los casos. Ahora junta tu trabajo, cuenta cómo te fue y descarga tu certificado.
-      </p>
-    </div>
-  </div>
+  <EncabezadoPagina
+    etiqueta="Cierre del curso"
+    titulo="Tu expediente de detective"
+    color="sunshine-pop"
+  >
+    <p>
+      Resolviste los casos. Ahora junta tu trabajo, cuenta cómo te fue y descarga tu certificado.
+    </p>
+  </EncabezadoPagina>
 
   <Seccion id="pasaporte" titulo="Tu pasaporte de detective" etiqueta="Insignias">
     <BadgeTracker client:visible modo="pasaporte" insignias={insignias} />
@@ -85,15 +84,4 @@ const nombres_nivel = { superior: 'Superior', alto: 'Alto', basico: 'Básico', b
   <Seccion id="certificado" titulo="Detective de la lectura" etiqueta="Certificado" fondo="arena">
     <Certificate client:visible />
   </Seccion>
-
-  <section class="py-section">
-    <div class="contenedor flex flex-wrap items-center justify-between gap-6">
-      <p class="max-w-lg text-heading-sm font-medium leading-tight tracking-tight">
-        Última página del libro: las referencias.
-      </p>
-      <ButtonGhost href="/referencias" color="sun" data-pasar-pagina>
-        Pasar la página
-      </ButtonGhost>
-    </div>
-  </section>
-</BaseLayout>
+</CursoLayout>
