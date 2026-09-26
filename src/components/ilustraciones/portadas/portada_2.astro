@@ -22,13 +22,22 @@ const { titulo, alt } = Astro.props;
     preserveAspectRatio="xMidYMid meet"
     focusable="false"
   >
+    <!-- Nubes con detalle orgánico -->
     <g fill="#ffffff">
-      <ellipse cx="140" cy="140" rx="90" ry="30"></ellipse>
-      <ellipse cx="196" cy="116" rx="54" ry="34"></ellipse>
-      <ellipse cx="640" cy="230" rx="100" ry="32"></ellipse>
-      <ellipse cx="690" cy="206" rx="56" ry="34"></ellipse>
+      <!-- Nube 1 -->
+      <path d="M 80 140 A 30 30 0 0 1 110 100 A 44 44 0 0 1 180 90 A 38 38 0 0 1 240 130 A 30 30 0 0 1 220 180 L 80 180 A 30 30 0 0 1 80 140 Z"></path>
+      <path d="M 80 180 L 220 180 A 30 30 0 0 0 238 160 C 210 168 170 172 140 168 C 110 164 90 154 75 145 A 30 30 0 0 0 80 180 Z" fill="#e0dbce" opacity="0.5"></path>
+      <!-- Nube 2 -->
+      <g transform="translate(480, 80) scale(1.1)">
+        <path d="M 80 140 A 30 30 0 0 1 110 100 A 44 44 0 0 1 180 90 A 38 38 0 0 1 240 130 A 30 30 0 0 1 220 180 L 80 180 A 30 30 0 0 1 80 140 Z"></path>
+        <path d="M 80 180 L 220 180 A 30 30 0 0 0 238 160 C 210 168 170 172 140 168 C 110 164 90 154 75 145 A 30 30 0 0 0 80 180 Z" fill="#e0dbce" opacity="0.5"></path>
+      </g>
     </g>
+
+    <!-- Colina de fondo -->
     <path d="M0 660 C200 600 460 620 800 590 V800 H0 Z" fill="#8ed462"></path>
+    <!-- Sombra/relieve de colina -->
+    <path d="M0 700 C200 640 460 660 800 630 V800 H0 Z" fill="#6fbb47" opacity="0.4"></path>
   </svg>
   <svg
     slot="medio"
@@ -37,17 +46,32 @@ const { titulo, alt } = Astro.props;
     preserveAspectRatio="xMidYMid meet"
     focusable="false"
   >
+    <!-- Tronco principal con corteza y volumen -->
     <path
       d="M382 800 C388 640 372 520 392 380 L430 380 C440 520 424 650 434 800 Z"
       fill="#8b6b4a"
     ></path>
     <path
-      d="M410 470 C330 440 250 420 170 330"
+      d="M382 800 C388 640 372 520 392 380 L400 380 C390 520 400 650 395 800 Z"
+      fill="#725538"
+    ></path>
+    <!-- Ramas principales -->
+    <!-- Rama izq -->
+    <path
+      d="M405 470 C330 440 250 420 170 330"
       stroke="#8b6b4a"
       stroke-width="26"
       stroke-linecap="round"
       fill="none"
     ></path>
+    <path
+      d="M405 460 C330 430 250 410 170 320"
+      stroke="#725538"
+      stroke-width="8"
+      stroke-linecap="round"
+      fill="none"
+    ></path>
+    <!-- Rama der -->
     <path
       d="M410 430 C500 400 580 390 650 300"
       stroke="#8b6b4a"
@@ -56,16 +80,42 @@ const { titulo, alt } = Astro.props;
       fill="none"
     ></path>
     <path
+      d="M410 440 C500 410 580 400 650 310"
+      stroke="#725538"
+      stroke-width="8"
+      stroke-linecap="round"
+      fill="none"
+    ></path>
+    <!-- Rama centro -->
+    <path
       d="M410 380 C410 320 400 270 400 220"
       stroke="#8b6b4a"
       stroke-width="26"
       stroke-linecap="round"
       fill="none"
     ></path>
-    <circle cx="410" cy="250" r="150" fill="#5aa03a"></circle>
-    <circle cx="250" cy="330" r="110" fill="#6fbb47"></circle>
-    <circle cx="590" cy="320" r="110" fill="#6fbb47"></circle>
-    <circle cx="420" cy="180" r="100" fill="#8ed462"></circle>
+
+    <!-- Hojas y follaje con volumen y organicidad -->
+    <g fill="#5aa03a">
+      <circle cx="410" cy="250" r="150"></circle>
+    </g>
+    <g fill="#6fbb47">
+      <circle cx="250" cy="330" r="110"></circle>
+      <circle cx="590" cy="320" r="110"></circle>
+    </g>
+    <g fill="#8ed462">
+      <circle cx="420" cy="180" r="100"></circle>
+    </g>
+    
+    <!-- Detalles de hojas (sombras interiores) -->
+    <g fill="#4f9a34" opacity="0.3">
+      <!-- Sombra en círculo central inferior -->
+      <path d="M 260 250 A 150 150 0 0 0 560 250 A 150 150 0 0 1 260 250 Z"></path>
+      <!-- Sombra en izq -->
+      <path d="M 140 330 A 110 110 0 0 0 360 330 A 110 110 0 0 1 140 330 Z"></path>
+      <!-- Sombra en der -->
+      <path d="M 480 320 A 110 110 0 0 0 700 320 A 110 110 0 0 1 480 320 Z"></path>
+    </g>
   </svg>
   <svg
     slot="frente"
@@ -74,27 +124,42 @@ const { titulo, alt } = Astro.props;
     preserveAspectRatio="xMidYMid meet"
     focusable="false"
   >
+    <!-- Elementos colgantes (Libro, Periódico, Lista) -->
     <g transform="translate(120 300)">
-      <path d="M50 0 V40" stroke="#2c2e2a" stroke-width="5"></path>
-      <rect x="-20" y="40" width="140" height="130" rx="22" fill="#ffffff"></rect>
+      <!-- Cuerda -->
+      <path d="M50 0 V40" stroke="#2c2e2a" stroke-width="6" stroke-linecap="round"></path>
+      <!-- Sombra de la caja -->
+      <rect x="-16" y="44" width="140" height="130" rx="22" fill="#2c2e2a" opacity="0.15"></rect>
+      <!-- Caja -->
+      <rect x="-20" y="40" width="140" height="130" rx="22" fill="#ffffff" stroke="#2c2e2a" stroke-width="4"></rect>
+      <!-- Chincheta -->
+      <circle cx="50" cy="40" r="6" fill="#ff705d" stroke="#2c2e2a" stroke-width="3"></circle>
       <g transform="translate(6 62)">
         <Libro size={86} />
       </g>
     </g>
+    
     <g transform="translate(470 230)">
-      <path d="M50 0 V40" stroke="#2c2e2a" stroke-width="5"></path>
-      <rect x="-20" y="40" width="140" height="130" rx="22" fill="#ffffff"></rect>
+      <path d="M50 0 V40" stroke="#2c2e2a" stroke-width="6" stroke-linecap="round"></path>
+      <rect x="-16" y="44" width="140" height="130" rx="22" fill="#2c2e2a" opacity="0.15"></rect>
+      <rect x="-20" y="40" width="140" height="130" rx="22" fill="#ffffff" stroke="#2c2e2a" stroke-width="4"></rect>
+      <circle cx="50" cy="40" r="6" fill="#2ba0ff" stroke="#2c2e2a" stroke-width="3"></circle>
       <g transform="translate(8 66)">
         <Periodico size={80} />
       </g>
     </g>
+    
     <g transform="translate(300 90)">
-      <path d="M50 0 V40" stroke="#2c2e2a" stroke-width="5"></path>
-      <rect x="-20" y="40" width="140" height="130" rx="22" fill="#ffffff"></rect>
+      <path d="M50 0 V40" stroke="#2c2e2a" stroke-width="6" stroke-linecap="round"></path>
+      <rect x="-16" y="44" width="140" height="130" rx="22" fill="#2c2e2a" opacity="0.15"></rect>
+      <rect x="-20" y="40" width="140" height="130" rx="22" fill="#ffffff" stroke="#2c2e2a" stroke-width="4"></rect>
+      <circle cx="50" cy="40" r="6" fill="#f5e211" stroke="#2c2e2a" stroke-width="3"></circle>
       <g transform="translate(14 60)">
         <ListaPasos size={98} />
       </g>
     </g>
+    
+    <!-- Personajes -->
     <g transform="translate(80 470)">
       <Mateo size={300} pose="libreta" />
     </g>
