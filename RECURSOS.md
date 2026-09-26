@@ -34,12 +34,12 @@ Hallazgo: las dos evidencias de aprendizaje de la unidad 2 de la ficha son textu
 | w1_fabula | "La liebre y la tortuga: la fábula (con guía para padres y maestros)", Cultura Genial | Versión comparativa de la fábula y preguntas para conversar | https://www.culturagenial.com/es/la-liebre-y-la-tortuga/ | Encontrado |
 | w1_hipotesis | Colombia Aprende, Contenidos para aprender, grado quinto: "Proposición de hipótesis predictivas sobre un texto literario" | Práctica de predicción (antes de leer) | Listado: https://colombiaaprende.edu.co/contenidos-para-aprender (filtrar Básica primaria, Grado quinto, Lenguaje) | Encontrado el título en el listado; el equipo copia el enlace directo del módulo |
 | w1_video_ficha | Video de la ficha para la actividad "Mensaje oculto" | Preguntas de inferencia | https://www.youtube.com/watch?v=yVYG4uvefCQ | Por confirmar: al abrirlo, YouTube redirigió a otro video sin título (canal "69", mayo de 2022). Revisar a mano. Si no es el esperado, reemplazar |
-| w1_happy | Canal Happy Learning Español (videos educativos para niños) | Alternativa al video de la ficha: un video sobre comprensión lectora | https://www.youtube.com/@HappyLearningEs | Canal encontrado; video exacto por confirmar |
+| w1_happy | Canal Happy Learning Español (videos educativos para niños) | Alternativa al video de la ficha: un video sobre comprensión lectora | https://www.youtube.com/@HappyLearningEs | No se usó en el sitio (se reemplazó por recursos verificados) |
 
 APA 7:
 - Arancibia Durán, C. (s.f.). *La liebre y la tortuga: la fábula (con guía para padres y maestros)*. Cultura Genial. https://www.culturagenial.com/es/la-liebre-y-la-tortuga/
-- Ministerio de Educación Nacional. (s.f.). *Proposición de hipótesis predictivas sobre un texto literario* [Recurso educativo digital]. Colombia Aprende. [PENDIENTE: URL directa]
-- [PENDIENTE: cita del video una vez confirmado. Formato: Apellido, I. o Nombre del canal. (Año, día de mes). *Título del video* [Video]. YouTube. URL]
+- Ministerio de Educación Nacional. (s.f.). *Proposición de hipótesis predictivas sobre un texto literario* [Recurso educativo digital]. Colombia Aprende. https://colombiaaprende.edu.co/contenidos-para-aprender/proposicion-de-hipotesis-predictivas-sobre-un-texto-literario (URL confirmada el 24 de septiembre de 2026)
+- Miss Edith. (2020, 26 de junio). *EL MENSAJE OCULTO* [Video]. YouTube. https://www.youtube.com/watch?v=yVYG4uvefCQ (video confirmado el 24 de septiembre de 2026)
 
 ### Caso 2. Descubro el sendero de los textos
 | Id | Recurso | Uso | Enlace | Estado |
@@ -48,14 +48,14 @@ APA 7:
 | w2_mintic_guia | Guía "Un paseo diferente" (MinTIC, Colombia Programa), con el texto del cuento en el anexo | Respaldo del texto y otra propuesta de actividad con el cuento | https://mintic.gov.co/colombiaprograma/847/articles-407418_recurso_1.pdf | Encontrado |
 | w2_pombo_bio | Biografía de Rafael Pombo, Biografías y Vidas | Fuente del texto informativo "¿Quién fue Rafael Pombo?" | https://www.biografiasyvidas.com/biografia/p/pombo_rafael.htm | Encontrado |
 | w2_textos_info | Colombia Aprende, grado quinto: "Construcción de textos informativos" | Ampliación del texto informativo | Listado de Contenidos para aprender (ver caso 1) | Título encontrado; URL directa pendiente |
-| w2_happy_tipos | Video de Happy Learning Español sobre tipos de texto | Refuerzo audiovisual | Canal (ver caso 1) | Por confirmar |
+| w2_happy_tipos | Video de Happy Learning Español sobre tipos de texto | Refuerzo audiovisual | Canal (ver caso 1) | No se usó en el sitio (se reemplazó por el módulo de Colombia Aprende) |
 
 Dominio público: Rafael Pombo murió en 1912, así que su obra ya es de dominio público en Colombia. El sitio puede mostrar el texto completo con la cita de la fuente de donde se copió.
 
 APA 7:
 - Pombo, R. (s.f.). *El renacuajo paseador*. Biblioteca Virtual Miguel de Cervantes. https://www.cervantesvirtual.com/obra/el-renacuajo-paseador-1168925/
 - Ministerio de Tecnologías de la Información y las Comunicaciones. (s.f.). *Guía: Un paseo diferente* [Guía didáctica]. Colombia Programa. https://mintic.gov.co/colombiaprograma/847/articles-407418_recurso_1.pdf
-- Fernández, T., y Tamaro, E. (s.f.). *Biografía de Rafael Pombo*. Biografías y Vidas. https://www.biografiasyvidas.com/biografia/p/pombo_rafael.htm [PENDIENTE: confirmar autores en la página]
+- Fernández, T., y Tamaro, E. (s.f.). *Biografía de Rafael Pombo*. Biografías y Vidas. https://www.biografiasyvidas.com/biografia/p/pombo_rafael.htm [Autores confirmados en la página el 25 de septiembre de 2026: Tomás Fernández y Elena Tamaro; publicada en 2004, por eso el sitio cita (2004)]
 
 ### Caso 3. Pregunto como detective
 | Id | Recurso | Uso | Enlace | Estado |
@@ -80,7 +80,7 @@ APA 7:
 - Google. (s.f.). *Interland: Sé genial en Internet* [Juego en línea]. https://beinternetawesome.withgoogle.com/interland/
 - la diaria. (2021). *Reinformados* [Recursos educativos]. https://ver.ladiaria.com.uy/reinformados
 - Chequeado. (2020). *Infodemia en la escuela: Recursos para docentes sobre coronavirus y desinformación*. https://chequeado.com/infodemiaenlaescuela/
-- EduCaixa. (s.f.). *El laberinto de la información* [Recurso educativo]. [PENDIENTE: URL]
+- EduCaixa. (s.f.). *El laberinto de la información* [Recurso educativo]. https://educaixa.org/es/-/recurso/laberinto-informacion (confirmada el 24 de septiembre de 2026; el sitio muestra el Genially oficial)
 
 ### Caso 5. Mi voz cuenta
 | Id | Recurso | Uso | Enlace | Estado |
@@ -90,7 +90,7 @@ APA 7:
 | w5_argumentativos | Colombia Aprende, grado quinto: "Producción de textos argumentativos" | Escribir el texto de opinión | Listado de Contenidos para aprender | Título encontrado; URL directa pendiente |
 
 APA 7 (mismo formato para los tres):
-- Ministerio de Educación Nacional. (s.f.). *Justificación del punto de vista* [Recurso educativo digital]. Colombia Aprende. [PENDIENTE: URL]
+- Ministerio de Educación Nacional. (s.f.). *Justificación del punto de vista* [Recurso educativo digital]. Colombia Aprende. https://colombiaaprende.edu.co/contenidos-para-aprender/justificacion-del-punto-de-vista (confirmada el 24 de septiembre de 2026)
 
 ### Ilustración del sitio (no cuenta en el 50/50)
 | Id | Recurso | Licencia | Enlace | Estado |
@@ -126,7 +126,7 @@ Los recursos propios se agrupan en tres por caso (una fila de la ficha = un recu
 Fuera del conteo, por ser evaluación, decoración o material para docentes: retos sumativos, rúbricas, certificado, portadas ilustradas de los casos, y del cuaderno de docentes la presentación de socialización, la guía para familias y el mapa mental.
 
 Crédito de la herramienta de IA en `/creditos` (APA 7, formato para software):
-- Google. (2026). *Gemini Notebook* [Herramienta de inteligencia artificial]. https://notebooklm.google.com [PENDIENTE: confirmar la URL vigente después del cambio de nombre]
+- Google. (2026). *Gemini Notebook* [Herramienta de inteligencia artificial]. https://notebook.google/ [URL vigente confirmada el 24 de septiembre de 2026]
 
 Declaración sugerida para `/creditos`: "Los podcasts, videos, infografías y tarjetas marcados con la etiqueta de IA fueron generados por el equipo con Gemini Notebook a partir de textos escritos por el equipo, y revisados antes de publicarse."
 

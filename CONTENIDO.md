@@ -90,7 +90,7 @@ Escala: la del Sistema Institucional de Evaluación de cada colegio, con los des
 
 ## Parte B. Caso 1. Leo y comprendo
 
-Responsable: [PENDIENTE: nombre completo]
+Responsable: Luz Marina Castillo Cuadrado (asignado el 24 de septiembre de 2026; se cambia en `src/config/sitio.ts`)
 
 ### Imagen de la unidad (Texto de la ficha)
 La unidad iniciará con una imagen relacionada con el proceso lector. Se presentará a un estudiante leyendo un libro y, a su alrededor, diferentes elementos como signos de interrogación, una lupa, ideas, palabras clave, imágenes y pequeñas representaciones de situaciones relacionadas con la lectura.
@@ -229,7 +229,7 @@ Fuente y prompts: `gemini_notebook/fuentes/caso_1_leo_y_comprendo.md` y `gemini_
 1. Título y duración: Mi bitácora de detective lector, 45 minutos.
 2. Procedimiento:
    - Lee el título "La cigarra y la hormiga" y mira la imagen. Antes de leer, escribe dos predicciones.
-   - Lee la fábula (texto en el sitio; adaptación del equipo a partir de Esopo, [PENDIENTE: el equipo redacta la adaptación de unas 200 palabras o enlaza una versión de dominio público]).
+   - Lee la fábula (texto en el sitio; adaptación del equipo a partir de Esopo, [Adaptación de 172 palabras redactada por Claude el 24 de septiembre de 2026. PENDIENTE: el equipo la aprueba; cambia el final de Esopo (aquí la hormiga ayuda a la cigarra). Ver `/docentes`.]).
    - Durante la lectura, escribe dos preguntas que te hiciste y una palabra nueva con su significado según el contexto.
    - Después de leer, escribe un resumen de tres oraciones y tu opinión usando "Yo pienso que... porque...".
 3. Producto: una bitácora de una página con las tres partes (antes, durante, después). Se completa en el sitio, se descarga como PDF y se entrega en la plataforma del curso.
@@ -248,7 +248,7 @@ Para familias: "Pregúntale a tu hijo o hija qué predijo antes de leer y si ace
 
 ## Parte C. Caso 2. Descubro el sendero de los textos
 
-Responsable: [PENDIENTE: nombre completo]
+Responsable: Selene María Caballero Valle (asignado el 24 de septiembre de 2026; se cambia en `src/config/sitio.ts`)
 
 ### Imagen de la unidad
 En la ficha: imagen de un árbol cuyas ramas sostienen libros y un niño leyendo al pie. Fuente y licencia desconocidas. Propuesta: ilustración propia equivalente en estilo papel recortado (un árbol con tres ramas; en cada una cuelga un tipo de texto: un cuento, un periódico y una receta), o citar la fuente original con su licencia.
@@ -303,13 +303,13 @@ Clave (el equipo la ajusta sobre el texto definitivo):
 - Inicio: Rinrín sale de casa sin hacer caso a su mamá, se encuentra con el ratón y llegan a casa de doña Ratona.
 - Nudo: durante la visita y la fiesta llegan la gata y sus gatos.
 - Desenlace: los gatos atrapan al ratón y a doña Ratona, un pato se come a Rinrín y mamá rana se queda sola.
-[PENDIENTE: el equipo verifica la clave estrofa por estrofa contra el texto de Cervantes Virtual.]
+[VERIFICADO el 25 de septiembre de 2026: los 54 versos se compararon con la edición de la Biblioteca Luis Ángel Arango (Banco de la República) y otras tres ediciones; la clave coincide estrofa por estrofa (inicio e1 a e4, nudo e5 a e10, desenlace e11 a e14). Cervantes Virtual bloquea la lectura automática.]
 
 #### Material informativo: "¿Quién fue Rafael Pombo?" (recurso propio)
 Rafael Pombo fue un poeta colombiano. Nació en Bogotá en 1833 y murió en la misma ciudad en 1912. Estudió ingeniería y también trabajó como diplomático.
 Aunque escribió poemas para adultos, se hizo famoso por sus cuentos en verso para niños. Entre ellos están "El renacuajo paseador", "La pobre viejecita", "Simón el bobito" y "El gato bandido".
 Sus obras completas se publicaron por primera vez en 1916, en cuatro tomos. Hoy muchas familias colombianas todavía recitan de memoria las aventuras de Rinrín renacuajo.
-Fuente: Biografías y Vidas (ver RECURSOS.md). [PENDIENTE: el equipo confirma los datos con una segunda fuente antes de publicar.]
+Fuente: Biografías y Vidas (ver RECURSOS.md). [VERIFICADO el 25 de septiembre de 2026 con la Enciclopedia del Banco de la República; el texto dice "a partir de 1916" porque las fuentes hablan de 1916 y 1917.]
 
 Pregunta de enlace: "Compara este texto con el cuento. ¿Cuál te cuenta una historia y cuál te da datos reales? ¿Cómo lo sabes?"
 
@@ -326,7 +326,7 @@ Pasos:
 
 Actividad (recurso propio, `StepOrderer`): los pasos aparecen desordenados y el estudiante los ordena. Retroalimentación: "Si pegas los ojos antes de recortarlos, no funciona: en un instructivo el orden importa."
 
-Recurso web sugerido: video corto sobre tipos de texto del canal Happy Learning Español [PENDIENTE: el equipo elige el video exacto y confirma el enlace].
+Recurso web sugerido: video corto sobre tipos de texto del canal Happy Learning Español [NO SE USÓ: el sitio lo reemplazó por el módulo de Colombia Aprende "Construcción de textos informativos", ya verificado. Si el equipo quiere un video de Happy Learning debe elegir el video exacto y confirmar el enlace].
 
 ### Kit multimedia del caso (hecho por el equipo con Gemini Notebook)
 Fuente y prompts: `gemini_notebook/fuentes/caso_2_sendero_de_los_textos.md` + poema, y `02_prompts.md`, sección 2.
@@ -337,7 +337,7 @@ Fuente y prompts: `gemini_notebook/fuentes/caso_2_sendero_de_los_textos.md` + po
 
 ### Actividades formativas
 
-Cuestionario abc sobre el cuento (propio, `QuizCard`). [PENDIENTE: verificar cada pregunta contra el texto definitivo.]
+Cuestionario abc sobre el cuento (propio, `QuizCard`). [VERIFICADO el 25 de septiembre de 2026: las 6 preguntas y sus respuestas son coherentes con el texto definitivo.]
 | # | Nivel | Pregunta | a | b | c | Correcta | Retroalimentación |
 |---|---|---|---|---|---|---|---|
 | 1 | Literal | ¿Qué le gritó mamá rana a Rinrín cuando salía? | Que no saliera de la casa | Que volviera antes de la cena | Que llevara su sombrero nuevo | a | Al comienzo, la mamá le grita que no salga, pero él no hace caso. |
@@ -379,7 +379,7 @@ Para familias: "Busquen en casa un cuento, una receta o una etiqueta y jueguen a
 
 ## Parte D. Caso 3. Pregunto como detective (Propuesta completa; en la ficha estaba vacía)
 
-Responsable: [PENDIENTE: nombre completo]
+Responsable: Ingrid Yuliana González Flores (asignado el 24 de septiembre de 2026; se cambia en `src/config/sitio.ts`)
 
 ### Imagen de la unidad
 Ilustración propia: una lupa grande sobre una página, y dentro de la lupa se ven tres capas: la superficie de la página (literal), unas huellas debajo (inferencial) y un signo de pregunta en el fondo con una bombilla (crítico).
@@ -472,7 +472,7 @@ Para familias: "Después de ver un programa o leer algo juntos, háganse una pre
 
 ## Parte E. Caso 4. Detectives de noticias (Propuesta completa)
 
-Responsable: [PENDIENTE: nombre completo]
+Responsable: Maribel León Grillo (asignado el 24 de septiembre de 2026; se cambia en `src/config/sitio.ts`)
 
 ### Imagen de la unidad
 Ilustración propia: dos niños con lupa frente a un periódico gigante y un celular con mensajes; algunos titulares tienen un signo de verificación y otros un signo de interrogación.
@@ -568,7 +568,7 @@ Fuente y prompts: `gemini_notebook/fuentes/caso_4_detectives_de_noticias.md` y `
 ### Actividad sumativa: reto del caso 4 "Detective de noticias"
 1. Título y duración: Detective de noticias, 50 minutos.
 2. Procedimiento:
-   - El docente comparte una noticia infantil real y actual [PENDIENTE: el docente la elige en un medio confiable].
+   - El docente comparte una noticia infantil real y actual [La noticia de ejemplo está en `src/data/noticia_reto4.json` (City TV Noticias, 25 de septiembre de 2026); el docente puede cambiarla por otra actual].
    - Responde qué, quién, cuándo, dónde, cómo y por qué.
    - Copia tres hechos y dos opiniones (o escribe "no encontré opiniones" y explica).
    - Aplica la lista LUPA y decide si confías en la fuente. Explica tu decisión.
@@ -588,7 +588,7 @@ Para familias: "Cuando les llegue una cadena por el celular, apliquen juntos la 
 
 ## Parte F. Caso 5. Mi voz cuenta (Propuesta completa; ocupa la fila "Unidad 5" de la ficha)
 
-Responsable: [PENDIENTE: nombre completo]
+Responsable: Silvia Gabriela Rincón Pérez (asignado el 24 de septiembre de 2026; se cambia en `src/config/sitio.ts`)
 
 ### Imagen de la unidad
 Ilustración propia: una niña en una tarima pequeña hablando con un megáfono de papel; detrás, una torre de bloques de colores con las palabras opinión, razón, ejemplo y conclusión.
@@ -638,7 +638,7 @@ Pregunta del reto (el estudiante elige una):
 Bloques: Mi opinión ("Yo pienso que..."), Razón 1 ("porque..."), Ejemplo ("Por ejemplo,..."), Razón 2 ("Además,..."), Conclusión ("En conclusión,..."). Cada bloque que se completa cae y se apila en la torre. Al final aparece el texto armado para leer y descargar como PDF.
 
 #### Muro de debate (recurso propio hecho con herramienta web 2.0: Padlet)
-El equipo crea un muro en Padlet con la pregunta 1, con dos columnas ("velocidad" y "constancia"). Cada estudiante publica su opinión con una razón y responde con respeto a un compañero de la otra columna usando "Entiendo tu idea, pero yo pienso que...". [PENDIENTE: enlace del Padlet; configurar publicaciones moderadas y sin datos personales.]
+El equipo crea un muro en Padlet con la pregunta 1, con dos columnas ("velocidad" y "constancia"). Cada estudiante publica su opinión con una razón y responde con respeto a un compañero de la otra columna usando "Entiendo tu idea, pero yo pienso que...". [RESUELTO: el sitio trae su propio muro (`MuroDetective`), que vive en el navegador y no pide datos personales; no hace falta Padlet. Ver la sección 17 de `SPECS.md`.]
 
 Recursos web: módulos de Colombia Aprende de grado quinto "Justificación del punto de vista" y "Justificación de opiniones en un debate" (ver RECURSOS.md).
 
