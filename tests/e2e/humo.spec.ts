@@ -168,9 +168,7 @@ test.describe('actividades', () => {
     ).toBeVisible();
   });
 
-  test('el clasificador de textos se completa con el menu Enviar a (solo teclado)', async ({
-    page,
-  }) => {
+  test('el clasificador de textos se completa con los botones Mover a', async ({ page }) => {
     await page.goto('/unidad/2/lupa');
     const zona = page.getByRole('region', { name: 'Clasificador de textos' });
     await hidratada(zona);
@@ -178,7 +176,10 @@ test.describe('actividades', () => {
     const cajas = Object.fromEntries(act2.clasificador.cajas.map((c) => [c.id, c.titulo]));
     for (const item of items) {
       const tarjeta = zona.locator('li', { hasText: item.texto }).first();
-      await tarjeta.getByRole('combobox').selectOption({ label: cajas[item.caja] });
+      await tarjeta
+        .getByRole('group', { name: /Mover a una caja/ })
+        .getByRole('button', { name: cajas[item.caja], exact: true })
+        .click();
     }
     await zona.getByRole('button', { name: 'Revisar', exact: true }).click();
     await expect(
@@ -387,5 +388,130 @@ test.describe('libro de cuatro paginas por caso', () => {
       'aria-current',
       'page',
     );
+  });
+});
+
+test.describe('video en vista', () => {
+  async function centrar(video: Locator) {
+    await video.evaluate((el) => el.scrollIntoView({ block: 'center' }));
+  }
+
+  test('empieza solo y sin sonido al llegar a la pantalla y se pausa al salir', async ({
+    page,
+  }) => {
+    await page.goto('/unidad/1/pistas');
+    const video = page.locator('video').first();
+    await centrar(video);
+    await expect.poll(() => video.evaluate((v: HTMLVideoElement) => !v.paused)).toBe(true);
+    expect(await video.evaluate((v: HTMLVideoElement) => v.muted)).toBe(true);
+    await expect(page.getByRole('button', { name: 'Activar sonido' })).toBeVisible();
+    // no caption track: the captions are already burned into the picture
+    await expect(video.locator('track')).toHaveCount(0);
+    await page.evaluate(() => window.scrollTo(0, 0));
+    await expect.poll(() => video.evaluate((v: HTMLVideoElement) => v.paused)).toBe(true);
+  });
+
+  test('el boton Activar sonido quita el silencio', async ({ page }) => {
+    await page.goto('/unidad/1/pistas');
+    const video = page.locator('video').first();
+    await centrar(video);
+    await expect.poll(() => video.evaluate((v: HTMLVideoElement) => !v.paused)).toBe(true);
+    await page.getByRole('button', { name: 'Activar sonido' }).click();
+    expect(await video.evaluate((v: HTMLVideoElement) => v.muted)).toBe(false);
+  });
+
+  test.describe('con movimiento reducido', () => {
+    test.use({ reducedMotion: 'reduce' });
+
+    test('no se reproduce solo: queda el boton de reproducir sobre el poster', async ({ page }) => {
+      await page.goto('/unidad/1/pistas');
+      const video = page.locator('video').first();
+      await centrar(video);
+      await page.waitForTimeout(1500);
+      expect(await video.evaluate((v: HTMLVideoElement) => v.paused)).toBe(true);
+      await expect(page.getByRole('button', { name: /Ver el video/ }).first()).toBeVisible();
+    });
+  });
+});
+
+test.describe('orientacion dentro del caso', () => {
+  test('los pasos del caso marcan la pagina actual y las ya leidas', async ({ page }) => {
+    await page.goto('/unidad/2/pistas');
+    await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+    await expect(page.locator('[data-aviso-pagina]')).toContainText(
+      'Página leída: Seguir las pistas',
+    );
+    await page.goto('/unidad/2/lupa');
+    const pasos = page.getByRole('navigation', { name: 'Pasos de este caso' });
+    await expect(pasos.getByRole('link', { name: /Entrenar la lupa/ })).toHaveAttribute(
+      'aria-current',
+      'page',
+    );
+    await expect(pasos.getByRole('link', { name: /Seguir las pistas/ })).toContainText('Leída');
+  });
+
+  test('en celular la pagina de pistas ofrece el indice En esta pagina', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto('/unidad/3/pistas');
+    const indice = page.locator('details', { hasText: 'En esta página' });
+    await expect(indice).toBeVisible();
+    await indice.locator('summary').click();
+    await expect(indice.getByRole('link').first()).toBeVisible();
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await expect(indice).toBeHidden();
+  });
+
+  test('el paginador pone la pagina siguiente primero en celular', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto('/unidad/1');
+    const enlaces = page.getByRole('navigation', { name: 'Páginas del libro' }).getByRole('link');
+    await expect(enlaces.first()).toHaveAttribute('rel', 'next');
+  });
+});
+
+test.describe('portada como libro', () => {
+  const tamanos = [
+    { nombre: 'escritorio', ancho: 1440, alto: 900, largo: 1 },
+    { nombre: 'tableta', ancho: 768, alto: 1024, largo: 1.5 },
+    { nombre: 'celular', ancho: 390, alto: 844, largo: 1.5 },
+    { nombre: 'celular pequeno', ancho: 360, alto: 640, largo: 1.5 },
+  ];
+  for (const t of tamanos) {
+    test(`el libro se abre con el scroll y la portadilla queda a la vista (${t.nombre})`, async ({
+      page,
+    }) => {
+      await page.setViewportSize({ width: t.ancho, height: t.alto });
+      await page.goto('/');
+      await page.waitForLoadState('networkidle');
+      await expect(page.locator('.apertura-activa')).toHaveCount(1);
+      await expect(page.getByRole('link', { name: 'Empezar el caso 1' }).first()).toHaveAttribute(
+        'href',
+        '/unidad/1',
+      );
+      await page.evaluate((y) => window.scrollTo(0, y), Math.round(t.alto * t.largo));
+      await page.waitForTimeout(1600);
+      const caja = await page.locator('#portadilla').boundingBox();
+      expect(caja).not.toBeNull();
+      // the title page is inside the screen once the book is open (centered on phones)
+      const centro = (caja?.x ?? 0) + (caja?.width ?? 0) / 2;
+      expect(centro).toBeGreaterThan(0);
+      expect(centro).toBeLessThan(t.ancho);
+    });
+  }
+
+  test('en horizontal de celular la portada es una pila de paginas simple', async ({ page }) => {
+    await page.setViewportSize({ width: 844, height: 390 });
+    await page.goto('/');
+    await page.waitForLoadState('networkidle');
+    await expect(page.locator('.apertura-activa')).toHaveCount(0);
+    await expect(page.locator('#portadilla')).toBeAttached();
+  });
+
+  test('un clic en el boton O baja para abrir el libro lo abre', async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.goto('/');
+    await page.waitForLoadState('networkidle');
+    await page.getByRole('button', { name: /baja para abrir el libro/ }).click();
+    await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(500);
   });
 });
