@@ -160,10 +160,10 @@ import { integrantes, sitio } from '../../config/sitio';
 <style>
   .apertura {
     --w: min(92vw, 30rem);
-    --h: min(calc(100svh - 7.5rem), 40rem, calc(var(--w) * 1.55));
+    --h: min(calc(100svh - 8.5rem), 40rem, calc(var(--w) * 1.55));
     --borde: 2px solid var(--color-ink-black);
     background: var(--color-sandstone);
-    padding: 2rem 1rem 3rem;
+    padding: 5rem 1rem 3rem;
   }
 
   /* plain mode: cover, then the two pages, stacked (side by side on wide screens) */
@@ -276,7 +276,7 @@ import { integrantes, sitio } from '../../config/sitio';
     height: 100svh;
     align-items: center;
     justify-content: center;
-    padding: 3.5rem 0 0;
+    padding: 4.25rem 1rem 1.25rem;
     overflow: hidden;
   }
   :global(.apertura-activa) .libro {
@@ -295,6 +295,7 @@ import { integrantes, sitio } from '../../config/sitio';
     z-index: 5;
     width: var(--w);
     height: var(--h);
+    pointer-events: none;
   }
   :global(.apertura-activa) .portadilla {
     position: absolute;
@@ -313,6 +314,7 @@ import { integrantes, sitio } from '../../config/sitio';
     max-width: none;
     height: 100%;
     min-height: 0;
+    pointer-events: auto;
   }
   :global(.apertura-activa) .dorso {
     border-radius: 0 1.25rem 1.25rem 0;
