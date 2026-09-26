@@ -3,7 +3,7 @@ import Subseccion from '../../../components/ui/subseccion.astro';
 import Video from '../../../components/ui/video.astro';
 import Embed from '../../../components/ui/embed.astro';
 import ResourceTag from '../../../components/ui/resource_tag.astro';
-import Pendiente from '../../../components/ui/pendiente.astro';
+import Verificacion from '../../../components/ui/verificacion.astro';
 import CamaraVinetas from '../../../components/libro/camara_vinetas.astro';
 import ComicTresTextos from '../../../components/ilustraciones/comic_tres_textos.astro';
 import Sendero from '../../../components/libro/sendero.astro';
@@ -49,13 +49,13 @@ export const focos_comic = act.comic.vinetas.map((v, i) => ({
 
 <div class="max-w-reading text-body space-y-3">
 
-Rafael Pombo murió en 1912, así que su obra es de dominio público en Colombia. El texto que sigue se tomó del anexo 1 de la guía "Un paseo diferente" (MinTIC, Colombia Programa).
+Rafael Pombo murió en 1912, así que su obra es de dominio público en Colombia. El texto que sigue se tomó del anexo 1 de la guía "Un paseo diferente" (MinTIC, Colombia Programa) y se comparó con la edición de la Biblioteca Luis Ángel Arango del Banco de la República.
 
 </div>
 
 <TextHighlighter client:visible estrofas={act.renacuajo.estrofas} unidad={2} id="renacuajo" clave={act.renacuajo.clave} etiqueta="Recurso propio con un texto de la web" instruccion="Lee el cuento y marca cada estrofa como inicio, nudo o desenlace. Luego pide revisar." />
 
-<p><Pendiente texto="el equipo verifica la clave estrofa por estrofa" /></p>
+<Verificacion datos={act.renacuajo.verificacion} pendiente="el equipo verifica la clave estrofa por estrofa" />
 
 <Embed id="w2_renacuajo" etiqueta="Fuente del texto" descripcion="El cuento de arriba se tomó del anexo 1 de esta guía de MinTIC, que también propone otra actividad con el cuento." />
 
@@ -70,6 +70,8 @@ Rafael Pombo murió en 1912, así que su obra es de dominio público en Colombia
 </div>
 
 <p class="max-w-reading text-body font-medium">{act.pombo.pregunta_enlace}</p>
+
+<Verificacion datos={act.pombo.verificacion} pendiente="el equipo confirma los datos de la biografía con una segunda fuente" />
 
 <Embed id="w2_pombo_bio" etiqueta="Fuente del texto" descripcion="Lee la biografía completa de Rafael Pombo, de donde sale el texto informativo. Compara: ¿qué datos se repiten y cuáles son nuevos?" />
 

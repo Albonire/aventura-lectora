@@ -84,9 +84,18 @@
       "titulo": "Texto narrativo",
       "mision": "Contar una historia.",
       "partes": [
-        ["Inicio", "presenta personajes y lugar"],
-        ["Nudo", "aparece el problema"],
-        ["Desenlace", "se resuelve"]
+        [
+          "Inicio",
+          "presenta personajes y lugar"
+        ],
+        [
+          "Nudo",
+          "aparece el problema"
+        ],
+        [
+          "Desenlace",
+          "se resuelve"
+        ]
       ],
       "pistas": "\"Había una vez\", personajes, diálogos."
     },
@@ -95,10 +104,22 @@
       "titulo": "Texto informativo",
       "mision": "Dar a conocer datos reales.",
       "partes": [
-        ["Título", ""],
-        ["Entrada", "con la idea principal"],
-        ["Desarrollo", "con datos"],
-        ["Cierre", ""]
+        [
+          "Título",
+          ""
+        ],
+        [
+          "Entrada",
+          "con la idea principal"
+        ],
+        [
+          "Desarrollo",
+          "con datos"
+        ],
+        [
+          "Cierre",
+          ""
+        ]
       ],
       "pistas": "Fechas, lugares, nombres reales, datos que se pueden comprobar."
     },
@@ -107,9 +128,18 @@
       "titulo": "Texto instructivo",
       "mision": "Enseñar a hacer algo.",
       "partes": [
-        ["Título", ""],
-        ["Materiales", ""],
-        ["Pasos numerados en orden", "a veces con imágenes"]
+        [
+          "Título",
+          ""
+        ],
+        [
+          "Materiales",
+          ""
+        ],
+        [
+          "Pasos numerados en orden",
+          "a veces con imágenes"
+        ]
       ],
       "pistas": "Verbos que dan órdenes (corta, pega, dobla), números de pasos."
     }
@@ -261,6 +291,11 @@
       "inicio": "Rinrín sale de casa sin hacer caso a su mamá, se encuentra con el ratón y llegan a casa de doña Ratona.",
       "nudo": "Durante la visita y la fiesta llegan la gata y sus gatos.",
       "desenlace": "Los gatos atrapan al ratón y a doña Ratona, un pato se come a Rinrín y mamá rana se queda sola."
+    },
+    "verificacion": {
+      "por": "Claude Code (asistente de IA)",
+      "fecha": "2026-09-25",
+      "texto": "Los 54 versos se compararon con la edición de la Biblioteca Luis Ángel Arango (Banco de la República) y con otras tres ediciones en línea. Coinciden salvo variantes menores de ortografía y puntuación (por ejemplo, \"bien venidos\" o \"les voy cantar\" en la edición del Banco de la República). La clave de inicio, nudo y desenlace se comprobó estrofa por estrofa contra el texto y coincide con la que definió el equipo."
     }
   },
   "pombo": {
@@ -268,9 +303,14 @@
     "parrafos": [
       "Rafael Pombo fue un poeta colombiano. Nació en Bogotá en 1833 y murió en 1912. Estudió ingeniería y también trabajó como diplomático.",
       "Aunque escribió poemas para adultos, se hizo famoso por sus cuentos en verso para niños. Entre ellos están \"El renacuajo paseador\", \"La pobre viejecita\", \"Simón el bobito\" y \"El gato bandido\".",
-      "Sus obras completas se publicaron por primera vez en 1916, en cuatro tomos. Hoy muchas familias colombianas todavía recitan de memoria las aventuras de Rinrín renacuajo."
+      "Sus obras completas se publicaron por primera vez a partir de 1916, en cuatro tomos. Hoy muchas familias colombianas todavía recitan de memoria las aventuras de Rinrín renacuajo."
     ],
-    "pregunta_enlace": "Compara este texto con el cuento. ¿Cuál te cuenta una historia y cuál te da datos reales? ¿Cómo lo sabes?"
+    "pregunta_enlace": "Compara este texto con el cuento. ¿Cuál te cuenta una historia y cuál te da datos reales? ¿Cómo lo sabes?",
+    "verificacion": {
+      "por": "Claude Code (asistente de IA)",
+      "fecha": "2026-09-25",
+      "texto": "Los datos se confirmaron con una segunda fuente, la Enciclopedia de la Red Cultural del Banco de la República (nacimiento y muerte en Bogotá, estudios de ingeniería, poemas para niños). La fecha de la edición completa de 1916 la trae Biografías y Vidas; otras fuentes hablan de 1916 y 1917, por eso el texto dice \"a partir de 1916\"."
+    }
   },
   "instructivo": {
     "titulo": "Cómo hacer un separador de libros de Rinrín renacuajo",

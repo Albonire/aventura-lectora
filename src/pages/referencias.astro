@@ -29,14 +29,23 @@ const ordenadas = [...new Map(citadas.map((c) => [c.apa, c])).values()].sort((a,
 );
 
 const declaracion_ia =
-  'Los podcasts, videos, infografías y tarjetas marcados con la etiqueta de IA fueron generados por el equipo con Gemini Notebook a partir de textos escritos por el equipo, y revisados antes de publicarse.';
+  'Los podcasts, videos, infografías y tarjetas marcados con la etiqueta de IA fueron generados por el equipo con Gemini Notebook a partir de textos escritos por el equipo, y revisados antes de publicarse. El código del sitio, la adaptación de La cigarra y la hormiga, los textos de retroalimentación y las verificaciones de textos indicadas en cada página se elaboraron con ayuda de Claude (Anthropic).';
 
 const herramientas = [
   ['Astro', 'Framework del sitio', 'MIT'],
   ['React', 'Actividades interactivas', 'MIT'],
   ['GSAP y ScrollTrigger', 'Animaciones ligadas al scroll', 'Licencia estándar de GSAP, gratuita'],
   ['Tailwind CSS', 'Estilos', 'MIT'],
-  ['Inter (Rasmus Andersson)', 'Tipografía, autoalojada', 'SIL Open Font License 1.1'],
+  [
+    'Inter (Rasmus Andersson)',
+    'Tipografía de la interfaz, autoalojada',
+    'SIL Open Font License 1.1',
+  ],
+  [
+    'Andika (SIL International)',
+    'Tipografía de las lecturas, autoalojada',
+    'SIL Open Font License 1.1',
+  ],
   ['Phosphor Icons', 'Iconos', 'MIT'],
   ['dnd kit', 'Arrastrar y soltar accesible', 'MIT'],
   ['jsPDF', 'Descarga de PDF en el navegador', 'MIT'],

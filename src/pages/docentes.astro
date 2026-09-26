@@ -6,6 +6,9 @@ import Seccion from '../components/ui/seccion.astro';
 import recursos from '../data/recursos.json';
 import datos_retos from '../data/retos.json';
 import multimedia from '../data/multimedia.json';
+import act1 from '../data/actividades/unidad_1.json';
+import act2 from '../data/actividades/unidad_2.json';
+import noticia_reto4 from '../data/noticia_reto4.json';
 import { integrantes, nombre_de, sitio } from '../config/sitio';
 import { ruta_seccion } from '../config/paginas';
 
@@ -72,6 +75,58 @@ const total = total_propios + total_web;
 const porcentaje = (v: number) => (total ? Math.round((v / total) * 100) : 0);
 
 const recursos_web = recursos.filter((r) => r.tipo === 'web').sort((a, b) => a.unidad - b.unidad);
+
+// what is verified and what still waits for the team; each row reads its state from the data files
+const revisadas = multimedia.filter((m) => (m as { revisado_por?: string }).revisado_por).length;
+const verificaciones = [
+  {
+    item: 'Adaptación de "La cigarra y la hormiga" (caso 1)',
+    listo: Boolean(act1.fabula_reto.revision.revisado_por),
+    estado: act1.fabula_reto.revision.revisado_por
+      ? `Revisada por ${act1.fabula_reto.revision.revisado_por}.`
+      : 'La redactó Claude a partir de Esopo (172 palabras, frases de 8 palabras en promedio). Cambia el final: aquí la hormiga ayuda a la cigarra y en Esopo la rechaza.',
+    cierre:
+      'El equipo la lee y decide si deja ese final. Se cierra escribiendo su nombre en revisado_por, en src/data/actividades/unidad_1.json.',
+  },
+  {
+    item: 'Poema "El renacuajo paseador" y su clave (caso 2)',
+    listo: Boolean(act2.renacuajo.verificacion?.por),
+    estado:
+      'Los 54 versos se compararon con la edición del Banco de la República y con otras tres ediciones; solo hay variantes menores de ortografía. La clave coincide con la del equipo y con cada estrofa. Las 6 preguntas del cuestionario también son coherentes con el texto.',
+    cierre: 'Listo. Verificado el 25 de septiembre de 2026.',
+  },
+  {
+    item: 'Biografía de Rafael Pombo (caso 2)',
+    listo: Boolean(act2.pombo.verificacion?.por),
+    estado:
+      'Confirmada con una segunda fuente (Enciclopedia del Banco de la República). La fecha de la edición completa se dejó como "a partir de 1916" porque las fuentes dicen 1916 o 1916 y 1917.',
+    cierre: 'Listo. Verificado el 25 de septiembre de 2026.',
+  },
+  {
+    item: 'Noticia del reto del caso 4',
+    listo: Boolean(noticia_reto4.url),
+    estado: noticia_reto4.url
+      ? `${noticia_reto4.medio}, ${noticia_reto4.fecha}. Se abrió y se leyó la página.`
+      : 'Sin noticia elegida.',
+    cierre:
+      'Es una noticia de ejemplo. El docente puede cambiarla por otra actual editando src/data/noticia_reto4.json.',
+  },
+  {
+    item: 'Enlace de entrega en la plataforma',
+    listo: Boolean(sitio.url_entrega),
+    estado: sitio.url_entrega
+      ? 'Configurado.'
+      : 'Los retos muestran "Pídele a tu profe el enlace de entrega".',
+    cierre: 'Pegar el enlace de Classroom o Moodle en url_entrega, en src/config/sitio.ts.',
+  },
+  {
+    item: 'Revisión de lo hecho con Gemini Notebook',
+    listo: revisadas === multimedia.length,
+    estado: `${revisadas} de ${multimedia.length} piezas tienen quién las revisó. Las transcripciones las hizo un programa de reconocimiento de voz y se corrigieron a mano.`,
+    cierre:
+      'Alguien del equipo escucha y mira cada pieza y escribe su nombre en revisado_por, en src/data/multimedia.json. La etiqueta de IA dice "revisado por el equipo": debe ser cierto.',
+  },
+];
 
 const niveles = ['superior', 'alto', 'basico', 'bajo'] as const;
 const nombres_nivel = { superior: 'Superior', alto: 'Alto', basico: 'Básico', bajo: 'Bajo' };
@@ -557,6 +612,50 @@ const tipo_pieza = { audio: 'Podcast', video: 'Video', infografia: 'Infografía'
         Los videos y recursos de otras páginas cargan solo cuando el estudiante lo pide.
       </li>
     </ul>
+  </Seccion>
+
+  <Seccion
+    id="verificaciones"
+    titulo="Verificaciones y pendientes"
+    etiqueta="Qué está confirmado y qué espera al equipo"
+  >
+    <div
+      class="overflow-x-auto rounded-card border-2 border-ink-black bg-pure-white p-2 md:p-4"
+      tabindex="0"
+      role="region"
+      aria-label="Tabla con desplazamiento horizontal"
+    >
+      <table class="w-full min-w-[44rem] text-left text-body-sm">
+        <caption class="sr-only">Verificaciones y pendientes del curso</caption>
+        <thead>
+          <tr class="border-b border-hairline-mist">
+            <th scope="col" class="px-3 py-3 font-medium">
+              Elemento
+            </th>
+            <th scope="col" class="px-3 py-3 font-medium">
+              Estado
+            </th>
+            <th scope="col" class="px-3 py-3 font-medium">
+              Qué falta o cómo se cierra
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {verificaciones.map((v) => (
+            <tr class="border-b border-hairline-mist align-top last:border-0">
+              <th scope="row" class="px-3 py-3 font-medium">
+                {v.item}
+              </th>
+              <td class="px-3 py-3">
+                <span class="interfaz font-medium">{v.listo ? 'Listo' : 'Pendiente'}</span>
+                <span class="mt-1 block">{v.estado}</span>
+              </td>
+              <td class="px-3 py-3">{v.cierre}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   </Seccion>
 
   <Seccion id="equipo" titulo="Equipo y responsables" etiqueta="Créditos">

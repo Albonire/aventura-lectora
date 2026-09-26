@@ -515,3 +515,54 @@ test.describe('portada como libro', () => {
     await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(500);
   });
 });
+
+test.describe('pendientes', () => {
+  test('solo queda visible un PENDIENTE en el sitio: la aprobacion de la adaptacion de la cigarra', async ({
+    page,
+  }) => {
+    const encontrados: string[] = [];
+    for (const ruta of RUTAS) {
+      await page.goto(ruta);
+      const texto = await page.evaluate(() => document.body.innerText);
+      if (texto.includes('[PENDIENTE')) encontrados.push(ruta);
+    }
+    expect(encontrados).toEqual(['/unidad/1/cerrar']);
+    await page.goto('/unidad/1/cerrar');
+    await expect(page.getByText(/el equipo aprueba la adaptación de La cigarra/)).toBeVisible();
+  });
+
+  test('el reto del caso 4 muestra la noticia con su fuente y enlace', async ({ page }) => {
+    await page.goto('/unidad/4/cerrar');
+    const noticia = page.getByRole('region', { name: /De Bogotá al espacio/ });
+    await expect(noticia).toBeVisible();
+    await expect(noticia).toContainText('City TV Noticias');
+    await expect(noticia).toContainText('25 de septiembre de 2026');
+    await expect(noticia.getByRole('link', { name: /Leer la noticia/ })).toHaveAttribute(
+      'href',
+      /citytv\.eltiempo\.com/,
+    );
+  });
+
+  test('el poema del caso 2 explica como se verifico y las referencias lo citan', async ({
+    page,
+  }) => {
+    await page.goto('/unidad/2/pistas');
+    const detalle = page.locator('details', { hasText: 'Cómo se verificó este texto' }).first();
+    await expect(detalle).toBeAttached();
+    await expect(detalle).toContainText('54 versos');
+    await page.goto('/referencias');
+    await expect(
+      page.getByText(/Biblioteca Luis Ángel Arango, Banco de la República/),
+    ).toBeVisible();
+    await expect(page.getByText(/City TV Noticias/)).toBeVisible();
+    await expect(page.getByText(/Andika \(SIL International\)/)).toBeVisible();
+  });
+
+  test('docentes lista que esta verificado y que espera al equipo', async ({ page }) => {
+    await page.goto('/docentes');
+    const tabla = page.getByRole('table', { name: 'Verificaciones y pendientes del curso' });
+    await expect(tabla).toBeAttached();
+    await expect(tabla.locator('tbody tr')).toHaveCount(6);
+    await expect(tabla.getByText('Pendiente').first()).toBeVisible();
+  });
+});
