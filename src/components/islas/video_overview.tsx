@@ -15,8 +15,8 @@ interface Props {
 }
 
 // the video already carries its captions in the picture, so there is no caption track.
-// It starts by itself, muted, when it reaches the middle of the screen and pauses when it leaves.
-// Only with the "Movimiento" switch on, and never on data saver. Only one media plays at a time.
+// it starts with sound when it reaches the middle of the screen and pauses when it leaves.
+// only with the "movimiento" switch on, and never on data saver. only one media plays at a time.
 export function VideoOverview({
   titulo,
   etiqueta,
@@ -39,7 +39,7 @@ export function VideoOverview({
 
   const [reproduciendo, set_reproduciendo] = useState(false);
   const [terminado, set_terminado] = useState(false);
-  const [silenciado, set_silenciado] = useState(true);
+  const [silenciado, set_silenciado] = useState(false);
   const [iniciado, set_iniciado] = useState(false);
 
   useEffect(() => {
@@ -70,13 +70,15 @@ export function VideoOverview({
 
     const arrancar_solo = async () => {
       if (!puede_solo()) return;
-      el.muted = true;
-      set_silenciado(true);
+      el.muted = false;
+      set_silenciado(false);
       document.dispatchEvent(new CustomEvent('audio:reproduciendo', { detail: el }));
       try {
         await el.play();
       } catch {
-        // the browser refused: the poster and the play button stay
+        // the browser refused unmuted autoplay: keep it paused so the user can play with sound
+        el.pause();
+        pausa_programada.current = false;
       }
     };
 
@@ -169,7 +171,6 @@ export function VideoOverview({
               className="absolute inset-0 h-full w-full object-contain"
               controls={iniciado}
               playsInline
-              muted
               preload="none"
               poster={poster}
               aria-label={titulo}
@@ -238,11 +239,6 @@ export function VideoOverview({
               </button>
             )}
           </div>
-          <p className="mt-3 text-center text-micro text-stone-text">
-            {movimiento
-              ? 'Empieza solo, sin sonido, cuando llega a tu pantalla. Toca "Activar sonido" para oírlo.'
-              : 'Pulsa reproducir cuando quieras verlo.'}
-          </p>
         </div>
 
         <div className="flex flex-col gap-5">
