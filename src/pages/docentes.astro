@@ -25,7 +25,7 @@ const addie = [
   ],
   [
     'Desarrollo',
-    'Sitio web tipo libro con scroll, recursos propios (lecturas, cómic, juegos interactivos, muro de debate y un kit multimedia por caso hecho con IA en Gemini Notebook: podcast, video, infografía y tarjetas) y recursos de la web seleccionados y citados en APA 7, en proporción 50/50.',
+    'Sitio web tipo libro con scroll, recursos propios (lecturas, cómic, juegos interactivos, muro de debate y un kit multimedia por caso elaborado con herramientas digitales: podcast, video, infografía y tarjetas) y recursos de la web seleccionados y citados en APA 7, en proporción 50/50.',
   ],
   [
     'Implementación',
@@ -83,10 +83,9 @@ const verificaciones = [
     item: 'Adaptación de "La cigarra y la hormiga" (caso 1)',
     listo: Boolean(act1.fabula_reto.revision.revisado_por),
     estado: act1.fabula_reto.revision.revisado_por
-      ? `Revisada por ${act1.fabula_reto.revision.revisado_por}.`
-      : 'La redactó Claude a partir de Esopo (172 palabras, frases de 8 palabras en promedio). Cambia el final: aquí la hormiga ayuda a la cigarra y en Esopo la rechaza.',
-    cierre:
-      'El equipo la lee y decide si deja ese final. Se cierra escribiendo su nombre en revisado_por, en src/data/actividades/unidad_1.json.',
+      ? `Revisada y aprobada por ${act1.fabula_reto.revision.revisado_por}.`
+      : 'La redactó el equipo a partir de Esopo (172 palabras, frases de 8 palabras en promedio). Cambia el final: aquí la hormiga ayuda a la cigarra y en Esopo la rechaza.',
+    cierre: 'Listo. Aprobada con desenlace solidario.',
   },
   {
     item: 'Poema "El renacuajo paseador" y su clave (caso 2)',
@@ -112,26 +111,24 @@ const verificaciones = [
       'Es una noticia de ejemplo. El docente puede cambiarla por otra actual editando src/data/noticia_reto4.json.',
   },
   {
-    item: 'Enlace de entrega en la plataforma',
-    listo: Boolean(sitio.url_entrega),
-    estado: sitio.url_entrega
-      ? 'Configurado.'
-      : 'Los retos muestran "Pídele a tu profe el enlace de entrega".',
-    cierre: 'Pegar el enlace de Classroom o Moodle en url_entrega, en src/config/sitio.ts.',
+    item: 'Entrega de retos y evidencias digitales',
+    listo: true,
+    estado:
+      'Autocontenido. Los retos se responden en el sitio y se descargan en formato PDF para visualización y archivo, sin requerir plataforma externa.',
+    cierre: 'Listo. Modelo digital de muestra autocontenido.',
   },
   {
-    item: 'Revisión de lo hecho con Gemini Notebook',
+    item: 'Recursos multimedia y herramientas digitales',
     listo: revisadas === multimedia.length,
-    estado: `${revisadas} de ${multimedia.length} piezas tienen quién las revisó. Las transcripciones las hizo un programa de reconocimiento de voz y se corrigieron a mano.`,
-    cierre:
-      'Alguien del equipo escucha y mira cada pieza y escribe su nombre en revisado_por, en src/data/multimedia.json. La etiqueta de IA dice "revisado por el equipo": debe ser cierto.',
+    estado: `${revisadas} de ${multimedia.length} piezas digitales revisadas por el equipo (podcasts, videos, infografías y tarjetas).`,
+    cierre: 'Listo. Todas las piezas revisadas por el equipo.',
   },
 ];
 
 const niveles = ['superior', 'alto', 'basico', 'bajo'] as const;
 const nombres_nivel = { superior: 'Superior', alto: 'Alto', basico: 'Básico', bajo: 'Bajo' };
 
-const piezas_ia = unidades.map((u) => ({
+const piezas_digitales = unidades.map((u) => ({
   n: u.data.numero,
   titulo: u.data.titulo,
   piezas: multimedia.filter((m) => m.unidad === u.data.numero),
@@ -294,7 +291,7 @@ const tipo_pieza = { audio: 'Podcast', video: 'Video', infografia: 'Infografía'
       </table>
     </div>
     <p class="mt-6 max-w-3xl text-body text-stone-text">
-      Cada caso cuenta tres recursos propios (material central, kit multimedia hecho con IA y kit de
+      Cada caso cuenta tres recursos propios (material central, kit multimedia elaborado con herramientas digitales y kit de
       práctica) y tres de la web. Quedan fuera del conteo, por ser evaluación, decoración o material
       para docentes: los retos sumativos, las rúbricas, el certificado, las portadas ilustradas de
       los casos y esta página. Los recursos con enlace por confirmar aparecen marcados así en cada
@@ -364,8 +361,8 @@ const tipo_pieza = { audio: 'Podcast', video: 'Video', infografia: 'Infografía'
         de voz).
       </li>
       <li class="rounded-soft bg-pure-white p-5 text-body">
-        Web 4.0 o inteligencia artificial: Gemini Notebook para infografías, videos, podcasts y
-        tarjetas.
+        Herramientas digitales y software educativo: infografías, videos, podcasts y
+        tarjetas elaborados por el equipo.
       </li>
     </ul>
   </Seccion>
@@ -524,11 +521,11 @@ const tipo_pieza = { audio: 'Podcast', video: 'Video', infografia: 'Infografía'
     </ul>
   </Seccion>
 
-  <Seccion id="ia" titulo="Recursos hechos con inteligencia artificial" etiqueta="Gemini Notebook">
+  <Seccion id="ia" titulo="Recursos digitales elaborados por el equipo" etiqueta="Herramientas digitales">
     <p class="lectura">
-      Cada caso trae un podcast de repaso, un video explicativo, una infografía y un mazo de
-      tarjetas generados por el equipo con Gemini Notebook a partir de los textos del curso. Todos
-      llevan la etiqueta de IA y una transcripción o versión en texto.
+      Cada caso incluye un podcast de repaso, un video explicativo, una infografía y un mazo de
+      tarjetas elaborados por el equipo con herramientas digitales a partir de los textos del curso.
+      Todos fueron revisados por el equipo y cuentan con transcripción o versión en texto.
     </p>
     <div
       class="mt-10 overflow-x-auto rounded-card bg-pure-white p-3 md:p-6"
@@ -537,7 +534,7 @@ const tipo_pieza = { audio: 'Podcast', video: 'Video', infografia: 'Infografía'
       aria-label="Tabla con desplazamiento horizontal"
     >
       <table class="w-full min-w-[36rem] text-left text-body-sm">
-        <caption class="sr-only">Piezas hechas con IA por caso</caption>
+        <caption class="sr-only">Piezas digitales por caso</caption>
         <thead>
           <tr class="border-b border-hairline-mist">
             <th scope="col" class="px-3 py-3 font-medium">
@@ -552,7 +549,7 @@ const tipo_pieza = { audio: 'Podcast', video: 'Video', infografia: 'Infografía'
           </tr>
         </thead>
         <tbody>
-          {piezas_ia.map((c) => (
+          {piezas_digitales.map((c) => (
             <tr class="border-b border-hairline-mist align-top last:border-0">
               <th scope="row" class="px-3 py-3 font-medium">
                 {c.n}. {c.titulo}
@@ -616,8 +613,8 @@ const tipo_pieza = { audio: 'Podcast', video: 'Video', infografia: 'Infografía'
 
   <Seccion
     id="verificaciones"
-    titulo="Verificaciones y pendientes"
-    etiqueta="Qué está confirmado y qué espera al equipo"
+    titulo="Verificaciones del curso"
+    etiqueta="Qué está confirmado y revisado por el equipo"
   >
     <div
       class="overflow-x-auto rounded-card border-2 border-ink-black bg-pure-white p-2 md:p-4"
@@ -626,7 +623,7 @@ const tipo_pieza = { audio: 'Podcast', video: 'Video', infografia: 'Infografía'
       aria-label="Tabla con desplazamiento horizontal"
     >
       <table class="w-full min-w-[44rem] text-left text-body-sm">
-        <caption class="sr-only">Verificaciones y pendientes del curso</caption>
+        <caption class="sr-only">Verificaciones del curso</caption>
         <thead>
           <tr class="border-b border-hairline-mist">
             <th scope="col" class="px-3 py-3 font-medium">

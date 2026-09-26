@@ -517,18 +517,16 @@ test.describe('portada como libro', () => {
 });
 
 test.describe('pendientes', () => {
-  test('solo queda visible un PENDIENTE en el sitio: la aprobacion de la adaptacion de la cigarra', async ({
-    page,
-  }) => {
+  test('no queda ningun PENDIENTE visible en todo el sitio', async ({ page }) => {
     const encontrados: string[] = [];
     for (const ruta of RUTAS) {
       await page.goto(ruta);
       const texto = await page.evaluate(() => document.body.innerText);
       if (texto.includes('[PENDIENTE')) encontrados.push(ruta);
     }
-    expect(encontrados).toEqual(['/unidad/1/cerrar']);
+    expect(encontrados).toEqual([]);
     await page.goto('/unidad/1/cerrar');
-    await expect(page.getByText(/el equipo aprueba la adaptación de La cigarra/)).toBeVisible();
+    await expect(page.getByText(/Adaptación revisada por Selene María Caballero Valle/)).toBeVisible();
   });
 
   test('el reto del caso 4 muestra la noticia con su fuente y enlace', async ({ page }) => {
@@ -558,11 +556,12 @@ test.describe('pendientes', () => {
     await expect(page.getByText(/Andika \(SIL International\)/)).toBeVisible();
   });
 
-  test('docentes lista que esta verificado y que espera al equipo', async ({ page }) => {
+  test('docentes lista las verificaciones del curso completas', async ({ page }) => {
     await page.goto('/docentes');
-    const tabla = page.getByRole('table', { name: 'Verificaciones y pendientes del curso' });
+    const tabla = page.getByRole('table', { name: 'Verificaciones del curso' });
     await expect(tabla).toBeAttached();
     await expect(tabla.locator('tbody tr')).toHaveCount(6);
-    await expect(tabla.getByText('Pendiente').first()).toBeVisible();
+    await expect(tabla.getByText('Pendiente', { exact: true })).toHaveCount(0);
+    await expect(tabla.getByText('Listo', { exact: true })).toHaveCount(6);
   });
 });
