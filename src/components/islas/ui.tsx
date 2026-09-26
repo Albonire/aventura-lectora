@@ -5,10 +5,10 @@ import {
   Flag,
   Globe,
   Headphones,
+  Laptop,
   MonitorPlay,
   PencilSimpleLine,
   PuzzlePiece,
-  Sparkle,
 } from '@phosphor-icons/react';
 import { bloques, clase_pastilla, type TipoBloque } from '../../lib/bloques';
 
@@ -115,7 +115,7 @@ export function Chip({
 export function EtiquetaIA({ className = '' }: { className?: string }) {
   return (
     <p className={`flex items-center gap-2 text-micro text-stone-text ${className}`}>
-      <Sparkle size={16} weight="fill" aria-hidden="true" />
+      <Laptop size={16} weight="bold" aria-hidden="true" />
       Hecho con herramientas digitales y revisado por el equipo
     </p>
   );
