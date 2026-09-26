@@ -2,6 +2,7 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
 import CursoLayout from './curso_layout.astro';
 import EncabezadoPagina from '../components/curso/encabezado_pagina.astro';
+import PasosCaso from '../components/curso/pasos_caso.astro';
 import Portada1 from '../components/ilustraciones/portadas/portada_1.astro';
 import Portada2 from '../components/ilustraciones/portadas/portada_2.astro';
 import Portada3 from '../components/ilustraciones/portadas/portada_3.astro';
@@ -57,6 +58,33 @@ const Portada = { 1: Portada1, 2: Portada2, 3: Portada3, 4: Portada4, 5: Portada
     >
       <p>{info.descripcion}</p>
     </EncabezadoPagina>
+  )}
+
+  <PasosCaso caso={d.numero} actual={pagina} />
+
+  {pagina === 'pistas' && d.contenidos.length > 0 && (
+    <div class="contenedor mt-3 lg:hidden">
+      <details class="rounded-soft border-2 border-ink-black bg-pure-white">
+        <summary class="interfaz flex min-h-12 cursor-pointer list-none items-center justify-between gap-3 px-4 text-body-sm font-medium [&::-webkit-details-marker]:hidden">
+          En esta página
+          <span class="text-stone-text" aria-hidden="true">
+            {d.contenidos.length} partes
+          </span>
+        </summary>
+        <ol class="border-t-2 border-hairline-mist px-2 py-2">
+          {d.contenidos.map((c) => (
+            <li>
+              <a
+                href={`#${c.id}`}
+                class="interfaz flex min-h-11 items-center rounded-soft px-3 text-body-sm hover:bg-cream-paper"
+              >
+                {c.titulo}
+              </a>
+            </li>
+          ))}
+        </ol>
+      </details>
+    </div>
   )}
 
   {pagina === 'abrir' && (

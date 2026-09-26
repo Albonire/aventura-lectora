@@ -51,6 +51,7 @@ let linea2: string | undefined;
 let contenidos: { id: string; titulo: string }[] = [];
 let folio_texto: string | undefined;
 let pagina_id: string | undefined;
+let titulo_pagina: string | undefined;
 let pasar = false;
 
 if (ubicacion?.tipo === 'caso') {
@@ -61,6 +62,7 @@ if (ubicacion?.tipo === 'caso') {
   linea2 = `${pagina?.titulo} · ${folio_texto}`;
   contenidos = caso?.contenidos ?? [];
   pagina_id = id_pagina(ubicacion.caso, ubicacion.pagina);
+  titulo_pagina = pagina?.titulo;
   pasar = ubicacion.pagina === 'cerrar';
 } else if (ubicacion && ubicacion.tipo !== 'inicio') {
   const destino = destino_de(ubicacion, titulos_casos);
@@ -110,6 +112,7 @@ const { anterior, siguiente } =
               siguiente={siguiente}
               folio={folio_texto}
               pagina_id={pagina_id}
+              titulo_pagina={titulo_pagina}
               pasar={pasar}
             />
           )}

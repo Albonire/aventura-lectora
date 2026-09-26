@@ -98,6 +98,45 @@ function pintar_estados() {
     seguir.href = `${progreso.ultimo.ruta}#${progreso.ultimo.seccion}`;
     seguir.hidden = false;
   }
+  // "sigues en el caso N" cards (cover and index of the home): text built from the index that is on the page
+  if (progreso.ultimo) {
+    const m = progreso.ultimo.ruta.match(/^\/unidad\/(\d)(?:\/([a-z]+))?\/?$/);
+    const clave = m ? `${m[1]}/${m[2] ?? 'abrir'}` : '';
+    const enlace_pagina = clave
+      ? document.querySelector<HTMLAnchorElement>(`[data-indice-libro] a[data-pagina="${clave}"]`)
+      : null;
+    const titulo_caso = enlace_pagina
+      ?.closest<HTMLElement>('[data-caso]')
+      ?.querySelector('h3')?.textContent;
+    if (enlace_pagina && titulo_caso) {
+      const texto = `Caso ${m?.[1]}: ${titulo_caso.trim()}, ${enlace_pagina.dataset.titulo ?? ''}`;
+      document.querySelectorAll<HTMLElement>('[data-seguir-caja]').forEach((caja) => {
+        const t = caja.querySelector<HTMLElement>('[data-seguir-texto]');
+        const a = caja.querySelector<HTMLAnchorElement>('[data-seguir-enlace]');
+        if (t) t.textContent = texto;
+        if (a) a.href = `${progreso.ultimo?.ruta}#${progreso.ultimo?.seccion}`;
+        caja.hidden = false;
+      });
+    }
+  }
+}
+
+// small confirmation at the bottom of the screen (role status), gone after a few seconds
+function avisar(texto: string) {
+  const previo = document.querySelector('[data-aviso-pagina]');
+  previo?.remove();
+  const aviso = document.createElement('div');
+  aviso.setAttribute('data-aviso-pagina', '');
+  aviso.setAttribute('role', 'status');
+  aviso.className = 'aviso-pagina interfaz';
+  const marca = document.createElement('span');
+  marca.className = 'aviso-pagina-marca';
+  marca.setAttribute('aria-hidden', 'true');
+  const mensaje = document.createElement('span');
+  mensaje.textContent = texto;
+  aviso.append(marca, mensaje);
+  document.body.append(aviso);
+  window.setTimeout(() => aviso.remove(), 3500);
 }
 
 // thin bar in the header that fills as the page is read
@@ -164,8 +203,10 @@ function recordar_lugar() {
     const id = fin.dataset.finPagina;
     const vigia = new IntersectionObserver((entradas) => {
       if (!entradas.some((e) => e.isIntersecting)) return;
+      const era_nueva = !leer_progreso().paginas_leidas.includes(id);
       marcar_pagina_leida(id);
       pintar_estados();
+      if (era_nueva) avisar(`Página leída: ${fin.dataset.tituloPagina ?? ''}`.trim());
       vigia.disconnect();
     });
     vigia.observe(fin);

@@ -48,7 +48,23 @@ const fondos: Record<string, string> = {
       caso. Al cerrar cada caso ganas una insignia para tu pasaporte de detective.
     </p>
 
-    <ol class="mt-10 flex max-w-4xl flex-col gap-4">
+    <div
+      data-seguir-caja
+      hidden
+      class="mt-8 max-w-4xl rounded-soft border-2 border-ink-black bg-sunshine-pop p-5 md:p-6"
+    >
+      <p class="interfaz text-body-sm font-medium">Sigue donde ibas</p>
+      <p data-seguir-texto class="mt-1 text-subheading font-bold"></p>
+      <a
+        data-seguir-enlace
+        href="/"
+        class="interfaz mt-3 inline-flex min-h-11 items-center rounded-pill border-2 border-ink-black bg-pure-white px-5 text-body-sm font-medium hover:bg-ink-black hover:text-cream-paper"
+      >
+        Continuar
+      </a>
+    </div>
+
+    <ol data-indice-libro class="mt-6 flex max-w-4xl flex-col gap-4">
       <li class="rounded-soft border-2 border-ink-black bg-pure-white p-5 md:p-6">
         <p class="text-body-sm font-medium text-stone-text">Antes de empezar</p>
         <a
@@ -95,6 +111,7 @@ const fondos: Record<string, string> = {
                 <a
                   href={ruta_pagina(u.data.numero, p.slug)}
                   data-pagina={id_pagina(u.data.numero, p.slug)}
+                  data-titulo={p.titulo}
                   class="flex min-h-11 items-center gap-3 rounded-soft bg-cream-paper px-4 py-2 text-body-sm font-medium hover:bg-sandstone"
                 >
                   <span class="flex-1">
