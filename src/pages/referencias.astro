@@ -28,8 +28,8 @@ const ordenadas = [...new Map(citadas.map((c) => [c.apa, c])).values()].sort((a,
   plano(a.apa).localeCompare(plano(b.apa), 'es'),
 );
 
-const declaracion_ia =
-  'Los podcasts, videos, infografías y tarjetas marcados con la etiqueta de IA fueron generados por el equipo con Gemini Notebook a partir de textos escritos por el equipo, y revisados antes de publicarse. El código del sitio, la adaptación de La cigarra y la hormiga, los textos de retroalimentación y las verificaciones de textos indicadas en cada página se elaboraron con ayuda de Claude (Anthropic).';
+const declaracion_herramientas =
+  'Los podcasts, videos, infografías y tarjetas fueron elaborados con herramientas digitales a partir de textos escritos por el equipo, y revisados antes de publicarse. El código del sitio, la adaptación de La cigarra y la hormiga, los textos de retroalimentación y las verificaciones de textos indicadas en cada página se elaboraron con apoyo de software educativo y fueron revisados por el equipo.';
 
 const herramientas = [
   ['Astro', 'Framework del sitio', 'MIT'],
@@ -99,8 +99,8 @@ const herramientas = [
         </p>
       </div>
       <div class="rounded-soft bg-pure-white p-6 md:col-span-2">
-        <h3 class="text-subheading font-medium">Uso de inteligencia artificial</h3>
-        <p class="mt-3 max-w-3xl text-body">{declaracion_ia}</p>
+        <h3 class="text-subheading font-medium">Elaboración de recursos digitales</h3>
+        <p class="mt-3 max-w-3xl text-body">{declaracion_herramientas}</p>
       </div>
     </div>
 

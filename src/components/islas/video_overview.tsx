@@ -14,7 +14,7 @@ interface Props {
   descripcion?: string;
 }
 
-// the video already carries its captions in the picture (Gemini Notebook burns them in), so there is no caption track.
+// the video already carries its captions in the picture, so there is no caption track.
 // It starts by itself, muted, when it reaches the middle of the screen and pauses when it leaves.
 // Only with the "Movimiento" switch on, and never on data saver. Only one media plays at a time.
 export function VideoOverview({

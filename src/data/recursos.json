@@ -356,7 +356,7 @@
     "unidad": 1,
     "titulo": "Kit multimedia: infografía, video, podcast de repaso y tarjetas",
     "tipo": "propio",
-    "herramienta": "Gemini Notebook (IA)",
+    "herramienta": "Herramientas digitales",
     "donde": "Sitio (MP3, video, imagen y JSON)",
     "seccion_id": "contenidos",
     "verificado": true
@@ -386,7 +386,7 @@
     "unidad": 2,
     "titulo": "Kit multimedia: infografía, video, podcast y tarjetas",
     "tipo": "propio",
-    "herramienta": "Gemini Notebook (IA)",
+    "herramienta": "Herramientas digitales",
     "donde": "Sitio (MP3, video, imagen y JSON)",
     "seccion_id": "contenidos",
     "verificado": true
@@ -416,7 +416,7 @@
     "unidad": 3,
     "titulo": "Kit multimedia: infografía, video, podcast y tarjetas",
     "tipo": "propio",
-    "herramienta": "Gemini Notebook (IA)",
+    "herramienta": "Herramientas digitales",
     "donde": "Sitio (MP3, video, imagen y JSON)",
     "seccion_id": "contenidos",
     "verificado": true
@@ -446,7 +446,7 @@
     "unidad": 4,
     "titulo": "Kit multimedia: infografía, video, podcast y tarjetas",
     "tipo": "propio",
-    "herramienta": "Gemini Notebook (IA)",
+    "herramienta": "Herramientas digitales",
     "donde": "Sitio (MP3, video, imagen y JSON)",
     "seccion_id": "contenidos",
     "verificado": true
@@ -476,7 +476,7 @@
     "unidad": 5,
     "titulo": "Kit multimedia: infografía, video, podcast en formato debate y tarjetas",
     "tipo": "propio",
-    "herramienta": "Gemini Notebook (IA)",
+    "herramienta": "Herramientas digitales",
     "donde": "Sitio (MP3, video, imagen y JSON)",
     "seccion_id": "contenidos",
     "verificado": true

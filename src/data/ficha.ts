@@ -58,7 +58,7 @@ export const filas_curso: FilaFicha[] = [
   {
     elemento: 'Otros aspectos',
     descripcion:
-      'Accesibilidad, privacidad, familias, curso digital y recursos hechos con inteligencia artificial.',
+      'Accesibilidad, privacidad, familias, curso digital y recursos elaborados con herramientas digitales.',
     seccion: '/programa#otros',
   },
 ];

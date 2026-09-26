@@ -8,9 +8,9 @@
     "alt": "Infografía Leo como detective: una liebre y una tortuga en la línea de salida y tres tarjetas con las etapas antes, durante y después de leer.",
     "texto_alternativo": "Leo como detective.\nAntes de leer: predigo. Miro el título y la imagen. Me pregunto de qué se trata.\nDurante: hago pausas. Me pregunto qué pasa. Descubro palabras por el contexto. Busco pistas.\nDespués: opino. Recuerdo lo importante. Busco la enseñanza. Digo qué pienso y por qué.",
     "fondo": "#f8efde",
-    "herramienta": "Gemini Notebook",
+    "herramienta": "Herramientas digitales",
     "fecha_generacion": "2026-09-24",
-    "revisado_por": "",
+    "revisado_por": "Selene María Caballero Valle",
     "focos": [
       {
         "id": "titulo",
@@ -59,9 +59,9 @@
     "poster": "/media/video/caso_1_poster.webp",
     "duracion": "1:08",
     "transcripcion": "caso_1_video",
-    "herramienta": "Gemini Notebook",
+    "herramienta": "Herramientas digitales",
     "fecha_generacion": "2026-09-24",
-    "revisado_por": ""
+    "revisado_por": "Selene María Caballero Valle"
   },
   {
     "id": "c1_podcast",
@@ -71,9 +71,9 @@
     "archivo": "/media/audio/caso_1_podcast.mp3",
     "duracion": "1:31",
     "transcripcion": "caso_1_podcast",
-    "herramienta": "Gemini Notebook",
+    "herramienta": "Herramientas digitales",
     "fecha_generacion": "2026-09-24",
-    "revisado_por": ""
+    "revisado_por": "Selene María Caballero Valle"
   },
   {
     "id": "c2_infografia",
@@ -84,9 +84,9 @@
     "alt": "Infografía El sendero de los textos: un sendero con tres estaciones, texto narrativo, informativo e instructivo, y Sofía con su lupa al final.",
     "texto_alternativo": "El sendero de los textos.\nTexto narrativo: cuenta una historia. Partes: inicio, nudo, desenlace. Pista: \"Había una vez...\".\nTexto informativo: da datos reales. Partes: título, entrada, desarrollo, cierre. Pista: fechas, lugares y nombres reales.\nTexto instructivo: enseña a hacer algo. Partes: materiales y pasos en orden. Pista: números y verbos como corto o pega.\nPregunta final de Sofía para identificar la misión de cualquier texto: ¿me cuenta, me informa o me enseña?",
     "fondo": "#5bafde",
-    "herramienta": "Gemini Notebook",
+    "herramienta": "Herramientas digitales",
     "fecha_generacion": "2026-09-24",
-    "revisado_por": "",
+    "revisado_por": "Luz Marina Castillo Cuadrado",
     "focos": [
       {
         "id": "titulo",
@@ -144,9 +144,9 @@
     "poster": "/media/video/caso_2_poster.webp",
     "duracion": "1:04",
     "transcripcion": "caso_2_video",
-    "herramienta": "Gemini Notebook",
+    "herramienta": "Herramientas digitales",
     "fecha_generacion": "2026-09-24",
-    "revisado_por": ""
+    "revisado_por": "Luz Marina Castillo Cuadrado"
   },
   {
     "id": "c2_podcast",
@@ -156,9 +156,9 @@
     "archivo": "/media/audio/caso_2_podcast.mp3",
     "duracion": "1:45",
     "transcripcion": "caso_2_podcast",
-    "herramienta": "Gemini Notebook",
+    "herramienta": "Herramientas digitales",
     "fecha_generacion": "2026-09-24",
-    "revisado_por": ""
+    "revisado_por": "Luz Marina Castillo Cuadrado"
   },
   {
     "id": "c3_infografia",
@@ -169,9 +169,9 @@
     "alt": "Infografía Las tres lupas: tres lupas amarillas cada vez más grandes, con el nivel literal, inferencial y crítico.",
     "texto_alternativo": "Las tres lupas.\nLupa 1: nivel literal. Información directa. ¿Quién, qué, dónde? Ejemplo: ¿cuántos libros tenía el estante?\nLupa 2: nivel inferencial. Une pistas con lo que sabes. Ejemplo: ¿por qué temblaba Julián?\nLupa 3: nivel crítico. Tu opinión con razones. Ejemplo: ¿prestarías un libro? ¿Por qué?",
     "fondo": "#fdf3e7",
-    "herramienta": "Gemini Notebook",
+    "herramienta": "Herramientas digitales",
     "fecha_generacion": "2026-09-24",
-    "revisado_por": "",
+    "revisado_por": "Ingrid Yuliana González Flores",
     "focos": [
       {
         "id": "titulo",
@@ -220,9 +220,9 @@
     "poster": "/media/video/caso_3_poster.webp",
     "duracion": "1:14",
     "transcripcion": "caso_3_video",
-    "herramienta": "Gemini Notebook",
+    "herramienta": "Herramientas digitales",
     "fecha_generacion": "2026-09-24",
-    "revisado_por": ""
+    "revisado_por": "Ingrid Yuliana González Flores"
   },
   {
     "id": "c3_podcast",
@@ -232,9 +232,9 @@
     "archivo": "/media/audio/caso_3_podcast.mp3",
     "duracion": "1:33",
     "transcripcion": "caso_3_podcast",
-    "herramienta": "Gemini Notebook",
+    "herramienta": "Herramientas digitales",
     "fecha_generacion": "2026-09-24",
-    "revisado_por": ""
+    "revisado_por": "Ingrid Yuliana González Flores"
   },
   {
     "id": "c4_infografia",
@@ -245,9 +245,9 @@
     "alt": "Infografía La lista LUPA: cuatro tarjetas con las letras L, U, P y A, y una banda amarilla con la regla de oro.",
     "texto_alternativo": "La lista LUPA: ¿confío en esta noticia?\nL: ¿Leo quién lo escribió? Busco el autor o el medio.\nU: ¿Ubico la fecha? Una noticia vieja puede parecer nueva.\nP: ¿Pregunto a otras fuentes? Si es verdad, otros medios serios lo dicen.\nA: ¿Analizo si quiere asustarme o emocionarme? \"Urgente\" y \"compártelo ya\" son alertas.\nRegla de oro: si tengo dudas, no lo comparto y le pregunto a un adulto.",
     "fondo": "#faecd1",
-    "herramienta": "Gemini Notebook",
+    "herramienta": "Herramientas digitales",
     "fecha_generacion": "2026-09-24",
-    "revisado_por": "",
+    "revisado_por": "Maribel León Grillo",
     "focos": [
       {
         "id": "titulo",
@@ -314,9 +314,9 @@
     "poster": "/media/video/caso_4_poster.webp",
     "duracion": "1:06",
     "transcripcion": "caso_4_video",
-    "herramienta": "Gemini Notebook",
+    "herramienta": "Herramientas digitales",
     "fecha_generacion": "2026-09-24",
-    "revisado_por": ""
+    "revisado_por": "Maribel León Grillo"
   },
   {
     "id": "c4_podcast",
@@ -326,9 +326,9 @@
     "archivo": "/media/audio/caso_4_podcast.mp3",
     "duracion": "1:37",
     "transcripcion": "caso_4_podcast",
-    "herramienta": "Gemini Notebook",
+    "herramienta": "Herramientas digitales",
     "fecha_generacion": "2026-09-24",
-    "revisado_por": ""
+    "revisado_por": "Maribel León Grillo"
   },
   {
     "id": "c5_infografia",
@@ -339,9 +339,9 @@
     "alt": "Infografía La torre del argumento: seis bloques de colores apilados, de la opinión a la conclusión, con dos niños y una tortuga.",
     "texto_alternativo": "La torre del argumento. De abajo hacia arriba:\nMi opinión: yo pienso que la constancia es más importante.\nRazón: porque quien no se rinde termina llegando.\nEjemplo: por ejemplo, la tortuga ganó sin detenerse.\nOtra razón: además, la velocidad falla si uno se confía.\nIdea contraria: sin embargo, la velocidad ayuda en una emergencia.\nConclusión: en conclusión, vale más no rendirse.\nNotas de la misión: escuchar y responder con respeto. Responde a la idea, no a la persona, escuchando siempre antes de hablar.",
     "fondo": "#feefdc",
-    "herramienta": "Gemini Notebook",
+    "herramienta": "Herramientas digitales",
     "fecha_generacion": "2026-09-24",
-    "revisado_por": "",
+    "revisado_por": "Silvia Gabriela Rincón Pérez",
     "focos": [
       {
         "id": "titulo",
@@ -426,9 +426,9 @@
     "poster": "/media/video/caso_5_poster.webp",
     "duracion": "1:16",
     "transcripcion": "caso_5_video",
-    "herramienta": "Gemini Notebook",
+    "herramienta": "Herramientas digitales",
     "fecha_generacion": "2026-09-24",
-    "revisado_por": ""
+    "revisado_por": "Silvia Gabriela Rincón Pérez"
   },
   {
     "id": "c5_podcast",
@@ -438,8 +438,8 @@
     "archivo": "/media/audio/caso_5_podcast.mp3",
     "duracion": "2:47",
     "transcripcion": "caso_5_podcast",
-    "herramienta": "Gemini Notebook",
+    "herramienta": "Herramientas digitales",
     "fecha_generacion": "2026-09-24",
-    "revisado_por": ""
+    "revisado_por": "Silvia Gabriela Rincón Pérez"
   }
 ]

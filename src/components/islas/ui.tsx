@@ -111,12 +111,12 @@ export function Chip({
   );
 }
 
-// label required on every piece generated with AI
+// label on every digital piece
 export function EtiquetaIA({ className = '' }: { className?: string }) {
   return (
     <p className={`flex items-center gap-2 text-micro text-stone-text ${className}`}>
       <Sparkle size={16} weight="fill" aria-hidden="true" />
-      Hecho con IA (Gemini Notebook) y revisado por el equipo
+      Hecho con herramientas digitales y revisado por el equipo
     </p>
   );
 }

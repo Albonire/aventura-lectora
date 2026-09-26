@@ -31,14 +31,14 @@ Alternativa gratuita sin Vercel: GitHub Pages con la acción oficial de Astro (h
 
 | Qué | Dónde |
 |---|---|
-| Datos de la portada, nombres del equipo, enlace de entrega en la plataforma | `src/config/sitio.ts` (`url_entrega`) |
+| Datos de la portada y nombres del equipo | `src/config/sitio.ts` |
 | Datos de la unidad (título, misión, aprendizajes, DBA, insignia) | `src/content/unidades/unidad_N.mdx` (solo el frontmatter) |
 | Texto y estructura de cada una de las 4 páginas del caso | `src/content/paginas/unidad_N/{abrir,pistas,lupa,cerrar}.mdx` |
 | Orden y títulos de las 4 páginas, o enlaces directos a una sección | `src/config/paginas.ts` |
 | Preguntas, sopa de letras, tarjetas, lecturas y demás actividades | `src/data/actividades/unidad_N.json` |
 | Retos sumativos y sus rúbricas | `src/data/retos.json` |
 | Recursos propios y de la web (y el conteo 50/50) | `src/data/recursos.json` |
-| Podcasts, videos e infografías de Gemini Notebook | `src/data/multimedia.json`, `public/media/`, `src/assets/infografias/` |
+| Podcasts, videos e infografías del curso | `src/data/multimedia.json`, `public/media/`, `src/assets/infografias/` |
 | Transcripciones (los videos ya traen sus subtítulos en la imagen) | `src/data/transcripciones/` |
 | Colores, radios y tipografía | `src/styles/design_tokens.css` |
 
