@@ -1,8 +1,7 @@
 import { useState } from 'react';
-import { CheckCircle, Clock, FilePdf, PaperPlaneTilt } from '@phosphor-icons/react';
+import { CheckCircle, Clock, FilePdf } from '@phosphor-icons/react';
 import type { CampoReto, Reto, RetoGuardado } from '../../lib/tipos';
 import { armar_texto } from '../../lib/opinion';
-import { sitio } from '../../config/sitio';
 import { usar_almacen, usar_nombre } from './hooks';
 import { Chip, Pastilla, area_texto, boton_reto, campo_texto } from './ui';
 
@@ -254,22 +253,6 @@ export function ChallengeCard({
           <FilePdf size={22} weight="bold" aria-hidden="true" />
           {estado === 'generando' ? 'Preparando el PDF...' : 'Descargar PDF'}
         </button>
-        {sitio.url_entrega ? (
-          <a
-            href={sitio.url_entrega}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex min-h-12 items-center gap-2.5 rounded-pill border-2 border-ink-black bg-pure-white px-6 py-3 text-body-sm font-medium hover:bg-sandstone"
-          >
-            <PaperPlaneTilt size={22} weight="bold" aria-hidden="true" />
-            Entregar en la plataforma
-          </a>
-        ) : (
-          <p className="inline-flex min-h-12 items-center gap-2.5 rounded-pill border-2 border-dashed border-ink-black px-6 py-3 text-body-sm font-medium">
-            <PaperPlaneTilt size={22} weight="bold" aria-hidden="true" />
-            Pídele a tu profe el enlace de entrega
-          </p>
-        )}
       </div>
       <p
         role="status"

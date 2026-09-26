@@ -33,9 +33,6 @@ export const sitio = {
   seminario: 'Seminario de profundización I: Innovación didáctica',
   actividad: 'Planeación didáctica',
   docente: 'Maria Victoria Murcia Arregocés',
-
-  // link of the course platform (classroom or moodle) where the pdf products are delivered
-  url_entrega: '',
 } as const;
 
 export const casos_ruta = [1, 2, 3, 4, 5] as const;

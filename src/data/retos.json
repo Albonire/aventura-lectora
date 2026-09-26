@@ -11,7 +11,7 @@
         "Durante la lectura, escribe dos preguntas que te hiciste y una palabra nueva con su significado según el contexto.",
         "Después de leer, escribe un resumen de tres oraciones y tu opinión usando \"Yo pienso que... porque...\"."
       ],
-      "producto": "Una bitácora de una página con las tres partes (antes, durante, después). Se completa en el sitio, se descarga como PDF y se entrega en la plataforma del curso.",
+      "producto": "Una bitácora de una página con las tres partes (antes, durante, después). Se completa en el sitio y se descarga como PDF para archivar o compartir.",
       "campos": [
         {
           "id": "prediccion_1",
@@ -97,7 +97,7 @@
         "Escribe un texto instructivo de 5 pasos: \"Cómo cuidar un libro\".",
         "Incluye título, materiales (si se necesitan), pasos numerados en orden y una imagen digital (hecha con la herramienta de dibujo de esta página o con la que prefieras)."
       ],
-      "producto": "Un PDF con la clasificación, la explicación y el instructivo, entregado en la plataforma del curso.",
+      "producto": "Un PDF con la clasificación, la explicación y el instructivo, descargado desde el sitio.",
       "campos": [
         {
           "id": "clasificacion",
@@ -167,7 +167,7 @@
         "Responde tus seis preguntas. En las críticas, usa \"porque\".",
         "Publica tus preguntas en el muro del caso 3 y responde las de un compañero."
       ],
-      "producto": "Una tabla con seis preguntas, su nivel y su respuesta, descargada como PDF y entregada en la plataforma, más la respuesta publicada en el muro.",
+      "producto": "Una tabla con seis preguntas, su nivel y su respuesta, descargada como PDF, más la respuesta publicada en el muro.",
       "campos": [
         {
           "id": "texto_elegido",
@@ -284,7 +284,7 @@
         "Copia tres hechos y dos opiniones (o escribe \"no encontré opiniones\" y explica).",
         "Aplica la lista LUPA y decide si confías en la fuente. Explica tu decisión."
       ],
-      "producto": "Una ficha de análisis de la noticia completada en el sitio, descargada como PDF y entregada en la plataforma.",
+      "producto": "Una ficha de análisis de la noticia completada en el sitio y descargada como PDF.",
       "campos": [
         {
           "id": "noticia",
@@ -425,7 +425,7 @@
         "Revisa que usaste al menos tres conectores distintos.",
         "Graba tu texto en voz alta con la grabadora de esta página y preséntalo en la Feria de detectives virtual."
       ],
-      "producto": "Un texto de opinión de 8 a 10 líneas en PDF, entregado en la plataforma, y su grabación de voz.",
+      "producto": "Un texto de opinión de 8 a 10 líneas en PDF, descargado desde el sitio, y su grabación de voz.",
       "campos": [
         {
           "id": "pregunta",
