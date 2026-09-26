@@ -20,12 +20,15 @@ const TINTA = '#2c2e2a';
   focusable="false"
 >
   <!-- legs and shoes -->
-  <rect x="60" y="170" width="20" height="50" rx="7" fill="#4a5568"></rect>
-  <rect x="84" y="170" width="20" height="50" rx="7" fill="#4a5568"></rect>
+  <path d="M60 170 Q64 195 60 220 L80 220 Q76 195 80 170 Z" fill="#4a5568"/>
+<path d="M74 170 Q72 195 74 220 L80 220 Q76 195 80 170 Z" fill="#2d3748"/>
+  <path d="M84 170 Q88 195 84 220 L104 220 Q100 195 104 170 Z" fill="#4a5568"/>
+<path d="M98 170 Q96 195 98 220 L104 220 Q100 195 104 170 Z" fill="#2d3748"/>
   <ellipse cx="68" cy="224" rx="16" ry="7" fill={TINTA}></ellipse>
   <ellipse cx="98" cy="224" rx="16" ry="7" fill={TINTA}></ellipse>
   <!-- torso -->
-  <path d="M46 108 Q82 96 118 108 L124 180 Q82 190 40 180 Z" fill={CAMISA}></path>
+  <path d="M46 108 Q82 96 118 108 L126 180 Q82 196 38 180 Z" fill={CAMISA}/>
+<path d="M42 172 Q82 188 122 172 L126 180 Q82 196 38 180 Z" fill="#76b351"/>
   <rect x="74" y="94" width="16" height="16" fill={PIEL}></rect>
   <path d="M68 106 Q82 122 96 106 Z" fill={PIEL}></path>
 
@@ -99,7 +102,8 @@ const TINTA = '#2c2e2a';
   <!-- head, curly hair and cap -->
   <circle cx="50" cy="70" r="7" fill={PIEL}></circle>
   <circle cx="114" cy="70" r="7" fill={PIEL}></circle>
-  <circle cx="82" cy="64" r="31" fill={PIEL}></circle>
+  <path d="M51 64 C51 38 113 38 113 64 C113 88 98 97 82 97 C66 97 51 88 51 64 Z" fill={PIEL}/>
+<path d="M60 64 C60 45 104 45 104 64 C104 80 94 88 82 88 C70 88 60 80 60 64 Z" fill="#e0a672" opacity="0.4"/>
   <g fill={TINTA}>
     <circle cx="52" cy="52" r="12"></circle>
     <circle cx="46" cy="70" r="10"></circle>
