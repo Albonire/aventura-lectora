@@ -396,27 +396,28 @@ test.describe('video en vista', () => {
     await video.evaluate((el) => el.scrollIntoView({ block: 'center' }));
   }
 
-  test('empieza solo y sin sonido al llegar a la pantalla y se pausa al salir', async ({
+  test('empieza con volumen al llegar a la pantalla, sin aviso de sonido y se pausa al salir', async ({
     page,
   }) => {
     await page.goto('/unidad/1/pistas');
     const video = page.locator('video').first();
     await centrar(video);
     await expect.poll(() => video.evaluate((v: HTMLVideoElement) => !v.paused)).toBe(true);
-    expect(await video.evaluate((v: HTMLVideoElement) => v.muted)).toBe(true);
-    await expect(page.getByRole('button', { name: 'Activar sonido' })).toBeVisible();
+    expect(await video.evaluate((v: HTMLVideoElement) => v.muted)).toBe(false);
+    await expect(page.getByRole('button', { name: 'Activar sonido' })).toHaveCount(0);
     // no caption track: the captions are already burned into the picture
     await expect(video.locator('track')).toHaveCount(0);
+    // el aviso debajo del video sobre el sonido fue removido
+    await expect(page.getByText(/Empieza solo, sin sonido/)).toHaveCount(0);
     await page.evaluate(() => window.scrollTo(0, 0));
     await expect.poll(() => video.evaluate((v: HTMLVideoElement) => v.paused)).toBe(true);
   });
 
-  test('el boton Activar sonido quita el silencio', async ({ page }) => {
+  test('el video tiene sonido activo al reproducirse', async ({ page }) => {
     await page.goto('/unidad/1/pistas');
     const video = page.locator('video').first();
     await centrar(video);
     await expect.poll(() => video.evaluate((v: HTMLVideoElement) => !v.paused)).toBe(true);
-    await page.getByRole('button', { name: 'Activar sonido' }).click();
     expect(await video.evaluate((v: HTMLVideoElement) => v.muted)).toBe(false);
   });
 
@@ -498,6 +499,20 @@ test.describe('portada como libro', () => {
       expect(centro).toBeLessThan(t.ancho);
     });
   }
+
+  test('al abrir el libro el enlace Empezar el caso 1 de la portadilla es cliqueable y navega', async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.goto('/');
+    await page.waitForLoadState('networkidle');
+    await page.evaluate(() => window.scrollTo(0, 900));
+    await page.waitForTimeout(1600);
+    const boton = page.locator('#portadilla').getByRole('link', { name: 'Empezar el caso 1' });
+    await expect(boton).toBeVisible();
+    await boton.click();
+    await expect(page).toHaveURL(/.*\/unidad\/1/);
+  });
 
   test('en horizontal de celular la portada es una pila de paginas simple', async ({ page }) => {
     await page.setViewportSize({ width: 844, height: 390 });
