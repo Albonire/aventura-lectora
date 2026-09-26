@@ -39,7 +39,7 @@ Alternativa gratuita sin Vercel: GitHub Pages con la acción oficial de Astro (h
 | Retos sumativos y sus rúbricas | `src/data/retos.json` |
 | Recursos propios y de la web (y el conteo 50/50) | `src/data/recursos.json` |
 | Podcasts, videos e infografías de Gemini Notebook | `src/data/multimedia.json`, `public/media/`, `src/assets/infografias/` |
-| Transcripciones | `src/data/transcripciones/` y `public/media/subtitulos/` |
+| Transcripciones (los videos ya traen sus subtítulos en la imagen) | `src/data/transcripciones/` |
 | Colores, radios y tipografía | `src/styles/design_tokens.css` |
 
 El responsable de cada unidad se cambia en el frontmatter de su archivo `.mdx` (campo `responsable`). Los nombres válidos están en `src/config/sitio.ts`.
