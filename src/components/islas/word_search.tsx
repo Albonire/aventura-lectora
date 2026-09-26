@@ -72,7 +72,7 @@ export function WordSearch({
         return;
       }
       if (halladas.includes(palabra)) {
-        set_mensaje(`Ya habías encontrado ${palabra}.`);
+        set_mensaje(`Ya habías encontrado "${palabra}".`);
         return;
       }
       const nuevas = [...halladas, palabra];
@@ -80,8 +80,8 @@ export function WordSearch({
       const faltan = sopa.palabras.length - nuevas.length;
       set_mensaje(
         faltan === 0
-          ? `Encontraste ${palabra}. Ya tienes las ${sopa.palabras.length} palabras.`
-          : `Encontraste ${palabra}. Te ${faltan === 1 ? 'falta 1' : `faltan ${faltan}`}.`,
+          ? `¡Ojo de detective! Encontraste "${palabra}". Ya tienes las ${sopa.palabras.length} palabras.`
+          : `¡Genial! Encontraste "${palabra}". Te ${faltan === 1 ? 'falta 1 palabra' : `faltan ${faltan} palabras`}.`,
       );
     },
     [sopa, halladas, set_halladas],
@@ -129,6 +129,7 @@ export function WordSearch({
     } else {
       // released on the same cell: wait for a second tap
       pendiente.current = true;
+      set_mensaje('Primera letra marcada. Toca ahora la última letra de la palabra.');
     }
   }
 
@@ -216,13 +217,15 @@ export function WordSearch({
                     data-col={c}
                     tabIndex={foco.fila === f && foco.col === c ? 0 : -1}
                     aria-label={`${letra}, fila ${f + 1}, columna ${c + 1}${indice !== undefined ? ', parte de una palabra encontrada' : ''}`}
-                    className={`flex aspect-square min-h-6 items-center justify-center rounded-md text-body-sm font-medium leading-none ${
-                      en_linea
-                        ? 'border-2 border-ink-black bg-sunshine-pop'
-                        : indice !== undefined
-                          ? `${COLORES_HALLADAS[indice % COLORES_HALLADAS.length]} border-2 border-ink-black`
-                          : 'border-2 border-transparent bg-pure-white'
-                    } ${es_inicio ? 'underline decoration-2' : ''}`}
+                    className={`flex aspect-square min-h-6 items-center justify-center rounded-md text-body-sm font-medium leading-none transition-colors ${
+                      es_inicio
+                        ? 'relative z-10 scale-110 border-2 border-ink-black bg-sunshine-pop font-bold ring-4 ring-coral-pop'
+                        : en_linea
+                          ? 'border-2 border-ink-black bg-sunshine-pop'
+                          : indice !== undefined
+                            ? `${COLORES_HALLADAS[indice % COLORES_HALLADAS.length]} border-2 border-ink-black`
+                            : 'border-2 border-transparent bg-pure-white'
+                    }`}
                   >
                     {letra}
                   </button>

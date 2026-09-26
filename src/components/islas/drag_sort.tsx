@@ -82,12 +82,12 @@ function TarjetaItem({
           ref={setActivatorNodeRef}
           {...listeners}
           {...attributes}
-          className="mt-0.5 flex size-8 shrink-0 cursor-grab touch-manipulation items-center justify-center rounded-md bg-cream-paper active:cursor-grabbing"
+          className="flex size-11 shrink-0 cursor-grab touch-manipulation items-center justify-center rounded-soft bg-cream-paper active:cursor-grabbing"
           aria-label={`Mover la tarjeta: ${item.texto}`}
         >
           <DotsSixVertical size={20} weight="bold" aria-hidden="true" />
         </button>
-        <p className="flex-1 pt-1 text-body">{item.texto}</p>
+        <p className="flex-1 pt-2.5 text-body">{item.texto}</p>
       </div>
       {resultado && resultado !== 'sin_ubicar' && (
         <p className="mt-2 flex items-center gap-1.5 font-medium">
@@ -102,21 +102,37 @@ function TarjetaItem({
           )}
         </p>
       )}
-      <label className="mt-2 flex items-center gap-2 text-micro text-stone-text">
-        <span>Enviar a</span>
-        <select
-          value={ubicacion}
-          onChange={(e) => al_mover(e.target.value === BANDEJA ? null : e.target.value)}
-          className="min-h-9 flex-1 rounded-md border-2 border-ink-black bg-pure-white px-2 text-body-sm text-ink-black"
-        >
-          <option value={BANDEJA}>Sin ubicar</option>
-          {cajas.map((c) => (
-            <option key={c.id} value={c.id}>
-              {c.titulo}
-            </option>
-          ))}
-        </select>
-      </label>
+      <div
+        className="interfaz mt-3 flex flex-wrap items-center gap-2"
+        role="group"
+        aria-label={`Mover a una caja: ${item.texto}`}
+      >
+        <span className="text-micro font-medium text-stone-text">Mover a:</span>
+        {cajas.map((c) => (
+          <button
+            key={c.id}
+            type="button"
+            onClick={() => al_mover(ubicacion === c.id ? null : c.id)}
+            aria-pressed={ubicacion === c.id}
+            className={`min-h-11 rounded-pill border-2 border-ink-black px-3 text-body-sm font-medium transition-colors ${
+              ubicacion === c.id
+                ? 'bg-ink-black text-cream-paper'
+                : 'bg-pure-white text-ink-black hover:bg-sandstone'
+            }`}
+          >
+            {c.titulo}
+          </button>
+        ))}
+        {ubicacion !== BANDEJA && (
+          <button
+            type="button"
+            onClick={() => al_mover(null)}
+            className="min-h-11 rounded-pill border-2 border-dashed border-stone-gray px-3 text-body-sm text-stone-text hover:bg-sandstone"
+          >
+            Quitar
+          </button>
+        )}
+      </div>
     </li>
   );
 }
@@ -232,7 +248,7 @@ export function DragSort({
     <Superficie tipo="practica" titulo={titulo} etiqueta={etiqueta}>
       {instruccion && <p className="max-w-reading text-body">{instruccion}</p>}
       <p className="mt-2 text-body-sm text-stone-text">
-        Arrastra cada tarjeta a su caja. Si prefieres, usa el menú &quot;Enviar a&quot; de la
+        Arrastra cada tarjeta a su caja o toca uno de los botones &quot;Mover a&quot; que trae la
         tarjeta.
       </p>
 
@@ -246,7 +262,7 @@ export function DragSort({
           announcements: anuncios,
           screenReaderInstructions: {
             draggable:
-              'Para mover la tarjeta con el teclado, pulsa la barra espaciadora, usa las flechas para saltar entre cajas y vuelve a pulsar la barra espaciadora para soltarla. También puedes usar el menú Enviar a de la tarjeta.',
+              'Para mover la tarjeta con el teclado, pulsa la barra espaciadora, usa las flechas para saltar entre cajas y vuelve a pulsar la barra espaciadora para soltarla. También puedes usar los botones Mover a de la tarjeta.',
           },
         }}
       >
@@ -331,7 +347,7 @@ export function DragSort({
         {revisado
           ? perfecto
             ? `Muy bien: las ${correccion.total} tarjetas están en su caja.`
-            : `Acertaste ${correccion.aciertos} de ${correccion.total}. Mueve las tarjetas marcadas y vuelve a revisar.`
+            : `Acertaste ${correccion.aciertos} de ${correccion.total}. Revisa las tarjetas señaladas y vuelve a intentar.`
           : ''}
       </p>
     </Superficie>

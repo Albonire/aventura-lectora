@@ -20,6 +20,7 @@ function preparar(seccion: HTMLElement) {
   const leyenda = seccion.querySelector<HTMLElement>('[data-leyenda]');
   const barra = seccion.querySelector<HTMLElement>('[data-barra]');
   const vivo = seccion.querySelector<HTMLElement>('[data-vivo]');
+  const aviso = seccion.querySelector<HTMLElement>('[data-aviso]');
   const anterior = seccion.querySelector<HTMLButtonElement>('[data-anterior]');
   const siguiente = seccion.querySelector<HTMLButtonElement>('[data-siguiente]');
   const focos = Array.from(seccion.querySelectorAll<HTMLElement>('[data-foco]'));
@@ -36,6 +37,7 @@ function preparar(seccion: HTMLElement) {
     leyenda,
     barra,
     vivo,
+    aviso,
     anterior,
     siguiente,
     focos,
@@ -56,6 +58,7 @@ function iniciar(seccion: HTMLElement) {
     leyenda,
     barra,
     vivo,
+    aviso,
     anterior,
     siguiente,
     focos,
@@ -173,6 +176,8 @@ function iniciar(seccion: HTMLElement) {
     if (vivo) vivo.textContent = rects[nuevo].texto;
     if (barra) barra.style.width = `${((nuevo + 1) / total) * 100}%`;
     if (anterior) anterior.disabled = nuevo === 0;
+    // the hint is only useful until the student moves once
+    if (aviso && nuevo > 0) aviso.hidden = true;
   };
 
   // scroll position at which the stage gets stuck under the bar

@@ -82,9 +82,11 @@ export function QuizCard({
       intentos: registrar_intento(prev.intentos, pregunta.id, opcion_id),
     }));
     if (es_correcta(pregunta, opcion_id)) {
-      set_mensaje(`Correcto. ${pregunta.retro}`);
+      set_mensaje(`¡Excelente deducción! ${pregunta.retro}`);
     } else {
-      set_mensaje('Todavía no. Vuelve a mirar el texto y prueba con otra opción.');
+      set_mensaje(
+        '¡Casi, detective! Vuelve a mirar la pista en el texto y prueba con otra opción.',
+      );
     }
   }
 

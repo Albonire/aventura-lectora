@@ -106,6 +106,12 @@ const {
     <p class="pointer-events-none absolute left-4 top-6 rounded-pill bg-pure-white px-4 py-1.5 text-micro font-medium text-ink-black sm:left-6">
       {etiqueta_paso} <span data-contador>1 de {focos.length}</span>
     </p>
+    <p
+      data-aviso
+      class="interfaz pointer-events-none absolute right-4 top-6 max-w-[45%] rounded-pill border-2 border-ink-black bg-sunshine-pop px-3.5 py-1.5 text-micro font-medium text-ink-black sm:right-6 sm:max-w-none"
+    >
+      Baja o toca la pantalla para avanzar
+    </p>
     {mostrar_leyenda && (
       <p
         data-leyenda
@@ -119,22 +125,24 @@ const {
       <button
         type="button"
         data-anterior
-        aria-label="Anterior"
-        class="flex size-11 items-center justify-center rounded-full bg-pure-white text-ink-black hover:bg-sandstone disabled:opacity-30"
+        aria-label={`${etiqueta_paso} anterior`}
+        class="interfaz inline-flex min-h-11 items-center gap-1.5 rounded-pill border-2 border-ink-black bg-pure-white px-4 text-body-sm font-medium text-ink-black hover:bg-sandstone disabled:opacity-30"
       >
         <CaretLeft size={20} weight="bold" aria-hidden="true" />
+        <span class="hidden sm:inline">Anterior</span>
       </button>
       <button
         type="button"
         data-siguiente
-        aria-label="Siguiente"
-        class="flex size-11 items-center justify-center rounded-full bg-pure-white text-ink-black hover:bg-sandstone"
+        aria-label={`Siguiente ${etiqueta_paso.toLowerCase()}`}
+        class="interfaz inline-flex min-h-11 items-center gap-1.5 rounded-pill border-2 border-ink-black bg-fresh-grass px-5 text-body-sm font-medium text-ink-black hover:bg-ink-black hover:text-cream-paper"
       >
+        <span>Siguiente {etiqueta_paso.toLowerCase()}</span>
         <CaretRight size={20} weight="bold" aria-hidden="true" />
       </button>
       <a
         href={`#${id}-fin`}
-        class="inline-flex min-h-11 items-center rounded-pill bg-pure-white px-5 text-body-sm font-medium text-ink-black hover:bg-sandstone"
+        class="interfaz inline-flex min-h-11 items-center rounded-pill border-2 border-ink-black bg-pure-white px-4 text-body-sm font-medium text-ink-black hover:bg-sandstone"
       >
         Saltar esta parte
       </a>

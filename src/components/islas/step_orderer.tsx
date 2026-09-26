@@ -100,13 +100,13 @@ function ItemPaso({
           )}
         </span>
       )}
-      <span className="flex shrink-0 flex-col gap-1">
+      <span className="flex shrink-0 flex-col gap-1.5">
         <button
           type="button"
           onClick={subir}
           disabled={posicion === 0}
           aria-label={`Subir el paso ${posicion + 1}: ${paso.texto}`}
-          className="flex size-8 items-center justify-center rounded-md bg-cream-paper hover:bg-sandstone disabled:opacity-30"
+          className="flex size-11 items-center justify-center rounded-soft border-2 border-ink-black bg-cream-paper hover:bg-sandstone disabled:opacity-30"
         >
           <ArrowUp size={18} weight="bold" aria-hidden="true" />
         </button>
@@ -115,7 +115,7 @@ function ItemPaso({
           onClick={bajar}
           disabled={posicion === total - 1}
           aria-label={`Bajar el paso ${posicion + 1}: ${paso.texto}`}
-          className="flex size-8 items-center justify-center rounded-md bg-cream-paper hover:bg-sandstone disabled:opacity-30"
+          className="flex size-11 items-center justify-center rounded-soft border-2 border-ink-black bg-cream-paper hover:bg-sandstone disabled:opacity-30"
         >
           <ArrowDown size={18} weight="bold" aria-hidden="true" />
         </button>
@@ -211,7 +211,11 @@ export function StepOrderer({
         </button>
       </div>
       <p role="status" aria-live="polite" className="mt-4 min-h-7 text-body font-medium">
-        {revisado ? (acierto ? (retro_acierto ?? 'Orden correcto.') : retro_error) : ''}
+        {revisado
+          ? acierto
+            ? (retro_acierto ?? '¡Excelente deducción! El orden de los pasos es correcto.')
+            : retro_error
+          : ''}
       </p>
     </Superficie>
   );
