@@ -32,7 +32,7 @@ El sitio tiene que demostrar cada criterio de la rúbrica. Esta tabla es obligat
 |---|---|---|
 | Coherencia entre diseño instruccional y montaje (15 %) | Rúbrica criterio 1 | Cada página de unidad sigue exactamente los elementos de la ficha, en el mismo orden: imagen de la unidad, aprendizajes esperados, introducción, contenidos, desarrollo y materiales, actividades formativas, actividades sumativas. La página `/ficha` muestra la ficha completa con enlaces a cada sección del sitio. |
 | Dominio del recurso donde se alojó (10 %) | Rúbrica criterio 2 | Botoneras claras (nav flotante, índice de casos, botones de unidad, "pasar la página"), imágenes y diagramas propios. El contenido vive en archivos MDX y JSON editables sin tocar componentes, para que cada integrante sepa modificar su unidad. |
-| Recursos digitales y herramientas web 2.0/3.0/4.0 (15 %) | Rúbrica criterio 3 | Mezcla de interactivos propios dentro del sitio, recursos hechos con herramientas web 2.0 (Pixton, Padlet, Wordwall) insertados y un kit multimedia por caso hecho con inteligencia artificial en Gemini Notebook (web 4.0): podcast, video, infografía y tarjetas. Cada recurso lleva etiqueta visible con la herramienta usada. |
+| Recursos digitales y herramientas web 2.0/3.0/4.0 (15 %) | Rúbrica criterio 3 | Mezcla de interactivos propios dentro del sitio, herramientas web 2.0 replicadas dentro del sitio (cómic en lugar de Pixton, muros en lugar de Padlet, lienzo en lugar de Canva y grabadora de voz), como se explica en la sección 17, y un kit multimedia por caso hecho con inteligencia artificial en Gemini Notebook (web 4.0): podcast, video, infografía y tarjetas. `/docentes` nombra cada herramienta. Cada recurso debe llevar una etiqueta visible con la herramienta usada (decisión pendiente, ver sección 16). |
 | Socialización del diseño didáctico (10 %) | Rúbrica criterio 4 | Página `/docentes` con la ruta de aprendizaje, el mapeo ADDIE (análisis, diseño, desarrollo, implementación, evaluación), rúbricas y créditos por integrante. |
 | 50 % recursos de la web y 50 % elaborados por el equipo | Guía, paso a paso | Cada recurso tiene `tipo: "propio" | "web"`. La página `/docentes` calcula y muestra el conteo por unidad. |
 | Referencias en APA 7 | Guía, recursos de consulta | Cada recurso web muestra su cita APA 7 (tooltip o pie). Página `/creditos` con la lista completa. |
@@ -357,11 +357,14 @@ El entregable para la guía es la URL pública final. Probarla en una ventana pr
 
 - Nombres completos de los responsables de cada unidad.
 - Confirmar o reemplazar el video de la secuencia 2 del caso 1 (ver `REVISION_FICHA.md`).
-- Crear en Pixton y Padlet (y si quieren en Wordwall) los recursos propios marcados como "herramienta web 2.0" en `RECURSOS.md` y pegar sus enlaces de inserción. Las infografías que antes iban en Canva ahora salen de Gemini Notebook.
+- Decidir si se crean cuentas reales en Pixton y Padlet para el cómic del caso 2 y los muros de los casos 3 y 5, y se pegan sus enlaces, o si se mantienen las réplicas dentro del sitio (sección 17). El criterio 3 de la rúbrica pide herramientas web 2.0, así que conviene decidirlo con la docente. Las infografías que antes iban en Canva ahora salen de Gemini Notebook.
 - Revisar y ajustar los textos de `CONTENIDO.md`; son borradores para que el equipo los haga suyos.
 - Confirmar la fuente de la imagen del árbol de libros o aceptar el reemplazo.
 - Generar en Gemini Notebook el kit multimedia con `gemini_notebook/02_prompts.md`, revisarlo y dejar los archivos, las transcripciones y `multimedia.json` en las rutas de la sección 12.
-- Configurar `url_entrega` con el enlace de Classroom o Moodle del curso.
+- No hace falta `url_entrega`: se quitó del código (commit 9d1cd8e). La entrega es la URL pública del sitio.
+- Abrir en un navegador las fuentes que no se pudieron comprobar desde el entorno de trabajo (sección 6 de `RECURSOS.md`): las dos del Banco de la República, EduCaixa y el video de YouTube del caso 1.
+- Confirmar la licencia de los módulos de Colombia Aprende que se muestran dentro del sitio. La página de derechos del portal no tiene texto legible desde el entorno de trabajo.
+- Decidir cómo se nombra la inteligencia artificial en la etiqueta de cada pieza para los estudiantes. El commit 88a9973 cambió "IA" y "Gemini" por "herramientas digitales"; `CLAUDE.md` y la sección 9 piden nombrar Gemini Notebook.
 
 ---
 
