@@ -15,7 +15,16 @@ const PAGINAS = ['', '/pistas', '/lupa', '/cerrar'];
 const CASOS = [1, 2, 3, 4, 5];
 const RUTAS_CASOS = CASOS.flatMap((n) => PAGINAS.map((p) => `/unidad/${n}${p}`));
 
-const RUTAS = ['/', '/programa', ...RUTAS_CASOS, '/cierre', '/ficha', '/docentes', '/referencias'];
+const RUTAS = [
+  '/',
+  '/programa',
+  ...RUTAS_CASOS,
+  '/cierre',
+  '/ficha',
+  '/docentes',
+  '/empatizar',
+  '/referencias',
+];
 
 const boton_menu = (page: Page) => page.locator('summary').filter({ hasText: 'Menú' });
 

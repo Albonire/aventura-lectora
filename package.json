@@ -8,9 +8,9 @@
     "node": ">=22.12.0"
   },
   "scripts": {
-    "dev": "astro dev",
+    "dev": "astro dev --host 0.0.0.0 --port 3000",
     "build": "astro build",
-    "preview": "astro preview",
+    "preview": "astro preview --host 0.0.0.0 --port 3000",
     "test": "vitest run",
     "test:e2e": "playwright test",
     "lint": "eslint .",
@@ -47,11 +47,5 @@
     "typescript": "^5.9.0",
     "typescript-eslint": "^8.70.1",
     "vitest": "^5.0.1"
-  },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "esbuild",
-      "sharp"
-    ]
   }
 }

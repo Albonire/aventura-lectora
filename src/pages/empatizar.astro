@@ -1,0 +1,180 @@
+---
+// interactive infographic for activity 1.2 (Fundamentos de la Gamificacion): empathize and define
+// with the 5th grade group of I.E. Jorge Eliecer Gaitan, Maripi. Outside the reading order of the book.
+// every number comes from the classroom log (5 May 2026), the pilot (10 Oct 2026) or the teacher interview.
+import CursoLayout from '../layouts/curso_layout.astro';
+import EncabezadoPagina from '../components/curso/encabezado_pagina.astro';
+import Seccion from '../components/ui/seccion.astro';
+import EscenaMaripi from '../components/ilustraciones/escena_maripi.astro';
+import {
+  BarraFiltroFuentes,
+  CifrasInteractivas,
+  DefinirInteractivo,
+  MapaEmpatiaInteractivo,
+  MatrizTriangulacion,
+  PerfilesInteractivos,
+  RecorridoInteractivo,
+  VocesInteractivas,
+} from '../components/islas/infografia_empatizar';
+
+const secciones_pagina = [
+  { id: 'cifras', texto: '1. Datos clave' },
+  { id: 'voces', texto: '2. Voces' },
+  { id: 'mapa', texto: '3. Mapa de empatía' },
+  { id: 'recorrido', texto: '4. Recorrido' },
+  { id: 'patrones', texto: '5. Patrones' },
+  { id: 'personas', texto: '6. Perfiles' },
+  { id: 'definir', texto: '7. Definir el reto' },
+  { id: 'contexto', texto: '8. Contexto PISA' },
+];
+---
+
+<CursoLayout
+  titulo="Empatizar y definir"
+  descripcion="Infografía de la actividad 1.2: empatía y definición del problema de lectura con el grado 5.º de la I.E. Jorge Eliécer Gaitán, Maripí."
+  titulo_cabecera="Empatizar y definir"
+  sin_paginador
+>
+  <EncabezadoPagina
+    etiqueta="Actividad 1.2 · Fundamentos de la Gamificación"
+    titulo="Lo que aprendimos de 5.º en Maripí"
+    color="sunshine-pop"
+  >
+    <p>
+      Luz Marina Castillo Cuadrado e Ingrid Yuliana González Flores, docentes de la I.E. Jorge
+      Eliécer Gaitán (Maripí, Boyacá). Dos fases del Design Thinking: empatizar y definir.
+    </p>
+  </EncabezadoPagina>
+
+  <div class="contenedor pb-4">
+    <!-- Escena panorámica ilustrada del trabajo de campo y navegación rápida -->
+    <div class="rounded-card border-2 border-ink-black bg-sandstone p-4 md:p-7">
+      <EscenaMaripi />
+
+      <div class="mt-5 flex flex-col gap-4">
+        <div class="flex flex-col justify-between gap-2 md:flex-row md:items-baseline">
+          <p class="interfaz text-micro font-medium text-stone-text">
+            Investigación en el aula rural · Maripí, Boyacá (2026)
+          </p>
+          <p class="interfaz text-micro font-medium text-stone-text">
+            I.E. Jorge Eliécer Gaitán · Grado 5.º (13 estudiantes)
+          </p>
+        </div>
+        <p class="max-w-3xl text-body font-medium text-ink-black">
+          Cada cifra, cita y perfil proviene de la bitácora de aula del 5 de mayo, del pilotaje del
+          caso 1 el 10 de octubre o de la entrevista con la docente titular.
+        </p>
+        <nav aria-label="Secciones de esta infografía">
+          <ul class="flex flex-wrap gap-2">
+            {secciones_pagina.map((s) => (
+              <li>
+                <a
+                  href={`#${s.id}`}
+                  class="interfaz inline-flex min-h-9 items-center rounded-pill border-2 border-ink-black bg-pure-white px-3 py-1 text-micro font-medium text-ink-black hover:bg-sunshine-pop"
+                >
+                  {s.texto}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </div>
+
+      <div class="mt-5">
+        <BarraFiltroFuentes client:load />
+      </div>
+    </div>
+  </div>
+
+  <Seccion id="cifras" titulo="Datos clave del grupo" etiqueta="Fase 1 · Empatizar">
+    <CifrasInteractivas client:load />
+  </Seccion>
+
+  <Seccion id="voces" titulo="Las voces del grupo" etiqueta="Citas de los participantes">
+    <VocesInteractivas client:load />
+  </Seccion>
+
+  <Seccion id="mapa" titulo="Mapa de empatía" etiqueta="Estudiante de 5.º · observación e inferencia">
+    <MapaEmpatiaInteractivo client:load />
+  </Seccion>
+
+  <Seccion
+    id="recorrido"
+    titulo="Recorrido del caso 1"
+    etiqueta="Journey map · pilotaje del 10 de octubre"
+  >
+    <RecorridoInteractivo client:load />
+  </Seccion>
+
+  <Seccion
+    id="patrones"
+    titulo="Patrones y fuentes que los respaldan"
+    etiqueta="Análisis y triangulación"
+  >
+    <MatrizTriangulacion client:load />
+  </Seccion>
+
+  <Seccion id="personas" titulo="Perfiles" etiqueta="Arquetipos construidos con los datos">
+    <PerfilesInteractivos client:load />
+  </Seccion>
+
+  <Seccion id="definir" titulo="Del hallazgo al reto" etiqueta="Fase 2 · Definir">
+    <DefinirInteractivo client:load />
+  </Seccion>
+
+  <Seccion id="contexto" titulo="El país lee con dificultad" etiqueta="Contexto nacional">
+    <div class="grid gap-4 md:grid-cols-2">
+      <div class="rounded-soft border-2 border-ink-black bg-pure-white p-6">
+        <p class="text-body font-medium">
+          Estudiantes de 15 años con nivel 2 o más en lectura, PISA 2022
+        </p>
+        <div class="mt-4 space-y-4">
+          <div>
+            <div class="interfaz flex items-baseline justify-between text-body-sm">
+              <span>Colombia</span>
+              <span class="font-medium tabular-nums">49 %</span>
+            </div>
+            <span
+              class="mt-1.5 block h-4 overflow-hidden rounded-pill border border-ink-black bg-sandstone"
+              aria-hidden="true"
+            >
+              <span class="block h-full bg-coral-pop" style="width:49%" />
+            </span>
+          </div>
+          <div>
+            <div class="interfaz flex items-baseline justify-between text-body-sm">
+              <span>Promedio OCDE</span>
+              <span class="font-medium tabular-nums">74 %</span>
+            </div>
+            <span
+              class="mt-1.5 block h-4 overflow-hidden rounded-pill border border-ink-black bg-sandstone"
+              aria-hidden="true"
+            >
+              <span class="block h-full bg-fresh-grass" style="width:74%" />
+            </span>
+          </div>
+        </div>
+        <p class="interfaz mt-4 text-micro text-stone-text">
+          Fuente: OCDE (2023), nota país Colombia. Brecha de 25 puntos porcentuales frente al
+          promedio OCDE.
+        </p>
+      </div>
+      <div class="flex flex-col justify-between rounded-soft border-2 border-ink-black bg-pure-white p-6">
+        <div>
+          <div class="flex items-center justify-between gap-3">
+            <p class="text-heading-sm font-medium leading-none tabular-nums">409 a 399</p>
+            <span class="interfaz rounded-chip border-2 border-ink-black bg-coral-pop px-3 py-1 text-micro font-medium text-ink-black tabular-nums">
+              -10 puntos (2022 a 2025)
+            </span>
+          </div>
+          <p class="mt-3 text-body">Puntaje de Colombia en lectura en PISA, de 2022 a 2025.</p>
+          <p class="mt-4 text-body-sm text-stone-text">
+            PISA evalúa a jóvenes de 15 años. Lo usamos como contexto del país, no como dato del
+            grupo.
+          </p>
+        </div>
+        <p class="interfaz mt-4 text-micro text-stone-text">Fuente: Vanguardia (2026).</p>
+      </div>
+    </div>
+  </Seccion>
+</CursoLayout>

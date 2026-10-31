@@ -1,0 +1,238 @@
+---
+// 16-bit pixel-art panoramic diorama of the rural school in Maripi (Boyaca):
+// stepped emerald hills, schoolhouse with clay roof tiles, Colombian flag, power pole,
+// coffee bushes, and pixel-art students reading and sharing a phone with Sofia and Mateo.
+import { compactar_fila_pixel } from '../../lib/empatizar';
+
+const PALETA: Record<string, string> = {
+  K: '#2c2e2a',
+  W: '#ffffff',
+  C: '#f5f1e4',
+  S: '#e0dbce',
+  Y: '#f5e211',
+  y: '#d4c208',
+  G: '#8ed462',
+  g: '#5aa03a',
+  E: '#3e7a29',
+  B: '#2ba0ff',
+  L: '#dbeefb',
+  R: '#ff705d',
+  r: '#c94a38',
+  P: '#e5b88b',
+  p: '#c48b5c',
+  D: '#8b6b4a',
+  d: '#5c442c',
+  N: '#2f4a6b',
+};
+
+const SPRITE_SOFIA = [
+  '....KKKKKK....',
+  '..KKKKKKKKKKK.',
+  '..KPPPPPPPPK.K',
+  '..KPKPPPPKPK.K',
+  '..KPPPPPPPPK..',
+  '...KPPWWPPK...',
+  '....KKKKKK....',
+  '..KKYYYYYYKK..',
+  '.KYYYYWWYYYYK.',
+  '.KYYYYYYYYYYK.',
+  '..KKNNNNNNKK..',
+  '..KNNK..KNNK..',
+  '..KKKK..KKKK..',
+];
+
+const SPRITE_ESTUDIANTE_1 = [
+  '...KKKKKKKK...',
+  '.KKCCCCCCCCKK.',
+  'KKKKKKKKKKKKKK',
+  '..KppppppppK..',
+  '..KpKppppKpK..',
+  '..KppppppppK..',
+  '...KppWWppK...',
+  '....KKKKKK....',
+  '..KKBBBBBBKK..',
+  '.KBBBBWWBBBBK.',
+];
+
+const SPRITE_ESTUDIANTE_2 = [
+  '.KK..KKKK..KK.',
+  'KKKKKKKKKKKKKK',
+  '.KK.KKKKKK.KK.',
+  '...KPPPPPPK...',
+  '..KPKPPPPKPK..',
+  '..KPPPPPPPPK..',
+  '...KPPWWPPK...',
+  '....KKKKKK....',
+  '..KKRRRRRRKK..',
+  '.KRRRRWWRRRRK.',
+];
+
+const SPRITE_MATEO = [
+  '...KKKKKKKK...',
+  '..KBBBBBBBBKK.',
+  '..KKKKKKKKKKKK',
+  '..KppppppppK..',
+  '..KpKppppKpK..',
+  '..KppppppppK..',
+  '...KppWWppK...',
+  '....KKKKKK....',
+  '..KKGGGGGGKK..',
+  '.KGGGGWWGGGGK.',
+  '.KGGGGGGGGGGK.',
+  '..KKNNNNNNKK..',
+  '..KNNK..KNNK..',
+  '..KKKK..KKKK..',
+];
+
+const sprites = [
+  { filas: SPRITE_SOFIA, x: 76, y: 31 },
+  { filas: SPRITE_ESTUDIANTE_1, x: 100, y: 31 },
+  { filas: SPRITE_ESTUDIANTE_2, x: 118, y: 31 },
+  { filas: SPRITE_MATEO, x: 142, y: 31 },
+];
+---
+
+<svg
+  viewBox="0 0 184 56"
+  class="block h-auto w-full rounded-soft border-2 border-ink-black"
+  shape-rendering="crispEdges"
+  role="img"
+  aria-label="Panorama en pixel-art de la escuela rural en las montañas de Maripí, Boyacá, con estudiantes de quinto grado leyendo y compartiendo un celular junto a Sofía y Mateo."
+>
+  <!-- Cielo andino escalonado en pixel-art -->
+  <rect x="0" y="0" width="184" height="14" fill="#cfe6f7"></rect>
+  <rect x="0" y="14" width="184" height="14" fill="#dbeefb"></rect>
+  <rect x="0" y="28" width="184" height="12" fill="#eff7fd"></rect>
+
+  <!-- Sol pixel-art con corona -->
+  <rect x="14" y="4" width="8" height="12" fill="#f5e211"></rect>
+  <rect x="12" y="6" width="12" height="8" fill="#f5e211"></rect>
+  <rect x="14" y="6" width="8" height="8" fill="#ffffff" opacity="0.35"></rect>
+  <rect x="17" y="1" width="2" height="2" fill="#f5e211"></rect>
+  <rect x="17" y="17" width="2" height="2" fill="#f5e211"></rect>
+  <rect x="9" y="9" width="2" height="2" fill="#f5e211"></rect>
+  <rect x="25" y="9" width="2" height="2" fill="#f5e211"></rect>
+
+  <!-- Nubes pixeladas -->
+  <g fill="#ffffff">
+    <rect x="46" y="6" width="16" height="4"></rect>
+    <rect x="50" y="4" width="8" height="2"></rect>
+    <rect x="44" y="10" width="20" height="2" fill="#b9d6f0"></rect>
+
+    <rect x="124" y="5" width="18" height="4"></rect>
+    <rect x="128" y="3" width="10" height="2"></rect>
+    <rect x="122" y="9" width="22" height="2" fill="#b9d6f0"></rect>
+  </g>
+
+  <!-- Cordillera lejana de Boyacá en bloques pixel-art -->
+  <g fill="#5aa03a">
+    <rect x="0" y="28" width="184" height="14"></rect>
+    <rect x="12" y="24" width="44" height="4"></rect>
+    <rect x="22" y="21" width="24" height="3"></rect>
+    <rect x="82" y="23" width="52" height="5"></rect>
+    <rect x="94" y="20" width="28" height="3"></rect>
+    <rect x="144" y="25" width="36" height="3"></rect>
+  </g>
+
+  <!-- Colina intermedia y prado primer plano -->
+  <g fill="#6fbb47">
+    <rect x="0" y="33" width="184" height="10"></rect>
+    <rect x="56" y="30" width="66" height="3"></rect>
+    <rect x="138" y="31" width="46" height="2"></rect>
+  </g>
+  <rect x="0" y="41" width="184" height="15" fill="#8ed462"></rect>
+  <rect x="0" y="41" width="184" height="1" fill="#2c2e2a"></rect>
+
+  <!-- Poste eléctrico rural con rayo pixelado -->
+  <g transform="translate(86 14)">
+    <rect x="3" y="0" width="2" height="27" fill="#5c442c"></rect>
+    <rect x="0" y="3" width="8" height="2" fill="#2c2e2a"></rect>
+    <rect x="1" y="7" width="6" height="2" fill="#2c2e2a"></rect>
+    <!-- Cables punteados -->
+    <rect x="-18" y="5" width="16" height="1" fill="#2c2e2a"></rect>
+    <rect x="10" y="5" width="18" height="1" fill="#2c2e2a"></rect>
+    <!-- Rayo amarillo -->
+    <rect x="3" y="-6" width="3" height="2" fill="#f5e211"></rect>
+    <rect x="2" y="-4" width="3" height="2" fill="#f5e211"></rect>
+    <rect x="3" y="-2" width="2" height="2" fill="#f5e211"></rect>
+  </g>
+
+  <!-- Escuela Rural I.E. Jorge Eliécer Gaitán (izquierda) -->
+  <g transform="translate(14 19)">
+    <!-- Techo escalonado de teja de barro -->
+    <rect x="8" y="0" width="26" height="2" fill="#2c2e2a"></rect>
+    <rect x="4" y="2" width="34" height="2" fill="#ff705d"></rect>
+    <rect x="1" y="4" width="40" height="3" fill="#ff705d"></rect>
+    <rect x="0" y="7" width="42" height="2" fill="#c94a38"></rect>
+    <!-- Fachada blanca y zócalo azul -->
+    <rect x="3" y="9" width="36" height="14" fill="#2c2e2a"></rect>
+    <rect x="4" y="9" width="34" height="10" fill="#ffffff"></rect>
+    <rect x="4" y="19" width="34" height="3" fill="#2ba0ff"></rect>
+    <!-- Letrero amarillo 5.º -->
+    <rect x="15" y="9" width="12" height="3" fill="#f5e211"></rect>
+    <!-- Puerta y ventanas -->
+    <rect x="18" y="13" width="6" height="9" fill="#8b6b4a"></rect>
+    <rect x="7" y="12" width="7" height="5" fill="#4f9a34"></rect>
+    <rect x="28" y="12" width="7" height="5" fill="#dbeefb"></rect>
+    <!-- Bandera de Colombia en el patio -->
+    <rect x="45" y="-3" width="1" height="25" fill="#2c2e2a"></rect>
+    <rect x="46" y="-3" width="7" height="2" fill="#f5e211"></rect>
+    <rect x="46" y="-1" width="7" height="1" fill="#2ba0ff"></rect>
+    <rect x="46" y="0" width="7" height="1" fill="#ff705d"></rect>
+  </g>
+
+  <!-- Sendero empedrado desde la escuela -->
+  <rect x="32" y="42" width="14" height="4" fill="#f5f1e4"></rect>
+  <rect x="38" y="46" width="18" height="4" fill="#f5f1e4"></rect>
+  <rect x="46" y="50" width="22" height="6" fill="#f5f1e4"></rect>
+
+  <!-- Árboles y cafetales en pixel-art (derecha) -->
+  <g transform="translate(162 20)">
+    <rect x="6" y="12" width="4" height="10" fill="#5c442c"></rect>
+    <rect x="2" y="2" width="12" height="10" fill="#3e7a29"></rect>
+    <rect x="0" y="4" width="16" height="6" fill="#4f9a34"></rect>
+    <rect x="4" y="3" width="6" height="4" fill="#8ed462"></rect>
+    <!-- Cafeto con cerezas rojas -->
+    <rect x="-8" y="15" width="8" height="6" fill="#3e7a29"></rect>
+    <rect x="-6" y="17" width="1" height="1" fill="#ff705d"></rect>
+    <rect x="-3" y="18" width="1" height="1" fill="#ff705d"></rect>
+    <rect x="-5" y="16" width="1" height="1" fill="#f5e211"></rect>
+  </g>
+
+  <!-- Personajes en pixel-art (Sofía, 2 estudiantes rurales y Mateo) -->
+  {sprites.map((sp) => (
+    <g transform={`translate(${sp.x} ${sp.y})`}>
+      {sp.filas.map((fila, idx_y) =>
+        compactar_fila_pixel(fila).map((seg) => (
+          <rect
+            x={seg.x}
+            y={idx_y}
+            width={seg.w}
+            height={1}
+            fill={PALETA[seg.c] ?? '#2c2e2a'}
+          />
+        )),
+      )}
+    </g>
+  ))}
+
+  <!-- Lupa pixel-art en la mano de Sofía -->
+  <rect x="72" y="35" width="4" height="4" fill="#2c2e2a"></rect>
+  <rect x="73" y="36" width="2" height="2" fill="#dbeefb"></rect>
+  <rect x="74" y="39" width="1" height="3" fill="#8ed462"></rect>
+
+  <!-- Mesa escolar comunitaria con libro abierto y celular compartido -->
+  <g transform="translate(96 40)">
+    <rect x="0" y="1" width="40" height="3" fill="#2c2e2a"></rect>
+    <rect x="1" y="1" width="38" height="2" fill="#dcae82"></rect>
+    <rect x="4" y="4" width="3" height="7" fill="#8b6b4a"></rect>
+    <rect x="33" y="4" width="3" height="7" fill="#8b6b4a"></rect>
+    <!-- Libro abierto sobre la mesa -->
+    <rect x="6" y="-3" width="11" height="4" fill="#2c2e2a"></rect>
+    <rect x="7" y="-2" width="4" height="2" fill="#ffffff"></rect>
+    <rect x="12" y="-2" width="4" height="2" fill="#ffffff"></rect>
+    <!-- Celular compartido sobre la mesa -->
+    <rect x="26" y="-5" width="5" height="6" fill="#2c2e2a"></rect>
+    <rect x="27" y="-4" width="3" height="4" fill="#f5e211"></rect>
+  </g>
+</svg>
