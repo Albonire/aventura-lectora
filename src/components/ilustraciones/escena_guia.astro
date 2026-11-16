@@ -1,0 +1,57 @@
+---
+// the two scenes of figure 2 of guide 2.1: Sofía with the rabbit and the tortoise,
+// and Mateo with the caterpillar, standing on a patch of ground between plants and flowers.
+import Sofia from './sofia.astro';
+import Mateo from './mateo.astro';
+import Conejo from './conejo.astro';
+import Tortuga from './tortuga.astro';
+import Oruga from './oruga.astro';
+import Plantas from './plantas.astro';
+
+interface Props {
+  quien: 'sofia' | 'mateo';
+  class?: string;
+}
+const { quien, class: clase = '' } = Astro.props;
+---
+
+<svg viewBox="0 0 440 400" class:list={['block h-auto w-full', clase]} aria-hidden="true" focusable="false">
+  <!-- ground -->
+  <ellipse cx="220" cy="366" rx="186" ry="20" fill="#f1dfb4"></ellipse>
+  {
+    quien === 'sofia' ? (
+      <>
+        <Plantas tipo="hojas" x={6} y={240} escala={1.2} />
+        <Plantas tipo="mata" x={116} y={286} escala={0.8} />
+        <Plantas tipo="flor" x={4} y={316} escala={0.56} color="#f43f5e" />
+        <Plantas tipo="hojas" x={296} y={256} escala={1.15} espejo />
+        <Plantas tipo="flor" x={356} y={306} escala={0.66} color="#facc15" />
+        <Plantas tipo="flor" x={260} y={332} escala={0.42} color="#a78bfa" />
+        <Plantas tipo="pasto" x={388} y={318} escala={0.5} />
+        <g transform="translate(108 42)">
+          <Sofia size={330} pose="lupa" />
+        </g>
+        <g transform="translate(52 252)">
+          <Conejo size={122} />
+        </g>
+        <g transform="translate(286 296)">
+          <Tortuga size={76} />
+        </g>
+      </>
+    ) : (
+      <>
+        <Plantas tipo="hojas" x={26} y={258} escala={1.12} />
+        <Plantas tipo="flor" x={96} y={312} escala={0.6} color="#facc15" />
+        <Plantas tipo="flor" x={64} y={334} escala={0.4} color="#f43f5e" />
+        <Plantas tipo="pasto" x={236} y={314} escala={0.56} />
+        <Plantas tipo="pasto" x={372} y={306} escala={0.66} espejo />
+        <g transform="translate(60 42)">
+          <Mateo size={330} pose="libreta" />
+        </g>
+        <g transform="translate(278 270)">
+          <Oruga size={102} />
+        </g>
+      </>
+    )
+  }
+</svg>

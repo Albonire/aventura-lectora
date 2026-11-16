@@ -1,5 +1,8 @@
 ---
+// mission 2: Sofía and Mateo ask for a story of the grandparents, among sugar cane
 import PortadaCapitulo from '../../libro/portada_capitulo.astro';
+import EscenaBase from '../escena_base.astro';
+import Plantas from '../plantas.astro';
 import Sofia from '../sofia.astro';
 import Mateo from '../mateo.astro';
 import Oruga from '../oruga.astro';
@@ -10,93 +13,50 @@ interface Props {
   alt: string;
 }
 const { titulo, alt } = Astro.props;
+// sugar cane stalks: [x, top]
+const canas: [number, number][] = [
+  [452, 150],
+  [484, 118],
+  [516, 166],
+];
 ---
 
 <PortadaCapitulo numero={2} titulo={titulo} color="sky-pop" alt={alt}>
-  <svg
-    slot="fondo"
-    viewBox="0 0 800 800"
-    class="h-full w-full"
-    preserveAspectRatio="xMidYMid meet"
-    focusable="false"
-  >
-    <!-- Sol con rayos y sombra -->
-    <g transform="translate(640, 140)">
-      <circle cx="0" cy="0" r="94" fill="#facc15" opacity="0.3"></circle>
-      <g stroke="#facc15" stroke-width="14" stroke-linecap="round">
-        <line x1="0" y1="-105" x2="0" y2="-125" />
-        <line x1="0" y1="105" x2="0" y2="125" />
-        <line x1="-105" y1="0" x2="-125" y2="0" />
-        <line x1="105" y1="0" x2="125" y2="0" />
-        <line x1="-74" y1="-74" x2="-88" y2="-88" />
-        <line x1="74" y1="74" x2="88" y2="88" />
-        <line x1="-74" y1="74" x2="-88" y2="88" />
-        <line x1="74" y1="-74" x2="88" y2="-88" />
-      </g>
-      <circle cx="0" cy="0" r="84" fill="#facc15"></circle>
-      <path d="M -70 46 A 84 84 0 0 0 70 46 A 86 86 0 0 1 -70 46 Z" fill="#eab308"></path>
-    </g>
-
-    <!-- Nubes detalladas -->
-    <g fill="#ffffff">
-      <!-- Nube 1 -->
-      <path d="M 90 190 A 34 34 0 0 1 110 130 A 48 48 0 0 1 200 120 A 40 40 0 0 1 260 160 A 30 30 0 0 1 240 210 L 90 210 A 30 30 0 0 1 90 190 Z"></path>
-      <path d="M 90 210 L 240 210 A 30 30 0 0 0 258 185 C 230 195 190 200 160 195 C 130 190 110 180 90 170 A 30 30 0 0 0 90 210 Z" fill="#ece5d6" opacity="0.5"></path>
-      
-      <!-- Nube 2 -->
-      <g transform="translate(280, -60) scale(0.7)">
-        <path d="M 90 190 A 34 34 0 0 1 110 130 A 48 48 0 0 1 200 120 A 40 40 0 0 1 260 160 A 30 30 0 0 1 240 210 L 90 210 A 30 30 0 0 1 90 190 Z"></path>
-        <path d="M 90 210 L 240 210 A 30 30 0 0 0 258 185 C 230 195 190 200 160 195 C 130 190 110 180 90 170 A 30 30 0 0 0 90 210 Z" fill="#ece5d6" opacity="0.5"></path>
-      </g>
-    </g>
-
-    <!-- Colina verde de fondo -->
-    <path
-      d="M0 610 C180 520 360 540 560 470 C660 436 740 440 800 456 V800 H0 Z"
-      fill="#65a30d"
-    ></path>
-    <!-- Detalle de la colina (sombra/relieve) -->
-    <path
-      d="M0 650 C180 560 360 580 560 510 C660 476 740 480 800 496 V800 H0 Z"
-      fill="#5aa03a"
-      opacity="0.3"
-    ></path>
-  </svg>
-  <svg
-    slot="medio"
-    viewBox="0 0 800 800"
-    class="h-full w-full"
-    preserveAspectRatio="xMidYMid meet"
-    focusable="false"
-  >
+  <svg viewBox="0 0 560 440" class="block h-auto w-full" focusable="false" aria-hidden="true">
+    <EscenaBase sol={false} />
     <!-- sugar cane -->
-    <g stroke="#4d7c0f" stroke-width="12" stroke-linecap="round" fill="none">
-      <path d="M690 640 V380 M730 650 V420 M650 650 V440"></path>
+    {
+      canas.map(([x, y]) => (
+        <g>
+          <path d={`M${x} 396 V${y}`} stroke="#9ccf6a" stroke-width="13" stroke-linecap="round" fill="none" />
+          <path
+            d={`M${x - 6} ${y + 60} H${x + 6} M${x - 6} ${y + 120} H${x + 6} M${x - 6} ${y + 180} H${x + 6}`}
+            stroke="#5a9a4e"
+            stroke-width="4"
+            fill="none"
+          />
+          <path
+            d={`M${x} ${y + 8} C${x - 30} ${y - 24} ${x - 58} ${y - 16} ${x - 70} ${y + 6} C${x - 44} ${y - 2} ${x - 20} ${y + 6} ${x} ${y + 8} Z`}
+            fill="#7cb46b"
+          />
+          <path
+            d={`M${x} ${y + 8} C${x + 22} ${y - 30} ${x + 46} ${y - 28} ${x + 60} ${y - 8} C${x + 38} ${y - 12} ${x + 16} ${y - 2} ${x} ${y + 8} Z`}
+            fill="#5a9a4e"
+          />
+        </g>
+      ))
+    }
+    <Plantas tipo="mata" x={2} y={300} escala={1} />
+    <Plantas tipo="flor" x={96} y={352} escala={0.5} color="#facc15" />
+    <Burbuja x={120} y={18} ancho={300} tamano={30} texto="Cuéntame, abuelo" cola_x={0.62} />
+    <g transform="translate(40 112)">
+      <Sofia size={300} pose="lupa" />
     </g>
-    <g stroke="#84cc16" stroke-width="10" stroke-linecap="round" fill="none">
-      <path d="M690 400 Q650 370 620 380 M690 430 Q730 400 760 410 M730 440 Q770 420 790 440 M650 460 Q610 440 590 460"></path>
+    <g transform="translate(232 112)">
+      <Mateo size={300} pose="libreta" />
     </g>
-    <!-- trapiche roof -->
-    <path d="M40 520 L170 430 L300 520 Z" fill="#f43f5e" stroke="#1e293b" stroke-width="6" stroke-linejoin="round"></path>
-    <rect x="70" y="520" width="14" height="130" fill="#8b6b4a" stroke="#1e293b" stroke-width="4"></rect>
-    <rect x="256" y="520" width="14" height="130" fill="#8b6b4a" stroke="#1e293b" stroke-width="4"></rect>
-  </svg>
-  <svg
-    slot="frente"
-    viewBox="0 0 800 800"
-    class="h-full w-full"
-    preserveAspectRatio="xMidYMid meet"
-    focusable="false"
-  >
-    <Burbuja x={250} y={150} ancho={330} tamano={36} texto="Cuéntame, abuelo" cola_x={0.3} />
-    <g transform="translate(130 400)">
-      <Sofia size={350} pose="cadera" />
-    </g>
-    <g transform="translate(400 420)">
-      <Mateo size={330} pose="libreta" />
-    </g>
-    <g transform="translate(650 690)">
-      <Oruga size={90} />
+    <g transform="translate(424 332)">
+      <Oruga size={84} />
     </g>
   </svg>
 </PortadaCapitulo>

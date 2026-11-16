@@ -1,10 +1,11 @@
 ---
-// course symbol: ink ring and green handle
+// symbol of the agency: the sky blue magnifying glass of Sofía
 interface Props {
   size?: number;
   class?: string;
 }
 const { size = 32, class: clase = '' } = Astro.props;
+const TINTA = '#1e293b';
 ---
 
 <svg
@@ -16,46 +17,11 @@ const { size = 32, class: clase = '' } = Astro.props;
   aria-hidden="true"
   focusable="false"
 >
-  <!-- Handle shadow -->
-  <path d="M42 42 L56 56" stroke="#1e293b" stroke-width="16" stroke-linecap="round" opacity="0.15"></path>
-  
-  <!-- Handle Outline -->
-  <path d="M40 40 L54 54" stroke="#1e293b" stroke-width="16" stroke-linecap="round"></path>
-  <!-- Handle Fill -->
-  <path d="M40 40 L54 54" stroke="#84cc16" stroke-width="10" stroke-linecap="round"></path>
-  <!-- Handle highlight -->
-  <path d="M41 39 L53 51" stroke="#ffffff" stroke-width="3" stroke-linecap="round" opacity="0.6"></path>
-
-  <!-- Handle connector -->
-  <rect x="36" y="36" width="8" height="8" rx="2" fill="#dcd6c8" stroke="#1e293b" stroke-width="3" transform="rotate(45 40 40)"></rect>
-
-  <!-- Glass shadow -->
-  <circle cx="29" cy="29" r="17" fill="#1e293b" opacity="0.15"></circle>
-
-  <!-- Glass Outer Ring -->
-  <circle cx="27" cy="27" r="18" fill="#ece5d6" stroke="#1e293b" stroke-width="4"></circle>
-  
-  <!-- Glass Inner -->
-  <circle cx="27" cy="27" r="14" fill="#faf6ee" stroke="#1e293b" stroke-width="2"></circle>
-
-  <!-- Inner glass shadow -->
-  <path d="M16 27 A11 11 0 0 0 38 27 A11 11 0 0 1 16 27" fill="#1e293b" opacity="0.05"></path>
-
-  <!-- Reflections -->
-  <path
-    d="M17 24 A10 10 0 0 1 25 17"
-    stroke="#ffffff"
-    stroke-width="4"
-    stroke-linecap="round"
-    fill="none"
-    opacity="0.9"
-  ></path>
-  <path
-    d="M33 35 A4 4 0 0 1 35 33"
-    stroke="#ffffff"
-    stroke-width="3"
-    stroke-linecap="round"
-    fill="none"
-    opacity="0.8"
-  ></path>
+  <g stroke={TINTA} stroke-linecap="round" stroke-linejoin="round">
+    <path d="M40 40 L55 55" stroke-width="13" fill="none"></path>
+    <path d="M40 40 L55 55" stroke="#0369a1" stroke-width="6.5" fill="none"></path>
+    <circle cx="27" cy="27" r="21" fill="#0284c7" stroke-width="4"></circle>
+    <circle cx="27" cy="27" r="14" fill="#bae6fd" stroke-width="3"></circle>
+    <path d="M18 24 A10 10 0 0 1 25 17" stroke="#ffffff" stroke-width="4" fill="none"></path>
+  </g>
 </svg>

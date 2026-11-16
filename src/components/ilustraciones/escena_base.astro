@@ -1,0 +1,36 @@
+---
+// base of every storybook scene: sky details, a hill and the patch of ground where the characters stand.
+// Drawn for a 560 x 440 view box. Shapes without outline stay in the background; characters carry the outline.
+interface Props {
+  sol?: boolean;
+  nubes?: boolean;
+  loma?: boolean;
+}
+const { sol = true, nubes = true, loma = true } = Astro.props;
+---
+
+{
+  sol && (
+    <g>
+      <circle cx="486" cy="78" r="46" fill="#fde68a" />
+      <circle cx="486" cy="78" r="32" fill="#facc15" />
+    </g>
+  )
+}
+{
+  nubes && (
+    <g fill="#ffffff">
+      <path d="M60 96 C52 78 70 64 86 72 C92 52 124 52 130 74 C148 70 158 90 146 100 H66 C62 100 60 98 60 96 Z" />
+      <path d="M300 62 C296 50 308 42 318 48 C324 36 344 38 346 52 C356 50 362 62 354 68 H306 C302 68 300 66 300 62 Z" />
+    </g>
+  )
+}
+{
+  loma && (
+    <g>
+      <path d="M0 330 C90 268 190 300 290 286 C390 272 470 250 560 282 V440 H0 Z" fill="#d9f0b5" />
+      <path d="M0 372 C120 336 240 362 340 350 C430 340 500 330 560 344 V440 H0 Z" fill="#c2e59a" />
+    </g>
+  )
+}
+<ellipse cx="280" cy="404" rx="236" ry="22" fill="#f1dfb4"></ellipse>

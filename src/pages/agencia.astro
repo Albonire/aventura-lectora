@@ -4,11 +4,7 @@
 import CursoLayout from '../layouts/curso_layout.astro';
 import EncabezadoPagina from '../components/curso/encabezado_pagina.astro';
 import Seccion from '../components/ui/seccion.astro';
-import Sofia from '../components/ilustraciones/sofia.astro';
-import Mateo from '../components/ilustraciones/mateo.astro';
-import Conejo from '../components/ilustraciones/conejo.astro';
-import Tortuga from '../components/ilustraciones/tortuga.astro';
-import Oruga from '../components/ilustraciones/oruga.astro';
+import EscenaGuia from '../components/ilustraciones/escena_guia.astro';
 import { ReadAloud } from '../components/islas/read_aloud';
 import { EleccionRapida } from '../components/islas/eleccion_rapida';
 import { PasaporteAgencia } from '../components/islas/pasaporte_agencia';
@@ -43,25 +39,8 @@ const estacion = estaciones[0];
       {
         datos.personajes.map((p) => (
           <li class="flex flex-col rounded-card border-2 border-ink-black bg-pure-white p-5">
-            <div
-              class:list={[
-                'flex h-52 items-end justify-center gap-3 rounded-soft border-2 border-ink-black px-3 pt-3',
-                p.id === 'sofia' ? 'bg-sunshine-pop' : 'bg-sky-soft',
-              ]}
-              aria-hidden="true"
-            >
-              {p.id === 'sofia' ? (
-                <>
-                  <Conejo size={64} />
-                  <Sofia size={190} pose="lupa" />
-                  <Tortuga size={44} />
-                </>
-              ) : (
-                <>
-                  <Mateo size={190} pose="libreta" />
-                  <Oruga size={64} />
-                </>
-              )}
+            <div class="overflow-hidden rounded-soft border-2 border-ink-black bg-cream-paper">
+              <EscenaGuia quien={p.id === 'sofia' ? 'sofia' : 'mateo'} />
             </div>
             <h3 class="mt-4 text-[1.5rem] leading-tight">{p.nombre}</h3>
             <p class="interfaz text-body-sm font-medium text-stone-text">{p.apodo}</p>

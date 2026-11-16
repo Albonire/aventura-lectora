@@ -1,139 +1,154 @@
 ---
-// Mateo, "el Rastreador de Pistas": 11 years old, brown skin, curly black hair under a sky blue cap,
-// lime green sweater with a yellow chest pocket, field notebook with a green back and a yellow pencil (guide 2.1)
+// Mateo, "el Rastreador de Pistas" (character sheet of guide 2.1, figure 2): 11 years old, brown skin,
+// curly black hair under a sky blue cap, lime green sweater with a yellow chest pocket, field notebook
+// with a green back and a yellow pencil. Flat storybook vector: big head, one outline color, no gradients.
+// The head group is repeated in src/components/islas/personajes.tsx (CaraMateo): change both together.
 interface Props {
+  // height in px (inside another svg: in user units)
   size?: number;
+  // "libreta": writes in the field notebook. "levanta": raises an arm and keeps the notebook under the other.
   pose?: 'libreta' | 'levanta';
   class?: string;
 }
 const { size = 220, pose = 'libreta', class: clase = '' } = Astro.props;
-const PIEL = '#a9703f';
-const CAMISA = '#84cc16';
 const TINTA = '#1e293b';
+const PIEL = '#a9703f';
+const PELO = '#111827';
+const SUETER = '#84cc16';
+const SUETER_SOMBRA = '#65a30d';
+const PANTALON = '#334155';
+const GORRA = '#0284c7';
+const GORRA_LUZ = '#38bdf8';
+const RESPALDO = '#15803d';
+// curls that show around the cap: [cx, cy, r]
+const rizos_atras: [number, number, number][] = [
+  [74, 76, 15],
+  [62, 94, 14],
+  [62, 116, 13],
+  [72, 134, 12],
+  [186, 104, 10],
+];
+const rizos_frente: [number, number, number][] = [
+  [100, 74, 11],
+  [118, 68, 11],
+  [138, 66, 11],
+  [158, 70, 11],
+  [174, 80, 10],
+];
 ---
 
 <svg
-  viewBox="0 0 170 232"
+  viewBox="0 0 264 314"
   height={size}
-  width={(size * 170) / 232}
+  width={(size * 264) / 314}
   class={clase}
   aria-hidden="true"
   focusable="false"
 >
-  <!-- legs and shoes -->
-  <path d="M60 170 Q64 195 60 220 L80 220 Q76 195 80 170 Z" fill="#4a5568"/>
-<path d="M74 170 Q72 195 74 220 L80 220 Q76 195 80 170 Z" fill="#2d3748"/>
-  <path d="M84 170 Q88 195 84 220 L104 220 Q100 195 104 170 Z" fill="#4a5568"/>
-<path d="M98 170 Q96 195 98 220 L104 220 Q100 195 104 170 Z" fill="#2d3748"/>
-  <ellipse cx="68" cy="224" rx="16" ry="7" fill={TINTA}></ellipse>
-  <ellipse cx="98" cy="224" rx="16" ry="7" fill={TINTA}></ellipse>
-  <!-- torso -->
-  <path d="M46 108 Q82 96 118 108 L126 180 Q82 196 38 180 Z" fill={CAMISA}/>
-<path d="M42 172 Q82 188 122 172 L126 180 Q82 196 38 180 Z" fill="#65a30d"/>
-  <rect x="74" y="94" width="16" height="16" fill={PIEL}></rect>
-  <path d="M68 106 Q82 122 96 106 Z" fill={PIEL}></path>
-  <!-- yellow chest pocket -->
-  <rect x="92" y="126" width="17" height="15" rx="3" fill="#facc15" stroke={TINTA} stroke-width="2"></rect>
+  <g stroke={TINTA} stroke-width="4" stroke-linejoin="round" stroke-linecap="round">
+    <!-- legs and shoes -->
+    <path d="M94 236 L94 294 L122 294 L124 236 Z" fill={PANTALON}></path>
+    <path d="M128 236 L130 294 L158 294 L156 236 Z" fill={PANTALON}></path>
+    <path d="M90 292 H124 C132 292 136 298 136 306 H86 C84 300 86 294 90 292 Z" fill="#0f172a"></path>
+    <path d="M128 292 H162 C170 292 174 298 174 306 H124 C122 300 124 294 128 292 Z" fill="#0f172a"></path>
 
-  {pose === 'levanta' ? (
-    <>
-      <path
-        d="M50 118 Q30 140 52 156"
-        stroke={CAMISA}
-        stroke-width="16"
-        stroke-linecap="round"
-        fill="none"
-      ></path>
-      <circle cx="54" cy="157" r="8.5" fill={PIEL}></circle>
-      <path
-        d="M114 118 Q146 108 140 70"
-        stroke={CAMISA}
-        stroke-width="16"
-        stroke-linecap="round"
-        fill="none"
-      ></path>
-      <circle cx="140" cy="64" r="8.5" fill={PIEL}></circle>
-    </>
-  ) : (
-    <>
-      <path
-        d="M50 118 Q30 140 56 156"
-        stroke={CAMISA}
-        stroke-width="16"
-        stroke-linecap="round"
-        fill="none"
-      ></path>
-      <g transform="rotate(-8 60 150)">
-        <!-- green back of the field notebook -->
-        <rect x="45" y="129" width="30" height="36" rx="4" fill="#65a30d" stroke={TINTA} stroke-width="2.5"></rect>
-        <rect
-          x="42"
-          y="132"
-          width="30"
-          height="36"
-          rx="4"
-          fill="#ffffff"
-          stroke={TINTA}
-          stroke-width="2.5"
-        ></rect>
-        <path d="M42 140 H72 M42 148 H72 M42 156 H64" stroke="#dcd6c8" stroke-width="2"></path>
-        <circle cx="42" cy="138" r="2.6" fill="#f43f5e"></circle>
-        <circle cx="42" cy="150" r="2.6" fill="#f43f5e"></circle>
-        <circle cx="42" cy="162" r="2.6" fill="#f43f5e"></circle>
-      </g>
-      <circle cx="58" cy="158" r="8.5" fill={PIEL}></circle>
-      <path
-        d="M114 118 Q134 142 124 164"
-        stroke={CAMISA}
-        stroke-width="16"
-        stroke-linecap="round"
-        fill="none"
-      ></path>
-      <circle cx="123" cy="166" r="8.5" fill={PIEL}></circle>
-      <rect
-        x="126"
-        y="140"
-        width="5"
-        height="34"
-        rx="2"
-        fill="#facc15"
-        stroke={TINTA}
-        stroke-width="1.8"
-        transform="rotate(14 128 156)"
-      ></rect>
-    </>
-  )}
+    <!-- neck -->
+    <path d="M114 144 V166 H138 V144 Z" fill={PIEL}></path>
 
-  <!-- head, curly hair and cap -->
-  <circle cx="50" cy="70" r="7" fill={PIEL}></circle>
-  <circle cx="114" cy="70" r="7" fill={PIEL}></circle>
-  <path d="M51 64 C51 38 113 38 113 64 C113 88 98 97 82 97 C66 97 51 88 51 64 Z" fill={PIEL}/>
-<path d="M60 64 C60 45 104 45 104 64 C104 80 94 88 82 88 C70 88 60 80 60 64 Z" fill="#c08a58" opacity="0.4"/>
-  <g fill={TINTA}>
-    <circle cx="52" cy="52" r="12"></circle>
-    <circle cx="46" cy="70" r="10"></circle>
-    <circle cx="112" cy="52" r="12"></circle>
-    <circle cx="118" cy="70" r="10"></circle>
+    <!-- sweater with ribbed collar and hem -->
+    <path
+      d="M98 160 C82 164 76 190 78 240 L170 240 C172 198 166 168 152 160 C140 170 110 170 98 160 Z"
+      fill={SUETER}></path>
+    <path d="M100 158 C112 176 138 176 150 158 C140 168 110 168 100 158 Z" fill={SUETER_SOMBRA}></path>
+    <path d="M79 228 H170" fill="none" stroke={SUETER_SOMBRA} stroke-width="5"></path>
+    <path d="M78 240 H170" fill="none"></path>
+    <!-- yellow chest pocket -->
+    <path d="M112 182 H134 V196 C134 202 129 205 123 205 C117 205 112 202 112 196 Z" fill="#facc15" stroke-width="3"></path>
+    <path d="M112 189 H134" fill="none" stroke-width="2.5"></path>
+
+    <!-- curls behind the head -->
+    {rizos_atras.map(([cx, cy, r]) => <circle cx={cx} cy={cy} r={r} fill={PELO} />)}
+    <!-- head -->
+    <path
+      d="M66 102 C66 62 96 44 126 44 C158 44 182 66 182 102 C182 136 156 156 126 156 C92 156 66 136 66 102 Z"
+      fill={PIEL}></path>
+    <!-- curls on the forehead, under the cap -->
+    {rizos_frente.map(([cx, cy, r]) => <circle cx={cx} cy={cy} r={r} fill={PELO} />)}
+    <!-- sky blue cap -->
+    <path
+      d="M58 86 C50 46 90 20 130 24 C168 28 192 54 184 82 C152 60 96 62 58 86 Z"
+      fill={GORRA}></path>
+    <path d="M96 36 C84 44 76 56 74 68" fill="none" stroke={GORRA_LUZ} stroke-width="6"></path>
+    <path d="M144 64 C176 54 212 64 222 84 C200 94 170 92 148 80 Z" fill={GORRA_LUZ}></path>
+    <circle cx="126" cy="23" r="6" fill={GORRA_LUZ}></circle>
+    <!-- ear -->
+    <path d="M72 102 C60 100 56 116 64 124 C68 128 74 126 76 122 Z" fill={PIEL}></path>
+
+    <!-- face -->
+    <g stroke="none">
+      <ellipse cx="108" cy="126" rx="10" ry="7" fill="#f43f5e" opacity="0.45"></ellipse>
+      <ellipse cx="172" cy="122" rx="8" ry="6.5" fill="#f43f5e" opacity="0.45"></ellipse>
+      <ellipse cx="130" cy="110" rx="5" ry="7" fill={TINTA}></ellipse>
+      <ellipse cx="164" cy="108" rx="5" ry="7" fill={TINTA}></ellipse>
+      <circle cx="131.8" cy="107" r="1.9" fill="#ffffff"></circle>
+      <circle cx="165.8" cy="105" r="1.9" fill="#ffffff"></circle>
+    </g>
+    <g fill="none" stroke-width="3.5">
+      <path d="M120 96 Q129 90 138 95" stroke-width="4"></path>
+      <path d="M156 93 Q164 88 172 93" stroke-width="4"></path>
+      <path d="M150 114 q6 5 0 10" stroke-width="3"></path>
+      <path d="M130 131 Q147 145 164 129"></path>
+    </g>
+
+    {
+      pose === 'levanta' ? (
+        <>
+          <!-- field notebook under the left arm -->
+          <g transform="rotate(-8 74 226)">
+            <rect x="48" y="204" width="46" height="56" rx="4" fill={RESPALDO}></rect>
+            <rect x="42" y="198" width="46" height="56" rx="4" fill="#ffffff"></rect>
+            <path d="M50 214 H80 M50 224 H80 M50 234 H72" fill="none" stroke="#cbd5e1" stroke-width="3"></path>
+          </g>
+          <path d="M98 164 C80 170 72 196 70 222 L90 228 C92 208 98 192 106 182 Z" fill={SUETER}></path>
+          <circle cx="80" cy="234" r="11" fill={PIEL}></circle>
+          <!-- raised arm -->
+          <path
+            d="M150 164 C174 160 196 138 206 112 L226 122 C216 154 186 186 148 190 Z"
+            fill={SUETER}></path>
+          <circle cx="218" cy="112" r="12" fill={PIEL}></circle>
+        </>
+      ) : (
+        <>
+          <!-- arm under the notebook -->
+          <path d="M150 164 C170 168 184 190 190 216 L170 224 C164 206 156 194 146 186 Z" fill={SUETER}></path>
+          <!-- field notebook: green back, white page, spiral on top -->
+          <g transform="rotate(9 176 210)">
+            <rect x="154" y="184" width="58" height="66" rx="4" fill={RESPALDO}></rect>
+            <rect x="146" y="178" width="58" height="66" rx="4" fill="#ffffff"></rect>
+            <path
+              d="M156 196 H194 M156 207 H194 M156 218 H194 M156 229 H182"
+              fill="none"
+              stroke="#cbd5e1"
+              stroke-width="3"></path>
+            <path
+              d="M154 172 V184 M164 172 V184 M174 172 V184 M184 172 V184 M194 172 V184"
+              fill="none"
+              stroke-width="3"></path>
+          </g>
+          <circle cx="188" cy="238" r="11" fill={PIEL}></circle>
+          <!-- arm that writes with the yellow pencil -->
+          <path
+            d="M98 164 C84 168 74 190 76 210 C78 226 92 234 108 232 L134 228 L132 208 L110 210 C102 210 100 202 102 194 L108 180 Z"
+            fill={SUETER}></path>
+          <g transform="translate(140 216) rotate(38)">
+            <rect x="-26" y="-5" width="42" height="10" rx="2" fill="#facc15" stroke-width="3"></rect>
+            <rect x="-26" y="-5" width="8" height="10" rx="2" fill="#fda4af" stroke-width="3"></rect>
+            <path d="M16 -5 L28 0 L16 5 Z" fill="#fde68a" stroke-width="3"></path>
+            <path d="M23 -2 L28 0 L23 2 Z" fill={TINTA} stroke-width="1"></path>
+          </g>
+          <circle cx="138" cy="218" r="11" fill={PIEL}></circle>
+        </>
+      )
+    }
   </g>
-  <path d="M50 48 C52 20 112 20 114 48 Z" fill="#0284c7"></path>
-  <path d="M106 46 Q138 44 146 56 Q124 62 102 54 Z" fill="#0369a1"></path>
-  <circle cx="82" cy="23" r="4.5" fill="#0369a1"></circle>
-  <circle cx="71" cy="70" r="3.6" fill={TINTA}></circle>
-  <circle cx="95" cy="70" r="3.6" fill={TINTA}></circle>
-  <path
-    d="M65 61 Q71 57 77 61 M89 61 Q95 57 101 61"
-    stroke={TINTA}
-    stroke-width="2.4"
-    stroke-linecap="round"
-    fill="none"
-  ></path>
-  <circle cx="62" cy="81" r="6" fill="#f43f5e" opacity="0.4"></circle>
-  <circle cx="102" cy="81" r="6" fill="#f43f5e" opacity="0.4"></circle>
-  <path
-    d="M75 84 Q83 92 91 84"
-    stroke={TINTA}
-    stroke-width="2.6"
-    stroke-linecap="round"
-    fill="none"
-  ></path>
 </svg>

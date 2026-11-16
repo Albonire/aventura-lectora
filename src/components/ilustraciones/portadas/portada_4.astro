@@ -1,5 +1,8 @@
 ---
+// final challenge: the argument tower of three floors, with Sofía and Mateo
 import PortadaCapitulo from '../../libro/portada_capitulo.astro';
+import EscenaBase from '../escena_base.astro';
+import Plantas from '../plantas.astro';
 import Sofia from '../sofia.astro';
 import Mateo from '../mateo.astro';
 
@@ -8,119 +11,43 @@ interface Props {
   alt: string;
 }
 const { titulo, alt } = Astro.props;
-
-// base at the bottom, example on top
-const bloques = [
-  { texto: 'mi postura', color: '#fda4af', y: 600, w: 380 },
-  { texto: 'mis dos razones', color: '#bae6fd', y: 506, w: 340 },
-  { texto: 'mi ejemplo', color: '#facc15', y: 412, w: 290 },
+const TINTA = '#1e293b';
+// base at the bottom, example on top: [text, fill, y, width]
+const pisos: [string, string, number, number][] = [
+  ['mi ejemplo', '#facc15', 176, 168],
+  ['mis dos razones', '#bae6fd', 250, 208],
+  ['mi postura', '#fda4af', 324, 236],
 ];
+const centro = 436;
 ---
 
 <PortadaCapitulo numero={4} titulo={titulo} color="coral-pop" alt={alt}>
-  <svg
-    slot="fondo"
-    viewBox="0 0 800 800"
-    class="h-full w-full"
-    preserveAspectRatio="xMidYMid meet"
-    focusable="false"
-  >
-    <!-- Nubes con detalle orgánico -->
-    <g fill="#ffffff">
-      <!-- Nube 1 -->
-      <path d="M 100 160 A 30 30 0 0 1 130 120 A 44 44 0 0 1 200 110 A 38 38 0 0 1 260 150 A 30 30 0 0 1 240 200 L 100 200 A 30 30 0 0 1 100 160 Z"></path>
-      <path d="M 100 200 L 240 200 A 30 30 0 0 0 258 180 C 230 188 190 192 160 188 C 130 184 110 174 95 165 A 30 30 0 0 0 100 200 Z" fill="#ece5d6" opacity="0.5"></path>
-      
-      <!-- Nube 2 -->
-      <g transform="translate(420, -30) scale(0.85)">
-        <path d="M 100 160 A 30 30 0 0 1 130 120 A 44 44 0 0 1 200 110 A 38 38 0 0 1 260 150 A 30 30 0 0 1 240 200 L 100 200 A 30 30 0 0 1 100 160 Z"></path>
-        <path d="M 100 200 L 240 200 A 30 30 0 0 0 258 180 C 230 188 190 192 160 188 C 130 184 110 174 95 165 A 30 30 0 0 0 100 200 Z" fill="#ece5d6" opacity="0.5"></path>
-      </g>
+  <svg viewBox="0 0 560 440" class="block h-auto w-full" focusable="false" aria-hidden="true">
+    <EscenaBase />
+    <Plantas tipo="mata" x={0} y={302} escala={0.95} />
+    
+    <!-- flag on top of the tower -->
+    <g stroke={TINTA} stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+      <path d={`M${centro} 176 V104`} fill="none"></path>
+      <path d={`M${centro} 106 L${centro + 54} 122 L${centro} 140 Z`} fill="#f43f5e"></path>
+      {
+        pisos.map(([, relleno, y, ancho]) => (
+          <rect x={centro - ancho / 2} y={y} width={ancho} height="70" rx="14" fill={relleno} />
+        ))
+      }
     </g>
-
-    <!-- Colina de fondo -->
-    <path d="M0 690 C220 650 520 670 800 640 V800 H0 Z" fill="#65a30d"></path>
-    <!-- Sombra/relieve de colina -->
-    <path d="M0 730 C220 690 520 710 800 680 V800 H0 Z" fill="#5aa03a" opacity="0.3"></path>
-  </svg>
-  <svg
-    slot="medio"
-    viewBox="0 0 800 800"
-    class="h-full w-full"
-    preserveAspectRatio="xMidYMid meet"
-    focusable="false"
-  >
-    <g transform="translate(540 0)">
-      <!-- Bandera/indicador en la cima de la torre -->
-      <path d="M0 412 V298" stroke="#1e293b" stroke-width="7" stroke-linecap="round"></path>
-      <!-- Sombra de la bandera -->
-      <path d="M6 304 L86 328 L6 356 Z" fill="#1e293b" opacity="0.15"></path>
-      <!-- Tela roja -->
-      <path
-        d="M4 298 L84 322 L4 350 Z"
-        fill="#f43f5e"
-        stroke="#1e293b"
-        stroke-width="5"
-        stroke-linejoin="round"
-      ></path>
-      <path d="M 4 298 L 84 322 L 4 350" fill="none" stroke="#ffffff" stroke-width="2" opacity="0.5"></path>
-
-      <!-- Bloques apilados con volumen -->
-      {bloques.map((b) => (
-        <g>
-          <!-- Sombra proyectada del bloque -->
-          <rect
-            x={-b.w / 2 + 5}
-            y={b.y + 5}
-            width={b.w}
-            height="80"
-            rx="20"
-            fill="#1e293b"
-            opacity="0.15"
-          ></rect>
-          
-          <!-- Bloque principal -->
-          <rect
-            x={-b.w / 2}
-            y={b.y}
-            width={b.w}
-            height="80"
-            rx="20"
-            fill={b.color}
-            stroke="#1e293b"
-            stroke-width="5"
-          ></rect>
-          
-          <!-- Brillo interior superior -->
-          <path d={`M ${-b.w/2 + 20} ${b.y + 8} H ${b.w/2 - 20}`} stroke="#ffffff" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.4"></path>
-          
-          <!-- Texto del bloque -->
-          <text
-            x="0"
-            y={b.y + 51}
-            text-anchor="middle"
-            font-size="30"
-            font-weight="500"
-            fill="#1e293b"
-          >
-            {b.texto}
-          </text>
-        </g>
-      ))}
+    {
+      pisos.map(([texto, , y]) => (
+        <text x={centro} y={y + 44} text-anchor="middle" font-size="22" font-weight="700" fill={TINTA}>
+          {texto}
+        </text>
+      ))
+    }
+    <g transform="translate(-10 166)">
+      <Sofia size={244} pose="senala" />
     </g>
-  </svg>
-  <svg
-    slot="frente"
-    viewBox="0 0 800 800"
-    class="h-full w-full"
-    preserveAspectRatio="xMidYMid meet"
-    focusable="false"
-  >
-    <g transform="translate(20 500)">
-      <Sofia size={290} pose="senala" />
-    </g>
-    <g transform="translate(190 520)">
-      <Mateo size={270} pose="levanta" />
+    <g transform="translate(150 162)">
+      <Mateo size={248} pose="levanta" />
     </g>
   </svg>
 </PortadaCapitulo>
