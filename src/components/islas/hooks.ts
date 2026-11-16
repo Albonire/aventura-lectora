@@ -1,6 +1,11 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { guardar, leer } from '../../lib/almacen';
-import { leer_progreso, type Progreso } from '../../lib/progreso';
+import {
+  PASAPORTE_VACIO,
+  leer_progreso,
+  type Pasaporte,
+  type Progreso,
+} from '../../lib/progreso';
 
 const EVENTO = 'almacen:cambio';
 
@@ -52,16 +57,18 @@ export function usar_movimiento(): boolean {
   return movimiento;
 }
 
-export function usar_nombre() {
-  return usar_almacen<string>('nombre', '');
+// passport of station 00: who plays and whether it is active
+export function usar_pasaporte() {
+  return usar_almacen<Pasaporte>('pasaporte', PASAPORTE_VACIO);
 }
 
-// solved and visited cases, refreshed when a quiz marks a case as solved
+// solved cases and finished tasks, refreshed when an activity marks a task as done
 export function usar_progreso() {
   const [progreso, set_progreso] = useState<Progreso>({
     resueltos: [],
     visitados: [],
     paginas_leidas: [],
+    tareas: [],
     ultimo: null,
   });
   useEffect(() => {

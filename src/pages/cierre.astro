@@ -1,87 +1,76 @@
 ---
-import { getCollection } from 'astro:content';
+// station 05: the passport with its four medals, the family story for the reading circle and the certificate
 import CursoLayout from '../layouts/curso_layout.astro';
 import EncabezadoPagina from '../components/curso/encabezado_pagina.astro';
 import Seccion from '../components/ui/seccion.astro';
 import { BadgeTracker } from '../components/islas/badge_tracker';
-import { ExpedienteBuilder } from '../components/islas/expediente_builder';
-import { AutoevaluacionFinal } from '../components/islas/autoevaluacion_final';
+import { RelatoFamiliar } from '../components/islas/relato_familiar';
 import { Certificate } from '../components/islas/certificate';
-import datos_retos from '../data/retos.json';
+import { estaciones } from '../config/paginas';
+import { sitio } from '../config/sitio';
 
-const unidades = (await getCollection('unidades')).sort((a, b) => a.data.numero - b.data.numero);
-const casos = unidades.map((u) => ({ numero: u.data.numero, titulo: u.data.titulo }));
-const insignias = unidades.map((u) => ({
-  caso: u.data.numero,
-  nombre: u.data.insignia.nombre,
-  descripcion: u.data.insignia.descripcion,
-}));
-const final = datos_retos.producto_final;
-const niveles = ['superior', 'alto', 'basico', 'bajo'] as const;
-const nombres_nivel = { superior: 'Superior', alto: 'Alto', basico: 'Básico', bajo: 'Bajo' };
+const estacion = estaciones[estaciones.length - 1];
 ---
 
 <CursoLayout
-  titulo="Cierre del curso"
-  descripcion="Expediente del detective lector, autoevaluación y certificado de Aventura lectora."
+  titulo={`${estacion.etiqueta}: ${estacion.titulo}`}
+  descripcion={`Estación 05 de Aventura lectora: pasaporte con las cuatro medallas, relato familiar y certificado de Detective Lector de la ${sitio.institucion_corta}.`}
   ubicacion={{ tipo: 'cierre' }}
 >
   <EncabezadoPagina
-    etiqueta="Cierre del curso"
-    titulo="Tu expediente de detective"
+    etiqueta={`Estación ${estacion.codigo}: ${estacion.etiqueta}`}
+    titulo="Cierre del expediente y certificado"
     color="sunshine-pop"
   >
-    <p>
-      Resolviste los casos. Ahora junta tu trabajo, cuenta cómo te fue y descarga tu certificado.
+    <p class="no-imprimir">
+      Los cuentos del colegio y los relatos de los abuelos quedan a salvo en el Gran Libro de la
+      escuela.
     </p>
   </EncabezadoPagina>
 
-  <Seccion id="pasaporte" titulo="Tu pasaporte de detective" etiqueta="Insignias">
-    <BadgeTracker client:visible modo="pasaporte" insignias={insignias} />
+  <Seccion id="pasaporte" titulo="Tu pasaporte de detective" etiqueta="Las cuatro medallas">
+    <BadgeTracker client:visible modo="pasaporte" />
   </Seccion>
 
-  <Seccion
-    id="expediente"
-    titulo="Producto final"
-    etiqueta="Expediente del detective lector"
-    fondo="arena"
-  >
-    <p class="lectura mb-10">{final.descripcion}</p>
-    <ExpedienteBuilder client:visible casos={casos} />
-
-    <details class="group mt-8 max-w-4xl rounded-soft bg-pure-white">
-      <summary class="flex min-h-12 cursor-pointer list-none items-center justify-between gap-3 rounded-soft px-5 text-body font-medium [&::-webkit-details-marker]:hidden">
-        Cómo se evalúa el expediente
-        <span class="text-body-sm text-stone-text group-open:hidden" aria-hidden="true">
-          Abrir
-        </span>
-        <span class="hidden text-body-sm text-stone-text group-open:inline" aria-hidden="true">
-          Cerrar
-        </span>
-      </summary>
-      <div class="grid gap-4 px-5 pb-6 md:grid-cols-3">
-        {final.rubrica.map((c) => (
-          <section class="rounded-soft bg-cream-paper p-4">
-            <h3 class="text-body font-medium">{c.criterio}</h3>
-            <dl class="mt-3 space-y-2 text-body-sm">
-              {niveles.map((n) => (
-                <div>
-                  <dt class="font-medium">{nombres_nivel[n]}</dt>
-                  <dd class="text-stone-text">{c[n]}</dd>
-                </div>
-              ))}
-            </dl>
-          </section>
-        ))}
-      </div>
-    </details>
+  <Seccion id="relato" titulo="Para el círculo de lectura" etiqueta="Cuéntame, abuelo">
+    <RelatoFamiliar client:visible />
   </Seccion>
 
-  <Seccion id="autoevaluacion" titulo="Cuéntanos cómo te fue" etiqueta="Autoevaluación final">
-    <AutoevaluacionFinal client:visible casos={casos} />
-  </Seccion>
-
-  <Seccion id="certificado" titulo="Detective de la lectura" etiqueta="Certificado" fondo="arena">
+  <Seccion id="certificado" titulo="Tu logro" etiqueta="Certificado">
     <Certificate client:visible />
   </Seccion>
 </CursoLayout>
+
+<style is:inline>
+  /* printing this page gives only the certificate, on a letter sheet in landscape */
+  @page {
+    size: 11in 8.5in;
+    margin: 10mm;
+  }
+  @media print {
+    #pasaporte,
+    #relato,
+    main > header,
+    #certificado > .contenedor > header,
+    #certificado section > header {
+      display: none !important;
+    }
+    #certificado,
+    #certificado .contenedor,
+    #certificado section {
+      margin: 0 !important;
+      border: 0 !important;
+      padding: 0 !important;
+      max-width: none !important;
+    }
+    [data-certificado] {
+      display: flex;
+      min-height: calc(8.5in - 22mm);
+      flex-direction: column;
+      justify-content: center;
+      margin: 0 !important;
+      print-color-adjust: exact;
+      -webkit-print-color-adjust: exact;
+    }
+  }
+</style>

@@ -1,110 +1,84 @@
 ---
-// table of contents of the whole course. Beside the page on wide screens, inside the menu on small ones.
-// The current case is open with its four pages; states ("Leída", "En curso") are written by the global script.
-import { paginas_caso, id_pagina, ruta_pagina, type Ubicacion } from '../../config/paginas';
+// the route of the adventure: six stations. Beside the page on wide screens, inside the menu on small ones.
+// The current mission is open with its four steps; states ("Leída", "En curso") are written by the global script.
+import { estaciones, paginas_caso, id_pagina, ruta_pagina, type Ubicacion } from '../../config/paginas';
 
-interface Unidad {
-  numero: number;
-  titulo: string;
-  color: string;
-}
-interface Pista {
-  id: string;
-  titulo: string;
-}
 interface Props {
   variante: 'lateral' | 'menu';
-  unidades: Unidad[];
   ubicacion?: Ubicacion;
-  // clues of the current case, shown under its "Seguir las pistas" page
-  contenidos?: Pista[];
 }
-const { variante, unidades, ubicacion, contenidos = [] } = Astro.props;
+const { variante, ubicacion } = Astro.props;
 
 const caso_actual = ubicacion?.tipo === 'caso' ? ubicacion.caso : undefined;
 const pagina_actual = ubicacion?.tipo === 'caso' ? ubicacion.pagina : undefined;
-const actual = (tipo: Ubicacion['tipo']) => (ubicacion?.tipo === tipo ? 'page' : undefined);
 
-const discos: Record<string, string> = {
-  'fresh-grass': 'bg-fresh-grass',
-  'sky-pop': 'bg-sky-pop',
-  'sunshine-pop': 'bg-sunshine-pop',
-  'coral-pop': 'bg-coral-pop',
-  mixto: 'bg-fresh-grass',
-};
-const etiqueta = variante === 'lateral' ? 'Índice del curso' : 'Índice del curso en el menú';
+const discos = ['bg-sandstone', 'bg-fresh-grass', 'bg-sky-soft', 'bg-sunshine-pop', 'bg-coral-soft', 'bg-sandstone'];
+const etiqueta = variante === 'lateral' ? 'Ruta de la aventura' : 'Ruta de la aventura en el menú';
 ---
 
 <nav aria-label={etiqueta} data-indice={variante}>
   <ol class="flex flex-col gap-1">
-    <li>
-      <a href="/programa" class="enlace" aria-current={actual('programa')}>
-        <span class="flex-1">Programa del curso</span>
-      </a>
-    </li>
-
-    {unidades.map((u) => (
-      <li>
-        <details class="grupo" open={u.numero === caso_actual} data-caso={u.numero}>
-          <summary class="enlace resumen">
-            <span class:list={['disco', discos[u.color] ?? 'bg-fresh-grass']} aria-hidden="true">
-              0{u.numero}
-            </span>
-            <span class="flex-1">
-              <span class="sr-only">Caso {u.numero}: </span>
-              {u.titulo}
-            </span>
-            <span class="estado-etiqueta text-micro text-stone-text"></span>
-          </summary>
-          <ol class="paginas">
-            {paginas_caso.map((p, i) => {
-              const es_actual = u.numero === caso_actual && p.slug === pagina_actual;
-              return (
-                <li>
-                  <a
-                    href={ruta_pagina(u.numero, p.slug)}
-                    class="enlace pagina"
-                    data-pagina={id_pagina(u.numero, p.slug)}
-                    aria-current={es_actual ? 'page' : undefined}
-                  >
-                    <span class="flex-1">
-                      <span class="sr-only">Página </span>
-                      {i + 1}. {p.titulo}
-                    </span>
-                    <span class="estado-pagina text-micro"></span>
-                  </a>
-                  {variante === 'lateral' &&
-                    es_actual &&
-                    p.slug === 'pistas' &&
-                    contenidos.length > 0 && (
-                      <ol class="subindice" data-subindice aria-label="Partes de esta página">
-                        {contenidos.map((c) => (
-                          <li>
-                            <a href={`#${c.id}`} data-sub={c.id}>
-                              {c.titulo}
-                            </a>
-                          </li>
-                        ))}
-                      </ol>
-                    )}
-                </li>
-              );
-            })}
-          </ol>
-        </details>
-      </li>
-    ))}
-
-    <li>
-      <a href="/cierre" class="enlace" aria-current={actual('cierre')}>
-        <span class="flex-1">Expediente y certificado</span>
-      </a>
-    </li>
-    <li>
-      <a href="/referencias" class="enlace" aria-current={actual('referencias')}>
-        <span class="flex-1">Referencias</span>
-      </a>
-    </li>
+    {
+      estaciones.map((e, i) =>
+        e.caso ? (
+          <li>
+            <details class="grupo" open={e.caso === caso_actual} data-caso={e.caso}>
+              <summary class="enlace resumen">
+                <span class:list={['disco', discos[i]]} aria-hidden="true">
+                  {e.codigo}
+                </span>
+                <span class="flex-1">
+                  <span class="block text-micro text-stone-text">{e.etiqueta}</span>
+                  {e.titulo}
+                </span>
+                <span class="estado-etiqueta text-micro text-stone-text" />
+              </summary>
+              <ol class="paginas">
+                {paginas_caso.map((p, n) => {
+                  const es_actual = e.caso === caso_actual && p.slug === pagina_actual;
+                  return (
+                    <li>
+                      <a
+                        href={ruta_pagina(e.caso as number, p.slug)}
+                        class="enlace pagina"
+                        data-pagina={id_pagina(e.caso as number, p.slug)}
+                        aria-current={es_actual ? 'page' : undefined}
+                      >
+                        <span class="flex-1">
+                          {n + 1}. {p.titulo}
+                        </span>
+                        <span class="estado-pagina text-micro" />
+                      </a>
+                    </li>
+                  );
+                })}
+              </ol>
+            </details>
+          </li>
+        ) : (
+          <li>
+            <a
+              href={e.href}
+              class="enlace"
+              aria-current={
+                (e.href === '/agencia' && ubicacion?.tipo === 'agencia') ||
+                (e.href === '/cierre' && ubicacion?.tipo === 'cierre')
+                  ? 'page'
+                  : undefined
+              }
+            >
+              <span class:list={['disco', discos[i]]} aria-hidden="true">
+                {e.codigo}
+              </span>
+              <span class="flex-1">
+                <span class="etiqueta-estacion block text-micro">{e.etiqueta}</span>
+                {e.titulo}
+              </span>
+            </a>
+          </li>
+        ),
+      )
+    }
   </ol>
 </nav>
 
@@ -126,6 +100,12 @@ const etiqueta = variante === 'lateral' ? 'Índice del curso' : 'Índice del cur
   .enlace[aria-current='page'] {
     background: var(--color-ink-black);
     color: var(--color-cream-paper);
+  }
+  .etiqueta-estacion {
+    color: var(--color-stone-text);
+  }
+  .enlace[aria-current='page'] .etiqueta-estacion {
+    color: inherit;
   }
   .resumen {
     cursor: pointer;
@@ -183,28 +163,6 @@ const etiqueta = variante === 'lateral' ? 'Índice del curso' : 'Índice del cur
     border-bottom: 2px solid currentColor;
     rotate: -45deg;
     translate: 0 -0.15rem;
-  }
-  .subindice {
-    margin: 0.25rem 0 0.5rem 0.75rem;
-    border-left: 2px solid var(--color-hairline-mist);
-    padding-left: 0.5rem;
-  }
-  .subindice a {
-    display: block;
-    border-radius: var(--radius-chip);
-    padding: 0.4rem 0.6rem;
-    font-size: var(--text-micro);
-    line-height: 1.3;
-    color: var(--color-stone-text);
-  }
-  .subindice a:hover {
-    background: var(--color-cream-paper);
-    color: var(--color-ink-black);
-  }
-  .subindice a[aria-current='location'] {
-    background: var(--color-sunshine-pop);
-    color: var(--color-ink-black);
-    font-weight: var(--font-weight-medium);
   }
   @media (prefers-reduced-motion: reduce) {
     .resumen::after {

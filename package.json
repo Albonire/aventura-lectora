@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "Curso virtual Aventura lectora para 5.º de primaria: sitio tipo libro guiado por scroll.",
+  "description": "Aventura lectora: ruta gamificada de comprensión lectora para 5.º de primaria (I.E. Jorge Eliécer Gaitán, Maripí, Boyacá).",
   "engines": {
     "node": ">=22.12.0"
   },
@@ -14,7 +14,8 @@
     "test": "vitest run",
     "test:e2e": "playwright test",
     "lint": "eslint .",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "contenido": "node scripts/generar_contenido.mjs"
   },
   "dependencies": {
     "@astrojs/mdx": "^8.0.2",

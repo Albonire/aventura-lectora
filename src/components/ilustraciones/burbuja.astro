@@ -74,7 +74,7 @@ const cx = x + ancho * cola_x;
     height={alto}
     rx="20"
     fill={fondo}
-    stroke="#2c2e2a"
+    stroke="#1e293b"
     stroke-width="3.5"
   ></rect>
   
@@ -91,7 +91,7 @@ const cx = x + ancho * cola_x;
     <path
       d={`M${cx - 12} ${y + alto - 1.5} Q${cx} ${y + alto + 10} ${cx + 4} ${y + alto + 22} Q${cx + 10} ${y + alto + 10} ${cx + 14} ${y + alto - 1.5}`}
       fill={fondo}
-      stroke="#2c2e2a"
+      stroke="#1e293b"
       stroke-width="3.5"
       stroke-linejoin="round"
     ></path>
@@ -99,7 +99,7 @@ const cx = x + ancho * cola_x;
     <path
       d={`M${cx - 12} ${y + 1.5} Q${cx - 6} ${y - 10} ${cx - 2} ${y - 22} Q${cx + 6} ${y - 10} ${cx + 14} ${y + 1.5}`}
       fill={fondo}
-      stroke="#2c2e2a"
+      stroke="#1e293b"
       stroke-width="3.5"
       stroke-linejoin="round"
     ></path>
@@ -114,7 +114,7 @@ const cx = x + ancho * cola_x;
   ></rect>
   
   <!-- Texto -->
-  <text x={x + 14} y={y + 11 + tamano} font-size={tamano} font-weight="500" fill="#2c2e2a">
+  <text x={x + 14} y={y + 11 + tamano} font-size={tamano} font-weight="500" fill="#1e293b">
     {lineas.map((l, i) => (
       <tspan x={x + 14} dy={i === 0 ? 0 : interlineado}>
         {l}

@@ -4,8 +4,9 @@
   Tailwind CSS v4 y para un público de 10 a 11 años.
 
   Cambios respecto al original:
-  1. Se agrega --color-stone-text (#5f615e, 5.53:1 sobre crema) para texto secundario.
-     --color-stone-gray (#80827f, 3.43:1) queda solo para bordes y decoración.
+  1. Texto secundario con --color-stone-text (#475569). --color-stone-gray (#94a3b8) queda solo
+     para bordes y decoración. El azul cielo y el coral fuertes no llevan texto encima: para eso
+     existen --color-sky-soft y --color-coral-soft.
   2. Se quitan --spacing-4/20/60/136/216: pueden pisar la escala por defecto (p-4 = 16px).
      La escala base de 4px de Tailwind ya cubre esos valores (p-1, p-5, p-15, p-34, p-54).
   3. Se renombran los radios para no romper rounded-full ni rounded-lg.
@@ -17,19 +18,21 @@
 */
 
 @theme {
-  /* Color */
-  --color-fresh-grass: #8ed462; /* acento estructural: rellenos y trazos, nunca texto */
-  --color-cream-paper: #f5f1e4; /* lienzo de página */
-  --color-ink-black: #2c2e2a; /* texto principal, iconos, bordes (12.14:1 sobre crema) */
-  --color-pure-white: #ffffff; /* tarjetas y nav */
-  --color-sandstone: #e0dbce; /* superficie hundida, áreas de escritura */
-  --color-stone-gray: #80827f; /* solo bordes y decoración */
-  --color-stone-text: #5f615e; /* texto secundario (5.53:1 sobre crema, 4.52:1 sobre arena) */
-  --color-hairline-mist: #d5d5d4; /* divisores sutiles */
+  /* Color (paleta de la Guía 2.1: libro ilustrado en vector plano) */
+  --color-fresh-grass: #84cc16; /* verde lima: rellenos y trazos, nunca texto (tinta encima: 7.4:1) */
+  --color-cream-paper: #faf6ee; /* lienzo de página */
+  --color-ink-black: #1e293b; /* gris pizarra oscuro: texto principal, iconos y bordes (13.5:1 sobre crema) */
+  --color-pure-white: #ffffff; /* tarjetas */
+  --color-sandstone: #ece5d6; /* superficie hundida, áreas de escritura */
+  --color-stone-gray: #94a3b8; /* solo bordes y decoración */
+  --color-stone-text: #475569; /* texto secundario (7.0:1 sobre crema, 6.0:1 sobre arena) */
+  --color-hairline-mist: #dcd6c8; /* divisores sutiles */
   --color-pure-ink: #000000; /* casi no se usa */
-  --color-sky-pop: #2ba0ff; /* ilustración y puntos de acción, nunca texto */
-  --color-coral-pop: #ff705d; /* botón del reto sumativo (texto en tinta: 5.05:1) */
-  --color-sunshine-pop: #f5e211; /* banda del pie y acentos */
+  --color-sky-pop: #0284c7; /* azul cielo: ilustración, puntos y trazos; nunca debajo de texto (tinta: 3.6:1) */
+  --color-sky-soft: #bae6fd; /* relleno azul para zonas con texto en tinta (11.0:1) */
+  --color-coral-pop: #f43f5e; /* coral: ilustración, puntos y trazos; nunca debajo de texto (tinta: 4.0:1) */
+  --color-coral-soft: #fda4af; /* relleno coral para zonas con texto en tinta (7.7:1) */
+  --color-sunshine-pop: #facc15; /* amarillo: acentos, pistas de Sofía (tinta encima: 9.6:1) */
 
   /* Tipografía */
   --font-sans:

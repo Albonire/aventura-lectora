@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import {
   DndContext,
   KeyboardSensor,
@@ -20,7 +20,9 @@ import { CSS } from '@dnd-kit/utilities';
 import { ArrowDown, ArrowUp, CheckCircle, DotsSixVertical, XCircle } from '@phosphor-icons/react';
 import { barajar } from '../../lib/semilla';
 import { es_orden_correcto, posiciones_correctas } from '../../lib/ordenar';
+import { marcar_tarea } from '../../lib/progreso';
 import { usar_almacen } from './hooks';
+import { Burbuja } from './personajes';
 import { Superficie, boton, boton_primario } from './ui';
 
 export interface Paso {
@@ -36,8 +38,11 @@ interface Props {
   titulo?: string;
   etiqueta?: string;
   instruccion?: string;
+  // hint of Sofía when the order is not right yet
   retro_error: string;
   retro_acierto?: string;
+  // task of the case that is done when the order is right (see src/lib/insignias.ts)
+  tarea?: string;
 }
 
 function ItemPaso({
@@ -66,7 +71,7 @@ function ItemPaso({
   } = useSortable({ id: paso.id });
   const estilo = { transform: CSS.Transform.toString(transform), transition };
   const color =
-    resultado === undefined ? 'bg-pure-white' : resultado ? 'bg-fresh-grass' : 'bg-coral-pop';
+    resultado === undefined ? 'bg-pure-white' : resultado ? 'bg-fresh-grass' : 'bg-coral-soft';
   return (
     <li
       ref={setNodeRef}
@@ -133,6 +138,7 @@ export function StepOrderer({
   instruccion,
   retro_error,
   retro_acierto,
+  tarea,
 }: Props) {
   const correcto = useMemo(() => pasos.map((p) => p.id), [pasos]);
   const inicial = useMemo(() => {
@@ -142,7 +148,7 @@ export function StepOrderer({
     return mezcla;
   }, [correcto, unidad, id]);
 
-  const [orden, set_orden] = usar_almacen<string[]>(`pasos:${unidad}:${id}`, inicial);
+  const [orden, set_orden, listo] = usar_almacen<string[]>(`pasos:${unidad}:${id}`, inicial);
   const [revisado, set_revisado] = useState(false);
   const por_id = useMemo(() => new Map(pasos.map((p) => [p.id, p])), [pasos]);
   const orden_valido =
@@ -168,6 +174,12 @@ export function StepOrderer({
 
   const posiciones = posiciones_correctas(orden_valido, correcto);
   const acierto = es_orden_correcto(orden_valido, correcto);
+
+  useEffect(() => {
+    if (!listo || !tarea || !revisado || !acierto) return;
+    marcar_tarea(unidad, tarea);
+    document.dispatchEvent(new CustomEvent('progreso:cambio'));
+  }, [listo, tarea, revisado, acierto, unidad]);
 
   return (
     <Superficie tipo="practica" titulo={titulo} etiqueta={etiqueta}>
@@ -210,13 +222,18 @@ export function StepOrderer({
           Desordenar de nuevo
         </button>
       </div>
-      <p role="status" aria-live="polite" className="mt-4 min-h-7 text-body font-medium">
-        {revisado
-          ? acierto
-            ? (retro_acierto ?? '¡Excelente deducción! El orden de los pasos es correcto.')
-            : retro_error
-          : ''}
-      </p>
+      <div role="status" aria-live="polite" className="mt-4 min-h-7">
+        {revisado && acierto && (
+          <p className="text-body font-medium">
+            {retro_acierto ?? '¡Excelente deducción! El orden de los pasos es correcto.'}
+          </p>
+        )}
+        {revisado && !acierto && (
+          <Burbuja quien="sofia" tono="pista" titulo="Pista de Sofía">
+            <p data-pista-sofia>{retro_error}</p>
+          </Burbuja>
+        )}
+      </div>
     </Superficie>
   );
 }

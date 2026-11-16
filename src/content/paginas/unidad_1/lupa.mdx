@@ -1,23 +1,22 @@
 import Seccion from '../../../components/ui/seccion.astro';
-import Podcast from '../../../components/ui/podcast.astro';
-import Tarjetas from '../../../components/ui/tarjetas.astro';
-import Embed from '../../../components/ui/embed.astro';
-import { QuizCard } from '../../../components/islas/quiz_card';
+import Releer from '../../../components/ui/releer.astro';
+import { DragSort } from '../../../components/islas/drag_sort';
+import { StepOrderer } from '../../../components/islas/step_orderer';
 import act from '../../../data/actividades/unidad_1.json';
 
-<Seccion id="practica" titulo="Entrena tu lupa" etiqueta="Actividades formativas" fondo="arena" titulo_visible={false}>
-
-<p class="lectura mb-10">Estas actividades no llevan nota: sirven para practicar. Puedes equivocarte y volver a intentar.</p>
+<Seccion id="practica" titulo="Entrena tu lupa" etiqueta="Práctica" titulo_visible={false}>
 
 <div class="flex flex-col gap-8">
 
-<Podcast id="c1_podcast" />
+<p class="lectura">Aquí puedes equivocarte. Si algo falla, Sofía te dice qué parte volver a leer.</p>
 
-<QuizCard client:visible preguntas={act.quiz} unidad={1} titulo="Cuestionario sobre la lectura" etiqueta="Resuélvelo para ganar la insignia" marca_caso />
+<Releer titulo={act.fabula.titulo} parrafos={act.fabula.parrafos.map((p) => p.texto)} cierre={`Moraleja: ${act.fabula.moraleja}`} />
 
-<Tarjetas tarjetas={act.tarjetas} unidad={1} />
+<DragSort client:visible items={act.partes.items} cajas={act.partes.cajas} unidad={1} id="partes" tarea="partes" titulo="Inicio, nudo y desenlace" instruccion={act.partes.instruccion} />
 
-<Embed id="w1_hipotesis" etiqueta="Para practicar más" descripcion="Practica cómo hacer predicciones sobre un texto literario, antes de leer." />
+<Releer titulo={act.receta.titulo} parrafos={act.receta.pasos.map((p) => p.texto)} etiqueta_parrafo="Paso" />
+
+<StepOrderer client:visible pasos={act.receta.pasos} unidad={1} id="receta" tarea="receta" titulo="Ordena la receta" instruccion="El Efecto Lectura Rápida revolvió los pasos del chocolate. Ponlos en orden con las flechas." retro_error={act.receta.pista_orden} retro_acierto={act.receta.acierto_orden} />
 
 </div>
 

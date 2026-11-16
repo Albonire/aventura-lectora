@@ -1,4 +1,4 @@
-// paper-cut badges, one per case. Colors come from the design tokens.
+// the four medals of the detective passport: round, with a dashed inner ring and a ribbon (guide 2.1, figure 3)
 
 interface Props {
   caso: number;
@@ -7,58 +7,40 @@ interface Props {
   titulo?: string;
 }
 
-const TINTA = '#2c2e2a';
-const CREMA = '#f5f1e4';
+const TINTA = '#1e293b';
 
 const BASES: Record<number, { base: string; cinta: string }> = {
-  1: { base: '#e0dbce', cinta: '#ff705d' },
-  2: { base: '#2ba0ff', cinta: '#f5e211' },
-  3: { base: '#d5d5d4', cinta: '#2ba0ff' },
-  4: { base: '#ff705d', cinta: '#8ed462' },
-  5: { base: '#8ed462', cinta: '#f5e211' },
+  1: { base: '#fed7aa', cinta: '#fdba74' },
+  2: { base: '#bae6fd', cinta: '#7dd3fc' },
+  3: { base: '#d9f99d', cinta: '#bef264' },
+  4: { base: '#fecdd3', cinta: '#fda4af' },
 };
 
 function Icono({ caso }: { caso: number }) {
   switch (caso) {
+    // bronze magnifying glass
     case 1:
       return (
         <g>
-          <path d="M66 62 L80 76" stroke="#8ed462" strokeWidth="9" strokeLinecap="round" />
-          <circle cx="54" cy="50" r="16" fill="#ffffff" stroke={TINTA} strokeWidth="5" />
-          <path
-            d="M45 46 A10 10 0 0 1 52 40"
-            stroke={CREMA}
-            strokeWidth="3"
-            strokeLinecap="round"
-            fill="none"
-          />
+          <path d="M68 64 L82 78" stroke={TINTA} strokeWidth="9" strokeLinecap="round" />
+          <path d="M68 64 L82 78" stroke="#c2703d" strokeWidth="5" strokeLinecap="round" />
+          <circle cx="54" cy="50" r="17" fill="#ffffff" stroke={TINTA} strokeWidth="7" />
+          <circle cx="54" cy="50" r="17" fill="none" stroke="#c2703d" strokeWidth="3.5" />
         </g>
       );
+    // silver magnifying glass that looks between the lines
     case 2:
       return (
         <g>
-          <circle cx="60" cy="56" r="21" fill="#ffffff" stroke={TINTA} strokeWidth="3" />
-          <path
-            d="M60 38 L67 56 L53 56 Z"
-            fill="#ff705d"
-            stroke={TINTA}
-            strokeWidth="2"
-            strokeLinejoin="round"
-          />
-          <path d="M60 74 L67 56 L53 56 Z" fill={TINTA} />
-          <circle cx="60" cy="56" r="3" fill={CREMA} stroke={TINTA} strokeWidth="1.5" />
+          <path d="M68 64 L82 78" stroke={TINTA} strokeWidth="9" strokeLinecap="round" />
+          <path d="M68 64 L82 78" stroke="#cbd5e1" strokeWidth="5" strokeLinecap="round" />
+          <circle cx="54" cy="50" r="17" fill="#ffffff" stroke={TINTA} strokeWidth="7" />
+          <circle cx="54" cy="50" r="17" fill="none" stroke="#cbd5e1" strokeWidth="3.5" />
+          <circle cx="54" cy="50" r="6" fill="#0284c7" stroke={TINTA} strokeWidth="2" />
         </g>
       );
+    // shield with a check mark
     case 3:
-      return (
-        <g>
-          <path d="M72 68 L86 82" stroke={TINTA} strokeWidth="8" strokeLinecap="round" />
-          <circle cx="56" cy="52" r="22" fill="#f5e211" stroke={TINTA} strokeWidth="3" />
-          <circle cx="56" cy="52" r="14.5" fill={CREMA} stroke={TINTA} strokeWidth="3" />
-          <circle cx="56" cy="52" r="7" fill="#ffffff" stroke={TINTA} strokeWidth="3" />
-        </g>
-      );
-    case 4:
       return (
         <g>
           <path
@@ -70,7 +52,7 @@ function Icono({ caso }: { caso: number }) {
           />
           <path
             d="M48 58 L56 66 L73 47"
-            stroke={TINTA}
+            stroke="#4d7c0f"
             strokeWidth="6"
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -78,6 +60,7 @@ function Icono({ caso }: { caso: number }) {
           />
         </g>
       );
+    // megaphone
     default:
       return (
         <g>
@@ -97,7 +80,7 @@ function Icono({ caso }: { caso: number }) {
           />
           <path
             d="M42 51 L74 38 L74 74 L42 61 Z"
-            fill="#f5e211"
+            fill="#ffffff"
             stroke={TINTA}
             strokeWidth="3"
             strokeLinejoin="round"
@@ -108,7 +91,7 @@ function Icono({ caso }: { caso: number }) {
             width="12"
             height="14"
             rx="3"
-            fill="#ff705d"
+            fill="#f43f5e"
             stroke={TINTA}
             strokeWidth="3"
           />
@@ -128,7 +111,9 @@ export function Insignia({ caso, size = 120, ganada = true, titulo }: Props) {
       aria-label={titulo}
       aria-hidden={titulo ? undefined : true}
       focusable="false"
-      style={{ opacity: ganada ? 1 : 0.35, filter: ganada ? 'none' : 'grayscale(1)' }}
+      data-insignia={caso}
+      data-ganada={ganada}
+      style={{ opacity: ganada ? 1 : 0.4, filter: ganada ? 'none' : 'grayscale(1)' }}
     >
       <path
         d="M40 92 L28 128 L45 119 L53 129 L60 96 Z"
@@ -144,16 +129,16 @@ export function Insignia({ caso, size = 120, ganada = true, titulo }: Props) {
         strokeWidth="3"
         strokeLinejoin="round"
       />
+      <circle cx="60" cy="56" r="48" fill={base} stroke={TINTA} strokeWidth="3" />
       <circle
         cx="60"
         cy="56"
-        r="48"
-        fill={base}
+        r="40"
+        fill="none"
         stroke={TINTA}
-        strokeWidth="3"
-        strokeDasharray={ganada ? undefined : '6 5'}
+        strokeWidth="2"
+        strokeDasharray="5 5"
       />
-      <circle cx="60" cy="56" r="38" fill={CREMA} stroke={TINTA} strokeWidth="2" />
       <Icono caso={caso} />
     </svg>
   );

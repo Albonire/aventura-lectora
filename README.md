@@ -1,18 +1,34 @@
 # Aventura lectora
 
-Curso virtual de comprensión lectora y pensamiento crítico para 5.º de primaria (Colombia). Es un sitio tipo libro que se lee con scroll: una tapa que se abre, cinco casos (unidades), un cierre con expediente y certificado, y una última página de referencias en APA 7.
+Prototipo web de una experiencia gamificada de comprensión lectora para los 13 estudiantes de 5.º de primaria de la Institución Educativa Jorge Eliécer Gaitán (sector oficial rural), en Maripí, Boyacá, Colombia. Los niños son detectives de la lectura: recorren seis estaciones cortas, ganan cuatro insignias para su pasaporte y reciben un certificado.
 
-Entregable académico del Seminario de profundización I: Innovación didáctica (Maestría en Tecnología e Innovación Educativa, Universidad Santo Tomás). El producto que se entrega es la URL pública del sitio.
+Docentes autoras: Luz Marina Castillo Cuadrado e Ingrid Yuliana González Flores.
+
+Universidad Santo Tomás, Sede Principal | Maestría en Tecnología e Innovación Educativa (2026). Espacio académico: Gamificación (Tecnología Educativa) | Docente: Gustavo Alberto Orozco Bohórquez. Asesora de proyecto de grado: Marcela Zambrano. Fase de diseño y planificación, Actividad 2.2: Prototipado.
+
+## La ruta
+
+| Estación | Qué pasa | Recompensa |
+|---|---|---|
+| 00 Inicio: Apertura de la Agencia | Conocer a Sofía y a Mateo, pista de prueba, pasaporte | Carné y pasaporte |
+| 01 Misión 1: Leo y comprendo el rastro | Fábula y receta campesina (nivel literal) | Lupa de Bronce |
+| 02 Misión 2: Pistas y "Cuéntame, abuelo" | Relato y reto familiar (nivel inferencial) | Lupa de Plata |
+| 03 Misión 3: Detectives de noticias | Dos mensajes del celular (nivel crítico) | Detector de Verdades |
+| 04 Desafío final: Mi voz cuenta en Maripí | Torre de argumentos guiada | Voz de Detective |
+| 05 Logro: Cierre del expediente | Pasaporte, relato familiar y certificado | Certificado de Detective Lector |
+
+Cada misión tiene los mismos cuatro pasos: abrir el caso, seguir las pistas, entrenar la lupa y cerrar el caso.
 
 ## Comandos
 
 ```bash
 pnpm install
-pnpm dev          # servidor de desarrollo en http://localhost:4321
+pnpm dev          # servidor de desarrollo en http://localhost:3000
 pnpm build        # sitio estático en dist/
 pnpm preview      # sirve dist/
 pnpm test         # pruebas unitarias (Vitest)
-pnpm test:e2e     # pruebas de humo y accesibilidad (Playwright y axe)
+pnpm test:e2e     # pruebas de humo, accesibilidad y recorrido (Playwright y axe)
+pnpm contenido    # regenera CONTENIDO.md desde los archivos de datos
 pnpm lint
 ```
 
@@ -21,38 +37,35 @@ Requiere Node 22.12 o superior y pnpm. La primera vez que se corren las pruebas 
 ## Publicar en Vercel
 
 1. En Vercel: Add New, Project, importar este repositorio de GitHub.
-2. Vercel detecta Astro solo (el archivo `vercel.json` ya lo indica). No hace falta cambiar nada.
-3. Deploy. La URL que se genera es la que se entrega.
-4. Probar la URL en una ventana privada y en un celular antes de entregarla.
-
-Alternativa gratuita sin Vercel: GitHub Pages con la acción oficial de Astro (hay que configurar `site` y `base` en `astro.config.mjs`).
+2. Vercel detecta Astro solo (el archivo `vercel.json` ya lo indica).
+3. Deploy. Probar la URL en una ventana privada y en un celular.
 
 ## Dónde se edita cada cosa
 
 | Qué | Dónde |
 |---|---|
-| Datos de la portada y nombres del equipo | `src/config/sitio.ts` |
-| Datos de la unidad (título, misión, aprendizajes, DBA, insignia) | `src/content/unidades/unidad_N.mdx` (solo el frontmatter) |
-| Texto y estructura de cada una de las 4 páginas del caso | `src/content/paginas/unidad_N/{abrir,pistas,lupa,cerrar}.mdx` |
-| Orden y títulos de las 4 páginas, o enlaces directos a una sección | `src/config/paginas.ts` |
-| Preguntas, sopa de letras, tarjetas, lecturas y demás actividades | `src/data/actividades/unidad_N.json` |
-| Retos sumativos y sus rúbricas | `src/data/retos.json` |
-| Recursos propios y de la web (y el conteo 50/50) | `src/data/recursos.json` |
-| Podcasts, videos e infografías del curso | `src/data/multimedia.json`, `public/media/`, `src/assets/infografias/` |
-| Transcripciones (los videos ya traen sus subtítulos en la imagen) | `src/data/transcripciones/` |
+| Institución, población, autoras y datos académicos | `src/config/sitio.ts` |
+| Las 6 estaciones, los 4 pasos y el orden del recorrido | `src/config/paginas.ts` |
+| Misión, guía, estrategias, aprendizajes y DBA de cada misión | `src/content/unidades/unidad_N.mdx` |
+| Estructura de cada paso de una misión | `src/content/paginas/unidad_N/{abrir,pistas,lupa,cerrar}.mdx` |
+| Lecturas, preguntas, pistas de Sofía y clasificaciones | `src/data/actividades/unidad_N.json` |
+| Relato de apertura y pista de prueba | `src/data/agencia.json` |
+| Insignias y las tareas que las desbloquean | `src/lib/insignias.ts` |
+| Diagnóstico y ajustes tras el pilotaje | `src/data/prototipado.ts` |
+| Referencias y su estado de verificación | `src/data/referencias.ts` |
 | Colores, radios y tipografía | `src/styles/design_tokens.css` |
 
-El responsable de cada unidad se cambia en el frontmatter de su archivo `.mdx` (campo `responsable`). Los nombres válidos están en `src/config/sitio.ts`.
+Después de cambiar un texto de las estaciones, corre `pnpm contenido` para que `CONTENIDO.md` diga lo mismo.
 
 ## Cómo está hecho
 
-- Astro con islas de React solo donde hay interacción. Sitio 100 % estático.
-- Tailwind CSS v4 con los tokens del design system.
-- GSAP y ScrollTrigger para los patrones de scroll, siempre dentro de `gsap.matchMedia()`: respetan `prefers-reduced-motion` y el interruptor "Movimiento" del menú. Sin JavaScript, todo el contenido se lee igual.
-- Todo lo que escribe el estudiante se guarda solo en su navegador (`localStorage` con prefijo `aventura_lectora:` e IndexedDB para la grabación de voz). Sin analítica, sin cookies de terceros y sin envío de datos.
-- Los retos, el certificado y el expediente se descargan como PDF (jsPDF, cargado solo al pulsar el botón).
-- Los archivos multimedia se procesan con `scripts/procesar_media.sh` (ffmpeg e ImageMagick). Los originales no están en el repositorio.
+- Astro con islas de React solo donde hay interacción. Sitio 100 % estático, liviano para celulares compartidos con pocos datos: sin videos ni recursos externos.
+- Botón "Escuchar con voz pausada" en cada lectura y consigna (voz del navegador en español, a velocidad 0.9).
+- Pistas graduadas de Sofía: una respuesta incorrecta muestra qué párrafo o frase volver a leer.
+- Ficha imprimible "Libreta de campo de Mateo" (media carta) para los hogares sin datos móviles.
+- Todo lo que escribe el estudiante se guarda solo en su navegador (`localStorage` con prefijo `aventura_lectora:`). Sin analítica, sin cookies de terceros y sin envío de datos.
+- GSAP y ScrollTrigger solo en la tapa del libro, respetando `prefers-reduced-motion` y el interruptor "Movimiento".
 
 ## Documentos de trabajo
 
-`SPECS.md`, `CONTENIDO.md`, `RECURSOS.md`, `REVISION_FICHA.md` y `CLAUDE.md` son la especificación y el contenido fuente del curso. La carpeta `gemini_notebook/` guarda las fuentes y los prompts de Gemini Notebook; no se publica.
+`SPECS.md` (especificación), `CONTENIDO.md` (textos de las estaciones), `RECURSOS.md` (referencias verificadas y recursos propios) y `CLAUDE.md` (reglas del proyecto). La carpeta `gemini_notebook/` guarda la guía de estilo de los personajes; no se publica.

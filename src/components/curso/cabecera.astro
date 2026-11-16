@@ -1,30 +1,24 @@
 ---
 // fixed course bar: brand, where the student is, and the menu (index on small screens, links, reading settings)
-import { List, X } from '@phosphor-icons/react/ssr';
+import { List, Printer, X } from '@phosphor-icons/react/ssr';
 import Lupa from '../ilustraciones/lupa.astro';
 import IndiceCurso from './indice_curso.astro';
 import type { Ubicacion } from '../../config/paginas';
 import { sitio } from '../../config/sitio';
 
-interface Unidad {
-  numero: number;
-  titulo: string;
-  color: string;
-}
 interface Props {
-  // where the student is, in two lines (for example "Caso 1: Leo y comprendo" / "Seguir las pistas")
+  // where the student is, in two lines (for example "Misión 1: Leo y comprendo el rastro" / "Seguir las pistas")
   linea1?: string;
   linea2?: string;
-  unidades: Unidad[];
   ubicacion?: Ubicacion;
   ruta_actual: string;
 }
-const { linea1, linea2, unidades, ubicacion, ruta_actual } = Astro.props;
+const { linea1, linea2, ubicacion, ruta_actual } = Astro.props;
 
 const enlaces_docentes = [
-  { href: '/ficha', texto: 'Ficha de diseño' },
-  { href: '/docentes', texto: 'Para docentes' },
+  { href: '/docentes', texto: 'Ficha docente y prototipado 2.2' },
   { href: '/empatizar', texto: 'Empatizar y definir' },
+  { href: '/referencias', texto: 'Referencias y créditos' },
 ];
 ---
 
@@ -77,11 +71,21 @@ const enlaces_docentes = [
 
         <div class="absolute top-full right-2 mt-2 max-h-[calc(100dvh-5rem)] w-[min(94vw,26rem)] overflow-y-auto rounded-soft border-2 border-ink-black bg-pure-white p-5 md:right-4">
           <div class="lg:hidden">
-            <p class="mb-2 text-body-sm font-medium text-stone-text">Índice del curso</p>
-            <IndiceCurso variante="menu" unidades={unidades} ubicacion={ubicacion} />
+            <p class="mb-2 text-body-sm font-medium text-stone-text">Ruta de la aventura</p>
+            <IndiceCurso variante="menu" ubicacion={ubicacion} />
           </div>
 
-          <p class="mt-6 text-body-sm font-medium text-stone-text lg:mt-0">Para docentes</p>
+          <a
+            href="/libreta"
+            data-menu-libreta
+            class="mt-5 flex min-h-12 items-center gap-3 rounded-soft border-2 border-ink-black bg-coral-soft px-3 text-body-sm font-bold hover:bg-ink-black hover:text-cream-paper lg:mt-0"
+            aria-current={ruta_actual === '/libreta' ? 'page' : undefined}
+          >
+            <Printer size={22} weight="bold" aria-hidden="true" />
+            Libreta de campo de Mateo (ficha sin internet)
+          </a>
+
+          <p class="mt-6 text-body-sm font-medium text-stone-text">Para docentes</p>
           <ul class="mt-2">
             {enlaces_docentes.map((e) => (
               <li>
@@ -122,20 +126,6 @@ const enlaces_docentes = [
                   class="interruptor"
                 >
                   <span>Letra grande</span>
-                  <span class="interruptor-pista" aria-hidden="true">
-                    <span class="interruptor-bola"></span>
-                  </span>
-                </button>
-              </li>
-              <li>
-                <button
-                  type="button"
-                  role="switch"
-                  aria-checked="false"
-                  data-ajuste="voz"
-                  class="interruptor"
-                >
-                  <span>Leer en voz alta</span>
                   <span class="interruptor-pista" aria-hidden="true">
                     <span class="interruptor-bola"></span>
                   </span>

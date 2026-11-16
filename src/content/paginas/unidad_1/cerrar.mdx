@@ -1,23 +1,18 @@
 import Seccion from '../../../components/ui/seccion.astro';
-import Pendiente from '../../../components/ui/pendiente.astro';
-import { ChallengeCard } from '../../../components/islas/challenge_card';
-import datos_retos from '../../../data/retos.json';
-import LecturaConPausas from '../../../components/libro/lectura_con_pausas.astro';
+import Releer from '../../../components/ui/releer.astro';
+import { QuizCard } from '../../../components/islas/quiz_card';
+import { Burbuja } from '../../../components/islas/personajes';
 import act from '../../../data/actividades/unidad_1.json';
 
-<Seccion id="reto" titulo="Reto del caso" etiqueta="Actividad sumativa">
+<Seccion id="reto" titulo="Reto del caso" etiqueta="Después de leer">
 
 <div class="flex flex-col gap-8">
 
-<LecturaConPausas id="fabula-reto" unidad={1} titulo={act.fabula_reto.titulo} autoria={act.fabula_reto.autoria} parrafos={act.fabula_reto.parrafos.map((texto) => ({ texto }))} />
+<Releer titulo={act.fabula.titulo} parrafos={act.fabula.parrafos.map((p) => p.texto)} cierre={`Moraleja: ${act.fabula.moraleja}`} />
 
-{act.fabula_reto.revision.revisado_por ? (
-  <p class="max-w-reading text-body-sm text-stone-text">Adaptación revisada por {act.fabula_reto.revision.revisado_por}{act.fabula_reto.revision.fecha ? `, ${act.fabula_reto.revision.fecha}` : ''}.</p>
-) : (
-  <p><Pendiente texto="el equipo aprueba la adaptación de La cigarra y la hormiga: cambia el final de Esopo (aquí la hormiga ayuda a la cigarra)" /></p>
-)}
+<QuizCard client:visible preguntas={act.quiz} unidad={1} id="idea" tarea="idea" titulo="La idea principal y los detalles" />
 
-<ChallengeCard client:visible reto={datos_retos.retos[0]} unidad={1} titulo_caso={props.unidad.titulo} />
+<Burbuja quien="sofia"><span class="interfaz mr-2 inline-block rounded-pill border-2 border-ink-black bg-sunshine-pop px-3 py-0.5 text-body-sm font-bold">{act.opino.estrategia}</span><span>{act.opino.texto}</span></Burbuja>
 
 </div>
 

@@ -1,24 +1,24 @@
 ---
 // chapter opening of a case: big number, title and an illustration in three paper layers.
 // It is the header of the first page of the case (no pin, no parallax).
-import { folio, pagina_por_slug } from '../../config/paginas';
+import { estacion_de_caso, folio, pagina_por_slug } from '../../config/paginas';
 
 interface Props {
   numero: number;
   titulo: string;
-  color: 'fresh-grass' | 'sky-pop' | 'sunshine-pop' | 'coral-pop' | 'mixto';
+  color: 'fresh-grass' | 'sky-pop' | 'sunshine-pop' | 'coral-pop';
   alt: string;
 }
 const { numero, titulo, color, alt } = Astro.props;
 
+// the title is written over the fill, so blue and coral use their soft version
 const fondos: Record<Props['color'], string> = {
   'fresh-grass': 'bg-fresh-grass',
-  'sky-pop': 'bg-sky-pop',
+  'sky-pop': 'bg-sky-soft',
   'sunshine-pop': 'bg-sunshine-pop',
-  'coral-pop': 'bg-coral-pop',
-  mixto: 'bg-fresh-grass',
+  'coral-pop': 'bg-coral-soft',
 };
-const numero_texto = String(numero).padStart(2, '0');
+const estacion = estacion_de_caso(numero);
 const primera = pagina_por_slug('abrir');
 ---
 
@@ -29,10 +29,6 @@ const primera = pagina_por_slug('abrir');
       fondos[color],
     ]}
   >
-    {color === 'mixto' && (
-      <div class="absolute inset-x-0 bottom-0 -z-10 h-1/3 bg-sunshine-pop" aria-hidden="true"></div>
-    )}
-
     <div
       class="relative aspect-[5/4] md:order-last md:aspect-auto md:min-h-[22rem]"
       role="img"
@@ -50,12 +46,12 @@ const primera = pagina_por_slug('abrir');
     </div>
 
     <div class="relative z-10 flex flex-col justify-end p-6 md:p-10">
-      <p class="text-body font-medium">Caso {numero}</p>
+      <p class="interfaz text-body font-bold">{estacion.etiqueta}</p>
       <p
         aria-hidden="true"
         class="-ml-0.5 mt-1 text-[clamp(4rem,2rem+8vw,7rem)] leading-[0.9] font-medium tracking-tighter"
       >
-        {numero_texto}
+        {estacion.codigo}
       </p>
       <h1
         id="portada-titulo"

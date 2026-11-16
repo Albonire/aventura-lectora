@@ -1,0 +1,115 @@
+---
+// station 00: opening of the agency. Meet the two guides, try a one minute clue with Sofía's help,
+// choose to work alone or as a pair of detectives and activate the passport.
+import CursoLayout from '../layouts/curso_layout.astro';
+import EncabezadoPagina from '../components/curso/encabezado_pagina.astro';
+import Seccion from '../components/ui/seccion.astro';
+import Sofia from '../components/ilustraciones/sofia.astro';
+import Mateo from '../components/ilustraciones/mateo.astro';
+import Conejo from '../components/ilustraciones/conejo.astro';
+import Tortuga from '../components/ilustraciones/tortuga.astro';
+import Oruga from '../components/ilustraciones/oruga.astro';
+import { ReadAloud } from '../components/islas/read_aloud';
+import { EleccionRapida } from '../components/islas/eleccion_rapida';
+import { PasaporteAgencia } from '../components/islas/pasaporte_agencia';
+import { estaciones, paginas_caso } from '../config/paginas';
+import datos from '../data/agencia.json';
+
+const estacion = estaciones[0];
+---
+
+<CursoLayout
+  titulo={`${estacion.etiqueta}: ${estacion.titulo}`}
+  descripcion="Estación 00 de Aventura lectora: conoce a Sofía y a Mateo, resuelve una pista de prueba y activa tu pasaporte de detective."
+  ubicacion={{ tipo: 'agencia' }}
+>
+  <EncabezadoPagina
+    etiqueta={`Estación ${estacion.codigo}: ${estacion.etiqueta}`}
+    titulo={estacion.titulo}
+    color="sunshine-pop"
+  >
+    <p>Trabaja con tu pareja de detectives del salón. Aquí nadie pierde por equivocarse.</p>
+  </EncabezadoPagina>
+
+  <Seccion id="misterio" titulo="El misterio de los relatos desvanecidos" etiqueta="La historia">
+    <ReadAloud client:idle texto={datos.relato.join(' ')} />
+    <div class="lectura mt-5">
+      {datos.relato.map((p) => <p>{p}</p>)}
+    </div>
+  </Seccion>
+
+  <Seccion id="guias" titulo="Conoce a tus guías" etiqueta="Sofía y Mateo">
+    <ul class="grid gap-5 md:grid-cols-2">
+      {
+        datos.personajes.map((p) => (
+          <li class="flex flex-col rounded-card border-2 border-ink-black bg-pure-white p-5">
+            <div
+              class:list={[
+                'flex h-52 items-end justify-center gap-3 rounded-soft border-2 border-ink-black px-3 pt-3',
+                p.id === 'sofia' ? 'bg-sunshine-pop' : 'bg-sky-soft',
+              ]}
+              aria-hidden="true"
+            >
+              {p.id === 'sofia' ? (
+                <>
+                  <Conejo size={64} />
+                  <Sofia size={190} pose="lupa" />
+                  <Tortuga size={44} />
+                </>
+              ) : (
+                <>
+                  <Mateo size={190} pose="libreta" />
+                  <Oruga size={64} />
+                </>
+              )}
+            </div>
+            <h3 class="mt-4 text-[1.5rem] leading-tight">{p.nombre}</h3>
+            <p class="interfaz text-body-sm font-medium text-stone-text">{p.apodo}</p>
+            <p class="mt-2 text-body">{p.texto}</p>
+            <p class="mt-2 text-body-sm text-stone-text">{p.compania}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </Seccion>
+
+  <Seccion id="pasos" titulo="Así se resuelve cada misión" etiqueta="Siempre los mismos cuatro pasos">
+    <ol class="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        paginas_caso.map((p, i) => (
+          <li class="rounded-soft border-2 border-ink-black bg-pure-white p-4">
+            <p class="interfaz inline-block rounded-pill border-2 border-ink-black bg-cream-paper px-3 py-0.5 text-body-sm font-bold">
+              {i + 1}. {p.titulo}
+            </p>
+            <p class="mt-2 text-body">{p.descripcion}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </Seccion>
+
+  <Seccion id="prueba" titulo="Pista de prueba" etiqueta="Un minuto, con ayuda de Sofía">
+    <p class="mb-4 max-w-reading rounded-soft border-2 border-ink-black bg-pure-white p-4 text-reading">
+      {datos.prueba.nota}
+    </p>
+    <EleccionRapida
+      client:visible
+      unidad={0}
+      id="prueba"
+      quien="sofia"
+      pregunta={datos.prueba.pregunta}
+      opciones={datos.prueba.opciones}
+      correcta={datos.prueba.correcta}
+      acierto={datos.prueba.acierto}
+      pista={datos.prueba.pista}
+    />
+  </Seccion>
+
+  <Seccion id="pasaporte" titulo="Tu pasaporte" etiqueta="Carné de detective">
+    <PasaporteAgencia
+      client:visible
+      clave_prueba="eleccion:0:prueba"
+      correcta_prueba={datos.prueba.correcta}
+    />
+  </Seccion>
+</CursoLayout>

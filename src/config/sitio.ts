@@ -1,42 +1,46 @@
 // central site settings: edit here, not in components
 
+// the two teachers who wrote the experience (only authors)
 export const integrantes = [
-  { id: 'selene', nombre: 'Selene María Caballero Valle' },
   { id: 'luz', nombre: 'Luz Marina Castillo Cuadrado' },
   { id: 'ingrid', nombre: 'Ingrid Yuliana González Flores' },
-  { id: 'maribel', nombre: 'Maribel León Grillo' },
-  { id: 'silvia', nombre: 'Silvia Gabriela Rincón Pérez' },
 ] as const;
 
 export type IntegranteId = (typeof integrantes)[number]['id'];
 
-export const ids_integrantes = integrantes.map((i) => i.id) as [IntegranteId, ...IntegranteId[]];
-
-export function nombre_de(id: IntegranteId): string {
-  return integrantes.find((i) => i.id === id)?.nombre ?? '';
-}
-
 export const sitio = {
   nombre_curso: 'Aventura lectora',
-  subtitulo: 'Comprensión lectora y pensamiento crítico',
-  nombre_largo:
-    'Aventura lectora: comprensión lectora y pensamiento crítico en textos narrativos, informativos e instructivos',
+  subtitulo: 'Agencia Escolar de Detectives de la Lectura',
+  nombre_largo: 'Aventura lectora: el misterio de los relatos desvanecidos en Maripí',
   grado: '5.º de primaria',
-  pie_portada: 'Curso para 5.º de primaria',
+  pie_portada: 'Quinto grado, I.E. Jorge Eliécer Gaitán, Maripí',
   anio: 2026,
 
+  // school and group
+  institucion: 'Institución Educativa Jorge Eliécer Gaitán',
+  institucion_corta: 'I.E. Jorge Eliécer Gaitán',
+  sector: 'Sector oficial rural',
+  municipio: 'Maripí, Boyacá, Colombia',
+  municipio_corto: 'Maripí, Boyacá',
+  contexto: 'Contexto veredal de familias productoras de caña panelera y cacao',
+  poblacion: '13 estudiantes de quinto grado de primaria, entre 10 y 11 años',
+  total_estudiantes: 13,
+  fecha_diagnostico: '5 de mayo de 2026',
+
+  // academic data of the module
   universidad: 'Universidad Santo Tomás',
   sede: 'Sede Principal',
   division: 'División de Ciencias Sociales y de la Educación',
   facultad: 'Facultad de Educación',
   programa: 'Maestría en Tecnología e Innovación Educativa',
-  seminario: 'Seminario de profundización I: Innovación didáctica',
-  actividad: 'Planeación didáctica',
-  docente: 'Maria Victoria Murcia Arregocés',
+  espacio_academico: 'Gamificación (Tecnología Educativa)',
+  fase: 'Fase de diseño y planificación',
+  actividad: 'Actividad 2.2: Prototipado',
+  docente: 'Gustavo Alberto Orozco Bohórquez',
+  asesora: 'Marcela Zambrano',
 } as const;
 
-export const casos_ruta = [1, 2, 3, 4, 5] as const;
-export type NumeroCaso = (typeof casos_ruta)[number];
+export const autoras = integrantes.map((i) => i.nombre);
 
 export function ruta_caso(numero: number): string {
   return `/unidad/${numero}`;

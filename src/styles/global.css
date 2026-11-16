@@ -407,3 +407,52 @@ html[data-movimiento='no']::view-transition-new(*) {
 .overflow-x-auto {
   position: relative;
 }
+
+/* ---------- speech bubble of the guides (hints of Sofía, notes of Mateo) ---------- */
+
+.burbuja-guia::before {
+  content: '';
+  position: absolute;
+  top: 1.1rem;
+  left: -0.5rem;
+  width: 0.85rem;
+  height: 0.85rem;
+  border-bottom: 2px solid var(--color-ink-black);
+  border-left: 2px solid var(--color-ink-black);
+  background: inherit;
+  rotate: 45deg;
+}
+
+/* ---------- printing: the paper sheet of mission 2 and the certificate ---------- */
+
+@media print {
+  [data-cabecera],
+  .curso-indice,
+  [data-pie],
+  [data-fin-pagina],
+  [data-aviso-pagina],
+  .no-imprimir {
+    display: none !important;
+  }
+
+  html,
+  body {
+    background: #ffffff !important;
+  }
+
+  .curso-cuerpo {
+    display: block;
+    padding-top: 0;
+  }
+
+  .curso-fondo {
+    background: none;
+    padding: 0;
+  }
+
+  .hoja {
+    max-width: none;
+    border: 0;
+    background: none;
+  }
+}

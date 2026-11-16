@@ -16,9 +16,11 @@ import {
 } from '@dnd-kit/core';
 import { CheckCircle, DotsSixVertical, XCircle } from '@phosphor-icons/react';
 import { corregir, ubicar, type Asignaciones } from '../../lib/clasificar';
-import { guardar } from '../../lib/almacen';
+import { marcar_tarea } from '../../lib/progreso';
 import type { CajaClasificar, ItemClasificar } from '../../lib/tipos';
 import { usar_almacen } from './hooks';
+import { Burbuja } from './personajes';
+import { ReadAloud } from './read_aloud';
 import { Superficie, boton, boton_primario } from './ui';
 
 interface Props {
@@ -29,6 +31,8 @@ interface Props {
   titulo?: string;
   etiqueta?: string;
   instruccion?: string;
+  // task of the case that is done when every card is in its box (see src/lib/insignias.ts)
+  tarea?: string;
 }
 
 const BANDEJA = 'bandeja';
@@ -69,7 +73,7 @@ function TarjetaItem({
     resultado === 'bien'
       ? 'border-ink-black bg-fresh-grass'
       : resultado === 'mal'
-        ? 'border-ink-black bg-coral-pop'
+        ? 'border-ink-black bg-coral-soft'
         : 'border-ink-black bg-pure-white';
   return (
     <li
@@ -179,8 +183,9 @@ export function DragSort({
   titulo = 'Clasifica las tarjetas',
   etiqueta,
   instruccion,
+  tarea,
 }: Props) {
-  const [asignaciones, set_asignaciones] = usar_almacen<Asignaciones>(
+  const [asignaciones, set_asignaciones, listo] = usar_almacen<Asignaciones>(
     `clasificar:${unidad}:${id}`,
     {},
   );
@@ -213,16 +218,14 @@ export function DragSort({
 
   const correccion = useMemo(() => corregir(items, asignaciones), [items, asignaciones]);
 
-  // readable copy of the answer, used by the challenge pdf
+  const todo_bien = correccion.completo && correccion.aciertos === correccion.total;
+
+  // the task counts once the student pressed "Revisar" with every card in its box
   useEffect(() => {
-    const resumen = items
-      .map((i) => {
-        const caja = cajas.find((c) => c.id === asignaciones[i.id]);
-        return `"${i.texto}": ${caja ? caja.titulo : 'sin ubicar'}`;
-      })
-      .join('\n');
-    guardar(`clasificar:${unidad}:${id}:resumen`, resumen);
-  }, [items, cajas, asignaciones, unidad, id]);
+    if (!listo || !tarea || !revisado || !todo_bien) return;
+    marcar_tarea(unidad, tarea);
+    document.dispatchEvent(new CustomEvent('progreso:cambio'));
+  }, [listo, tarea, revisado, todo_bien, unidad]);
 
   function mover(item_id: string, caja: string | null) {
     set_revisado(false);
@@ -241,16 +244,24 @@ export function DragSort({
   }
 
   const sin_ubicar = items.filter((i) => (asignaciones[i.id] ?? null) === null);
-  const perfecto = revisado && correccion.aciertos === correccion.total;
+  const perfecto = revisado && todo_bien;
   const item_activo = activa ? por_id.get(activa) : null;
+  // Sofía helps with one card at a time: the first one that is in the wrong box
+  const primera_mal = revisado
+    ? items.find((i) => correccion.resultados[i.id] === 'mal')
+    : undefined;
 
   return (
     <Superficie tipo="practica" titulo={titulo} etiqueta={etiqueta}>
       {instruccion && <p className="max-w-reading text-body">{instruccion}</p>}
       <p className="mt-2 text-body-sm text-stone-text">
-        Arrastra cada tarjeta a su caja o toca uno de los botones &quot;Mover a&quot; que trae la
-        tarjeta.
+        Toca uno de los botones &quot;Mover a&quot; de cada tarjeta, o arrástrala a su caja.
       </p>
+      <ReadAloud
+        texto={`${instruccion ?? ''} ${items.map((i) => i.texto).join(' ')}`}
+        tamano="chico"
+        className="mt-3"
+      />
 
       <DndContext
         id={`clasificar-${unidad}-${id}`}
@@ -343,13 +354,24 @@ export function DragSort({
           </p>
         )}
       </div>
-      <p role="status" aria-live="polite" className="mt-4 min-h-7 text-body font-medium">
-        {revisado
-          ? perfecto
-            ? `Muy bien: las ${correccion.total} tarjetas están en su caja.`
-            : `Acertaste ${correccion.aciertos} de ${correccion.total}. Revisa las tarjetas señaladas y vuelve a intentar.`
-          : ''}
-      </p>
+      <div role="status" aria-live="polite" className="mt-4 min-h-7">
+        {revisado && perfecto && (
+          <p className="text-body font-medium">
+            ¡Excelente, detective! Las {correccion.total} tarjetas están en su caja.
+          </p>
+        )}
+        {revisado && !perfecto && (
+          <Burbuja quien="sofia" tono="pista" titulo="Pista de Sofía">
+            <p>
+              Acertaste {correccion.aciertos} de {correccion.total}.{' '}
+              {primera_mal ? `Mira la tarjeta "${primera_mal.texto}"` : 'Mira las tarjetas señaladas.'}
+            </p>
+            <p data-pista-sofia className="mt-1">
+              {primera_mal?.pista ?? 'Vuelve a leer el texto despacio y prueba con otra caja.'}
+            </p>
+          </Burbuja>
+        )}
+      </div>
     </Superficie>
   );
 }

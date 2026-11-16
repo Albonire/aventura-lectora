@@ -1,168 +1,50 @@
-# RECURSOS: Aventura lectora
+# RECURSOS: Aventura lectora (prototipo 2.2)
 
-Inventario de recursos para `src/data/recursos.json`. Cada recurso lleva tipo (propio o web), herramienta, enlace, estado de verificación y cita APA 7.
+## 1. Referencias de la Guía 2.1 y su verificación
 
-Estados de verificación (revisados el 23 de septiembre de 2026):
-- Abierto: se abrió el enlace y se leyó el contenido.
-- Encontrado: el enlace apareció en resultados de búsqueda con el título y la descripción esperados, pero no se abrió completo.
-- Por confirmar: falta que el equipo elija el recurso exacto o compruebe el enlace.
+Revisión del 16 de noviembre de 2026: se abrió cada enlace y se comparó lo que muestra con la cita. Solo las verificadas se publican en `/referencias` (campo `verificado` de `src/data/referencias.ts`).
 
-En el JSON, `verificado: true` solo para "Abierto" y "Encontrado" después de que el equipo haga clic y confirme que carga. Los "Por confirmar" no se publican hasta completarlos.
+| Referencia | Estado | Qué se encontró |
+|---|---|---|
+| Arias-Delgado, L. (2023). Módulo 2: Diseño y aplicación de experiencias de aprendizaje gamificadas. Universidad Santo Tomás, Campus Virtual. | Verificada | Material del campus sin enlace abierto. Es el recurso de consulta de la guía de la Actividad 2.2. |
+| Llumiquinga Haro, C. E. (2026). Fortalecimiento de la compresión lectora mediante la gamificación para desarrollar el pensamiento critico. https://dspace.ups.edu.ec/handle/123456789/32830 | Verificada | El repositorio coincide en autora, año y título. El título lleva "compresión" y "critico" tal como está en el repositorio. |
+| Ministerio de Educación Nacional. (2016). Derechos Básicos de Aprendizaje: Lenguaje (V.2). | Verificada | Los enunciados de los DBA 1, 5, 6, 7 y 8 de grado 5.º se compararon con el PDF del documento. El enlace de la guía abre la portada del ministerio, no el documento. |
+| Rodríguez Basto, S. J., y Vera Arias, M. L. (2025). Importancia de la comprensión lectora como elemento fundamental en los procesos de enseñanza-aprendizaje en estudiantes de básica primaria en Colombia. Dialéctica, 1(25). https://doi.org/10.56219/dialctica.v1i25.3880 | Verificada | El DOI abre el artículo con esos autores, título y año. No se revisaron las páginas (112-128). |
+| Gutiérrez-González, R., Carrera-Fernández, M. J., y Cid-Sillero, S. (2023). Comprensión lectora en educación primaria: revisión sistemática sobre estrategias de intervención. Revista de Investigación Educativa, 41(1), 159-177. https://doi.org/10.6018/rie.518741 | Sin verificar | El DOI abre otro artículo: "Análisis de la producción científica relacionada con Recursos Educativos Digitales (RED) y Objetos Virtuales de Aprendizaje (OVA), entre 2000 y 2021", de Carlos Gutiérrez-González y otros. No se encontró un artículo con el título y los autores citados. |
+| Novoa Velandia, L. Y., y Serrato Vargas, Y. P. (2023). Gamificación, una estrategia didáctica para el desarrollo de la comprensión lectora en estudiantes de grado cuarto de básica primaria. https://repository.uniminuto.edu/handle/10656/17982 | Sin verificar | El enlace abre otro trabajo de grado ("Investigar los efectos del teletrabajo en los empleados de la empresa Sotrauraba"). No se encontró el trabajo citado en el repositorio. |
+| Acosta Sznajderman, A., Junguitu Angulo, L., y Osuna Acedo, S. (2026). Gamificación, narrativa transmedia e IA para motivar la lectura en Primaria: un estudio de caso cualitativo. Revista Prisma Social, (52), 145-172. | Sin verificar | El enlace abre la portada de la revista. No se encontró el artículo con ese título y esos autores. |
+| Instituto Colombiano para la Evaluación de la Educación. (2023). Informe nacional de resultados de las pruebas Saber 3.°, 5.° y 9.°. | Sin verificar | El enlace abre la portada del ICFES. El informe publicado se titula "Informe nacional de resultados de las pruebas Saber 3.°, 5.°, 7.° y 9.°. Aplicación 2022". Falta confirmar cuál es y su enlace directo. |
 
----
+Pendiente de las autoras: corregir o reemplazar las cuatro referencias sin verificar en el documento de entrega. Cuando una se confirme, cambiar `verificado` a `true` y poner la fecha en `verificado_el`.
 
-## 1. Referentes curriculares (para docentes; no cuentan en el 50/50)
+## 2. Referentes curriculares citados en el sitio
 
-| Id | Recurso | Enlace | Estado |
-|---|---|---|---|
-| ref_dba | Derechos Básicos de Aprendizaje de Lenguaje, versión 2 (MEN) | https://www.colombiaaprende.edu.co/sites/default/files/files_public/2022-06/DBA_Lenguaje-min.pdf | Abierto |
-| ref_ebc | Estándares Básicos de Competencias (MEN), página de descarga | https://www.mineducacion.gov.co/1759/w3-article-340021.html | Encontrado |
+Tomados del documento Derechos Básicos de Aprendizaje: Lenguaje, V.2 (MEN, 2016), grado 5.º:
 
-APA 7:
-- Ministerio de Educación Nacional. (2016). *Derechos básicos de aprendizaje: Lenguaje* (V.2). https://www.colombiaaprende.edu.co/sites/default/files/files_public/2022-06/DBA_Lenguaje-min.pdf
-- Ministerio de Educación Nacional. (2006). *Estándares básicos de competencias en lenguaje, matemáticas, ciencias y ciudadanas*. https://www.mineducacion.gov.co/1759/w3-article-340021.html
+- DBA 1: "Utiliza la información que recibe de los medios de comunicación para participar en espacios discursivos de opinión."
+- DBA 5: "Comprende el sentido global de los mensajes, a partir de la relación entre la información explícita e implícita." Evidencia: "Asume una postura crítica y respetuosa frente a los mensajes que circulan en su medio."
+- DBA 6: "Identifica la intención comunicativa de los textos con los que interactúa a partir del análisis de su contenido y estructura."
+- DBA 7: "Construye textos orales atendiendo a los contextos de uso, a los posibles interlocutores y a las líneas temáticas pertinentes con el propósito comunicativo en el que se enmarca el discurso."
+- DBA 8: "Produce textos verbales y no verbales a partir de los planes textuales que elabora según la tipología a desarrollar."
 
-Hallazgo: las dos evidencias de aprendizaje de la unidad 2 de la ficha son textuales del DBA 6 de grado 4.º (página 22 del PDF). El DBA 6 de 5.º está en la página 26. Ver REVISION_FICHA.md.
+El DBA 3 de grado 5.º dice: "Comprende los roles que asumen los personajes en las obras literarias y su relación con la temática y la época en las que estas se desarrollan." Por eso la Misión 3 (mensajes del celular) cita los DBA 1 y 5 y no el 3, como figura en la Guía 2.1.
 
----
+## 3. Recursos propios del prototipo
 
-## 2. Recursos de la web por unidad
+Todos los recursos del recorrido son propios. No hay recursos externos insertados.
 
-### Caso 1. Leo y comprendo
-| Id | Recurso | Uso | Enlace | Estado |
-|---|---|---|---|---|
-| w1_fabula | "La liebre y la tortuga: la fábula (con guía para padres y maestros)", Cultura Genial | Versión comparativa de la fábula y preguntas para conversar | https://www.culturagenial.com/es/la-liebre-y-la-tortuga/ | Encontrado |
-| w1_hipotesis | Colombia Aprende, Contenidos para aprender, grado quinto: "Proposición de hipótesis predictivas sobre un texto literario" | Práctica de predicción (antes de leer) | Listado: https://colombiaaprende.edu.co/contenidos-para-aprender (filtrar Básica primaria, Grado quinto, Lenguaje) | Encontrado el título en el listado; el equipo copia el enlace directo del módulo |
-| w1_video_ficha | Video de la ficha para la actividad "Mensaje oculto" | Preguntas de inferencia | https://www.youtube.com/watch?v=yVYG4uvefCQ | Por confirmar: al abrirlo, YouTube redirigió a otro video sin título (canal "69", mayo de 2022). Revisar a mano. Si no es el esperado, reemplazar |
-| w1_happy | Canal Happy Learning Español (videos educativos para niños) | Alternativa al video de la ficha: un video sobre comprensión lectora | https://www.youtube.com/@HappyLearningEs | No se usó en el sitio (se reemplazó por recursos verificados) |
+| Estación | Recurso | Tipo |
+|---|---|---|
+| 00 | Relato de apertura, pista de prueba, carné y pasaporte | Texto e interactivo |
+| 01 | Fábula "El recado del trapiche", receta "Chocolate campesino con panela", clasificador de partes, ordenador de pasos, cuestionario | Lecturas e interactivos |
+| 02 | Relato "El duende del trapiche", cuestionario inferencial, formulario "Cuéntame, abuelo", ficha "Libreta de campo de Mateo" | Lectura, interactivos e imprimible |
+| 03 | Dos mensajes inventados para practicar, Detector de Verdades, clasificador de hechos y rumores, cuestionario | Lecturas e interactivos |
+| 04 | Torre modelo de Mateo, práctica de pisos, constructor de la torre de argumentos | Lectura e interactivos |
+| 05 | Pasaporte con 4 medallas, relato familiar, certificado imprimible | Interactivos e imprimible |
 
-APA 7:
-- Arancibia Durán, C. (s.f.). *La liebre y la tortuga: la fábula (con guía para padres y maestros)*. Cultura Genial. https://www.culturagenial.com/es/la-liebre-y-la-tortuga/
-- Ministerio de Educación Nacional. (s.f.). *Proposición de hipótesis predictivas sobre un texto literario* [Recurso educativo digital]. Colombia Aprende. https://colombiaaprende.edu.co/contenidos-para-aprender/proposicion-de-hipotesis-predictivas-sobre-un-texto-literario (URL confirmada el 24 de septiembre de 2026)
-- Miss Edith. (2020, 26 de junio). *EL MENSAJE OCULTO* [Video]. YouTube. https://www.youtube.com/watch?v=yVYG4uvefCQ (video confirmado el 24 de septiembre de 2026)
+Las ilustraciones (Sofía, Mateo, conejo, tortuga, oruga, portadas e insignias) son SVG propios. Los textos de lectura fueron escritos para el prototipo con apoyo de herramientas de inteligencia artificial y deben ser validados por las autoras.
 
-### Caso 2. Descubro el sendero de los textos
-| Id | Recurso | Uso | Enlace | Estado |
-|---|---|---|---|---|
-| w2_renacuajo | "El renacuajo paseador", Rafael Pombo, Biblioteca Virtual Miguel de Cervantes | Texto del cuento para leer y marcar inicio, nudo y desenlace | https://www.cervantesvirtual.com/obra/el-renacuajo-paseador-1168925/ | Encontrado (citado por Wikipedia). El sitio bloqueó la verificación automática: abrirlo a mano |
-| w2_mintic_guia | Guía "Un paseo diferente" (MinTIC, Colombia Programa), con el texto del cuento en el anexo | Respaldo del texto y otra propuesta de actividad con el cuento | https://mintic.gov.co/colombiaprograma/847/articles-407418_recurso_1.pdf | Encontrado |
-| w2_pombo_bio | Biografía de Rafael Pombo, Biografías y Vidas | Fuente del texto informativo "¿Quién fue Rafael Pombo?" | https://www.biografiasyvidas.com/biografia/p/pombo_rafael.htm | Encontrado |
-| w2_textos_info | Colombia Aprende, grado quinto: "Construcción de textos informativos" | Ampliación del texto informativo | Listado de Contenidos para aprender (ver caso 1) | Título encontrado; URL directa pendiente |
-| w2_happy_tipos | Video de Happy Learning Español sobre tipos de texto | Refuerzo audiovisual | Canal (ver caso 1) | No se usó en el sitio (se reemplazó por el módulo de Colombia Aprende) |
+## 4. Datos del grupo
 
-Dominio público: Rafael Pombo murió en 1912, así que su obra ya es de dominio público en Colombia. El sitio puede mostrar el texto completo con la cita de la fuente de donde se copió.
-
-APA 7:
-- Pombo, R. (s.f.). *El renacuajo paseador*. Biblioteca Virtual Miguel de Cervantes. https://www.cervantesvirtual.com/obra/el-renacuajo-paseador-1168925/
-- Ministerio de Tecnologías de la Información y las Comunicaciones. (s.f.). *Guía: Un paseo diferente* [Guía didáctica]. Colombia Programa. https://mintic.gov.co/colombiaprograma/847/articles-407418_recurso_1.pdf
-- Fernández, T., y Tamaro, E. (s.f.). *Biografía de Rafael Pombo*. Biografías y Vidas. https://www.biografiasyvidas.com/biografia/p/pombo_rafael.htm [Autores confirmados en la página el 25 de septiembre de 2026: Tomás Fernández y Elena Tamaro; publicada en 2004, por eso el sitio cita (2004)]
-
-### Caso 3. Pregunto como detective
-| Id | Recurso | Uso | Enlace | Estado |
-|---|---|---|---|---|
-| w3_icfes | Icfes, "Ejemplos de preguntas Saber 5.º Lenguaje" (2015) | Practicar con preguntas reales de la prueba y ubicar su nivel | https://www.icfes.gov.co/documents/20143/489407/Ejemplos%20de%20preguntas%20saber%205%20lenguaje%202015%20v3.pdf | Encontrado. El Icfes permite uso académico con crédito y prohíbe transformar las preguntas: enlazar, no adaptar |
-| w3_colombia_aprende | Colombia Aprende, módulo de grado quinto de Lenguaje a elegir | Práctica adicional de comprensión | Listado de Contenidos para aprender | Por confirmar |
-| w3_extra | Tercer recurso web del caso (sugerencia: una actividad pública de Wordwall sobre niveles de comprensión) | Juego de repaso | https://wordwall.net/es (buscar "niveles de comprensión lectora") | Por confirmar |
-
-APA 7:
-- Instituto Colombiano para la Evaluación de la Educación. (2015). *Ejemplos de preguntas Saber 5.° Lenguaje*. https://www.icfes.gov.co/documents/20143/489407/Ejemplos%20de%20preguntas%20saber%205%20lenguaje%202015%20v3.pdf
-
-### Caso 4. Detectives de noticias
-| Id | Recurso | Uso | Enlace | Estado |
-|---|---|---|---|---|
-| w4_interland | Interland, Sé genial en Internet (Google), mundo "Río de la realidad" | Juego para distinguir información real de engaños (7 a 12 años, sin registro) | https://beinternetawesome.withgoogle.com/interland/ | Encontrado |
-| w4_reinformados | Reinformados (la diaria, con apoyo de Plan Ceibal y Google News Initiative) | Cuadernos de actividades sobre noticias y desinformación para 9 a 12 años. Licencia CC BY-NC-SA | https://ver.ladiaria.com.uy/reinformados | Encontrado en documento oficial del proyecto |
-| w4_laberinto | "El laberinto de la información" (EduCaixa, con Maldita.es y Verificat) | Juego en Genially sobre hechos, opiniones y desinformación para 8 a 12 años | Reseña: https://www.educaciontrespuntocero.com/recursos/el-laberinto-de-la-informacion/ (el equipo ubica el enlace del recurso en el portal de EduCaixa) | Reseña encontrada; enlace del recurso por confirmar |
-| w4_chequeado | "Infodemia en la escuela", Chequeado con apoyo de UNESCO | Planificaciones para el docente sobre desinformación, últimos años de primaria | https://chequeado.com/infodemiaenlaescuela/ | Encontrado |
-| w4_noticia | Colombia Aprende, grado quinto: "Presentación de una noticia" | Estructura de la noticia | Listado de Contenidos para aprender | Título encontrado; URL directa pendiente |
-
-APA 7:
-- Google. (s.f.). *Interland: Sé genial en Internet* [Juego en línea]. https://beinternetawesome.withgoogle.com/interland/
-- la diaria. (2021). *Reinformados* [Recursos educativos]. https://ver.ladiaria.com.uy/reinformados
-- Chequeado. (2020). *Infodemia en la escuela: Recursos para docentes sobre coronavirus y desinformación*. https://chequeado.com/infodemiaenlaescuela/
-- EduCaixa. (s.f.). *El laberinto de la información* [Recurso educativo]. https://educaixa.org/es/-/recurso/laberinto-informacion (confirmada el 24 de septiembre de 2026; el sitio muestra el Genially oficial)
-
-### Caso 5. Mi voz cuenta
-| Id | Recurso | Uso | Enlace | Estado |
-|---|---|---|---|---|
-| w5_punto_vista | Colombia Aprende, grado quinto: "Justificación del punto de vista" | Argumentar una opinión | Listado de Contenidos para aprender | Título encontrado; URL directa pendiente |
-| w5_debate | Colombia Aprende, grado quinto: "Justificación de opiniones en un debate" | Preparar el muro de debate | Listado de Contenidos para aprender | Título encontrado; URL directa pendiente |
-| w5_argumentativos | Colombia Aprende, grado quinto: "Producción de textos argumentativos" | Escribir el texto de opinión | Listado de Contenidos para aprender | Título encontrado; URL directa pendiente |
-
-APA 7 (mismo formato para los tres):
-- Ministerio de Educación Nacional. (s.f.). *Justificación del punto de vista* [Recurso educativo digital]. Colombia Aprende. https://colombiaaprende.edu.co/contenidos-para-aprender/justificacion-del-punto-de-vista (confirmada el 24 de septiembre de 2026)
-
-### Ilustración del sitio (no cuenta en el 50/50)
-| Id | Recurso | Licencia | Enlace | Estado |
-|---|---|---|---|---|
-| il_openpeeps | Open Peeps, Pablo Stanley | CC0 (dominio público, sin atribución obligatoria) | https://www.openpeeps.com/ | Encontrado |
-
-Se da crédito igual en `/creditos` por buena práctica: Stanley, P. (s.f.). *Open Peeps* [Ilustraciones]. https://www.openpeeps.com/
-
----
-
-## 3. Recursos propios (elaborados por el equipo)
-
-Los recursos propios se agrupan en tres por caso (una fila de la ficha = un recurso): material central, kit multimedia hecho con IA y kit de práctica.
-
-| Id | Caso | Recurso | Herramienta | Dónde vive |
-|---|---|---|---|---|
-| p1_fabula | 1 | Adaptación de "La liebre y la tortuga" con lectura con pausas y pista de carrera | Sitio (React + GSAP) | Sitio |
-| p1_multimedia | 1 | Kit multimedia: infografía "Leo como detective", video, podcast de repaso y tarjetas | Gemini Notebook (IA) | Sitio (MP3, imagen, JSON) y YouTube no listado |
-| p1_practica | 1 | Sopa de letras, tablero de predicciones, pistas del detective, tarjeta de refrán, ruleta y cuestionario | Sitio (React). Opcional: sopa o ruleta en Wordwall | Sitio |
-| p2_modelos | 2 | Cómic "Tres textos, tres misiones", texto informativo sobre Pombo e instructivo del separador | Pixton o Storyboard That (cómic) + sitio | Insertado + sitio |
-| p2_multimedia | 2 | Kit multimedia: infografía "El sendero de los textos", video "Tres textos, tres misiones", podcast y tarjetas | Gemini Notebook (IA) | Sitio y YouTube no listado |
-| p2_practica | 2 | Resaltador de inicio, nudo y desenlace, ordenador de pasos, clasificador de textos y cuestionario | Sitio (React) | Sitio |
-| p3_cuento | 3 | Cuento original "Los libros viajeros de la vereda" | Sitio | Sitio |
-| p3_multimedia | 3 | Kit multimedia: infografía "Las tres lupas", video, podcast y tarjetas | Gemini Notebook (IA) | Sitio y YouTube no listado |
-| p3_practica | 3 | Semáforo de preguntas, cuestionario y muro de Padlet para intercambiar preguntas | Sitio (React) + Padlet | Sitio + insertado |
-| p4_noticia | 4 | Noticia inventada pieza por pieza y clasificador hecho u opinión | Sitio | Sitio |
-| p4_multimedia | 4 | Kit multimedia: infografía "La lista LUPA", video "¿Puedo confiar en esta noticia?", podcast y tarjetas | Gemini Notebook (IA) | Sitio y YouTube no listado |
-| p4_detector | 4 | Detector de fuentes y cuestionario | Sitio (React) | Sitio |
-| p5_modelo | 5 | Modelo de texto de opinión | Sitio | Sitio |
-| p5_multimedia | 5 | Kit multimedia: infografía "La torre del argumento", video, podcast en formato debate y tarjetas | Gemini Notebook (IA) | Sitio y YouTube no listado |
-| p5_practica | 5 | Constructor de argumentos, clasificador de conectores, cuestionario y muro de debate en Padlet (con grabación de audio) | Sitio (React) + Padlet | Sitio + insertado |
-
-Fuera del conteo, por ser evaluación, decoración o material para docentes: retos sumativos, rúbricas, certificado, portadas ilustradas de los casos, y del cuaderno de docentes la presentación de socialización, la guía para familias y el mapa mental.
-
-Crédito de la herramienta de IA en `/creditos` (APA 7, formato para software):
-- Google. (2026). *Gemini Notebook* [Herramienta de inteligencia artificial]. https://notebook.google/ [URL vigente confirmada el 24 de septiembre de 2026]
-
-Declaración sugerida para `/creditos`: "Los podcasts, videos, infografías y tarjetas marcados con la etiqueta de IA fueron generados por el equipo con Gemini Notebook a partir de textos escritos por el equipo, y revisados antes de publicarse."
-
----
-
-## 4. Conteo 50/50
-
-| Caso | Propios | Web | Estado |
-|---|---|---|---|
-| 1 | p1_fabula, p1_multimedia, p1_practica | w1_fabula, w1_hipotesis, w1_video_ficha o w1_happy | Falta confirmar el video |
-| 2 | p2_modelos, p2_multimedia, p2_practica | w2_renacuajo, w2_pombo_bio, w2_textos_info | Falta URL directa de Colombia Aprende |
-| 3 | p3_cuento, p3_multimedia, p3_practica | w3_icfes, w3_colombia_aprende, w3_extra | Faltan dos recursos web por elegir |
-| 4 | p4_noticia, p4_multimedia, p4_detector | w4_interland, w4_reinformados, w4_laberinto | Falta enlace del laberinto (o usar w4_noticia) |
-| 5 | p5_modelo, p5_multimedia, p5_practica | w5_punto_vista, w5_debate, w5_argumentativos | Faltan URL directas |
-| Total | 15 | 15 | 50 % y 50 % |
-
-Si la evaluadora cuenta cada pieza por separado (podcast, video, infografía y tarjetas como cuatro recursos), el lado propio sube a 27 y hay que sumar recursos web. En ese caso, prioricen agregar en cada caso los módulos de Colombia Aprende de grado quinto que no se usaron y videos verificados de Happy Learning Español.
-
-Herramientas usadas por el equipo para crear recursos propios (criterio 3 de la rúbrica): web 2.0, Pixton (cómic) y Padlet (muros de los casos 3 y 5), y opcionalmente Wordwall; web 4.0 o IA, Gemini Notebook (infografías, videos, podcasts y tarjetas). Enlaces: https://www.pixton.com, https://padlet.com, https://wordwall.net/es
-
----
-
-## 5. Verificación del 24 de septiembre de 2026
-
-Cada enlace se abrió y se leyó su contenido (excepto donde se indica). Cambios respecto a las secciones anteriores:
-
-- Colombia Aprende: los seis módulos de grado quinto de Lenguaje tienen URL directa y coinciden con los títulos del inventario (`/contenidos-para-aprender/<nombre>`). Para el caso 3 se eligieron tres módulos de grado quinto: "Comprensión de diversos tipos de texto", "Reconocimiento de los argumentos básicos de un texto" y "Comprensión de diversos tipos de textos literarios".
-- Icfes: el PDF "Ejemplos de preguntas Saber 5.° Lenguaje" ya no existe en esa dirección (404). Se reemplazó por el tercer módulo de Colombia Aprende del caso 3.
-- Caso 1: el video de la ficha ("El mensaje oculto", canal Miss Edith, 26 de junio de 2020, 9 min 43 s, apto para todo público) carga y permite insertarse. Es un juego de palabras para primeros grados; se publica como pidió la ficha y queda para que el equipo confirme si es adecuado para 5.º. No se usa Happy Learning Español: el canal no tiene un video de comprensión lectora.
-- Caso 2: el texto de "El renacuajo paseador" se tomó del anexo 1 de la guía de MinTIC (abierta). Cervantes Virtual bloquea la verificación automática (Cloudflare) y queda fuera de las referencias. La biografía de Biografías y Vidas confirma los datos del texto informativo: nació en Bogotá en 1833, murió en 1912, estudió matemáticas e ingeniería, fue secretario de la legación colombiana en Nueva York y cónsul, y su obra completa se publicó en 1916 en cuatro volúmenes.
-- Caso 4: "El laberinto de la información" (EduCaixa, con Maldita.es y Verificat, 2024) es un juego interactivo en Genially. La página oficial de EduCaixa se abrió en un navegador y da el enlace https://view.genially.com/664dca9c96d30b00146b5513, que se muestra dentro de la página del caso 4. El kit descargable (PDF y videos de 350 a 440 MB) es de "todos los derechos reservados": no se publica en el sitio. Interland (Google) prohíbe mostrarse en otra página y sale del inventario; entra el módulo "Presentación de una noticia" de Colombia Aprende, que sí se puede mostrar.
-- Gemini Notebook: `notebooklm.google` ahora redirige a https://notebook.google/, titulada "Gemini Notebook".
-- Decreto 1290 de 2009: página oficial del MEN, actualizada el 16 de octubre de 2024.
-- Conteo: 15 recursos propios y 15 de la web, 15 de 15 con enlace confirmado.
-
-### Cómo se integra cada recurso de la web (probado en un navegador el 24 de septiembre de 2026)
-
-- Se muestran dentro de la página, con carga al pulsar (13): el video de YouTube (youtube-nocookie), los 9 módulos de Colombia Aprende (el paquete interactivo directo de cada uno), el juego Genially del laberinto, la biografía de Biografías y Vidas y Reinformados (la diaria).
-- Integrados como actividad, con enlace (2): "La liebre y la tortuga" de Cultura Genial (su sitio prohíbe mostrarse en otra página; se integra como actividad de comparación) y la guía de MinTIC (su PDF prohíbe mostrarse en otra página; el texto de dominio público del anexo 1 se muestra completo en la actividad de marcar inicio, nudo y desenlace).
+- Diagnóstico del 5 de mayo de 2026 (n = 13): Guía 2.1, sección 1 y figura 1. En `src/data/prototipado.ts`.
+- Pilotaje del 10 de octubre de 2026 sobre el primer caso de la versión anterior: en `src/lib/empatizar.ts` (fuente "P") y en `/empatizar`.

@@ -2,10 +2,9 @@
 // front cover art: the two detectives over an open book from which the characters of the course come out
 import Sofia from './sofia.astro';
 import Mateo from './mateo.astro';
-import Liebre from './liebre.astro';
+import Conejo from './conejo.astro';
 import Tortuga from './tortuga.astro';
-import Renacuajo from './renacuajo.astro';
-import Periodico from './periodico.astro';
+import Oruga from './oruga.astro';
 ---
 
 <svg
@@ -19,8 +18,8 @@ import Periodico from './periodico.astro';
     <!-- Sombra de la cubierta inferior -->
     <path
       d="M4 256 V66 Q144 26 342 96 Q540 26 680 66 V256 Q540 216 342 286 Q144 216 4 256 Z"
-      fill="#d45b4c"
-      stroke="#2c2e2a"
+      fill="#e11d48"
+      stroke="#1e293b"
       stroke-width="7"
       stroke-linejoin="round"
     ></path>
@@ -28,8 +27,8 @@ import Periodico from './periodico.astro';
     <!-- Cubierta exterior principal -->
     <path
       d="M0 250 V60 Q140 20 338 90 Q536 20 676 60 V250 Q536 210 338 280 Q140 210 0 250 Z"
-      fill="#ff705d"
-      stroke="#2c2e2a"
+      fill="#f43f5e"
+      stroke="#1e293b"
       stroke-width="7"
       stroke-linejoin="round"
     ></path>
@@ -38,7 +37,7 @@ import Periodico from './periodico.astro';
     <path
       d="M22 240 V60 Q152 28 338 90 Q524 28 654 60 V240 Q524 204 338 270 Q152 204 22 240 Z"
       fill="#e6e6e6"
-      stroke="#2c2e2a"
+      stroke="#1e293b"
       stroke-width="7"
       stroke-linejoin="round"
     ></path>
@@ -47,7 +46,7 @@ import Periodico from './periodico.astro';
     <path
       d="M22 232 V52 Q152 20 338 82 Q524 20 654 52 V232 Q524 196 338 262 Q152 196 22 232 Z"
       fill="#ffffff"
-      stroke="#2c2e2a"
+      stroke="#1e293b"
       stroke-width="7"
       stroke-linejoin="round"
     ></path>
@@ -56,16 +55,16 @@ import Periodico from './periodico.astro';
     <path
       d="M290 248 L310 254 L310 300 L300 290 L290 300 Z"
       fill="#ffd147"
-      stroke="#2c2e2a"
+      stroke="#1e293b"
       stroke-width="5"
       stroke-linejoin="round"
     ></path>
 
     <!-- Pliegue central del libro -->
-    <path d="M338 82 V262" stroke="#2c2e2a" stroke-width="7" stroke-linecap="round"></path>
+    <path d="M338 82 V262" stroke="#1e293b" stroke-width="7" stroke-linecap="round"></path>
     
     <!-- Líneas de texto orgánicas (suavizadas con curvas Q) -->
-    <g stroke="#d5d5d4" stroke-width="10" stroke-linecap="round" fill="none">
+    <g stroke="#dcd6c8" stroke-width="10" stroke-linecap="round" fill="none">
       <path d="M70 100 Q170 86 296 130"></path>
       <path d="M70 138 Q170 124 296 168"></path>
       <path d="M70 176 Q170 162 250 190"></path>
@@ -78,16 +77,13 @@ import Periodico from './periodico.astro';
 
   <!-- Personajes que emergen de la historia -->
   <g transform="translate(300 60)">
-    <Liebre size={130} pose="parada" />
+    <Conejo size={130} pose="parada" />
   </g>
   <g transform="translate(560 128)">
     <Tortuga size={84} />
   </g>
-  <g transform="translate(422 80)">
-    <Renacuajo size={150} />
-  </g>
-  <g transform="translate(160 138) rotate(-14 40 40)">
-    <Periodico size={96} />
+  <g transform="translate(440 118)">
+    <Oruga size={92} />
   </g>
 
   <!-- Detectives observando -->

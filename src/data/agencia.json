@@ -1,0 +1,36 @@
+{
+  "relato": [
+    "Todo empieza un lunes por la mañana en el salón de quinto de la Institución Educativa Jorge Eliécer Gaitán, entre las lomas sembradas de caña y cacao de Maripí.",
+    "Sofía y Mateo abren los cuentos de la biblioteca y notan algo raro: las ideas principales se están borrando solas y los pasos de las recetas campesinas aparecen revueltos.",
+    "En el pueblo lo llaman el Efecto Lectura Rápida. Cada vez que alguien lee a las carreras, sin entender, los libros pierden parte de su historia y los abuelos empiezan a olvidar sus coplas y leyendas. Para completar, a los celulares de las familias llegan mensajes sin autor con rumores.",
+    "Sofía saca su lupa celeste, Mateo alista su libreta verde y entre los dos abren la Agencia Escolar de Detectives de la Lectura. Necesitan tu ayuda."
+  ],
+  "personajes": [
+    {
+      "id": "sofia",
+      "nombre": "Sofía",
+      "apodo": "La Guardiana de la Lupa",
+      "texto": "Tiene 10 años y lee con calma. Prefiere volver a leer un párrafo antes de contestar al azar. Cuando una pregunta se complica, te da una pista.",
+      "compania": "La acompañan el conejo de la bufanda roja y la tortuga."
+    },
+    {
+      "id": "mateo",
+      "nombre": "Mateo",
+      "apodo": "El Rastreador de Pistas",
+      "texto": "Tiene 11 años y anota todo en su libreta de campo. Antes leía de afán y creía lo primero que veía en el celular. Ahora revisa quién escribió cada mensaje.",
+      "compania": "Lo acompaña la oruga del sombrero de copa."
+    }
+  ],
+  "prueba": {
+    "nota": "En la puerta del salón apareció esta nota: \"Las ideas no se fueron lejos. Están donde se lee despacio y con calma\".",
+    "pregunta": "Según la nota, ¿dónde están las ideas?",
+    "opciones": [
+      { "id": "calma", "texto": "Donde se lee despacio y con calma" },
+      { "id": "tienda", "texto": "En la tienda del pueblo" },
+      { "id": "pupitre", "texto": "Debajo de un pupitre" }
+    ],
+    "correcta": "calma",
+    "acierto": "¡Primera pista resuelta! Así funciona toda la aventura: lees, respondes y, si fallas, vuelves a leer con una pista.",
+    "pista": "No pasa nada por fallar. Vuelve a leer la nota despacio: la respuesta está en la segunda frase."
+  }
+}

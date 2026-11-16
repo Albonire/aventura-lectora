@@ -2,10 +2,8 @@
 import PortadaCapitulo from '../../libro/portada_capitulo.astro';
 import Sofia from '../sofia.astro';
 import Mateo from '../mateo.astro';
-import Libro from '../libro.astro';
-import Periodico from '../periodico.astro';
-import ListaPasos from '../lista_pasos.astro';
-import Renacuajo from '../renacuajo.astro';
+import Oruga from '../oruga.astro';
+import Burbuja from '../burbuja.astro';
 
 interface Props {
   titulo: string;
@@ -22,22 +20,47 @@ const { titulo, alt } = Astro.props;
     preserveAspectRatio="xMidYMid meet"
     focusable="false"
   >
-    <!-- Nubes con detalle orgánico -->
+    <!-- Sol con rayos y sombra -->
+    <g transform="translate(640, 140)">
+      <circle cx="0" cy="0" r="94" fill="#facc15" opacity="0.3"></circle>
+      <g stroke="#facc15" stroke-width="14" stroke-linecap="round">
+        <line x1="0" y1="-105" x2="0" y2="-125" />
+        <line x1="0" y1="105" x2="0" y2="125" />
+        <line x1="-105" y1="0" x2="-125" y2="0" />
+        <line x1="105" y1="0" x2="125" y2="0" />
+        <line x1="-74" y1="-74" x2="-88" y2="-88" />
+        <line x1="74" y1="74" x2="88" y2="88" />
+        <line x1="-74" y1="74" x2="-88" y2="88" />
+        <line x1="74" y1="-74" x2="88" y2="-88" />
+      </g>
+      <circle cx="0" cy="0" r="84" fill="#facc15"></circle>
+      <path d="M -70 46 A 84 84 0 0 0 70 46 A 86 86 0 0 1 -70 46 Z" fill="#eab308"></path>
+    </g>
+
+    <!-- Nubes detalladas -->
     <g fill="#ffffff">
       <!-- Nube 1 -->
-      <path d="M 80 140 A 30 30 0 0 1 110 100 A 44 44 0 0 1 180 90 A 38 38 0 0 1 240 130 A 30 30 0 0 1 220 180 L 80 180 A 30 30 0 0 1 80 140 Z"></path>
-      <path d="M 80 180 L 220 180 A 30 30 0 0 0 238 160 C 210 168 170 172 140 168 C 110 164 90 154 75 145 A 30 30 0 0 0 80 180 Z" fill="#e0dbce" opacity="0.5"></path>
+      <path d="M 90 190 A 34 34 0 0 1 110 130 A 48 48 0 0 1 200 120 A 40 40 0 0 1 260 160 A 30 30 0 0 1 240 210 L 90 210 A 30 30 0 0 1 90 190 Z"></path>
+      <path d="M 90 210 L 240 210 A 30 30 0 0 0 258 185 C 230 195 190 200 160 195 C 130 190 110 180 90 170 A 30 30 0 0 0 90 210 Z" fill="#ece5d6" opacity="0.5"></path>
+      
       <!-- Nube 2 -->
-      <g transform="translate(480, 80) scale(1.1)">
-        <path d="M 80 140 A 30 30 0 0 1 110 100 A 44 44 0 0 1 180 90 A 38 38 0 0 1 240 130 A 30 30 0 0 1 220 180 L 80 180 A 30 30 0 0 1 80 140 Z"></path>
-        <path d="M 80 180 L 220 180 A 30 30 0 0 0 238 160 C 210 168 170 172 140 168 C 110 164 90 154 75 145 A 30 30 0 0 0 80 180 Z" fill="#e0dbce" opacity="0.5"></path>
+      <g transform="translate(280, -60) scale(0.7)">
+        <path d="M 90 190 A 34 34 0 0 1 110 130 A 48 48 0 0 1 200 120 A 40 40 0 0 1 260 160 A 30 30 0 0 1 240 210 L 90 210 A 30 30 0 0 1 90 190 Z"></path>
+        <path d="M 90 210 L 240 210 A 30 30 0 0 0 258 185 C 230 195 190 200 160 195 C 130 190 110 180 90 170 A 30 30 0 0 0 90 210 Z" fill="#ece5d6" opacity="0.5"></path>
       </g>
     </g>
 
-    <!-- Colina de fondo -->
-    <path d="M0 660 C200 600 460 620 800 590 V800 H0 Z" fill="#8ed462"></path>
-    <!-- Sombra/relieve de colina -->
-    <path d="M0 700 C200 640 460 660 800 630 V800 H0 Z" fill="#6fbb47" opacity="0.4"></path>
+    <!-- Colina verde de fondo -->
+    <path
+      d="M0 610 C180 520 360 540 560 470 C660 436 740 440 800 456 V800 H0 Z"
+      fill="#65a30d"
+    ></path>
+    <!-- Detalle de la colina (sombra/relieve) -->
+    <path
+      d="M0 650 C180 560 360 580 560 510 C660 476 740 480 800 496 V800 H0 Z"
+      fill="#5aa03a"
+      opacity="0.3"
+    ></path>
   </svg>
   <svg
     slot="medio"
@@ -46,76 +69,17 @@ const { titulo, alt } = Astro.props;
     preserveAspectRatio="xMidYMid meet"
     focusable="false"
   >
-    <!-- Tronco principal con corteza y volumen -->
-    <path
-      d="M382 800 C388 640 372 520 392 380 L430 380 C440 520 424 650 434 800 Z"
-      fill="#8b6b4a"
-    ></path>
-    <path
-      d="M382 800 C388 640 372 520 392 380 L400 380 C390 520 400 650 395 800 Z"
-      fill="#725538"
-    ></path>
-    <!-- Ramas principales -->
-    <!-- Rama izq -->
-    <path
-      d="M405 470 C330 440 250 420 170 330"
-      stroke="#8b6b4a"
-      stroke-width="26"
-      stroke-linecap="round"
-      fill="none"
-    ></path>
-    <path
-      d="M405 460 C330 430 250 410 170 320"
-      stroke="#725538"
-      stroke-width="8"
-      stroke-linecap="round"
-      fill="none"
-    ></path>
-    <!-- Rama der -->
-    <path
-      d="M410 430 C500 400 580 390 650 300"
-      stroke="#8b6b4a"
-      stroke-width="26"
-      stroke-linecap="round"
-      fill="none"
-    ></path>
-    <path
-      d="M410 440 C500 410 580 400 650 310"
-      stroke="#725538"
-      stroke-width="8"
-      stroke-linecap="round"
-      fill="none"
-    ></path>
-    <!-- Rama centro -->
-    <path
-      d="M410 380 C410 320 400 270 400 220"
-      stroke="#8b6b4a"
-      stroke-width="26"
-      stroke-linecap="round"
-      fill="none"
-    ></path>
-
-    <!-- Hojas y follaje con volumen y organicidad -->
-    <g fill="#5aa03a">
-      <circle cx="410" cy="250" r="150"></circle>
+    <!-- sugar cane -->
+    <g stroke="#4d7c0f" stroke-width="12" stroke-linecap="round" fill="none">
+      <path d="M690 640 V380 M730 650 V420 M650 650 V440"></path>
     </g>
-    <g fill="#6fbb47">
-      <circle cx="250" cy="330" r="110"></circle>
-      <circle cx="590" cy="320" r="110"></circle>
+    <g stroke="#84cc16" stroke-width="10" stroke-linecap="round" fill="none">
+      <path d="M690 400 Q650 370 620 380 M690 430 Q730 400 760 410 M730 440 Q770 420 790 440 M650 460 Q610 440 590 460"></path>
     </g>
-    <g fill="#8ed462">
-      <circle cx="420" cy="180" r="100"></circle>
-    </g>
-    
-    <!-- Detalles de hojas (sombras interiores) -->
-    <g fill="#4f9a34" opacity="0.3">
-      <!-- Sombra en círculo central inferior -->
-      <path d="M 260 250 A 150 150 0 0 0 560 250 A 150 150 0 0 1 260 250 Z"></path>
-      <!-- Sombra en izq -->
-      <path d="M 140 330 A 110 110 0 0 0 360 330 A 110 110 0 0 1 140 330 Z"></path>
-      <!-- Sombra en der -->
-      <path d="M 480 320 A 110 110 0 0 0 700 320 A 110 110 0 0 1 480 320 Z"></path>
-    </g>
+    <!-- trapiche roof -->
+    <path d="M40 520 L170 430 L300 520 Z" fill="#f43f5e" stroke="#1e293b" stroke-width="6" stroke-linejoin="round"></path>
+    <rect x="70" y="520" width="14" height="130" fill="#8b6b4a" stroke="#1e293b" stroke-width="4"></rect>
+    <rect x="256" y="520" width="14" height="130" fill="#8b6b4a" stroke="#1e293b" stroke-width="4"></rect>
   </svg>
   <svg
     slot="frente"
@@ -124,50 +88,15 @@ const { titulo, alt } = Astro.props;
     preserveAspectRatio="xMidYMid meet"
     focusable="false"
   >
-    <!-- Elementos colgantes (Libro, Periódico, Lista) -->
-    <g transform="translate(120 300)">
-      <!-- Cuerda -->
-      <path d="M50 0 V40" stroke="#2c2e2a" stroke-width="6" stroke-linecap="round"></path>
-      <!-- Sombra de la caja -->
-      <rect x="-16" y="44" width="140" height="130" rx="22" fill="#2c2e2a" opacity="0.15"></rect>
-      <!-- Caja -->
-      <rect x="-20" y="40" width="140" height="130" rx="22" fill="#ffffff" stroke="#2c2e2a" stroke-width="4"></rect>
-      <!-- Chincheta -->
-      <circle cx="50" cy="40" r="6" fill="#ff705d" stroke="#2c2e2a" stroke-width="3"></circle>
-      <g transform="translate(6 62)">
-        <Libro size={86} />
-      </g>
+    <Burbuja x={250} y={150} ancho={330} tamano={36} texto="Cuéntame, abuelo" cola_x={0.3} />
+    <g transform="translate(130 400)">
+      <Sofia size={350} pose="cadera" />
     </g>
-    
-    <g transform="translate(470 230)">
-      <path d="M50 0 V40" stroke="#2c2e2a" stroke-width="6" stroke-linecap="round"></path>
-      <rect x="-16" y="44" width="140" height="130" rx="22" fill="#2c2e2a" opacity="0.15"></rect>
-      <rect x="-20" y="40" width="140" height="130" rx="22" fill="#ffffff" stroke="#2c2e2a" stroke-width="4"></rect>
-      <circle cx="50" cy="40" r="6" fill="#2ba0ff" stroke="#2c2e2a" stroke-width="3"></circle>
-      <g transform="translate(8 66)">
-        <Periodico size={80} />
-      </g>
+    <g transform="translate(400 420)">
+      <Mateo size={330} pose="libreta" />
     </g>
-    
-    <g transform="translate(300 90)">
-      <path d="M50 0 V40" stroke="#2c2e2a" stroke-width="6" stroke-linecap="round"></path>
-      <rect x="-16" y="44" width="140" height="130" rx="22" fill="#2c2e2a" opacity="0.15"></rect>
-      <rect x="-20" y="40" width="140" height="130" rx="22" fill="#ffffff" stroke="#2c2e2a" stroke-width="4"></rect>
-      <circle cx="50" cy="40" r="6" fill="#f5e211" stroke="#2c2e2a" stroke-width="3"></circle>
-      <g transform="translate(14 60)">
-        <ListaPasos size={98} />
-      </g>
-    </g>
-    
-    <!-- Personajes -->
-    <g transform="translate(80 470)">
-      <Mateo size={300} pose="libreta" />
-    </g>
-    <g transform="translate(500 470)">
-      <Sofia size={300} pose="senala" />
-    </g>
-    <g transform="translate(330 640)">
-      <Renacuajo size={130} />
+    <g transform="translate(650 690)">
+      <Oruga size={90} />
     </g>
   </svg>
 </PortadaCapitulo>

@@ -1,7 +1,8 @@
 ---
 import PortadaCapitulo from '../../libro/portada_capitulo.astro';
-import Sofia from '../sofia.astro';
 import Mateo from '../mateo.astro';
+import Celular from '../celular.astro';
+import Oruga from '../oruga.astro';
 
 interface Props {
   titulo: string;
@@ -18,34 +19,38 @@ const { titulo, alt } = Astro.props;
     preserveAspectRatio="xMidYMid meet"
     focusable="false"
   >
-    <!-- Sombra del papel -->
-    <rect
-      x="130"
-      y="160"
-      width="560"
-      height="560"
-      rx="40"
-      fill="#2c2e2a"
-      opacity="0.1"
-      transform="rotate(-6 400 430)"
-    ></rect>
-    <!-- Papel principal -->
-    <rect
-      x="120"
-      y="150"
-      width="560"
-      height="560"
-      rx="40"
-      fill="#f5f1e4"
-      stroke="#e0dbce"
-      stroke-width="4"
-      transform="rotate(-6 400 430)"
-    ></rect>
-    <!-- Líneas del papel -->
-    <g stroke="#e0dbce" stroke-width="16" stroke-linecap="round" transform="rotate(-6 400 430)">
-      <path d="M180 220 H560 M180 270 H620 M180 320 H520 M180 590 H600 M180 640 H540"></path>
-      <!-- Detalles adicionales en las líneas (efecto escrito/borrador) -->
-      <path d="M180 370 H480 M180 420 H580 M180 470 H500" stroke-width="8" stroke-dasharray="20 15"></path>
+    <g transform="rotate(-7 400 380)">
+      <!-- Sombra de la "pantalla" o "hoja" -->
+      <rect x="115" y="95" width="560" height="620" rx="34" fill="#1e293b" opacity="0.1"></rect>
+      <!-- Base oscura atrás -->
+      <rect x="110" y="90" width="560" height="620" rx="34" fill="#ece5d6"></rect>
+      <!-- Pantalla principal -->
+      <rect x="90" y="110" width="560" height="620" rx="34" fill="#ffffff"></rect>
+      
+      <!-- Top bar (Navegador/App) -->
+      <rect x="130" y="150" width="480" height="70" rx="16" fill="#1e293b"></rect>
+      <!-- Botones de ventana de app -->
+      <circle cx="160" cy="185" r="8" fill="#f43f5e"></circle>
+      <circle cx="185" cy="185" r="8" fill="#facc15"></circle>
+      <circle cx="210" cy="185" r="8" fill="#84cc16"></circle>
+      <!-- Buscador / Título en la barra -->
+      <rect x="250" y="175" width="200" height="20" rx="10" fill="#4a4c48"></rect>
+
+      <!-- Imagen/Bloque destacado -->
+      <rect x="130" y="250" width="200" height="150" rx="16" fill="#0284c7"></rect>
+      <!-- Detalles visuales en el bloque azul (paisaje simple) -->
+      <circle cx="270" cy="290" r="20" fill="#ffffff" opacity="0.4"></circle>
+      <path d="M 130 360 Q 180 320 230 360 T 330 370 V 400 H 130 Z" fill="#ffffff" opacity="0.2"></path>
+
+      <!-- Líneas de texto -->
+      <g stroke="#dcd6c8" stroke-width="16" stroke-linecap="round">
+        <path d="M370 268 H610 M370 316 H610 M370 364 H560"></path>
+        <path d="M130 440 H610 M130 488 H590 M130 536 H520 M130 584 H610 M130 632 H470"></path>
+      </g>
+      <!-- Highlights en las líneas -->
+      <g stroke="#faf6ee" stroke-width="8" stroke-linecap="round">
+        <path d="M370 268 H450 M130 440 H250 M130 536 H200"></path>
+      </g>
     </g>
   </svg>
   <svg
@@ -55,33 +60,53 @@ const { titulo, alt } = Astro.props;
     preserveAspectRatio="xMidYMid meet"
     focusable="false"
   >
-    <!-- Mango de la lupa -->
-    <!-- Sombra del mango -->
-    <path d="M475 565 L645 725" stroke="#2c2e2a" stroke-width="58" stroke-linecap="round" opacity="0.15"></path>
-    <!-- Base del mango negra -->
-    <path d="M470 560 L640 720" stroke="#2c2e2a" stroke-width="58" stroke-linecap="round"></path>
-    <!-- Interior del mango (verde) -->
-    <path d="M490 578 L620 700" stroke="#8ed462" stroke-width="30" stroke-linecap="round"></path>
-    <!-- Brillo del mango -->
-    <path d="M500 588 L610 690" stroke="#a9e388" stroke-width="8" stroke-linecap="round"></path>
-
-    <!-- Aro de la lupa -->
-    <!-- Sombra del aro -->
-    <circle cx="385" cy="405" r="230" fill="none" stroke="#2c2e2a" stroke-width="30" opacity="0.15"></circle>
-    <!-- Aro negro exterior -->
-    <circle cx="380" cy="400" r="230" fill="#ffffff" stroke="#2c2e2a" stroke-width="30"></circle>
-    <!-- Brillo en el aro negro -->
-    <path d="M 180 280 A 230 230 0 0 1 300 185" stroke="#4a4c48" stroke-width="12" stroke-linecap="round" fill="none"></path>
-
-    <!-- Cristal de la lupa -->
-    <circle cx="380" cy="400" r="196" fill="#fdf3c8"></circle>
-    <!-- Efecto lente / centro brillante -->
-    <circle cx="380" cy="400" r="128" fill="#f5e211"></circle>
-    <circle cx="380" cy="400" r="70" fill="#ffffff"></circle>
+    <!-- Burbuja Check -->
+    <g transform="translate(600 150)">
+      <circle cx="3" cy="5" r="58" fill="#1e293b" opacity="0.15"></circle>
+      <!-- Cola de la burbuja -->
+      <path d="M -30 40 L -50 70 L -10 55 Z" fill="#84cc16" stroke="#1e293b" stroke-width="7" stroke-linejoin="round"></path>
+      <circle cx="0" cy="0" r="58" fill="#84cc16" stroke="#1e293b" stroke-width="7"></circle>
+      <path d="M -30 40 L -50 70 L -10 55" fill="#84cc16"></path>
+      <!-- Check mark -->
+      <path
+        d="M-26 2 L-8 22 L28 -18"
+        stroke="#1e293b"
+        stroke-width="12"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        fill="none"
+      ></path>
+      <!-- Brillo -->
+      <path d="M-40 -20 A 46 46 0 0 1 0 -46" stroke="#a9e388" stroke-width="6" stroke-linecap="round" fill="none"></path>
+    </g>
     
-    <!-- Reflejos del cristal -->
-    <path d="M 230 300 A 170 170 0 0 1 320 230" stroke="#ffffff" stroke-width="16" stroke-linecap="round" fill="none"></path>
-    <path d="M 340 220 A 170 170 0 0 1 370 215" stroke="#ffffff" stroke-width="16" stroke-linecap="round" fill="none"></path>
+    <!-- Burbuja Interrogación 1 -->
+    <g transform="translate(160 330)">
+      <circle cx="3" cy="5" r="52" fill="#1e293b" opacity="0.15"></circle>
+      <!-- Cola -->
+      <path d="M 20 40 L 40 70 L 40 45 Z" fill="#ffffff" stroke="#1e293b" stroke-width="7" stroke-linejoin="round"></path>
+      <circle cx="0" cy="0" r="52" fill="#ffffff" stroke="#1e293b" stroke-width="7"></circle>
+      <path d="M 20 40 L 40 70 L 40 45" fill="#ffffff"></path>
+      
+      <text x="0" y="26" text-anchor="middle" font-size="76" font-weight="500" fill="#1e293b">
+        ?
+      </text>
+    </g>
+
+    <!-- Burbuja Interrogación 2 -->
+    <g transform="translate(540 540)">
+      <circle cx="3" cy="5" r="46" fill="#1e293b" opacity="0.15"></circle>
+      <!-- Cola -->
+      <path d="M 20 30 L 45 50 L 35 25 Z" fill="#ffffff" stroke="#1e293b" stroke-width="7" stroke-linejoin="round"></path>
+      <circle cx="0" cy="0" r="46" fill="#ffffff" stroke="#1e293b" stroke-width="7"></circle>
+      <path d="M 20 30 L 45 50 L 35 25" fill="#ffffff"></path>
+      
+      <text x="0" y="22" text-anchor="middle" font-size="64" font-weight="500" fill="#1e293b">
+        ?
+      </text>
+      <!-- Brillo -->
+      <path d="M-30 -15 A 36 36 0 0 1 0 -36" stroke="#ffffff" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.6"></path>
+    </g>
   </svg>
   <svg
     slot="frente"
@@ -90,67 +115,14 @@ const { titulo, alt } = Astro.props;
     preserveAspectRatio="xMidYMid meet"
     focusable="false"
   >
-    <!-- Texto en el papel -->
-    <g fill="#2c2e2a" font-size="30" font-weight="500" transform="rotate(-6 400 430)">
-      <text x="240" y="260">
-        quién, qué, dónde
-      </text>
+    <g transform="translate(590 380)">
+      <Celular size={250} />
     </g>
-
-    <!-- Huellas (evolucionadas de elipses a pisadas de animal/zapatos) -->
-    <g fill="#2c2e2a" opacity="0.85">
-      <g transform="translate(290, 440) rotate(-20)">
-        <ellipse cx="0" cy="0" rx="16" ry="22"></ellipse>
-        <circle cx="-12" cy="-28" r="6"></circle>
-        <circle cx="0" cy="-32" r="7"></circle>
-        <circle cx="12" cy="-28" r="6"></circle>
-      </g>
-      <g transform="translate(330, 382) rotate(-12)">
-        <ellipse cx="0" cy="0" rx="16" ry="22"></ellipse>
-        <circle cx="-12" cy="-28" r="6"></circle>
-        <circle cx="0" cy="-32" r="7"></circle>
-        <circle cx="12" cy="-28" r="6"></circle>
-      </g>
-      <g transform="translate(410, 372) rotate(14)">
-        <ellipse cx="0" cy="0" rx="16" ry="22"></ellipse>
-        <circle cx="-12" cy="-28" r="6"></circle>
-        <circle cx="0" cy="-32" r="7"></circle>
-        <circle cx="12" cy="-28" r="6"></circle>
-      </g>
-      <g transform="translate(450, 318) rotate(22)">
-        <ellipse cx="0" cy="0" rx="16" ry="22"></ellipse>
-        <circle cx="-12" cy="-28" r="6"></circle>
-        <circle cx="0" cy="-32" r="7"></circle>
-        <circle cx="12" cy="-28" r="6"></circle>
-      </g>
+    <g transform="translate(250 440)">
+      <Mateo size={340} pose="libreta" />
     </g>
-
-    <!-- Signo de interrogación en la lupa -->
-    <text x="380" y="432" text-anchor="middle" font-size="110" font-weight="500" fill="#2c2e2a">
-      ?
-    </text>
-
-    <!-- Insignia (Badge) elaborada -->
-    <g transform="translate(560 250)">
-      <!-- Sombra -->
-      <circle cx="3" cy="3" r="46" fill="#2c2e2a" opacity="0.15"></circle>
-      <circle cx="0" cy="0" r="46" fill="#ffffff" stroke="#2c2e2a" stroke-width="6"></circle>
-      <circle cx="0" cy="0" r="38" fill="none" stroke="#2c2e2a" stroke-width="2" stroke-dasharray="4 4"></circle>
-      <path
-        d="M-14 10 Q-26 -8 -10 -22 Q2 -32 14 -22 Q28 -8 14 10 Z"
-        fill="#f5e211"
-        stroke="#2c2e2a"
-        stroke-width="5"
-        stroke-linejoin="round"
-      ></path>
-      <path d="M-8 20 H8" stroke="#2c2e2a" stroke-width="6" stroke-linecap="round"></path>
-    </g>
-
-    <g transform="translate(20 470)">
-      <Sofia size={310} pose="lupa" />
-    </g>
-    <g transform="translate(590 500)">
-      <Mateo size={290} pose="levanta" />
+    <g transform="translate(40 640)">
+      <Oruga size={120} />
     </g>
   </svg>
 </PortadaCapitulo>

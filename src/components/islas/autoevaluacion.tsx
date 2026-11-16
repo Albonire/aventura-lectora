@@ -14,9 +14,9 @@ const NIVELES = [
 export function Autoevaluacion({ unidad, titulo = '¿Cómo te fue en este caso?' }: Props) {
   const [valor, set_valor] = usar_almacen<string>(`autoeval:${unidad}`, '');
   return (
-    <fieldset className="rounded-card bg-pure-white p-7 md:p-10">
-      <legend className="px-1 text-heading-sm font-medium tracking-tight">{titulo}</legend>
-      <p className="mt-2 text-body-sm text-stone-text">
+    <fieldset className="rounded-card border-2 border-ink-black bg-pure-white p-5 md:p-8">
+      <legend className="float-left w-full text-[1.375rem] font-bold leading-snug">{titulo}</legend>
+      <p className="clear-both pt-2 text-body-sm text-stone-text">
         Elige la frase que más se parece a ti. No tiene nota: sirve para saber qué repasar.
       </p>
       <div className="mt-4 flex flex-col gap-2">

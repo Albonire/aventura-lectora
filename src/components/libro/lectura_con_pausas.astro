@@ -1,110 +1,71 @@
 ---
-// reading with detective pauses. Works as plain text; scroll scripts add the race track or side panel.
+// a short reading (150 to 250 words) with numbered paragraphs and short stops of the guide.
+// It is plain text: nothing is hidden and nothing depends on scripts. The numbers let Sofía's hints
+// say exactly which paragraph to read again.
 import { ReadAloud } from '../islas/read_aloud';
-import PistaCarrera from './pista_carrera.astro';
+import { Burbuja } from '../islas/personajes';
 import BloqueCabecera from '../ui/bloque_cabecera.astro';
-import EscenasLibros from '../ilustraciones/escenas_libros.astro';
 
 interface Parrafo {
   texto: string;
-  pausa?: string;
+  // part of the story ("Inicio", "Nudo", "Desenlace"), only for teachers reading the data
+  parte?: string;
+  pausa?: { estrategia?: string; texto: string };
 }
 interface Props {
   id: string;
-  unidad: number;
   titulo: string;
   autoria?: string;
   parrafos: Parrafo[];
   moraleja?: string;
-  // "carrera" adds the sticky race track at the bottom, "panel" a sticky side scene
-  modo?: 'simple' | 'carrera' | 'panel';
-  descripcion_pista?: string;
+  quien?: 'sofia' | 'mateo';
 }
-const {
-  id,
-  unidad,
-  titulo,
-  autoria,
-  parrafos,
-  moraleja,
-  modo = 'simple',
-  descripcion_pista = '',
-} = Astro.props;
+const { id, titulo, autoria, parrafos, moraleja, quien = 'sofia' } = Astro.props;
 const texto_completo = [
   titulo,
   ...parrafos.map((p) => p.texto),
   moraleja ? `Moraleja: ${moraleja}` : '',
-].join('. ');
+]
+  .filter(Boolean)
+  .join('. ');
+const palabras = parrafos.reduce((n, p) => n + p.texto.trim().split(/\s+/).length, 0);
 ---
 
-<div
+<article
   id={id}
   data-lectura
-  data-modo={modo}
-  data-unidad={unidad}
+  data-palabras={palabras}
   class="scroll-mt-28 rounded-card border-2 border-ink-black bg-pure-white p-5 text-ink-black md:p-8"
 >
-  <div class="flex flex-wrap items-start justify-between gap-4">
-    <div class="min-w-0 flex-1">
-      <BloqueCabecera tipo="lee" etiqueta={autoria} titulo={titulo} />
-    </div>
-    <ReadAloud client:visible texto={texto_completo} etiqueta="Escuchar la lectura" />
-  </div>
+  <BloqueCabecera tipo="lee" etiqueta={autoria} titulo={titulo} />
+  <ReadAloud client:idle texto={texto_completo} />
 
-  <div
-    class:list={['mt-4 grid gap-8', modo === 'panel' ? 'lg:grid-cols-[minmax(0,38rem)_1fr]' : '']}
-  >
-    <ol class:list={['flex max-w-reading flex-col gap-8', modo === 'panel' ? '' : 'mx-auto']}>
-      {parrafos.map((p, i) => (
-        <li data-paso={i + 1} class="relative">
-          <p class="mb-1 text-micro font-medium text-stone-text">Párrafo {i + 1}</p>
-          <p class="text-reading font-regular">{p.texto}</p>
+  <ol class="mx-auto mt-6 flex max-w-reading flex-col gap-6">
+    {
+      parrafos.map((p, i) => (
+        <li>
+          <p class="interfaz mb-1 text-micro font-medium text-stone-text">Párrafo {i + 1}</p>
+          <p class="text-reading">{p.texto}</p>
           {p.pausa && (
-            <aside
-              data-pausa
-              class="mt-5 rounded-soft bg-sunshine-pop p-5"
-              aria-label="Pausa del detective"
-            >
-              <p class="text-body-sm font-medium">Pausa del detective</p>
-              <p class="mt-1 text-body font-medium">{p.pausa}</p>
-              <label class="mt-3 block text-body-sm" for={`${id}-pausa-${i + 1}`}>
-                Tu idea (puedes responder o seguir leyendo)
-              </label>
-              <textarea
-                id={`${id}-pausa-${i + 1}`}
-                data-almacen={`pausa:${unidad}:${id}:${i + 1}`}
-                rows="2"
-                maxlength="300"
-                class="mt-1 w-full rounded-soft border-2 border-transparent bg-pure-white p-3 text-body focus:border-ink-black"
-              ></textarea>
-            </aside>
+            <Burbuja quien={quien} tono="pista" className="mt-4">
+              {p.pausa.estrategia && (
+                <span class="interfaz mr-2 inline-block rounded-pill border-2 border-ink-black bg-pure-white px-3 py-0.5 text-body-sm font-bold">
+                  {p.pausa.estrategia}
+                </span>
+              )}
+              <span>{p.pausa.texto}</span>
+            </Burbuja>
           )}
         </li>
-      ))}
-      {moraleja && (
-        <li class="rounded-soft bg-cream-paper p-5">
-          <p class="text-body-sm font-medium text-stone-text">Moraleja</p>
-          <p class="mt-1 text-reading font-medium">{moraleja}</p>
+      ))
+    }
+    {
+      moraleja && (
+        <li class="rounded-soft border-2 border-ink-black bg-cream-paper p-4">
+          <p class="interfaz text-body-sm font-medium text-stone-text">Moraleja</p>
+          <p class="mt-1 text-reading font-bold">{moraleja}</p>
         </li>
-      )}
-    </ol>
-
-    {modo === 'panel' && (
-      <div class="hidden lg:block">
-        <div data-panel class="sticky top-28" aria-hidden="true">
-          <EscenasLibros />
-        </div>
-      </div>
-    )}
-  </div>
-
-  {modo === 'carrera' && (
-    <div data-pista class="sticky bottom-3 z-20 mt-8">
-      <PistaCarrera descripcion={descripcion_pista} />
-    </div>
-  )}
-</div>
-
-<script>
-  import '../../lib/scroll/lectura';
-</script>
+      )
+    }
+  </ol>
+</article>

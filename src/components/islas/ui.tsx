@@ -5,7 +5,6 @@ import {
   Flag,
   Globe,
   Headphones,
-  Laptop,
   MonitorPlay,
   PencilSimpleLine,
   PuzzlePiece,
@@ -18,8 +17,9 @@ export const boton =
 export const boton_primario =
   'interfaz inline-flex min-h-11 items-center justify-center gap-2.5 rounded-pill border-2 border-ink-black bg-fresh-grass px-5 py-2 text-body-sm font-medium text-ink-black transition-colors hover:bg-ink-black hover:text-cream-paper disabled:pointer-events-none disabled:opacity-45';
 
+// the one highlighted action of a page (for example the printable field notebook)
 export const boton_reto =
-  'interfaz inline-flex min-h-12 items-center justify-center gap-2.5 rounded-pill border-2 border-ink-black bg-coral-pop px-6 py-3 text-body-sm font-medium text-ink-black transition-colors hover:bg-ink-black hover:text-cream-paper disabled:pointer-events-none disabled:opacity-45';
+  'interfaz inline-flex min-h-12 items-center justify-center gap-2.5 rounded-pill border-2 border-ink-black bg-coral-soft px-6 py-3 text-body-sm font-bold text-ink-black transition-colors hover:bg-ink-black hover:text-cream-paper disabled:pointer-events-none disabled:opacity-45';
 
 export const area_texto =
   'w-full rounded-soft border-2 border-transparent bg-sandstone p-4 text-body text-ink-black placeholder:text-stone-text focus:border-ink-black';
@@ -99,52 +99,19 @@ export function Chip({
   tono = 'arena',
 }: {
   children: ReactNode;
-  tono?: 'arena' | 'sol' | 'verde';
+  tono?: 'arena' | 'sol' | 'verde' | 'blanco';
 }) {
-  const fondo = { arena: 'bg-sandstone', sol: 'bg-sunshine-pop', verde: 'bg-fresh-grass' }[tono];
+  const fondo = {
+    arena: 'bg-sandstone',
+    sol: 'bg-sunshine-pop',
+    verde: 'bg-fresh-grass',
+    blanco: 'border-2 border-ink-black bg-pure-white',
+  }[tono];
   return (
     <span
       className={`${fondo} inline-flex items-center rounded-pill px-3 py-1 text-micro font-medium text-ink-black`}
     >
       {children}
     </span>
-  );
-}
-
-// label on every digital piece
-export function EtiquetaIA({ className = '' }: { className?: string }) {
-  return (
-    <p className={`flex items-center gap-2 text-micro text-stone-text ${className}`}>
-      <Laptop size={16} weight="bold" aria-hidden="true" />
-      Hecho con herramientas digitales y revisado por el equipo
-    </p>
-  );
-}
-
-export function Transcripcion({
-  texto,
-  titulo = 'Ver transcripción',
-}: {
-  texto: string;
-  titulo?: string;
-}) {
-  const parrafos = texto.split(/\n+/).filter(Boolean);
-  return (
-    <details className="group rounded-soft bg-cream-paper">
-      <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-3 rounded-soft px-4 py-2 text-body-sm font-medium [&::-webkit-details-marker]:hidden">
-        {titulo}
-        <span className="text-stone-text group-open:hidden" aria-hidden="true">
-          Abrir
-        </span>
-        <span className="hidden text-stone-text group-open:inline" aria-hidden="true">
-          Cerrar
-        </span>
-      </summary>
-      <div className="max-w-reading space-y-3 px-4 pb-5 text-body">
-        {parrafos.map((p, i) => (
-          <p key={i}>{p}</p>
-        ))}
-      </div>
-    </details>
   );
 }
