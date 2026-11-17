@@ -1,0 +1,26 @@
+---
+// crayon sprite of a character (see src/lib/sprites.ts). Decorative: no alternative text, it loads when it is near.
+// Only for light backgrounds (cream, white, yellow, sky blue) and never under text.
+import { datos_sprite, type NombreSprite } from '../../lib/sprites';
+
+interface Props {
+  nombre: NombreSprite;
+  // height in pixels (it never goes above the size of the file)
+  alto?: number;
+  class?: string;
+}
+const { nombre, alto, class: clase = '' } = Astro.props;
+const d = datos_sprite(nombre, alto);
+---
+
+<img
+  src={d.src}
+  width={d.ancho}
+  height={d.alto}
+  alt=""
+  aria-hidden="true"
+  loading="lazy"
+  decoding="async"
+  class:list={['block select-none', clase]}
+  draggable="false"
+/>

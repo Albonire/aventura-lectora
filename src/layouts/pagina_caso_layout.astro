@@ -11,6 +11,7 @@ import Portada4 from '../components/ilustraciones/portadas/portada_4.astro';
 import { BadgeTracker } from '../components/islas/badge_tracker';
 import { Autoevaluacion } from '../components/islas/autoevaluacion';
 import { ReadAloud } from '../components/islas/read_aloud';
+import Sprite from '../components/ilustraciones/sprite.astro';
 import { estacion_de_caso, folio, pagina_por_slug, type SlugPagina } from '../config/paginas';
 
 interface Props {
@@ -31,6 +32,14 @@ const descripcion_pagina =
   pagina === 'abrir'
     ? `${estacion.etiqueta} de Aventura lectora: ${estacion.titulo}. ${d.mision}`
     : `${info.titulo}, ${estacion.etiqueta} de Aventura lectora: ${estacion.titulo}. ${info.descripcion}`;
+// who goes with each mission (crayon sprites in the corner of the card, only on wide screens)
+const COMPANEROS: Record<number, ('sofia_lupa' | 'sofia_parada' | 'mateo_libreta' | 'mateo_escribe' | 'oruga_camina')[]> = {
+  1: ['sofia_lupa'],
+  2: ['sofia_parada', 'mateo_libreta'],
+  3: ['mateo_escribe', 'oruga_camina'],
+  4: ['sofia_lupa', 'mateo_libreta'],
+};
+const companeros = COMPANEROS[d.numero] ?? [];
 const Portada = { 1: Portada1, 2: Portada2, 3: Portada3, 4: Portada4 }[d.numero as 1 | 2 | 3 | 4];
 ---
 
@@ -59,7 +68,13 @@ const Portada = { 1: Portada1, 2: Portada2, 3: Portada3, 4: Portada4 }[d.numero 
     pagina === 'abrir' && (
       <section id="mision" aria-labelledby="mision-titulo" class="scroll-mt-20 py-8 md:py-12">
         <div class="contenedor">
-          <div class="max-w-4xl rounded-card border-2 border-ink-black bg-pure-white p-5 md:p-8">
+          <div class="relative max-w-4xl rounded-card border-2 border-ink-black bg-pure-white p-5 md:p-8">
+            <div
+              class="pointer-events-none absolute right-8 top-5 hidden items-end gap-3 lg:flex"
+              aria-hidden="true"
+            >
+              {companeros.map((n) => <Sprite nombre={n} alto={n === 'oruga_camina' ? 56 : 112} />)}
+            </div>
             <p class="interfaz text-body-sm font-medium text-stone-text">
               {estacion.etiqueta} · {d.duracion}
             </p>

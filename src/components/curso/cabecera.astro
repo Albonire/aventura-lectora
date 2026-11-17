@@ -199,10 +199,10 @@ const enlaces_docentes = [
   .interruptor[aria-checked='true'] .interruptor-bola {
     left: calc(100% - 1.05rem - 0.2rem);
   }
-  .interruptor[aria-checked='true'] span:first-child::after {
+  .interruptor[aria-checked='true'] > span:first-child::after {
     content: ': sí';
   }
-  .interruptor[aria-checked='false'] span:first-child::after {
+  .interruptor[aria-checked='false'] > span:first-child::after {
     content: ': no';
   }
   @media (prefers-reduced-motion: reduce) {

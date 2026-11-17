@@ -6,6 +6,7 @@ import Seccion from '../components/ui/seccion.astro';
 import { BadgeTracker } from '../components/islas/badge_tracker';
 import { RelatoFamiliar } from '../components/islas/relato_familiar';
 import { Certificate } from '../components/islas/certificate';
+import Sprite from '../components/ilustraciones/sprite.astro';
 import { estaciones } from '../config/paginas';
 import { sitio } from '../config/sitio';
 
@@ -27,6 +28,17 @@ const estacion = estaciones[estaciones.length - 1];
       escuela.
     </p>
   </EncabezadoPagina>
+
+  <!-- the whole club celebrates: crayon sprites on the cream of the page (they do not print) -->
+  <div class="contenedor no-imprimir" aria-hidden="true">
+    <div class="flex items-end justify-center gap-1 sm:gap-6">
+      <Sprite nombre="sofia_celebra" alto={150} />
+      <Sprite nombre="conejo_celebra" alto={118} />
+      <Sprite nombre="tortuga_celebra" alto={96} class="hidden sm:block" />
+      <Sprite nombre="oruga_sombrero" alto={64} class="hidden sm:block" />
+      <Sprite nombre="mateo_celebra" alto={150} />
+    </div>
+  </div>
 
   <Seccion id="pasaporte" titulo="Tu álbum de medallas" etiqueta="Las cuatro medallas">
     <BadgeTracker client:visible modo="pasaporte" />
