@@ -47,3 +47,4 @@ Medallas circulares con aro repujado, borde punteado y cinta con pliegue: Lupa d
 - `src/components/islas/personajes.tsx`: caras de Sofía y Mateo para las burbujas de diálogo.
 - `src/components/islas/insignia.tsx`: las cuatro medallas.
 - `src/lib/arte/`: paleta, trazo y capas del estilo pintado. `src/components/ilustraciones/pintura_defs.astro`: degradados, tramas y filtro compartidos (los únicos ids del arte).
+- `src/assets/ilustraciones/` y `src/assets/sprites/`: imágenes en crayón de la tapa, el fondo del diploma y los 19 sprites de Sofía, Mateo, el conejo, la tortuga y la oruga, con fondo transparente. Se generan con `scripts/preparar_imagenes.mjs`; los originales están en `gemini_notebook/imagenes_origen/`. Conviven con el arte pintado en código: no lo reemplazan.

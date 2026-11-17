@@ -157,7 +157,7 @@ test.describe('contexto, autoria y textos', () => {
     }
   });
 
-  test('la ficha docente muestra el diagnostico del 5 de mayo y los ajustes del piloto', async ({
+  test('la ficha docente muestra el diagnostico del 5 de mayo, los ajustes de refinamiento y la tabla de nombres', async ({
     page,
   }) => {
     await page.goto('/docentes');
@@ -171,6 +171,10 @@ test.describe('contexto, autoria y textos', () => {
     }
     await expect(page.locator('[data-ajustes] > li')).toHaveCount(8);
     await expect(page.locator('[data-tabla-estaciones] tbody tr')).toHaveCount(6);
+    await expect(page.locator('[data-tabla-nombres] tbody tr')).toHaveCount(14);
+    await expect(page.locator('[data-tabla-nombres]')).toContainText('El Borracuentos');
+    // la prueba del 10 de octubre ya no se menciona en ninguna parte de la ficha
+    await expect(page.locator('main')).not.toContainText(/10 de octubre|pilotaje/i);
     for (let etapa = 1; etapa <= 7; etapa += 1) {
       await expect(page.locator(`#etapa-${etapa}`)).toBeVisible();
     }

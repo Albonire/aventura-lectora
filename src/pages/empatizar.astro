@@ -1,7 +1,7 @@
 ---
 // interactive infographic for activity 1.2 (Fundamentos de la Gamificacion): empathize and define
 // with the 5th grade group of I.E. Jorge Eliecer Gaitan, Maripi. Outside the reading order of the book.
-// every number comes from the classroom log (5 May 2026), the pilot (10 Oct 2026) or the teacher interview.
+// every number comes from the classroom log (5 May 2026), the teacher interview, the families or the document review.
 import CursoLayout from '../layouts/curso_layout.astro';
 import EncabezadoPagina from '../components/curso/encabezado_pagina.astro';
 import Seccion from '../components/ui/seccion.astro';
@@ -13,7 +13,6 @@ import {
   MapaEmpatiaInteractivo,
   MatrizTriangulacion,
   PerfilesInteractivos,
-  RecorridoInteractivo,
   VocesInteractivas,
 } from '../components/islas/infografia_empatizar';
 
@@ -21,11 +20,10 @@ const secciones_pagina = [
   { id: 'cifras', texto: '1. Datos clave' },
   { id: 'voces', texto: '2. Voces' },
   { id: 'mapa', texto: '3. Mapa de empatía' },
-  { id: 'recorrido', texto: '4. Recorrido' },
-  { id: 'patrones', texto: '5. Patrones' },
-  { id: 'personas', texto: '6. Perfiles' },
-  { id: 'definir', texto: '7. Definir el reto' },
-  { id: 'contexto', texto: '8. Contexto PISA' },
+  { id: 'patrones', texto: '4. Patrones' },
+  { id: 'personas', texto: '5. Perfiles' },
+  { id: 'definir', texto: '6. Definir el reto' },
+  { id: 'contexto', texto: '7. Contexto PISA' },
 ];
 ---
 
@@ -61,8 +59,8 @@ const secciones_pagina = [
           </p>
         </div>
         <p class="max-w-3xl text-body font-medium text-ink-black">
-          Cada cifra, cita y perfil proviene de la bitácora de aula del 5 de mayo, del pilotaje del
-          caso 1 el 10 de octubre o de la entrevista con la docente titular.
+          Cada cifra, cita y perfil proviene de la bitácora de aula del 5 de mayo, de la entrevista con
+          la docente titular, de las familias o de la revisión documental.
         </p>
         <nav aria-label="Secciones de esta infografía">
           <ul class="flex flex-wrap gap-2">
@@ -96,14 +94,6 @@ const secciones_pagina = [
 
   <Seccion id="mapa" titulo="Mapa de empatía" etiqueta="Estudiante de 5.º · observación e inferencia">
     <MapaEmpatiaInteractivo client:load />
-  </Seccion>
-
-  <Seccion
-    id="recorrido"
-    titulo="Recorrido del caso 1"
-    etiqueta="Journey map · pilotaje del 10 de octubre"
-  >
-    <RecorridoInteractivo client:load />
   </Seccion>
 
   <Seccion

@@ -44,6 +44,24 @@ const mecanicas = [
   ],
 ];
 
+// names of the design document 2.1 and the simple words the students read on the web
+const equivalencias: [string, string][] = [
+  ['Efecto Lectura Rápida (villano)', 'El Borracuentos'],
+  ['Desafío Final', 'Reto final'],
+  ['Logro', 'Final'],
+  ['Torre de Argumentos', 'Arma tu torre de ideas'],
+  ['Agencia', 'Club de Detectives Lectores'],
+  ['Estación', 'Misión o parte'],
+  ['Insignia', 'Medalla'],
+  ['Pasaporte', 'Álbum'],
+  ['Certificado', 'Diploma'],
+  ['Argumentos y postura', 'Torre de ideas y lo que pienso'],
+  ['Hecho comprobable y rumor', 'Dato real y chisme'],
+  ['Verificar', 'Revisar'],
+  ['Relato', 'Historia'],
+  ['Reenviar', 'Mandar a otros'],
+];
+
 const fortalezas = [
   'Cada estación responde a un dato del diagnóstico: nada se agregó por adorno.',
   'El recorrido completo funciona en un celular compartido, sin registro y sin enviar datos.',
@@ -76,7 +94,7 @@ const etapas = [
 
 <CursoLayout
   titulo="Ficha docente y prototipado 2.2"
-  descripcion="Contexto, diagnóstico del 5 de mayo de 2026, las siete etapas del prototipado, ajustes tras la prueba piloto y orientaciones de aula de Aventura lectora."
+  descripcion="Contexto, diagnóstico del 5 de mayo de 2026, las siete etapas del prototipado, los ajustes de refinamiento y orientaciones de aula de Aventura lectora."
   titulo_cabecera="Ficha docente y prototipado 2.2"
   sin_paginador
 >
@@ -86,8 +104,8 @@ const etapas = [
     color="sky-pop"
   >
     <p>
-      Qué es este prototipo, para quién se hizo, qué se probó y qué se ajustó después de la prueba
-      piloto.
+      Qué es este prototipo, para quién se hizo y qué se ajustó en el refinamiento a partir del
+      diagnóstico y de la revisión de las docentes.
     </p>
   </EncabezadoPagina>
 
@@ -177,7 +195,7 @@ const etapas = [
       }
     </ul>
     <p class="mt-4 max-w-reading text-body-sm text-stone-text">
-      El detalle del trabajo de campo (bitácora, entrevista, familias y pilotaje) está en{' '}
+      El detalle del trabajo de campo (bitácora, entrevista y familias) está en{' '}
       <a class="font-medium text-ink-black underline decoration-2 underline-offset-4" href="/empatizar"
         >Empatizar y definir</a
       >.
@@ -301,39 +319,17 @@ const etapas = [
       <article id="etapa-5" class="scroll-mt-24">
         <h3 class="text-[1.5rem] leading-snug">5. Pruebas y evaluación</h3>
         <p class="mt-2 max-w-reading text-body">
-          El pilotaje se hizo el 10 de octubre de 2026 con estudiantes de 5.º, sobre el primer caso
-          de la versión anterior. Los niños usaron su celular o esperaron por turnos el de la
-          docente. Esto fue lo que se observó:
+          La prueba piloto de esta versión con estudiantes de 5.º se registra aquí cuando se haga.
+          Mientras tanto, la evaluación del prototipo se apoya en el diagnóstico del 5 de mayo, en
+          la revisión de las docentes y en las listas de más abajo.
         </p>
-        <ul class="mt-4 grid gap-3 md:grid-cols-2" data-hallazgos-piloto>
-          <li class="rounded-soft border-2 border-ink-black bg-fresh-grass p-4 text-body">
-            <span class="font-bold">Punto fuerte.</span> Entusiasmo alto al entrar: "Se ve muy bonito",
-            "Me gustan las figuras y los muñecos".
-          </li>
-          <li class="rounded-soft border-2 border-ink-black bg-fresh-grass p-4 text-body">
-            <span class="font-bold">Punto fuerte.</span> Se fue la luz, volvió y el progreso seguía
-            guardado.
-          </li>
-          <li class="rounded-soft border-2 border-ink-black bg-coral-soft p-4 text-body">
-            <span class="font-bold">Por mejorar.</span> "Algunas preguntas están difíciles": frustración
-            y bloqueo al responder.
-          </li>
-          <li class="rounded-soft border-2 border-ink-black bg-coral-soft p-4 text-body">
-            <span class="font-bold">Por mejorar.</span> Quienes leen despacio se quedaban atrás y la
-            sopa de letras tomó mucho tiempo.
-          </li>
-          <li class="rounded-soft border-2 border-ink-black bg-coral-soft p-4 text-body md:col-span-2">
-            <span class="font-bold">Por mejorar.</span> Cerca de 3 de 13 estudiantes necesitaron
-            instrucción para usar la plataforma.
-          </li>
-        </ul>
       </article>
 
       <article id="etapa-6" class="scroll-mt-24">
         <h3 class="text-[1.5rem] leading-snug">6. Refinamiento y mejora continua</h3>
         <p class="mt-2 max-w-reading text-body">
-          Cada ajuste responde a un hallazgo del pilotaje o a un dato del diagnóstico, y se puede ver
-          funcionando en el prototipo.
+          Cada ajuste responde a un dato del diagnóstico, a la entrevista con la docente o a la revisión
+          de las docentes, y se puede ver funcionando en el prototipo.
         </p>
         <ol class="mt-4 flex flex-col gap-3" data-ajustes>
           {
@@ -372,6 +368,38 @@ const etapas = [
           Empatizar y definir, y las fuentes consultadas, en Referencias. Las decisiones técnicas
           quedan registradas en el repositorio del proyecto.
         </p>
+        <h4 class="mt-6 text-body font-bold">Nombres del documento 2.1 y nombres de la web</h4>
+        <p class="mt-1 max-w-reading text-body">
+          En el refinamiento se simplificaron algunos nombres para que fueran más cercanos a
+          estudiantes de quinto grado. Esta tabla dice cómo se llama cada cosa en el documento 2.1 y
+          cómo se llama en la web.
+        </p>
+        <div
+          class="mt-3 overflow-x-auto rounded-soft border-2 border-ink-black bg-pure-white p-2 md:p-4"
+          tabindex="0"
+          role="region"
+          aria-label="Tabla de nombres con desplazamiento horizontal"
+        >
+          <table class="w-full min-w-[32rem] text-left text-body-sm" data-tabla-nombres>
+            <caption class="sr-only">Nombres del documento 2.1 y nombres de la web</caption>
+            <thead>
+              <tr class="border-b-2 border-ink-black">
+                <th scope="col" class="px-3 py-2 font-medium">En el documento 2.1</th>
+                <th scope="col" class="px-3 py-2 font-medium">En la web</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                equivalencias.map(([doc, web]) => (
+                  <tr class="border-b border-hairline-mist align-top last:border-0">
+                    <th scope="row" class="px-3 py-2 font-medium">{doc}</th>
+                    <td class="px-3 py-2">{web}</td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
         <div class="mt-4 flex flex-wrap gap-3">
           <ButtonGhost href="/empatizar" color="sun">Empatizar y definir</ButtonGhost>
           <ButtonGhost href="/referencias" color="coral">Referencias y créditos</ButtonGhost>
