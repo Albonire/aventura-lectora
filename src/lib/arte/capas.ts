@@ -14,6 +14,7 @@ import {
   alcance,
   aplanar,
   caja_limite,
+  compactar,
   contenido,
   parsear,
   polo,
@@ -170,7 +171,7 @@ function pintar_relleno(f: Relleno, completo: boolean, escala: number, out: Elem
       : (f.grosor ?? (plano === 'frente' ? GROSOR.personaje : GROSOR.medio));
   const contorno = grosor > 0 ? (plano === 'frente' ? TINTA : r.trazo) : undefined;
   const amp = tono_amp(f.temblor ?? (plano === 'frente' ? 0.9 : plano === 'medio' ? 0.6 : 0.7), f.d, escala);
-  const d = temblar(f.d, amp, SEMILLA);
+  const d = compactar(temblar(f.d, amp, SEMILLA));
   const vol = f.vol ?? (plano === 'frente' ? 0.55 : plano === 'medio' ? 0.3 : 0);
   const grad = `url(#${id_degradado(f.mat)})`;
   const polis = aplanar(parsear(f.d));
@@ -192,7 +193,7 @@ function pintar_relleno(f: Relleno, completo: boolean, escala: number, out: Elem
   }
   if (completo && contorno && grosor >= 3.5) {
     out.push({
-      d: temblar(f.d, amp, SEMILLA + 5),
+      d,
       stroke: contorno,
       sw: r1(grosor * 0.45),
       tr: `translate(${r1(DESREGISTRO.x * escala)} ${r1(DESREGISTRO.y * escala)})`,
@@ -216,7 +217,7 @@ export function capas(formas: Forma[], opc: { detalle?: Detalle; escala?: number
     if (f.fino && !completo) continue;
     if (f.tipo === 'linea') {
       out.push({
-        d: temblar(f.d, tono_amp(f.temblor ?? 0.5, f.d, escala), SEMILLA + 2),
+        d: compactar(temblar(f.d, tono_amp(f.temblor ?? 0.5, f.d, escala), SEMILLA + 2)),
         stroke: color(f.color),
         sw: f.grosor,
         op: f.op,
@@ -224,7 +225,7 @@ export function capas(formas: Forma[], opc: { detalle?: Detalle; escala?: number
       });
     } else if (f.tipo === 'mancha') {
       out.push({
-        d: temblar(f.d, tono_amp(f.temblor ?? 0.5, f.d, escala), SEMILLA + 3),
+        d: compactar(temblar(f.d, tono_amp(f.temblor ?? 0.5, f.d, escala), SEMILLA + 3)),
         fill: RELLENOS[f.fill] ?? color(f.fill),
         op: f.op,
       });

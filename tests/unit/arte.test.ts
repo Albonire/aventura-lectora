@@ -215,3 +215,28 @@ describe('paleta', () => {
     expect(materiales.crema.base).toBe(CREMA);
   });
 });
+
+describe('compactar: el trazado corto de la pagina', () => {
+  it('draws the same points as the absolute path, with relative commands', async () => {
+    const { compactar, parsear } = await import('../../src/lib/arte/geometria');
+    const abs = 'M110.4 210.2L130.4 210.2C140.1 210 150.3 220.5 150 230.9Q150 240.7 140 240.1Z';
+    const corto = compactar(abs);
+    expect(corto.length).toBeLessThan(abs.length);
+    expect(corto).toMatch(/^M110.4 210.2l/);
+    expect(corto.endsWith('z')).toBe(true);
+    // rebuilding the absolute points from the relative steps gives the rounded originals
+    let x = 0;
+    let y = 0;
+    const pts: number[][] = [];
+    for (const m of corto.matchAll(/([MlcqzL])([^a-zA-Z]*)/g)) {
+      const n = (m[2].match(/-?\d*\.?\d+/g) ?? []).map(Number);
+      if (m[1] === 'M') { x = n[0]; y = n[1]; pts.push([x, y]); }
+      else if (m[1] === 'l' || m[1] === 'c' || m[1] === 'q') {
+        const fin = n.slice(-2);
+        x += fin[0]; y += fin[1]; pts.push([Math.round(x * 10) / 10, Math.round(y * 10) / 10]);
+      }
+    }
+    const esperado = parsear(abs).filter((s) => s.c !== 'Z').map((s) => [s.p[s.p.length - 2], s.p[s.p.length - 1]]);
+    expect(pts).toEqual(esperado);
+  });
+});

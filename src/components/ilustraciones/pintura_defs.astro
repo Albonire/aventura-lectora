@@ -2,7 +2,12 @@
 // the only <defs> of the book: gradients, hatching and the pen filter that every painted illustration uses.
 // It is mounted once in base_layout.astro. Ids are global to the page, so no other component defines one.
 // It is NOT display:none (some browsers then ignore the references): it is a 0 x 0 svg out of the flow.
-import { TINTA, materiales } from '../../lib/arte/paleta';
+import { TINTA, id_degradado, materiales } from '../../lib/arte/paleta';
+import { referencias_usadas } from '../../lib/arte/piezas/todas';
+
+// only the gradients that some piece uses: the rest would be dead weight in every page
+const usadas = referencias_usadas();
+const en_uso = Object.entries(materiales).filter(([m]) => usadas.has(id_degradado(m as keyof typeof materiales)));
 ---
 
 <svg
@@ -15,7 +20,7 @@ import { TINTA, materiales } from '../../lib/arte/paleta';
 >
   <defs>
     {
-      Object.entries(materiales).map(([m, r]) => (
+      en_uso.map(([m, r]) => (
         <linearGradient id={`al-g-${m}`} x1="0" y1="0" x2="1" y2="1">
           <stop offset="0" stop-color={r.luz} />
           <stop offset="0.55" stop-color={r.base} />

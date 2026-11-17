@@ -40,6 +40,43 @@ export function serializar(segs: Seg[]): string {
   return segs.map((s) => s.c + s.p.map(redondear).join(' ')).join('');
 }
 
+// the same path written with relative commands and short numbers: smaller in the page, drawn the same.
+// Each step is measured from the rounded previous point, so the rounding never adds up.
+export function compactar(d: string): string {
+  const num = (v: number) => {
+    const t = String(Math.round(v * 10) / 10);
+    return t.replace(/^(-?)0\./, '$1.');
+  };
+  const unir = (vals: number[]) => vals.map(num).reduce((a, b) => (b.startsWith('-') ? a + b : a + ' ' + b));
+  let cx = 0;
+  let cy = 0;
+  let ix = 0;
+  let iy = 0;
+  let out = '';
+  for (const s of parsear(d)) {
+    if (s.c === 'Z') {
+      out += 'z';
+      cx = ix;
+      cy = iy;
+      continue;
+    }
+    const abs = s.p.map((v, i) => Math.round(v * 10) / 10 - (i % 2 === 0 ? 0 : 0));
+    if (s.c === 'M') {
+      out += 'M' + unir(abs);
+      cx = abs[0];
+      cy = abs[1];
+      ix = cx;
+      iy = cy;
+      continue;
+    }
+    const rel = abs.map((v, i) => Math.round((v - (i % 2 === 0 ? cx : cy)) * 10) / 10);
+    out += s.c.toLowerCase() + unir(rel);
+    cx = abs[abs.length - 2];
+    cy = abs[abs.length - 1];
+  }
+  return out;
+}
+
 // ---------- paths that are built from numbers ----------
 
 const f2 = (v: number) => String(Math.round(v * 100) / 100);
@@ -139,7 +176,7 @@ const medio = (a: Pt, b: Pt): Pt => [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2];
 // Moves every point of the path by a smooth noise of at most `amp` units on each axis and cuts the long
 // lines into pieces, so a straight stroke becomes a slightly wavy one. The noise depends on the position and
 // not on the path, so two shapes that share a point move that point in the same way.
-export function temblar(d: string, amp: number, semilla: number, paso = 24): string {
+export function temblar(d: string, amp: number, semilla: number, paso = 42): string {
   if (amp <= 0) return d;
   const out: Seg[] = [];
   let cur: Pt = [0, 0];
