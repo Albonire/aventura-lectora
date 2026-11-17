@@ -408,10 +408,13 @@ test.describe('lecturas cortas con voz pausada', () => {
     const dichos = await page.evaluate(
       () => (window as unknown as { __dichos: { texto: string; rate: number; lang: string }[] }).__dichos,
     );
-    expect(dichos).toHaveLength(1);
-    expect(dichos[0].rate).toBeCloseTo(0.9, 5);
-    expect(dichos[0].lang.toLowerCase()).toMatch(/^es/);
-    expect(dichos[0].texto).toContain('Era día de molienda en la vereda');
+    // the text is read sentence by sentence, all in Spanish and at the slow speed
+    expect(dichos.length).toBeGreaterThan(1);
+    for (const d of dichos) {
+      expect(d.rate).toBeCloseTo(0.9, 5);
+      expect(d.lang.toLowerCase()).toMatch(/^es/);
+    }
+    expect(dichos.map((d) => d.texto).join(' ')).toContain('Era día de molienda en la vereda');
     await expect(page.locator('#fabula').getByRole('button', { name: 'Detener' })).toBeVisible();
   });
 });

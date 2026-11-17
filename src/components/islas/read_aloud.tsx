@@ -1,6 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import { Pause, Play, Stop, SpeakerHigh } from '@phosphor-icons/react';
 import { boton } from './ui';
+import { elegir_voz, partir_frases } from '../../lib/voz';
+
+export { elegir_voz };
 
 interface Props {
   texto: string;
@@ -13,15 +16,6 @@ interface Props {
 // slow reading speed for children who still read syllable by syllable (pilot adjustment)
 export const VELOCIDAD_PAUSADA = 0.9;
 
-export function elegir_voz(voces: SpeechSynthesisVoice[]): SpeechSynthesisVoice | null {
-  const orden = ['es-CO', 'es-419', 'es-MX', 'es-US'];
-  for (const codigo of orden) {
-    const v = voces.find((x) => x.lang.replace('_', '-').toLowerCase() === codigo.toLowerCase());
-    if (v) return v;
-  }
-  return voces.find((x) => x.lang.toLowerCase().startsWith('es')) ?? null;
-}
-
 // "Escuchar con voz pausada": reads a text aloud in Spanish. Hidden when the browser has no speechSynthesis.
 export function ReadAloud({
   texto,
@@ -32,7 +26,9 @@ export function ReadAloud({
   const [disponible, set_disponible] = useState(false);
   const [estado, set_estado] = useState<'quieto' | 'leyendo' | 'pausado'>('quieto');
   const voz = useRef<SpeechSynthesisVoice | null>(null);
-  const frase_actual = useRef<SpeechSynthesisUtterance | null>(null);
+  // each reading gets a number, so the end of a cancelled reading cannot touch the new one
+  const lectura = useRef(0);
+  const leyendo_ahora = useRef(false);
 
   useEffect(() => {
     if (typeof window === 'undefined' || !('speechSynthesis' in window)) return;
@@ -44,7 +40,7 @@ export function ReadAloud({
     window.speechSynthesis.addEventListener?.('voiceschanged', cargar);
     return () => {
       window.speechSynthesis.removeEventListener?.('voiceschanged', cargar);
-      if (frase_actual.current) window.speechSynthesis.cancel();
+      if (leyendo_ahora.current) window.speechSynthesis.cancel();
     };
   }, []);
 
@@ -52,18 +48,26 @@ export function ReadAloud({
 
   function leer() {
     window.speechSynthesis.cancel();
-    const frase = new SpeechSynthesisUtterance(texto);
-    frase.lang = voz.current?.lang ?? 'es-CO';
-    if (voz.current) frase.voice = voz.current;
-    frase.rate = VELOCIDAD_PAUSADA;
+    const frases = partir_frases(texto);
+    if (frases.length === 0) return;
+    lectura.current += 1;
+    const mia = lectura.current;
+    leyendo_ahora.current = true;
     const terminar = () => {
-      if (frase_actual.current === frase) frase_actual.current = null;
+      if (lectura.current !== mia) return;
+      leyendo_ahora.current = false;
       set_estado('quieto');
     };
-    frase.onend = terminar;
-    frase.onerror = terminar;
-    frase_actual.current = frase;
-    window.speechSynthesis.speak(frase);
+    frases.forEach((f, i) => {
+      const frase = new SpeechSynthesisUtterance(f);
+      frase.lang = voz.current?.lang ?? 'es-CO';
+      if (voz.current) frase.voice = voz.current;
+      frase.rate = VELOCIDAD_PAUSADA;
+      frase.pitch = 1;
+      if (i === frases.length - 1) frase.onend = terminar;
+      frase.onerror = terminar;
+      window.speechSynthesis.speak(frase);
+    });
     set_estado('leyendo');
   }
 
@@ -78,8 +82,9 @@ export function ReadAloud({
   }
 
   function detener() {
+    lectura.current += 1;
+    leyendo_ahora.current = false;
     window.speechSynthesis.cancel();
-    frase_actual.current = null;
     set_estado('quieto');
   }
 
