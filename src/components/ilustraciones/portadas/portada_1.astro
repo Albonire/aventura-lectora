@@ -18,10 +18,11 @@ const { titulo, alt } = Astro.props;
 <PortadaCapitulo numero={1} titulo={titulo} color="fresh-grass" alt={alt}>
   <svg viewBox="0 0 560 440" class="block h-auto w-full" focusable="false" aria-hidden="true">
     <EscenaBase />
+    <g class="pintado">
     <Plantas tipo="hojas" x={14} y={276} escala={1.2} />
-    <Plantas tipo="flor" x={2} y={348} escala={0.56} color="#f43f5e" />
+    <Plantas tipo="flor" x={2} y={348} escala={0.56} color="coral" />
     <Plantas tipo="mata" x={452} y={296} escala={1.05} espejo />
-    <Plantas tipo="flor" x={506} y={350} escala={0.52} color="#a78bfa" />
+    <Plantas tipo="flor" x={506} y={350} escala={0.52} color="violeta" />
     <Plantas tipo="pasto" x={364} y={350} escala={0.5} />
     <g transform="translate(346 318)">
       <Libro size={74} />
@@ -34,6 +35,7 @@ const { titulo, alt } = Astro.props;
     </g>
     <g transform="translate(424 330)">
       <Tortuga size={78} />
+    </g>
     </g>
   </svg>
 </PortadaCapitulo>

@@ -6,6 +6,8 @@ import Plantas from '../plantas.astro';
 import Sofia from '../sofia.astro';
 import Mateo from '../mateo.astro';
 import Oruga from '../oruga.astro';
+import Pieza from '../pieza.astro';
+import { CANAS_PORTADA } from '../../../lib/arte/piezas/escena';
 import Burbuja from '../burbuja.astro';
 
 interface Props {
@@ -13,41 +15,15 @@ interface Props {
   alt: string;
 }
 const { titulo, alt } = Astro.props;
-// sugar cane stalks: [x, top]
-const canas: [number, number][] = [
-  [452, 150],
-  [484, 118],
-  [516, 166],
-];
 ---
 
 <PortadaCapitulo numero={2} titulo={titulo} color="sky-pop" alt={alt}>
   <svg viewBox="0 0 560 440" class="block h-auto w-full" focusable="false" aria-hidden="true">
     <EscenaBase sol={false} />
-    <!-- sugar cane -->
-    {
-      canas.map(([x, y]) => (
-        <g>
-          <path d={`M${x} 396 V${y}`} stroke="#9ccf6a" stroke-width="13" stroke-linecap="round" fill="none" />
-          <path
-            d={`M${x - 6} ${y + 60} H${x + 6} M${x - 6} ${y + 120} H${x + 6} M${x - 6} ${y + 180} H${x + 6}`}
-            stroke="#5a9a4e"
-            stroke-width="4"
-            fill="none"
-          />
-          <path
-            d={`M${x} ${y + 8} C${x - 30} ${y - 24} ${x - 58} ${y - 16} ${x - 70} ${y + 6} C${x - 44} ${y - 2} ${x - 20} ${y + 6} ${x} ${y + 8} Z`}
-            fill="#7cb46b"
-          />
-          <path
-            d={`M${x} ${y + 8} C${x + 22} ${y - 30} ${x + 46} ${y - 28} ${x + 60} ${y - 8} C${x + 38} ${y - 12} ${x + 16} ${y - 2} ${x} ${y + 8} Z`}
-            fill="#5a9a4e"
-          />
-        </g>
-      ))
-    }
+    <g class="pintado">
+    <Pieza formas={CANAS_PORTADA} escala={1.4} />
     <Plantas tipo="mata" x={2} y={300} escala={1} />
-    <Plantas tipo="flor" x={96} y={352} escala={0.5} color="#facc15" />
+    <Plantas tipo="flor" x={96} y={352} escala={0.5} color="amarillo" />
     <Burbuja x={120} y={18} ancho={300} tamano={30} texto="Cuéntame, abuelo" cola_x={0.62} />
     <g transform="translate(40 112)">
       <Sofia size={300} pose="lupa" />
@@ -57,6 +33,7 @@ const canas: [number, number][] = [
     </g>
     <g transform="translate(424 332)">
       <Oruga size={84} />
+    </g>
     </g>
   </svg>
 </PortadaCapitulo>

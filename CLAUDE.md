@@ -48,5 +48,6 @@ Docentes autoras (únicas): Luz Marina Castillo Cuadrado e Ingrid Yuliana Gonzá
 - No publicar referencias con `verificado: false` en `src/data/referencias.ts`.
 - No presentar los textos escritos para el prototipo como tradición oral recogida en Maripí.
 - No copiar ilustraciones, logos ni composiciones de otros sitios. Ilustraciones propias en SVG.
+- Arte pintado a mano: todo color del arte sale de `src/lib/arte/paleta.ts`, una sola luz arriba a la izquierda, y ningún componente define `id` ni `<defs>` (los degradados, tramas y el filtro viven en `pintura_defs.astro`, que se monta una vez en `base_layout.astro`). El filtro `al-pintado` solo va en escenas grandes y quietas, nunca en la tapa 3D, el sello ni lo que se anima. El arte decorativo lleva `aria-hidden`.
 - No subir la carpeta `gemini_notebook/` al sitio publicado (son insumos de trabajo).
 - Al escribir archivos, no uses secuencias `\uXXXX` dentro de comandos de shell: se convierten en el carácter real. Para rayas largas o marcas de acento en expresiones regulares, arma el carácter con `String.fromCharCode` o escribe el archivo con la herramienta de edición.

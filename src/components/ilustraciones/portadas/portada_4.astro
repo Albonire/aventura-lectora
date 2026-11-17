@@ -1,53 +1,42 @@
 ---
-// final challenge: the argument tower of three floors, with Sofía and Mateo
+// final challenge: the tower of ideas of three floors, with Sofía and Mateo
 import PortadaCapitulo from '../../libro/portada_capitulo.astro';
 import EscenaBase from '../escena_base.astro';
 import Plantas from '../plantas.astro';
 import Sofia from '../sofia.astro';
 import Mateo from '../mateo.astro';
+import Pieza from '../pieza.astro';
+import { TINTA } from '../../../lib/arte/paleta';
+import { PISOS_TORRE, TORRE_CENTRO, torre } from '../../../lib/arte/piezas/escena';
 
 interface Props {
   titulo: string;
   alt: string;
 }
 const { titulo, alt } = Astro.props;
-const TINTA = '#1e293b';
-// base at the bottom, example on top: [text, fill, y, width]
-const pisos: [string, string, number, number][] = [
-  ['mi ejemplo', '#facc15', 176, 168],
-  ['mis dos razones', '#bae6fd', 250, 208],
-  ['mi postura', '#fda4af', 324, 236],
-];
-const centro = 436;
+const textos = ['mi ejemplo', 'mis dos razones', 'mi postura'];
+const formas = torre();
 ---
 
 <PortadaCapitulo numero={4} titulo={titulo} color="coral-pop" alt={alt}>
   <svg viewBox="0 0 560 440" class="block h-auto w-full" focusable="false" aria-hidden="true">
     <EscenaBase />
-    <Plantas tipo="mata" x={0} y={302} escala={0.95} />
-    
-    <!-- flag on top of the tower -->
-    <g stroke={TINTA} stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
-      <path d={`M${centro} 176 V104`} fill="none"></path>
-      <path d={`M${centro} 106 L${centro + 54} 122 L${centro} 140 Z`} fill="#f43f5e"></path>
-      {
-        pisos.map(([, relleno, y, ancho]) => (
-          <rect x={centro - ancho / 2} y={y} width={ancho} height="70" rx="14" fill={relleno} />
-        ))
-      }
+    <g class="pintado">
+      <Plantas tipo="mata" x={0} y={302} escala={0.95} />
+      <Pieza formas={formas} escala={1.4} />
+      <g transform="translate(-10 166)">
+        <Sofia size={244} pose="senala" />
+      </g>
+      <g transform="translate(150 162)">
+        <Mateo size={248} pose="levanta" />
+      </g>
     </g>
     {
-      pisos.map(([texto, , y]) => (
-        <text x={centro} y={y + 44} text-anchor="middle" font-size="22" font-weight="700" fill={TINTA}>
-          {texto}
+      PISOS_TORRE.map(([, y], i) => (
+        <text x={TORRE_CENTRO} y={y + 44} text-anchor="middle" font-size="22" font-weight="700" fill={TINTA}>
+          {textos[i]}
         </text>
       ))
     }
-    <g transform="translate(-10 166)">
-      <Sofia size={244} pose="senala" />
-    </g>
-    <g transform="translate(150 162)">
-      <Mateo size={248} pose="levanta" />
-    </g>
   </svg>
 </PortadaCapitulo>

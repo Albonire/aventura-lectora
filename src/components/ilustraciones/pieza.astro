@@ -1,0 +1,30 @@
+---
+// draws a list of painted shapes (see src/lib/arte/capas.ts). It goes inside an <svg> of the parent.
+import { capas, type Detalle, type Forma } from '../../lib/arte/capas';
+
+interface Props {
+  formas: Forma[];
+  detalle?: Detalle;
+  // size of the viewBox compared to a 300 wide one: it scales the pulse of the pen
+  escala?: number;
+}
+const { formas, detalle = 'completo', escala = 1 } = Astro.props;
+const elementos = capas(formas, { detalle, escala });
+---
+
+<g stroke-linecap="round" stroke-linejoin="round">
+  {
+    elementos.map((e) => (
+      <path
+        d={e.d}
+        fill={e.fill ?? 'none'}
+        stroke={e.stroke}
+        stroke-width={e.sw}
+        stroke-dasharray={e.da}
+        opacity={e.op}
+        transform={e.tr}
+        class={e.cls}
+      />
+    ))
+  }
+</g>

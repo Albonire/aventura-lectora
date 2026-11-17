@@ -1,56 +1,28 @@
 ---
-// the rabbit of the fables: sand color, long ears with pink inside and a red scarf.
-// Companion of Sofía in mission 1 (guide 2.1, figure 2). It sits and looks to the right.
+// the rabbit of the fables: sand color, long ears and a red scarf (companion of Sofía in mission 1).
+// The shapes live in src/lib/arte/piezas/animales.ts.
+import Pieza from './pieza.astro';
+import { CONEJO, CONEJO_ANCHO, CONEJO_ALTO } from '../../lib/arte/piezas/animales';
+import type { Detalle } from '../../lib/arte/capas';
+
 interface Props {
+  // height in px
   size?: number;
+  // small drawings (under 70 px) drop the fine details by themselves
+  detalle?: Detalle;
   class?: string;
 }
-const { size = 110, class: clase = '' } = Astro.props;
-const TINTA = '#1e293b';
-const PELO = '#e9c49f';
-const PELO_CLARO = '#f7e6d0';
-const ROSA = '#fda4af';
-const ROJO = '#f43f5e';
+const { size = 110, detalle, class: clase = '' } = Astro.props;
+const nivel = detalle ?? (size < 70 ? 'reducido' : 'completo');
 ---
 
 <svg
-  viewBox="0 0 136 184"
+  viewBox={`0 0 ${CONEJO_ANCHO} ${CONEJO_ALTO}`}
   height={size}
-  width={(size * 136) / 184}
+  width={(size * CONEJO_ANCHO) / CONEJO_ALTO}
   class={clase}
   aria-hidden="true"
   focusable="false"
 >
-  <g stroke={TINTA} stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round">
-    <!-- tail -->
-    <circle cx="22" cy="146" r="10" fill="#ffffff"></circle>
-    <!-- ears -->
-    <path d="M58 52 C48 24 52 4 64 6 C76 8 80 32 76 54 Z" fill={PELO}></path>
-    <path d="M82 50 C84 20 98 2 108 8 C118 14 110 40 98 58 Z" fill={PELO}></path>
-    <path d="M89 46 C91 26 99 16 103 18 C108 22 103 36 96 48 Z" fill={ROSA} stroke="none"></path>
-    <!-- body -->
-    <path
-      d="M28 156 C20 116 44 92 72 94 C98 96 112 120 108 156 C106 170 92 176 70 176 C46 176 30 170 28 156 Z"
-      fill={PELO}></path>
-    <ellipse cx="80" cy="142" rx="17" ry="22" fill={PELO_CLARO} stroke="none"></ellipse>
-    <!-- back foot and front paw -->
-    <path d="M62 176 C62 166 76 162 92 164 C106 166 112 172 110 176 Z" fill={PELO}></path>
-    <path d="M98 132 C106 132 110 144 108 156 C104 160 98 158 96 152 Z" fill={PELO}></path>
-    <!-- head -->
-    <path
-      d="M52 74 C52 54 68 44 86 46 C104 48 116 60 114 76 C112 92 98 100 82 100 C64 100 52 90 52 74 Z"
-      fill={PELO}></path>
-    <!-- red scarf -->
-    <path d="M56 96 C72 108 98 106 110 94 L114 106 C100 120 68 122 52 108 Z" fill={ROJO}></path>
-    <path d="M62 112 L50 138 L66 136 L74 116 Z" fill={ROJO}></path>
-    <circle cx="66" cy="112" r="6.5" fill="#e11d48"></circle>
-    <!-- face -->
-    <g stroke="none">
-      <ellipse cx="90" cy="84" rx="8" ry="5.5" fill="#fb7185" opacity="0.5"></ellipse>
-      <ellipse cx="96" cy="70" rx="4" ry="5.5" fill={TINTA}></ellipse>
-      <circle cx="97.4" cy="67.8" r="1.5" fill="#ffffff"></circle>
-    </g>
-    <path d="M110 74 L116 78 L110 81 Z" fill={ROJO} stroke-width="2.5"></path>
-    <path d="M102 86 Q108 90 112 84" fill="none" stroke-width="3"></path>
-  </g>
+  <Pieza formas={CONEJO} detalle={nivel} escala={0.55} />
 </svg>
