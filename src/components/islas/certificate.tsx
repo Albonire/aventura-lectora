@@ -5,6 +5,7 @@ import { nombres_detectives } from '../../lib/progreso';
 import { autoras, sitio } from '../../config/sitio';
 import { usar_almacen, usar_movimiento, usar_pasaporte, usar_progreso } from './hooks';
 import { Insignia } from './insignia';
+import { diploma_fondo_url } from '../../lib/diploma_fondo';
 import { Superficie, boton, boton_primario, campo_texto } from './ui';
 
 export const TITULO_CERTIFICADO = 'Diploma de Detective Lector';
@@ -81,8 +82,19 @@ export function Certificate() {
 
       <div
         data-certificado
-        className="certificado relative mt-8 overflow-hidden rounded-card border-2 border-ink-black bg-cream-paper p-6 pb-24 text-center md:p-10"
+        className="certificado relative isolate mt-8 overflow-hidden rounded-card border-2 border-ink-black bg-cream-paper p-6 pb-24 text-center md:p-10"
       >
+        {/* crayon drawing behind the text: it prints without the "background graphics" option because it is an image */}
+        <img
+          src={diploma_fondo_url}
+          alt=""
+          aria-hidden="true"
+          width={1024}
+          height={765}
+          loading="lazy"
+          decoding="async"
+          className="pointer-events-none absolute inset-0 -z-10 h-full w-full object-cover"
+        />
         <p className="interfaz inline-block rounded-pill border-2 border-ink-black bg-sunshine-pop px-4 py-1 text-body-sm font-bold">
           {sitio.nombre_curso}: {sitio.subtitulo}
         </p>

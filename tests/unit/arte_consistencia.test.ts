@@ -78,7 +78,7 @@ describe('consistencia del arte pintado', () => {
 
   it('migrated art files have no hex colors: they come from paleta.ts', () => {
     const migrados = [
-      'plantas', 'escena_base', 'escena_guia', 'libro', 'celular', 'lupa', 'portada_libro', 'burbuja',
+      'plantas', 'escena_base', 'escena_guia', 'libro', 'celular', 'lupa', 'portada_libro', 'portada_libro_vectorial', 'burbuja',
       'sofia', 'mateo', 'conejo', 'tortuga', 'oruga',
     ].map((n) => `src/components/ilustraciones/${n}.astro`);
     migrados.push(
@@ -95,7 +95,11 @@ describe('consistencia del arte pintado', () => {
     for (const n of con_filtro) {
       expect(leer(`src/components/ilustraciones/${n}.astro`), n).toContain('class="pintado"');
     }
-    for (const a of ['src/components/ilustraciones/portada_libro.astro', 'src/components/libro/tapa_libro.astro']) {
+    for (const a of [
+      'src/components/ilustraciones/portada_libro.astro',
+      'src/components/ilustraciones/portada_libro_vectorial.astro',
+      'src/components/libro/tapa_libro.astro',
+    ]) {
       expect(leer(a), a).not.toContain('pintado');
     }
   });

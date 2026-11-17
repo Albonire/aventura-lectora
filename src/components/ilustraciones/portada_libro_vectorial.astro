@@ -1,0 +1,47 @@
+---
+// first cover of the book, drawn with code (it turns in 3D, so it never gets the pen filter). It is not used since the
+// crayon illustration of portada_libro.astro replaced it; it stays here to go back to it or to reuse its pieces.
+// Original comment: art of the book cover: the two detectives beside a big open book, with the animals of the fables
+import EscenaBase from './escena_base.astro';
+import Plantas from './plantas.astro';
+import Sofia from './sofia.astro';
+import Mateo from './mateo.astro';
+import Conejo from './conejo.astro';
+import Tortuga from './tortuga.astro';
+import Oruga from './oruga.astro';
+import Pieza from './pieza.astro';
+import { PLACA_TAPA } from '../../lib/arte/piezas/escena';
+import Libro from './libro.astro';
+---
+
+<svg
+  viewBox="0 0 560 440"
+  class="mx-auto block h-full max-h-full w-auto max-w-full"
+  aria-hidden="true"
+  focusable="false"
+>
+  <Pieza formas={PLACA_TAPA} escala={1.4} />
+  <EscenaBase nubes={false} sol={false} loma={false} />
+  <Plantas tipo="hojas" x={0} y={296} escala={1.05} />
+  <Plantas tipo="mata" x={468} y={306} escala={0.95} espejo />
+  <Plantas tipo="flor" x={236} y={356} escala={0.46} color="coral" />
+  <Plantas tipo="flor" x={300} y={362} escala={0.4} color="amarillo" />
+  <g transform="translate(176 232)">
+    <Libro size={150} />
+  </g>
+  <g transform="translate(222 150)">
+    <Conejo size={112} />
+  </g>
+  <g transform="translate(300 208)">
+    <Tortuga size={56} />
+  </g>
+  <g transform="translate(250 352)">
+    <Oruga size={58} />
+  </g>
+  <g transform="translate(-6 96)">
+    <Sofia size={312} pose="lupa" />
+  </g>
+  <g transform="translate(338 96)">
+    <Mateo size={312} pose="libreta" />
+  </g>
+</svg>
