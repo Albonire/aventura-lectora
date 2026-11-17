@@ -39,6 +39,7 @@ Docentes autoras (únicas): Luz Marina Castillo Cuadrado e Ingrid Yuliana Gonzá
 - Contenido visible sin JS. Las animaciones no ocultan texto por defecto.
 - `localStorage` con prefijo `aventura_lectora:` y siempre en `try/catch`.
 - Sin analítica, sin cookies de terceros, sin envío de datos (usuarios menores de edad).
+- Excepción aprobada por las autoras: la voz natural de la lectura. Si la variable `PUBLIC_TTS_URL` está definida, `ReadAloud` pide el audio a un Worker propio de Cloudflare (`worker_tts/`) solo al tocar el botón y solo con el código (hash) del texto, nunca con datos ni escritura de los estudiantes. Sin la variable, o si el Worker falla, se usa la voz del aparato. No agregues otra llamada externa.
 - Sin videos, podcasts ni recursos externos insertados: los celulares son compartidos y los datos, limitados.
 - Papel solo donde el diagnóstico lo pide: la ficha "Libreta de campo de Mateo" (`/libreta`, media carta) para los 4 hogares sin datos móviles y el certificado. El resto es digital.
 - Texto secundario con `stone-text`, nunca sobre verde ni sobre coral. El azul cielo y el coral fuertes no llevan texto encima: usa `sky-soft` y `coral-soft`.

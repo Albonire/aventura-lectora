@@ -105,7 +105,7 @@ Trucos de detective (etiquetas de estrategia): Misión 1 `imagino`, `pregunto`, 
 | Contenido | Colección `unidades` (datos de cada caso), colección `paginas` (MDX por paso) y JSON de actividades. |
 | Movimiento | GSAP y ScrollTrigger solo en la tapa del libro, dentro de `gsap.matchMedia()`. |
 | Arrastrar y soltar | `@dnd-kit`, siempre con botones "Mover a" y flechas como alternativa. |
-| Voz | Web Speech API del navegador. Sin servicios externos. |
+| Voz | Web Speech API del navegador, eligiendo la mejor voz en español instalada y leyendo por frases. Opcional: voz natural de un Worker propio de Cloudflare (`worker_tts/`, Workers AI y KV), activada con `PUBLIC_TTS_URL`. Solo sale el código (hash) de las lecturas fijas, solo al tocar el botón; si falla, vuelve a la voz del aparato. |
 | Impresión | CSS de impresión (`@page`): media carta para la libreta, carta horizontal para el certificado. |
 | PDF | `jspdf` con import dinámico, solo para descargar el certificado. |
 | Iconos y letra | Phosphor. Andika para lecturas, Inter para la interfaz, autoalojadas. |

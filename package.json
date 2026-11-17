@@ -15,7 +15,9 @@
     "test:e2e": "playwright test",
     "lint": "eslint .",
     "format": "prettier --write .",
-    "contenido": "node scripts/generar_contenido.mjs"
+    "contenido": "node scripts/generar_contenido.mjs",
+    "tts:textos": "node scripts/generar_textos_tts.mjs",
+    "tts:calentar": "node scripts/calentar_tts.mjs"
   },
   "dependencies": {
     "@astrojs/mdx": "^8.0.2",

@@ -1,0 +1,15 @@
+name = "aventura-lectora-voz"
+main = "index.ts"
+compatibility_date = "2026-01-01"
+
+[ai]
+binding = "AI"
+
+# create it with: npx wrangler kv namespace create AUDIOS   (then write the id here)
+[[kv_namespaces]]
+binding = "AUDIOS"
+id = "PEGAR_AQUI_EL_ID_DEL_ESPACIO_KV"
+
+[vars]
+# sites that can ask for audio (the address of the published site, and the local one for tests)
+ORIGENES = "http://localhost:4321,http://localhost:3000"
