@@ -3,6 +3,7 @@ import '../styles/global.css';
 import interLatin from '@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url';
 import andika400 from '@fontsource/andika/files/andika-latin-400-normal.woff2?url';
 import andika700 from '@fontsource/andika/files/andika-latin-700-normal.woff2?url';
+import PinturaDefs from '../components/ilustraciones/pintura_defs.astro';
 import { sitio } from '../config/sitio';
 
 interface Props {
@@ -47,6 +48,11 @@ const titulo_pagina = titulo === sitio.nombre_curso ? titulo : `${titulo} | ${si
         const mov = typeof a.movimiento === 'boolean' ? a.movimiento : !reduce;
         if (!mov) d.setAttribute('data-movimiento', 'no');
         if (a.letra_grande) d.setAttribute('data-letra', 'grande');
+        // phones with little memory or with data saving get the clean drawings (no pen filter, no paper grain)
+        const red = navigator.connection;
+        if ((navigator.deviceMemory && navigator.deviceMemory <= 2) || (red && red.saveData)) {
+          d.setAttribute('data-pintura', 'simple');
+        }
       })();
     </script>
   </head>
@@ -57,6 +63,7 @@ const titulo_pagina = titulo === sitio.nombre_curso ? titulo : `${titulo} | ${si
     >
       Saltar al contenido
     </a>
+    <PinturaDefs />
     <slot />
     <script>
       import '../lib/ui_global';

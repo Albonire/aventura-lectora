@@ -1,0 +1,52 @@
+---
+// the only <defs> of the book: gradients, hatching and the pen filter that every painted illustration uses.
+// It is mounted once in base_layout.astro. Ids are global to the page, so no other component defines one.
+// It is NOT display:none (some browsers then ignore the references): it is a 0 x 0 svg out of the flow.
+import { TINTA, id_degradado, materiales } from '../../lib/arte/paleta';
+import { referencias_usadas } from '../../lib/arte/piezas/todas';
+
+// only the gradients that some piece uses: the rest would be dead weight in every page
+const usadas = referencias_usadas();
+const en_uso = Object.entries(materiales).filter(([m]) => usadas.has(id_degradado(m as keyof typeof materiales)));
+---
+
+<svg
+  id="al-defs"
+  width="0"
+  height="0"
+  aria-hidden="true"
+  focusable="false"
+  style="position:absolute;width:0;height:0;overflow:hidden"
+>
+  <defs>
+    {
+      en_uso.map(([m, r]) => (
+        <linearGradient id={`al-g-${m}`} x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color={r.luz} />
+          <stop offset="0.55" stop-color={r.base} />
+          <stop offset="1" stop-color={r.medio} />
+        </linearGradient>
+      ))
+    }
+    <radialGradient id="al-rubor">
+      <stop offset="0" stop-color={materiales.coral.base} stop-opacity="0.55" />
+      <stop offset="1" stop-color={materiales.coral.base} stop-opacity="0" />
+    </radialGradient>
+    <radialGradient id="al-halo">
+      <stop offset="0" stop-color={materiales.halo_sol.base} stop-opacity="0.95" />
+      <stop offset="1" stop-color={materiales.halo_sol.base} stop-opacity="0" />
+    </radialGradient>
+    <pattern id="al-trama" width="3.2" height="3.2" patternUnits="userSpaceOnUse" patternTransform="rotate(38)">
+      <path d="M0 0.8H3.2" stroke={TINTA} stroke-width="0.9" opacity="0.3"></path>
+    </pattern>
+    <pattern id="al-puntos" width="4.4" height="4.4" patternUnits="userSpaceOnUse">
+      <circle cx="1.1" cy="1.1" r="0.75" fill={TINTA} opacity="0.26"></circle>
+      <circle cx="3.3" cy="3.3" r="0.55" fill={TINTA} opacity="0.2"></circle>
+    </pattern>
+    <filter id="al-pintado" x="-2%" y="-2%" width="104%" height="104%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.045" numOctaves="2" seed="7" result="ruido"></feTurbulence>
+      <feDisplacementMap in="SourceGraphic" in2="ruido" scale="2.6" xChannelSelector="R" yChannelSelector="G"
+      ></feDisplacementMap>
+    </filter>
+  </defs>
+</svg>

@@ -1,27 +1,22 @@
 ---
-// symbol of the agency: the sky blue magnifying glass of Sofía
+// symbol of the club: the sky blue magnifying glass of Sofía. Shapes in src/lib/arte/piezas/objetos.ts.
+import Pieza from './pieza.astro';
+import { LUPA_LADO, LUPA_SIMBOLO } from '../../lib/arte/piezas/objetos';
+
 interface Props {
   size?: number;
   class?: string;
 }
 const { size = 32, class: clase = '' } = Astro.props;
-const TINTA = '#1e293b';
 ---
 
 <svg
-  xmlns="http://www.w3.org/2000/svg"
-  viewBox="0 0 64 64"
+  viewBox={`0 0 ${LUPA_LADO} ${LUPA_LADO}`}
   width={size}
   height={size}
   class={clase}
   aria-hidden="true"
   focusable="false"
 >
-  <g stroke={TINTA} stroke-linecap="round" stroke-linejoin="round">
-    <path d="M40 40 L55 55" stroke-width="13" fill="none"></path>
-    <path d="M40 40 L55 55" stroke="#0369a1" stroke-width="6.5" fill="none"></path>
-    <circle cx="27" cy="27" r="21" fill="#0284c7" stroke-width="4"></circle>
-    <circle cx="27" cy="27" r="14" fill="#bae6fd" stroke-width="3"></circle>
-    <path d="M18 24 A10 10 0 0 1 25 17" stroke="#ffffff" stroke-width="4" fill="none"></path>
-  </g>
+  <Pieza formas={LUPA_SIMBOLO} detalle={size < 60 ? 'reducido' : 'completo'} escala={0.25} />
 </svg>

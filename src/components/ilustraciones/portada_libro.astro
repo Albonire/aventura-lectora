@@ -1,5 +1,5 @@
 ---
-// art of the book cover: the two detectives beside a big open book, with the animals of the fables
+// art of the book cover (it turns in 3D, so it never gets the pen filter): the two detectives beside a big open book, with the animals of the fables
 import EscenaBase from './escena_base.astro';
 import Plantas from './plantas.astro';
 import Sofia from './sofia.astro';
@@ -7,6 +7,8 @@ import Mateo from './mateo.astro';
 import Conejo from './conejo.astro';
 import Tortuga from './tortuga.astro';
 import Oruga from './oruga.astro';
+import Pieza from './pieza.astro';
+import { PLACA_TAPA } from '../../lib/arte/piezas/escena';
 import Libro from './libro.astro';
 ---
 
@@ -16,13 +18,12 @@ import Libro from './libro.astro';
   aria-hidden="true"
   focusable="false"
 >
-  <!-- cream plate, so the lime sweater and the plants stand out on the green cover -->
-  <rect x="4" y="52" width="552" height="384" rx="30" fill="#faf6ee" stroke="#1e293b" stroke-width="4"></rect>
+  <Pieza formas={PLACA_TAPA} escala={1.4} />
   <EscenaBase nubes={false} sol={false} loma={false} />
   <Plantas tipo="hojas" x={0} y={296} escala={1.05} />
   <Plantas tipo="mata" x={468} y={306} escala={0.95} espejo />
-  <Plantas tipo="flor" x={236} y={356} escala={0.46} color="#f43f5e" />
-  <Plantas tipo="flor" x={300} y={362} escala={0.4} color="#facc15" />
+  <Plantas tipo="flor" x={236} y={356} escala={0.46} color="coral" />
+  <Plantas tipo="flor" x={300} y={362} escala={0.4} color="amarillo" />
   <g transform="translate(176 232)">
     <Libro size={150} />
   </g>

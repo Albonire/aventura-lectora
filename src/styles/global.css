@@ -456,3 +456,41 @@ html[data-movimiento='no']::view-transition-new(*) {
     background: none;
   }
 }
+
+/* ---------- hand painted illustrations ---------- */
+
+/* the pen filter only goes on big still scenes (see src/components/ilustraciones/pintura_defs.astro) */
+.pintado {
+  filter: url(#al-pintado);
+}
+
+/* paper grain behind the frames of the illustrations (a small tile made by scripts/generar_grano.mjs) */
+.papel {
+  background-image: url('../assets/papel_grano.webp');
+  background-size: 128px 128px;
+}
+
+/* clean drawings: print, forced colors, more contrast and phones with little memory or data saving */
+@media print, (forced-colors: active), (prefers-contrast: more) {
+  .pintado {
+    filter: none;
+  }
+  .papel {
+    background-image: none;
+  }
+  .trama {
+    display: none;
+  }
+}
+
+html[data-pintura='simple'] .pintado {
+  filter: none;
+}
+
+html[data-pintura='simple'] .papel {
+  background-image: none;
+}
+
+html[data-pintura='simple'] .trama {
+  display: none;
+}

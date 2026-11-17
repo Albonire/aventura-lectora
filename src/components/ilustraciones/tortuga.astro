@@ -1,49 +1,28 @@
 ---
-// the tortoise of the fables: lime body and dark green shell with lighter plates.
-// Companion of Sofía in mission 1 (guide 2.1, figure 2). It looks to the left.
+// the tortoise of the fables: lime body and dark shell with lighter plates (companion of Sofía in mission 1).
+// The shapes live in src/lib/arte/piezas/animales.ts.
+import Pieza from './pieza.astro';
+import { TORTUGA, TORTUGA_ANCHO, TORTUGA_ALTO } from '../../lib/arte/piezas/animales';
+import type { Detalle } from '../../lib/arte/capas';
+
 interface Props {
+  // height in px
   size?: number;
+  // small drawings (under 70 px) drop the fine details by themselves
+  detalle?: Detalle;
   class?: string;
 }
-const { size = 80, class: clase = '' } = Astro.props;
-const TINTA = '#1e293b';
-const CUERPO = '#84cc16';
-const CAPARAZON = '#4d7c0f';
-const PLACA = '#65a30d';
+const { size = 80, detalle, class: clase = '' } = Astro.props;
+const nivel = detalle ?? (size < 70 ? 'reducido' : 'completo');
 ---
 
 <svg
-  viewBox="0 0 164 112"
+  viewBox={`0 0 ${TORTUGA_ANCHO} ${TORTUGA_ALTO}`}
   height={size}
-  width={(size * 164) / 112}
+  width={(size * TORTUGA_ANCHO) / TORTUGA_ALTO}
   class={clase}
   aria-hidden="true"
   focusable="false"
 >
-  <g stroke={TINTA} stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round">
-    <!-- tail and legs -->
-    <path d="M140 84 L156 80 L144 94 Z" fill={CUERPO}></path>
-    <path d="M52 84 H74 V98 C74 104 68 106 62 106 C56 106 52 102 52 98 Z" fill={CUERPO}></path>
-    <path d="M108 84 H130 V98 C130 104 124 106 118 106 C112 106 108 102 108 98 Z" fill={CUERPO}></path>
-    <!-- neck and head -->
-    <path d="M36 72 C46 74 52 82 52 90 L40 92 C34 88 30 82 30 76 Z" fill={CUERPO}></path>
-    <path
-      d="M8 62 C8 48 20 40 32 42 C44 44 50 54 48 66 C46 76 36 82 26 80 C16 78 8 72 8 62 Z"
-      fill={CUERPO}></path>
-    <!-- shell -->
-    <path d="M40 86 C40 32 144 32 146 86 Z" fill={CAPARAZON}></path>
-    <path d="M78 52 L92 44 L108 52 L108 68 L92 76 L78 68 Z" fill={PLACA} stroke-width="3"></path>
-    <path d="M54 64 L66 58 L74 66 L72 80 L54 80 Z" fill={PLACA} stroke-width="3"></path>
-    <path d="M112 66 L122 58 L134 66 L136 80 L114 80 Z" fill={PLACA} stroke-width="3"></path>
-    <path d="M36 82 H150 C154 82 154 92 150 92 H36 C32 92 32 82 36 82 Z" fill={PLACA}></path>
-    <!-- face -->
-    <g stroke="none">
-      <ellipse cx="36" cy="68" rx="6" ry="4.5" fill="#fb7185" opacity="0.5"></ellipse>
-      <circle cx="24" cy="58" r="6.5" fill="#ffffff"></circle>
-      <circle cx="22.5" cy="58.5" r="3.6" fill={TINTA}></circle>
-      <circle cx="23.6" cy="57" r="1.2" fill="#ffffff"></circle>
-    </g>
-    <circle cx="24" cy="58" r="6.5" fill="none" stroke-width="2.5"></circle>
-    <path d="M14 70 Q22 77 32 72" fill="none" stroke-width="3"></path>
-  </g>
+  <Pieza formas={TORTUGA} detalle={nivel} escala={0.55} />
 </svg>

@@ -113,7 +113,7 @@ Trucos de detective (etiquetas de estrategia): Misión 1 `imagino`, `pregunto`, 
 
 ## 6. Design system
 
-Estilo de libro ilustrado infantil en vector plano. Pocas cajas, sin cajas anidadas innecesarias, textos cortos.
+Ilustraciones de libro infantil pintadas a mano con código (SVG): contorno con pulso de plumilla, volumen y sombras duras, tramas y grano de papel. La interfaz sigue limpia: pocas cajas, sin cajas anidadas innecesarias, textos cortos. Reglas del arte en `gemini_notebook/01_guia_de_estilo.md` y `src/lib/arte/paleta.ts`.
 
 | Token | Valor | Uso |
 |---|---|---|

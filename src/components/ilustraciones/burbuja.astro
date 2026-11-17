@@ -1,6 +1,9 @@
 ---
-// flat speech bubble drawn in svg units: white with the ink outline and a small tail.
+// speech bubble drawn in svg units: white with the ink outline, a small tail and a hard offset shadow toward
+// the bottom right (the light comes from the top left), no blur.
 // The text is wrapped by hand because svg has no automatic line breaks.
+import { TINTA } from '../../lib/arte/paleta';
+
 interface Props {
   x: number;
   y: number;
@@ -20,7 +23,7 @@ const {
   tamano = 15,
   cola = 'abajo',
   cola_x = 0.5,
-  fondo = '#ffffff',
+  fondo = 'white',
 } = Astro.props;
 
 function partir(t: string, max: number): string[] {
@@ -46,13 +49,14 @@ const cx = x + ancho * cola_x;
 ---
 
 <g>
-  <rect x={x} y={y} width={ancho} height={alto} rx="20" fill={fondo} stroke="#1e293b" stroke-width="4"></rect>
+  <rect x={x + 3} y={y + 3} width={ancho} height={alto} rx="20" fill={TINTA} opacity="0.16"></rect>
+  <rect x={x} y={y} width={ancho} height={alto} rx="20" fill={fondo} stroke={TINTA} stroke-width="4"></rect>
   {
     cola === 'abajo' ? (
       <path
         d={`M${cx - 14} ${y + alto - 2} L${cx - 4} ${y + alto + 24} L${cx + 16} ${y + alto - 2}`}
         fill={fondo}
-        stroke="#1e293b"
+        stroke={TINTA}
         stroke-width="4"
         stroke-linejoin="round"
         stroke-linecap="round"
@@ -61,7 +65,7 @@ const cx = x + ancho * cola_x;
       <path
         d={`M${cx - 14} ${y + 2} L${cx - 4} ${y - 24} L${cx + 16} ${y + 2}`}
         fill={fondo}
-        stroke="#1e293b"
+        stroke={TINTA}
         stroke-width="4"
         stroke-linejoin="round"
         stroke-linecap="round"
@@ -70,7 +74,7 @@ const cx = x + ancho * cola_x;
   }
   <!-- hides the outline of the bubble where the tail starts -->
   <rect x={cx - 12} y={cola === 'abajo' ? y + alto - 6 : y + 2} width="26" height="5" fill={fondo}></rect>
-  <text x={x + 16} y={y + 12 + tamano} font-size={tamano} font-weight="700" fill="#1e293b">
+  <text x={x + 16} y={y + 12 + tamano} font-size={tamano} font-weight="700" fill={TINTA}>
     {lineas.map((l, i) => (
       <tspan x={x + 16} dy={i === 0 ? 0 : interlineado}>
         {l}

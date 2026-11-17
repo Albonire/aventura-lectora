@@ -5,6 +5,9 @@ import EscenaBase from '../escena_base.astro';
 import Plantas from '../plantas.astro';
 import Mateo from '../mateo.astro';
 import Oruga from '../oruga.astro';
+import Pieza from '../pieza.astro';
+import { TINTA } from '../../../lib/arte/paleta';
+import { MARCAS_VERDAD } from '../../../lib/arte/piezas/escena';
 import Celular from '../celular.astro';
 
 interface Props {
@@ -12,31 +15,30 @@ interface Props {
   alt: string;
 }
 const { titulo, alt } = Astro.props;
-const TINTA = '#1e293b';
+
 ---
 
 <PortadaCapitulo numero={3} titulo={titulo} color="sunshine-pop" alt={alt}>
   <svg viewBox="0 0 560 440" class="block h-auto w-full" focusable="false" aria-hidden="true">
     <EscenaBase sol={false} />
+    <g class="pintado">
     <Plantas tipo="hojas" x={6} y={282} escala={1.15} />
-    <Plantas tipo="flor" x={110} y={352} escala={0.5} color="#f43f5e" />
+    <Plantas tipo="flor" x={110} y={352} escala={0.5} color="coral" />
     <Plantas tipo="pasto" x={500} y={350} escala={0.56} />
     <!-- the phone, bigger than life, with its two messages -->
     <g transform="translate(372 96) rotate(8 80 130)">
       <Celular size={270} />
     </g>
-    <!-- truth detector marks: one message passes, the other one needs a check -->
-    <g stroke={TINTA} stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
-      <circle cx="356" cy="130" r="30" fill="#84cc16"></circle>
-      <path d="M343 131 L353 141 L371 120" fill="none" stroke-width="7"></path>
-      <circle cx="536" cy="292" r="26" fill="#ffffff"></circle>
     </g>
+    <Pieza formas={MARCAS_VERDAD} escala={1.4} />
     <text x="536" y="306" text-anchor="middle" font-size="40" font-weight="700" fill={TINTA}>?</text>
+    <g class="pintado">
     <g transform="translate(104 74)">
       <Mateo size={340} pose="libreta" />
     </g>
     <g transform="translate(40 318)">
       <Oruga size={92} />
+    </g>
     </g>
   </svg>
 </PortadaCapitulo>
