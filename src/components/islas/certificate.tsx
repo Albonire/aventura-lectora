@@ -1,91 +1,161 @@
-import { useState } from 'react';
-import { FilePdf } from '@phosphor-icons/react';
-import { sitio } from '../../config/sitio';
-import { usar_movimiento, usar_nombre, usar_progreso } from './hooks';
+import { useEffect, useState } from 'react';
+import { FilePdf, Printer } from '@phosphor-icons/react';
+import { insignias } from '../../lib/insignias';
+import { nombres_detectives } from '../../lib/progreso';
+import { autoras, sitio } from '../../config/sitio';
+import { usar_almacen, usar_movimiento, usar_pasaporte, usar_progreso } from './hooks';
 import { Insignia } from './insignia';
-import { Superficie, boton_primario, campo_texto } from './ui';
+import { Superficie, boton, boton_primario, campo_texto } from './ui';
 
+export const TITULO_CERTIFICADO = 'Diploma de Detective Lector';
+
+// certificate of the closing station with the name of the student or the pair and a print button.
+// Printing shows only the certificate (see the print rules in global.css).
 export function Certificate() {
-  const [nombre, set_nombre] = usar_nombre();
+  const [pasaporte] = usar_pasaporte();
+  const [nombre, set_nombre, listo] = usar_almacen<string>('certificado_nombre', '');
   const progreso = usar_progreso();
   const movimiento = usar_movimiento();
   const [sello, set_sello] = useState(0);
   const [generando, set_generando] = useState(false);
   const [mensaje, set_mensaje] = useState('');
-  const resueltos = progreso.resueltos.length;
+  const total = insignias.length;
+  const ganadas = insignias.filter((i) => progreso.resueltos.includes(i.caso)).length;
+  const del_pasaporte = nombres_detectives(pasaporte);
 
-  async function generar() {
+  // the name written in station 00 is the starting point; it can be corrected here
+  useEffect(() => {
+    if (listo && !nombre && del_pasaporte) set_nombre(del_pasaporte);
+  }, [listo, nombre, del_pasaporte]);
+
+  const mostrado = nombre.trim();
+  const fecha = new Date().toLocaleDateString('es-CO', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  });
+
+  function imprimir() {
+    set_sello((n) => n + 1);
+    set_mensaje('Se abrió la ventana para imprimir tu diploma.');
+    window.setTimeout(() => window.print(), 80);
+  }
+
+  async function descargar() {
     set_generando(true);
     set_mensaje('');
     set_sello((n) => n + 1);
     try {
       const { descargar_certificado } = await import('../../lib/pdf');
-      await descargar_certificado(nombre);
-      set_mensaje('Tu certificado se descargó como PDF.');
+      await descargar_certificado(mostrado);
+      set_mensaje('Tu diploma se descargó.');
     } catch {
-      set_mensaje('No se pudo crear el certificado. Vuelve a intentarlo.');
+      set_mensaje('No se pudo descargar. Vuelve a intentarlo o usa el botón de imprimir.');
     } finally {
       set_generando(false);
     }
   }
 
   return (
-    <Superficie titulo="Tu certificado" etiqueta="Detective de la lectura">
-      <p className="max-w-reading text-body">
-        Escribe tu nombre y descarga tu certificado en PDF. Tu nombre solo se guarda en este
-        navegador.
-        {resueltos < 5 &&
-          ` Resolviste ${resueltos} de 5 casos: genera tu certificado cuando termines los cinco.`}
-      </p>
-      <label htmlFor="cert-nombre" className="mt-6 block text-body font-medium">
-        Tu nombre
-      </label>
-      <input
-        id="cert-nombre"
-        type="text"
-        autoComplete="off"
-        maxLength={80}
-        value={nombre}
-        onChange={(e) => set_nombre(e.target.value)}
-        className={`${campo_texto} mt-2 max-w-md`}
-      />
+    <Superficie titulo="Tu diploma" etiqueta="Detective lector">
+      <div className="no-imprimir">
+        <p className="max-w-reading text-body">
+          Revisa cómo quedó escrito tu nombre, o el de tu pareja de detectives, e imprime el
+          diploma.
+          {ganadas < total &&
+            ` Llevas ${ganadas} de ${total} medallas: imprímelo cuando tengas las cuatro.`}
+        </p>
+        <label htmlFor="cert-nombre" className="mt-5 block text-body font-medium">
+          Nombre del detective o de la pareja
+        </label>
+        <input
+          id="cert-nombre"
+          type="text"
+          autoComplete="off"
+          maxLength={80}
+          value={nombre}
+          onChange={(e) => set_nombre(e.target.value)}
+          className={`${campo_texto} mt-2 max-w-md`}
+        />
+      </div>
 
-      <div className="relative mt-8 overflow-hidden rounded-card border-2 border-ink-black bg-cream-paper p-8 text-center md:p-12">
-        <p className="rounded-pill bg-sunshine-pop px-4 py-1 text-body-sm font-medium">
-          {sitio.nombre_curso}
+      <div
+        data-certificado
+        className="certificado relative mt-8 overflow-hidden rounded-card border-2 border-ink-black bg-cream-paper p-6 pb-24 text-center md:p-10"
+      >
+        <p className="interfaz inline-block rounded-pill border-2 border-ink-black bg-sunshine-pop px-4 py-1 text-body-sm font-bold">
+          {sitio.nombre_curso}: {sitio.subtitulo}
         </p>
-        <p className="mt-6 text-heading font-medium tracking-tight">Certificado</p>
-        <p className="mt-4 text-body">Certifico que</p>
-        <p className="mt-2 min-h-12 break-words text-heading-sm font-medium tracking-tight underline decoration-2 underline-offset-8">
-          {nombre.trim() || 'tu nombre'}
+        <p className="mt-5 text-[clamp(1.5rem,1rem+2.4vw,2.5rem)] font-bold leading-tight">
+          {TITULO_CERTIFICADO}
         </p>
-        <p className="mx-auto mt-6 max-w-md text-body">
-          resolvió los cinco casos de la Aventura lectora y ahora es Detective de la Lectura.
+        <p className="mt-1 text-body font-medium">
+          {sitio.institucion} ({sitio.municipio_corto})
         </p>
-        <p className="mt-6 text-body-sm text-stone-text">El equipo de Aventura lectora</p>
+        <p className="mt-5 text-body">Se otorga a</p>
+        <p
+          data-certificado-nombre
+          className="mx-auto mt-1 min-h-12 max-w-xl break-words border-b-2 border-ink-black pb-1 text-heading-sm font-bold leading-tight"
+        >
+          {mostrado || 'Tu nombre'}
+        </p>
+        <p className="mx-auto mt-5 max-w-lg text-body">
+          por resolver las tres misiones de lectura y el reto final, leer con calma, descubrir
+          pistas escondidas, revisar antes de compartir y decir lo que piensa con razones.
+        </p>
+
+        <ul className="mx-auto mt-5 flex max-w-md justify-center gap-3" aria-label="Medallas ganadas">
+          {insignias.map((i) => (
+            <li key={i.caso}>
+              <Insignia
+                caso={i.caso}
+                size={56}
+                ganada={progreso.resueltos.includes(i.caso)}
+                titulo={`${i.nombre}: ${progreso.resueltos.includes(i.caso) ? 'ganada' : 'por ganar'}`}
+              />
+            </li>
+          ))}
+        </ul>
+
+        <div className="mt-6 grid gap-4 text-body-sm sm:grid-cols-2">
+          {autoras.map((a) => (
+            <p key={a} className="border-t-2 border-ink-black pt-2">
+              <span className="block font-bold">{a}</span>
+              Profesora de quinto grado
+            </p>
+          ))}
+        </div>
+        <p className="mt-4 text-body-sm text-stone-text">
+          {sitio.municipio_corto}, {fecha}
+        </p>
         <div
           key={sello}
-          className={`absolute bottom-4 right-4 md:bottom-8 md:right-8 ${sello > 0 && movimiento ? 'sello-estampa' : ''}`}
+          className={`pointer-events-none absolute bottom-3 right-3 md:bottom-5 md:right-6 ${sello > 0 && movimiento ? 'sello-estampa' : ''}`}
+          aria-hidden="true"
         >
-          <Insignia caso={5} size={84} ganada={sello > 0 || resueltos === 5} />
+          {ganadas === total && <Insignia caso={4} size={64} />}
         </div>
       </div>
 
-      <div className="mt-6 flex flex-wrap items-center gap-3">
+      <div className="no-imprimir mt-6 flex flex-wrap items-center gap-3">
+        <button type="button" className={boton_primario} onClick={imprimir} disabled={!mostrado}>
+          <Printer size={20} weight="bold" aria-hidden="true" />
+          Imprimir diploma
+        </button>
         <button
           type="button"
-          className={boton_primario}
-          onClick={generar}
-          disabled={generando || !nombre.trim()}
+          className={boton}
+          onClick={descargar}
+          disabled={generando || !mostrado}
         >
           <FilePdf size={20} weight="bold" aria-hidden="true" />
-          {generando ? 'Preparando...' : 'Descargar certificado'}
+          {generando ? 'Preparando...' : 'Descargar diploma'}
         </button>
-        {!nombre.trim() && (
-          <p className="text-body-sm text-stone-text">Escribe tu nombre para descargarlo.</p>
+        {!mostrado && (
+          <p className="text-body-sm text-stone-text">Escribe el nombre para imprimirlo.</p>
         )}
       </div>
-      <p role="status" aria-live="polite" className="mt-3 min-h-7 text-body">
+      <p role="status" aria-live="polite" className="no-imprimir mt-3 min-h-7 text-body">
         {mensaje}
       </p>
     </Superficie>

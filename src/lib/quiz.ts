@@ -5,6 +5,8 @@ export interface PreguntaBase {
   id: string;
   opciones: Opcion[];
   correcta: string;
+  // graded hints of Sofía: each one more concrete than the one before
+  pistas?: string[];
 }
 
 // options shuffled with a stable seed, so the order is the same on every visit
@@ -44,4 +46,27 @@ export function registrar_intento(
   const previos = intentos[pregunta_id] ?? [];
   if (previos.includes(opcion_id)) return intentos;
   return { ...intentos, [pregunta_id]: [...previos, opcion_id] };
+}
+
+export interface PistaGraduada {
+  texto: string;
+  // 1 for the first hint
+  numero: number;
+  total: number;
+}
+
+const PISTA_GENERAL = 'Vuelve a leer el texto despacio y busca la frase que responde la pregunta.';
+
+// hint for the question after its wrong tries: the first mistake gets the first hint,
+// the second one a more concrete hint, and so on until the last hint, which stays
+export function pista_para(
+  pregunta: PreguntaBase,
+  intentos_pregunta: readonly string[],
+): PistaGraduada | null {
+  if (intentos_pregunta.includes(pregunta.correcta)) return null;
+  const fallos = intentos_pregunta.filter((op) => op !== pregunta.correcta).length;
+  if (fallos === 0) return null;
+  const pistas = pregunta.pistas?.length ? pregunta.pistas : [PISTA_GENERAL];
+  const numero = Math.min(fallos, pistas.length);
+  return { texto: pistas[numero - 1], numero, total: pistas.length };
 }

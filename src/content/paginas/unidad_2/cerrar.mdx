@@ -1,16 +1,9 @@
 import Seccion from '../../../components/ui/seccion.astro';
-import { ChallengeCard } from '../../../components/islas/challenge_card';
-import datos_retos from '../../../data/retos.json';
-import { LienzoDibujo } from '../../../components/islas/lienzo_dibujo';
+import { CuentameAbuelo } from '../../../components/islas/cuentame_abuelo';
+import act from '../../../data/actividades/unidad_2.json';
 
-<Seccion id="reto" titulo="Reto del caso" etiqueta="Actividad sumativa">
+<Seccion id="reto" titulo="Reto del caso" etiqueta="En casa y en el salón">
 
-<div class="flex flex-col gap-8">
-
-<LienzoDibujo client:visible unidad={2} />
-
-<ChallengeCard client:visible reto={datos_retos.retos[1]} unidad={2} titulo_caso={props.unidad.titulo} />
-
-</div>
+<CuentameAbuelo client:visible unidad={2} titulo={act.abuelo.titulo} instruccion={act.abuelo.instruccion} campos={act.abuelo.campos} ruta_libreta="/libreta" />
 
 </Seccion>

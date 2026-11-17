@@ -1,26 +1,17 @@
 import Seccion from '../../../components/ui/seccion.astro';
-import Podcast from '../../../components/ui/podcast.astro';
-import Tarjetas from '../../../components/ui/tarjetas.astro';
-import ResourceTag from '../../../components/ui/resource_tag.astro';
+import Releer from '../../../components/ui/releer.astro';
 import { QuizCard } from '../../../components/islas/quiz_card';
-import { DragSort } from '../../../components/islas/drag_sort';
 import act from '../../../data/actividades/unidad_2.json';
 
-<Seccion id="practica" titulo="Entrena tu lupa" etiqueta="Actividades formativas" fondo="arena" titulo_visible={false}>
-
-<p class="lectura mb-10">Estas actividades no llevan nota: sirven para practicar. Puedes equivocarte y volver a intentar.</p>
+<Seccion id="practica" titulo="Entrena tu lupa" etiqueta="Práctica" titulo_visible={false}>
 
 <div class="flex flex-col gap-8">
 
-<Podcast id="c2_podcast" />
+<p class="lectura">Las respuestas no están escritas tal cual. Junta las pistas de la historia. Si te equivocas, Sofía te dice qué párrafo volver a leer.</p>
 
-<QuizCard client:visible preguntas={act.quiz} unidad={2} titulo="Cuestionario sobre el cuento" etiqueta="Resuélvelo para ganar la insignia" marca_caso />
+<Releer titulo={act.relato.titulo} parrafos={act.relato.parrafos.map((p) => p.texto)} />
 
-<DragSort client:visible items={act.clasificador.items} cajas={act.clasificador.cajas} unidad={2} id="textos" titulo="Clasificador de textos" etiqueta="Recurso propio" instruccion="Cada fragmento es narrativo, informativo o instructivo. Ponlo en su caja." />
-
-<Tarjetas tarjetas={act.tarjetas} unidad={2} />
-
-<ResourceTag id="p2_practica" />
+<QuizCard client:visible preguntas={act.quiz} unidad={2} id="inferencias" tarea="inferencias" titulo="Lo que la historia no dice" />
 
 </div>
 

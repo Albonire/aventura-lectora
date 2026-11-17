@@ -1,7 +1,9 @@
 import { expect, test } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import type { Locator, Page } from '@playwright/test';
+import act1 from '../../src/data/actividades/unidad_1.json' with { type: 'json' };
 import act2 from '../../src/data/actividades/unidad_2.json' with { type: 'json' };
+import act3 from '../../src/data/actividades/unidad_3.json' with { type: 'json' };
 
 // islands below the fold hydrate when they are close to the viewport: wait until that happened
 async function hidratada(zona: Locator) {
@@ -10,23 +12,66 @@ async function hidratada(zona: Locator) {
   if ((await isla.count()) > 0) await expect(isla).not.toHaveAttribute('ssr', /.*/);
 }
 
-// the four pages of a case: /unidad/N, /pistas, /lupa and /cerrar
-const PAGINAS = ['', '/pistas', '/lupa', '/cerrar'];
-const CASOS = [1, 2, 3, 4, 5];
-const RUTAS_CASOS = CASOS.flatMap((n) => PAGINAS.map((p) => `/unidad/${n}${p}`));
+// scrolls the page screen by screen, as a reader does, so every island that hydrates when visible gets its turn
+async function recorrer(page: Page) {
+  const alto = await page.evaluate(() => document.documentElement.scrollHeight);
+  const paso = Math.max(300, (page.viewportSize()?.height ?? 700) - 200);
+  for (let y = 0; y <= alto; y += paso) {
+    await page.evaluate((destino) => window.scrollTo(0, destino), y);
+    await page.waitForTimeout(120);
+  }
+}
 
-const RUTAS = [
-  '/',
-  '/programa',
-  ...RUTAS_CASOS,
-  '/cierre',
-  '/ficha',
-  '/docentes',
-  '/empatizar',
-  '/referencias',
-];
+// the four steps of a case: /unidad/N, /pistas, /lupa and /cerrar
+const PASOS = ['', '/pistas', '/lupa', '/cerrar'];
+const CASOS = [1, 2, 3, 4];
+const RUTAS_CASOS = CASOS.flatMap((n) => PASOS.map((p) => `/unidad/${n}${p}`));
+
+// reading order of the students
+const RECORRIDO = ['/', '/agencia', ...RUTAS_CASOS, '/cierre'];
+const RUTAS = [...RECORRIDO, '/libreta', '/docentes', '/empatizar', '/referencias'];
 
 const boton_menu = (page: Page) => page.locator('summary').filter({ hasText: 'Menú' });
+
+// state of a student who already finished the whole route
+const PROGRESO_COMPLETO = {
+  'aventura_lectora:ruta': {
+    resueltos: [1, 2, 3, 4],
+    visitados: [1, 2, 3, 4],
+    paginas_leidas: [],
+    tareas: [
+      '1:partes',
+      '1:receta',
+      '1:idea',
+      '2:inferencias',
+      '2:abuelo',
+      '3:clasificar',
+      '3:verificar',
+      '4:torre',
+      '4:autochequeo',
+    ],
+    ultimo: null,
+  },
+  'aventura_lectora:pasaporte': {
+    activo: true,
+    modo: 'pareja',
+    nombres: ['Ana', 'Luis'],
+    fecha: '2026-11-16',
+  },
+  'aventura_lectora:abuelo': {
+    quien: 'Mi abuela Rosa',
+    trama: 'Un duende escondía las totumas del trapiche cuando alguien trabajaba de afán.',
+    ensenanza: 'Nos enseña que hay que trabajar con calma y compartir.',
+  },
+};
+
+async function sembrar(page: Page, datos: Record<string, unknown>) {
+  await page.addInitScript((d) => {
+    for (const [clave, valor] of Object.entries(d)) {
+      if (localStorage.getItem(clave) === null) localStorage.setItem(clave, JSON.stringify(valor));
+    }
+  }, datos);
+}
 
 for (const ruta of RUTAS) {
   test.describe(`ruta ${ruta}`, () => {
@@ -76,16 +121,69 @@ for (const ruta of RUTAS) {
   });
 }
 
-test('el texto del proyecto no usa raya larga ni emojis en la interfaz', async ({ page }) => {
-  for (const ruta of RUTAS) {
-    await page.goto(ruta);
-    const texto = await page.evaluate(() => document.body.innerText);
+test.describe('contexto, autoria y textos', () => {
+  test('ninguna pagina usa raya larga, emojis ni nombres de otras docentes, ciudades o colegios', async ({
+    page,
+  }) => {
     // en dash and em dash, built from char codes so this file has none of them
     const rayas = new RegExp(`[${String.fromCharCode(0x2013)}${String.fromCharCode(0x2014)}]`);
-    expect(texto, ruta).not.toMatch(rayas);
-    expect(texto, ruta).not.toMatch(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]/u);
-    expect(texto.toLowerCase(), ruta).not.toMatch(/\b(imprime|imprimir|recorta tu|colorea)\b/);
-  }
+    const emojis = /[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]/u;
+    const ajenos =
+      /Selene|Maribel|Silvia Gabriela|Caballero Valle|León Grillo|Rincón Pérez|Murcia|Bogotá|Medellín/;
+    for (const ruta of RUTAS) {
+      await page.goto(ruta);
+      const texto = await page.evaluate(() => document.body.innerText);
+      expect(texto, ruta).not.toMatch(rayas);
+      expect(texto, ruta).not.toMatch(emojis);
+      expect(texto, ruta).not.toMatch(ajenos);
+      expect(texto, ruta).not.toContain('[PENDIENTE');
+    }
+  });
+
+  test('el pie de cada pagina trae la institucion, las dos autoras y los datos del modulo', async ({
+    page,
+  }) => {
+    for (const ruta of ['/', '/agencia', '/unidad/2/lupa', '/cierre', '/docentes']) {
+      await page.goto(ruta);
+      const pie = page.locator('[data-pie]');
+      await expect(pie, ruta).toContainText('Institución Educativa Jorge Eliécer Gaitán');
+      await expect(pie, ruta).toContainText('Maripí, Boyacá, Colombia');
+      await expect(pie, ruta).toContainText(
+        'Luz Marina Castillo Cuadrado e Ingrid Yuliana González Flores',
+      );
+      await expect(pie, ruta).toContainText('Gamificación (Tecnología Educativa)');
+      await expect(pie, ruta).toContainText('Gustavo Alberto Orozco Bohórquez');
+      await expect(pie, ruta).toContainText('Marcela Zambrano');
+    }
+  });
+
+  test('la ficha docente muestra el diagnostico del 5 de mayo y los ajustes del piloto', async ({
+    page,
+  }) => {
+    await page.goto('/docentes');
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText(
+      'Ficha docente y prototipado 2.2',
+    );
+    await expect(page.getByRole('heading', { name: 'Diagnóstico del 5 de mayo de 2026' })).toBeVisible();
+    const cifras = { entusiasmo: '10/13', inferencia: '10/13', celular: '9/13', sin_datos: '4/13', guia: '3/13' };
+    for (const [id, valor] of Object.entries(cifras)) {
+      await expect(page.locator(`[data-cifra="${id}"]`)).toContainText(valor);
+    }
+    await expect(page.locator('[data-ajustes] > li')).toHaveCount(8);
+    await expect(page.locator('[data-tabla-estaciones] tbody tr')).toHaveCount(6);
+    for (let etapa = 1; etapa <= 7; etapa += 1) {
+      await expect(page.locator(`#etapa-${etapa}`)).toBeVisible();
+    }
+  });
+
+  test('las referencias publican solo las fuentes verificadas', async ({ page }) => {
+    await page.goto('/referencias');
+    const lista = page.locator('#lista');
+    await expect(lista).toContainText('Rodríguez Basto');
+    await expect(lista).toContainText('Llumiquinga Haro');
+    await expect(lista).not.toContainText('Novoa Velandia');
+    await expect(lista).not.toContainText('Cid-Sillero');
+  });
 });
 
 test.describe('interruptores y menu', () => {
@@ -108,381 +206,545 @@ test.describe('interruptores y menu', () => {
     const tamano = await page.evaluate(() => getComputedStyle(document.documentElement).fontSize);
     expect(tamano).toBe('18px');
   });
-});
 
-test.describe('movimiento reducido', () => {
-  test.use({ reducedMotion: 'reduce' });
+  test('el menu principal lleva a la Libreta de campo de Mateo', async ({ page }) => {
+    await page.goto('/unidad/1');
+    await boton_menu(page).click();
+    await page.locator('[data-menu-libreta]').click();
+    await expect(page).toHaveURL(/\/libreta$/);
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText('Libreta de campo de Mateo');
+  });
 
-  test('no hay pines ni patrones activos y el contenido esta completo', async ({ page }) => {
-    await page.goto('/');
-    await page.waitForLoadState('networkidle');
-    await expect(page.locator('.apertura-activa')).toHaveCount(0);
-    await expect(page.locator('#portadilla')).toBeVisible();
-    await page.goto('/unidad/2/pistas');
-    await page.waitForLoadState('networkidle');
-    await expect(page.locator('.camara-activa')).toHaveCount(0);
-    await expect(page.locator('.sendero-activo')).toHaveCount(0);
-    await expect(page.locator('.pin-spacer')).toHaveCount(0);
-    await expect(page.getByText('Hoja 1').first()).toBeAttached();
-    await page.goto('/unidad/3/pistas');
-    await expect(page.locator('.lupas-activo')).toHaveCount(0);
-    await expect(page.getByRole('heading', { name: /Lupa 3: lo que pienso/ })).toBeVisible();
+  test('en celular la ruta de la aventura esta dentro del menu', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto('/unidad/2/lupa');
+    await expect(page.locator('[data-indice="lateral"]')).toBeHidden();
+    await boton_menu(page).click();
+    const indice = page.locator('[data-indice="menu"]');
+    await expect(indice).toBeVisible();
+    await expect(indice.locator('a[aria-current="page"]')).toContainText('Entrenar la lupa');
   });
 });
 
 test.describe('sin JavaScript', () => {
   test.use({ javaScriptEnabled: false });
 
-  test('la lectura y las pistas se leen completas', async ({ page }) => {
+  test('las lecturas, la ruta y la ficha se leen completas', async ({ page }) => {
     await page.goto('/unidad/1/pistas');
-    await expect(page.getByText('En un valle lleno de pasto y flores')).toBeVisible();
-    await expect(page.getByText('¿Por qué crees que la tortuga propone una carrera')).toBeVisible();
-    await page.goto('/unidad/1');
-    await expect(page.getByText('Leer no se limita a pronunciar')).toBeVisible();
+    await expect(page.getByText('Era día de molienda en la vereda')).toBeVisible();
+    await expect(page.getByText(act1.fabula.moraleja)).toBeVisible();
+    await expect(page.getByText('Al final, bate con el molinillo')).toBeVisible();
     await page.goto('/unidad/2/pistas');
-    await expect(page.getByText('Este dice cómo hacer algo en orden').first()).toBeAttached();
+    await expect(page.getByText('Cuentan los abuelos que en un trapiche viejo')).toBeVisible();
+    await page.goto('/unidad/3/pistas');
+    await expect(page.getByText(act3.mensajes[1].lineas[1])).toBeVisible();
     await page.goto('/');
-    await expect(page.getByText('Universidad Santo Tomás').first()).toBeVisible();
+    await expect(page.locator('[data-indice-libro] > li')).toHaveCount(6);
+    await page.goto('/libreta');
+    await expect(page.locator('[data-ficha="1"]')).toContainText(act2.abuelo.campos[2].etiqueta);
   });
 });
 
-test.describe('actividades', () => {
-  test('el cuestionario del caso 1 se resuelve, marca el caso y se recuerda', async ({ page }) => {
-    await page.goto('/unidad/1/lupa');
-    const tarjeta = page.getByRole('region', { name: 'Cuestionario sobre la lectura' });
-    await hidratada(tarjeta);
-    await expect(tarjeta).toBeVisible();
-    for (let i = 0; i < 6; i++) {
-      // wrong first, then the right one
-      const opciones = tarjeta.getByRole('list', { name: 'Opciones' }).getByRole('button');
-      const total = await opciones.count();
-      let acierto = false;
-      for (let k = 0; k < total && !acierto; k++) {
-        await opciones.nth(k).click();
-        acierto = (await tarjeta.getByText('Correcta').count()) > 0;
-      }
-      expect(acierto).toBe(true);
-      await tarjeta.getByRole('button', { name: /Siguiente pregunta|Ver mi resultado/ }).click();
-    }
-    await expect(tarjeta.getByText('Resolviste las 6 preguntas')).toBeVisible();
-    const progreso = await page.evaluate(() =>
-      JSON.parse(localStorage.getItem('aventura_lectora:progreso') ?? '{}'),
-    );
-    expect(progreso.resueltos).toContain(1);
-    await page.reload();
-    await expect(
-      page
-        .getByRole('region', { name: 'Cuestionario sobre la lectura' })
-        .getByText('Resolviste las 6 preguntas'),
-    ).toBeVisible();
-  });
+test.describe('movimiento reducido', () => {
+  test.use({ reducedMotion: 'reduce' });
 
-  test('el clasificador de textos se completa con los botones Mover a', async ({ page }) => {
-    await page.goto('/unidad/2/lupa');
-    const zona = page.getByRole('region', { name: 'Clasificador de textos' });
-    await hidratada(zona);
-    const items = act2.clasificador.items;
-    const cajas = Object.fromEntries(act2.clasificador.cajas.map((c) => [c.id, c.titulo]));
-    for (const item of items) {
-      const tarjeta = zona.locator('li', { hasText: item.texto }).first();
-      await tarjeta
-        .getByRole('group', { name: /Mover a una caja/ })
-        .getByRole('button', { name: cajas[item.caja], exact: true })
-        .click();
-    }
-    await zona.getByRole('button', { name: 'Revisar', exact: true }).click();
-    await expect(
-      zona.getByText(`Muy bien: las ${items.length} tarjetas están en su caja.`),
-    ).toBeVisible();
-  });
-
-  test('la sopa de letras responde al teclado', async ({ page }) => {
-    await page.goto('/unidad/1/pistas');
-    const rejilla = page.getByRole('grid', { name: 'Sopa de letras' });
-    await hidratada(rejilla);
-    await rejilla.locator('[data-fila="0"][data-col="0"]').focus();
-    await page.keyboard.press('Enter');
-    await expect(page.getByText(/Inicio en fila 1, columna 1/)).toBeVisible();
-    await page.keyboard.press('ArrowRight');
-    await page.keyboard.press('ArrowRight');
-    await page.keyboard.press('Enter');
-    await expect(
-      page.getByRole('status').filter({ hasText: /Esa línea|Encontraste|Ya habías/ }),
-    ).toBeVisible();
-  });
-
-  test('el reto del caso 1 se descarga como PDF', async ({ page }) => {
-    await page.goto('/unidad/1/cerrar');
-    const reto = page.getByRole('article').filter({ hasText: 'Mi bitácora de detective lector' });
-    await hidratada(reto);
-    await reto.getByLabel('Tu nombre').fill('Ana Prueba');
-    await reto.getByLabel('Predicción 1').fill('Creo que la cigarra canta.');
-    const descarga = page.waitForEvent('download');
-    await reto.getByRole('button', { name: 'Descargar PDF' }).click();
-    const archivo = await descarga;
-    expect(archivo.suggestedFilename()).toBe('aventura_lectora_caso_1_reto.pdf');
-  });
-
-  test('el certificado y el expediente se descargan', async ({ page }) => {
-    await page.goto('/cierre');
-    await hidratada(page.locator('#cert-nombre'));
-    await page.locator('#cert-nombre').fill('Ana Prueba');
-    const uno = page.waitForEvent('download');
-    await page.getByRole('button', { name: 'Descargar certificado' }).click();
-    expect((await uno).suggestedFilename()).toBe('certificado_aventura_lectora.pdf');
-
-    await hidratada(page.locator('#exp-nombre'));
-    await page.locator('#exp-nombre').fill('Ana Prueba');
-    await page.getByRole('button', { name: 'Armar mi expediente' }).click();
-    const dos = page.waitForEvent('download');
-    await page.getByRole('button', { name: 'Armar con lo que tengo' }).click();
-    expect((await dos).suggestedFilename()).toBe('expediente_del_detective_lector.pdf');
+  test('la portada no tiene pines y muestra todo su contenido', async ({ page }) => {
+    await page.goto('/');
+    await page.waitForLoadState('networkidle');
+    await expect(page.locator('.apertura-activa')).toHaveCount(0);
+    await expect(page.locator('.pin-spacer')).toHaveCount(0);
+    await expect(page.locator('#portadilla')).toBeVisible();
   });
 });
 
-test('la camara del comic avanza con el teclado', async ({ page }) => {
-  await page.setViewportSize({ width: 1280, height: 800 });
-  await page.goto('/unidad/2/pistas');
-  await page.waitForLoadState('networkidle');
-  const comic = page.locator('#comic-camara');
-  await expect(comic).toHaveClass(/camara-activa/);
-  await comic.scrollIntoViewIfNeeded();
-  const caja = await comic.boundingBox();
-  await page.evaluate(
-    (y) => window.scrollTo(0, y + 10),
-    (caja?.y ?? 0) + (await page.evaluate(() => window.scrollY)),
-  );
-  await page.waitForTimeout(500);
-  await page.keyboard.press('ArrowRight');
-  await page.waitForTimeout(1200);
-  await expect(comic.locator('[data-contador]')).toHaveText('2 de 6');
-});
-
-test.describe('recursos de terceros', () => {
-  test('no cargan nada externo hasta que el estudiante lo pide', async ({ page }) => {
-    const externos: string[] = [];
-    page.on('request', (r) => {
-      const u = r.url();
-      if (!u.startsWith('http://localhost') && !u.startsWith('data:')) externos.push(u);
-    });
-    for (const p of PAGINAS) {
-      await page.goto(`/unidad/4${p}`);
-      await page.waitForLoadState('networkidle');
-      await expect(page.locator('iframe')).toHaveCount(0);
+test.describe('ruta de seis estaciones', () => {
+  test('el mapa de la ruta muestra las seis estaciones con sus recompensas', async ({ page }) => {
+    await page.goto('/');
+    const estaciones = page.locator('[data-indice-libro] > li');
+    await expect(estaciones).toHaveCount(6);
+    const esperado = [
+      ['00', 'Entra al club de detectives', 'Álbum de medallas'],
+      ['01', 'Leo con calma', 'Lupa de Bronce'],
+      ['02', 'Pistas y "Cuéntame, abuelo"', 'Lupa de Plata'],
+      ['03', '¿Verdad o chisme?', 'Detector de Verdades'],
+      ['04', 'Mi voz cuenta en Maripí', 'Voz de Detective'],
+      ['05', '¡Caso resuelto!', 'Diploma de Detective Lector'],
+    ];
+    for (const [i, [codigo, titulo, premio]] of esperado.entries()) {
+      const li = estaciones.nth(i);
+      await expect(li).toHaveAttribute('data-codigo', codigo);
+      await expect(li).toContainText(titulo);
+      await expect(li).toContainText(premio);
     }
-    expect(externos).toEqual([]);
   });
 
-  test('el juego del laberinto se muestra dentro de la pagina al pulsar', async ({ page }) => {
-    await page.goto('/unidad/4/pistas');
-    const tarjeta = page.getByRole('region', { name: 'El laberinto de la información' });
-    await hidratada(tarjeta);
-    await tarjeta.getByRole('button', { name: /Cargar el recurso/ }).click();
-    const marco = tarjeta.locator('iframe');
-    await expect(marco).toHaveAttribute(
-      'src',
-      'https://view.genially.com/664dca9c96d30b00146b5513',
-    );
-    await expect(marco).toHaveAttribute('title', 'El laberinto de la información');
+  test('con Siguiente se recorre toda la ruta, de la portada al certificado', async ({ page }) => {
+    await page.goto('/agencia');
+    const visitadas = ['/agencia'];
+    for (let i = 0; i < 30; i += 1) {
+      const siguiente = page.locator('a[rel="next"]');
+      if ((await siguiente.count()) === 0) break;
+      const destino = await siguiente.getAttribute('href');
+      await page.goto(destino ?? '/');
+      visitadas.push(new URL(page.url()).pathname.replace(/\/$/, '') || '/');
+    }
+    expect(visitadas).toEqual(RECORRIDO.slice(1));
   });
 
-  test('el video de YouTube usa la version sin cookies', async ({ page }) => {
-    await page.goto('/unidad/1/pistas');
-    const tarjeta = page.getByRole('region', { name: 'El mensaje oculto' });
-    await hidratada(tarjeta);
-    await tarjeta.getByRole('button', { name: /Cargar el video/ }).click();
-    await expect(tarjeta.locator('iframe')).toHaveAttribute(
-      'src',
-      /^https:\/\/www\.youtube-nocookie\.com\/embed\/yVYG4uvefCQ/,
-    );
-  });
-
-  test('los recursos que no permiten iframe se integran como actividad con enlace', async ({
+  test('cada mision tiene la barra fija de cuatro pasos con el paso actual marcado', async ({
     page,
   }) => {
-    await page.goto('/unidad/1/pistas');
-    const tarjeta = page.getByRole('region', { name: /La liebre y la tortuga: la fábula/ });
-    await tarjeta.scrollIntoViewIfNeeded();
-    await expect(tarjeta.getByText('Lee y compara')).toBeVisible();
-    await expect(tarjeta.getByRole('link', { name: /Abrir en otra pestaña/ })).toHaveAttribute(
-      'href',
-      /culturagenial\.com/,
-    );
-  });
-
-  test('cada caso muestra sus recursos de terceros dentro de la pagina', async ({ page }) => {
-    // resources that load in a frame after a click, per case (the youtube video has its own button)
-    const esperados: Record<number, number> = { 1: 1, 2: 2, 3: 3, 4: 3, 5: 3 };
-    for (const [caso, cantidad] of Object.entries(esperados)) {
-      let total = 0;
-      for (const p of PAGINAS) {
-        await page.goto(`/unidad/${caso}${p}`);
-        total += await page.getByRole('button', { name: /Cargar el recurso/ }).count();
-      }
-      expect(total, `caso ${caso}`).toBe(cantidad);
-    }
-  });
-});
-
-test.describe('libro de cuatro paginas por caso', () => {
-  test('cada pagina muestra solo sus secciones', async ({ page }) => {
-    const secciones: Record<string, string[]> = {
-      '': ['portada', 'mision', 'introduccion', 'contenidos'],
-      '/pistas': ['desarrollo'],
-      '/lupa': ['practica'],
-      '/cerrar': ['reto', 'cierre-caso'],
-    };
-    const todas = Object.values(secciones).flat();
-    for (const [p, propias] of Object.entries(secciones)) {
-      await page.goto(`/unidad/3${p}`);
-      for (const id of todas) {
-        const esperado = propias.includes(id) ? 1 : 0;
-        await expect(page.locator(`main section[id="${id}"]`), `${p || '/'} ${id}`).toHaveCount(
-          esperado,
+    const nombres = [
+      '1. Abrir el caso',
+      '2. Seguir las pistas',
+      '3. Entrenar la lupa',
+      '4. Cerrar el caso',
+    ];
+    for (const caso of CASOS) {
+      for (const [i, paso] of PASOS.entries()) {
+        await page.goto(`/unidad/${caso}${paso}`);
+        const barra = page.locator('[data-pasos-caso] a');
+        await expect(barra).toHaveCount(4);
+        for (const [n, nombre] of nombres.entries()) await expect(barra.nth(n)).toContainText(nombre);
+        await expect(page.locator('[data-pasos-caso] a[aria-current="page"]')).toContainText(
+          nombres[i],
         );
       }
     }
   });
 
-  test('con Siguiente se recorre todo el libro hasta las referencias', async ({ page }) => {
-    await page.goto('/programa');
-    const visitadas: string[] = ['/programa'];
-    for (let i = 0; i < 40; i++) {
-      const siguiente = page.locator('a[rel="next"]');
-      if ((await siguiente.count()) === 0) break;
-      const href = await siguiente.first().getAttribute('href');
-      visitadas.push(href ?? '');
-      await page.goto(href ?? '/');
-    }
-    expect(visitadas).toEqual(['/programa', ...RUTAS_CASOS, '/cierre', '/referencias']);
-    await expect(page.getByRole('heading', { level: 1 })).toHaveText('Referencias');
-  });
-
-  test('cada enlace de la ficha llega a una pagina que tiene esa seccion', async ({ page }) => {
-    await page.goto('/ficha');
-    const enlaces = await page
-      .locator('main a[href^="/"]')
-      .evaluateAll((els) => [...new Set(els.map((e) => e.getAttribute('href') ?? ''))]);
-    const internos = enlaces.filter((h) => h.includes('#'));
-    expect(internos.length).toBeGreaterThan(30);
-    for (const href of internos) {
-      const [ruta, ancla] = href.split('#');
-      await page.goto(ruta || '/');
-      await expect(page.locator(`[id="${ancla}"]`), href).toBeAttached();
+  test('cada pagina muestra solo las secciones de su paso', async ({ page }) => {
+    const esperado: Record<string, string[]> = {
+      '': ['portada', 'mision', 'introduccion'],
+      '/pistas': ['desarrollo'],
+      '/lupa': ['practica'],
+      '/cerrar': ['reto', 'cierre-caso'],
+    };
+    for (const [paso, ids] of Object.entries(esperado)) {
+      await page.goto(`/unidad/3${paso}`);
+      const presentes = await page.evaluate(() =>
+        Array.from(document.querySelectorAll('main > section[id]')).map((s) => s.id),
+      );
+      expect(presentes, paso).toEqual(ids);
     }
   });
 
-  test('llegar al final de una pagina la marca como leida en el indice', async ({ page }) => {
+  test('los trucos de detective aparecen en las misiones 1 y 3', async ({ page }) => {
+    await page.goto('/unidad/1');
+    const uno = page.locator('[data-estrategias]');
+    for (const etiqueta of ['imagino', 'pregunto', 'opino']) await expect(uno).toContainText(etiqueta);
+    await page.goto('/unidad/3');
+    const tres = page.locator('[data-estrategias]');
+    for (const etiqueta of ['comparo', 'reviso', 'explico']) {
+      await expect(tres).toContainText(etiqueta);
+    }
+  });
+
+  test('llegar al final de un paso lo marca como leido', async ({ page }) => {
     await page.setViewportSize({ width: 1280, height: 800 });
-    await page.goto('/unidad/2/lupa');
-    await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
-    const enlace = page.locator('.curso-indice a[data-pagina="2/lupa"]');
-    await expect(enlace).toHaveAttribute('data-leida', 'true');
-    await expect(enlace).toContainText('Leída');
-    const progreso = await page.evaluate(() =>
-      JSON.parse(localStorage.getItem('aventura_lectora:progreso') ?? '{}'),
-    );
-    expect(progreso.paginas_leidas).toContain('2/lupa');
-    expect(progreso.visitados).toContain(2);
-  });
-
-  test('en celular el indice esta dentro del menu', async ({ page }) => {
-    await page.setViewportSize({ width: 390, height: 844 });
     await page.goto('/unidad/3/pistas');
-    await expect(page.locator('.curso-indice')).toBeHidden();
-    await boton_menu(page).click();
-    const indice = page.getByRole('navigation', { name: 'Índice del curso en el menú' });
-    await expect(indice).toBeVisible();
-    await expect(indice.getByRole('link', { name: /Seguir las pistas/ }).first()).toHaveAttribute(
-      'aria-current',
-      'page',
-    );
+    await page.locator('[data-fin-pagina]').scrollIntoViewIfNeeded();
+    await expect(page.locator('[data-aviso-pagina]')).toContainText('Paso leído: Seguir las pistas');
+    const enlace = page.locator('[data-indice="lateral"] a[data-pagina="3/pistas"]');
+    await expect(enlace).toHaveAttribute('data-leida', 'true');
   });
 });
 
-test.describe('video en vista', () => {
-  async function centrar(video: Locator) {
-    await video.evaluate((el) => el.scrollIntoView({ block: 'center' }));
-  }
+test.describe('lecturas cortas con voz pausada', () => {
+  test('cada lectura cabe en el limite de palabras', async ({ page }) => {
+    await page.goto('/unidad/1/pistas');
+    const fabula = Number(await page.locator('#fabula').getAttribute('data-palabras'));
+    expect(fabula).toBeLessThanOrEqual(200);
+    await page.goto('/unidad/2/pistas');
+    const relato = Number(await page.locator('#relato').getAttribute('data-palabras'));
+    expect(relato).toBeGreaterThanOrEqual(150);
+    expect(relato).toBeLessThanOrEqual(250);
+    await page.goto('/unidad/3/pistas');
+    await expect(page.locator('#mensaje-m1 ol > li')).toHaveCount(4);
+    await expect(page.locator('#mensaje-m2 ol > li')).toHaveCount(4);
+  });
 
-  test('empieza con volumen al llegar a la pantalla, sin aviso de sonido y se pausa al salir', async ({
+  test('las lecturas y las consignas tienen el boton Escuchar con voz pausada', async ({ page }) => {
+    const minimos: Record<string, number> = {
+      '/': 1,
+      '/agencia': 2,
+      '/unidad/1': 2,
+      '/unidad/1/pistas': 2,
+      '/unidad/1/lupa': 1,
+      '/unidad/1/cerrar': 1,
+      '/unidad/2/pistas': 1,
+      '/unidad/2/lupa': 1,
+      '/unidad/2/cerrar': 1,
+      '/unidad/3/pistas': 3,
+      '/unidad/3/lupa': 1,
+      '/unidad/3/cerrar': 1,
+      '/unidad/4/pistas': 1,
+      '/unidad/4/lupa': 1,
+    };
+    for (const [ruta, minimo] of Object.entries(minimos)) {
+      await page.goto(ruta);
+      await page.waitForLoadState('networkidle');
+      await recorrer(page);
+      await expect
+        .poll(() => page.getByRole('button', { name: 'Escuchar con voz pausada' }).count(), {
+          message: ruta,
+        })
+        .toBeGreaterThanOrEqual(minimo);
+    }
+  });
+
+  test('la voz lee en español y a velocidad 0.9', async ({ page }) => {
+    // record what the page asks the browser to say
+    await page.addInitScript(() => {
+      const dichos: { texto: string; rate: number; lang: string }[] = [];
+      (window as unknown as { __dichos: typeof dichos }).__dichos = dichos;
+      window.speechSynthesis.speak = (frase: SpeechSynthesisUtterance) => {
+        dichos.push({ texto: frase.text, rate: frase.rate, lang: frase.lang });
+      };
+    });
+    await page.goto('/unidad/1/pistas');
+    const boton = page.locator('#fabula').getByRole('button', { name: 'Escuchar con voz pausada' });
+    await boton.click();
+    const dichos = await page.evaluate(
+      () => (window as unknown as { __dichos: { texto: string; rate: number; lang: string }[] }).__dichos,
+    );
+    expect(dichos).toHaveLength(1);
+    expect(dichos[0].rate).toBeCloseTo(0.9, 5);
+    expect(dichos[0].lang.toLowerCase()).toMatch(/^es/);
+    expect(dichos[0].texto).toContain('Era día de molienda en la vereda');
+    await expect(page.locator('#fabula').getByRole('button', { name: 'Detener' })).toBeVisible();
+  });
+});
+
+test.describe('pistas graduadas de Sofía', () => {
+  test('una respuesta incorrecta muestra la burbuja de Sofía con una pista concreta y luego otra mas precisa', async ({
     page,
   }) => {
-    await page.goto('/unidad/1/pistas');
-    const video = page.locator('video').first();
-    await centrar(video);
-    await expect.poll(() => video.evaluate((v: HTMLVideoElement) => !v.paused)).toBe(true);
-    expect(await video.evaluate((v: HTMLVideoElement) => v.muted)).toBe(false);
-    await expect(page.getByRole('button', { name: 'Activar sonido' })).toHaveCount(0);
-    // no caption track: the captions are already burned into the picture
-    await expect(video.locator('track')).toHaveCount(0);
-    // el aviso debajo del video sobre el sonido fue removido
-    await expect(page.getByText(/Empieza solo, sin sonido/)).toHaveCount(0);
-    await page.evaluate(() => window.scrollTo(0, 0));
-    await expect.poll(() => video.evaluate((v: HTMLVideoElement) => v.paused)).toBe(true);
+    await page.goto('/unidad/1/cerrar');
+    const quiz = page.getByRole('region', { name: 'La idea más importante' });
+    await hidratada(quiz);
+    const pregunta = act1.quiz[0];
+    const incorrectas = pregunta.opciones.filter((o) => o.id !== pregunta.correcta);
+
+    await quiz.getByRole('button', { name: new RegExp(incorrectas[0].texto) }).click();
+    await expect(quiz.getByText('Pista de Sofía (1 de 2)')).toBeVisible();
+    await expect(quiz.locator('[data-pista-sofia]')).toHaveText(pregunta.pistas[0]);
+    await expect(quiz.locator('[data-cara="sofia"]')).toBeVisible();
+    await expect(quiz.getByText(/^Incorrecto/)).toHaveCount(0);
+
+    await quiz.getByRole('button', { name: new RegExp(incorrectas[1].texto) }).click();
+    await expect(quiz.getByText('Pista de Sofía (2 de 2)')).toBeVisible();
+    await expect(quiz.locator('[data-pista-sofia]')).toHaveText(pregunta.pistas[1]);
+    await expect(quiz.locator('[data-pista-sofia]')).toContainText('párrafo 5');
+
+    const correcta = pregunta.opciones.find((o) => o.id === pregunta.correcta)?.texto ?? '';
+    await quiz.getByRole('button', { name: new RegExp(correcta) }).click();
+    await expect(quiz.getByText(/Muy bien, detective/)).toBeVisible();
+    await expect(quiz.locator('[data-pista-sofia]')).toHaveCount(0);
   });
 
-  test('el video tiene sonido activo al reproducirse', async ({ page }) => {
-    await page.goto('/unidad/1/pistas');
-    const video = page.locator('video').first();
-    await centrar(video);
-    await expect.poll(() => video.evaluate((v: HTMLVideoElement) => !v.paused)).toBe(true);
-    expect(await video.evaluate((v: HTMLVideoElement) => v.muted)).toBe(false);
+  test('una tarjeta mal clasificada recibe su pista y la lectura se puede volver a abrir', async ({
+    page,
+  }) => {
+    await page.goto('/unidad/3/lupa');
+    const actividad = page.getByRole('region', { name: 'Detector de Verdades' });
+    await hidratada(actividad);
+    // every card goes to the "fact" box: the three rumors are wrong
+    for (const item of act3.clasificar.items) {
+      await actividad
+        .getByRole('group', { name: `Mover a una caja: ${item.texto}` })
+        .getByRole('button', { name: 'Dato real' })
+        .click();
+    }
+    await actividad.getByRole('button', { name: 'Revisar' }).click();
+    const primera_mal = act3.clasificar.items.find((i) => i.caja !== 'hecho');
+    await expect(actividad.getByText('Pista de Sofía')).toBeVisible();
+    await expect(actividad.locator('[data-pista-sofia]')).toHaveText(primera_mal?.pista ?? '');
+    const releer = page.locator('[data-releer]').first();
+    await releer.locator('summary').click();
+    await expect(releer).toContainText(act3.mensajes[0].lineas[0]);
   });
 
-  test.describe('con movimiento reducido', () => {
-    test.use({ reducedMotion: 'reduce' });
-
-    test('no se reproduce solo: queda el boton de reproducir sobre el poster', async ({ page }) => {
-      await page.goto('/unidad/1/pistas');
-      const video = page.locator('video').first();
-      await centrar(video);
-      await page.waitForTimeout(1500);
-      expect(await video.evaluate((v: HTMLVideoElement) => v.paused)).toBe(true);
-      await expect(page.getByRole('button', { name: /Ver el video/ }).first()).toBeVisible();
-    });
+  test('la pista de prueba de la Agencia ensena la mecanica', async ({ page }) => {
+    await page.goto('/agencia');
+    const prueba = page.locator('#prueba');
+    await hidratada(prueba.getByRole('button', { name: 'En la tienda del pueblo' }));
+    await prueba.getByRole('button', { name: 'En la tienda del pueblo' }).click();
+    await expect(prueba.locator('[data-pista-sofia]')).toContainText('Vuelve a leer la nota');
+    await prueba.getByRole('button', { name: 'Donde se lee despacio y con calma' }).click();
+    await expect(prueba.getByText(/Resolviste tu primera pista/)).toBeVisible();
   });
 });
 
-test.describe('orientacion dentro del caso', () => {
-  test('los pasos del caso marcan la pagina actual y las ya leidas', async ({ page }) => {
-    await page.goto('/unidad/2/pistas');
-    await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
-    await expect(page.locator('[data-aviso-pagina]')).toContainText(
-      'Página leída: Seguir las pistas',
-    );
-    await page.goto('/unidad/2/lupa');
-    const pasos = page.getByRole('navigation', { name: 'Pasos de este caso' });
-    await expect(pasos.getByRole('link', { name: /Entrenar la lupa/ })).toHaveAttribute(
-      'aria-current',
-      'page',
-    );
-    await expect(pasos.getByRole('link', { name: /Seguir las pistas/ })).toContainText('Leída');
+test.describe('pasaporte e insignias', () => {
+  test('la Agencia activa el pasaporte de una pareja y el carne se recuerda', async ({ page }) => {
+    await page.goto('/agencia');
+    const prueba = page.locator('#prueba');
+    const pasaporte = page.locator('#pasaporte');
+    await hidratada(pasaporte.getByRole('button', { name: 'Hacer mi tarjeta' }));
+    await expect(pasaporte.getByRole('button', { name: 'Hacer mi tarjeta' })).toBeDisabled();
+    await hidratada(prueba.getByRole('button', { name: 'Donde se lee despacio y con calma' }));
+    await prueba.getByRole('button', { name: 'Donde se lee despacio y con calma' }).click();
+    await pasaporte.getByText('Trabajo en pareja de detectives').click();
+    await pasaporte.getByLabel('Nombre del primer detective').fill('Ana');
+    await pasaporte.getByLabel('Nombre del segundo detective').fill('Luis');
+    await pasaporte.getByRole('button', { name: 'Hacer mi tarjeta' }).click();
+    const carne = pasaporte.locator('[data-carne]');
+    await expect(carne).toContainText('Ana y Luis');
+    await expect(carne).toContainText('Pareja de detectives lectores');
+    await expect(carne).toContainText('I.E. Jorge Eliécer Gaitán');
+    await expect(carne.locator('[data-insignia]')).toHaveCount(4);
+    await page.reload();
+    await expect(page.locator('[data-carne]')).toContainText('Ana y Luis');
   });
 
-  test('en celular la pagina de pistas ofrece el indice En esta pagina', async ({ page }) => {
-    await page.setViewportSize({ width: 390, height: 844 });
-    await page.goto('/unidad/3/pistas');
-    const indice = page.locator('details', { hasText: 'En esta página' });
-    await expect(indice).toBeVisible();
-    await indice.locator('summary').click();
-    await expect(indice.getByRole('link').first()).toBeVisible();
-    await page.setViewportSize({ width: 1440, height: 900 });
-    await expect(indice).toBeHidden();
+  test('la Mision 1 completa gana la Lupa de Bronce y el progreso sobrevive a recargar', async ({
+    page,
+  }) => {
+    // step 3: parts of the fable
+    await page.goto('/unidad/1/lupa');
+    const partes = page.getByRole('region', { name: 'Inicio, nudo y desenlace' });
+    await hidratada(partes);
+    const nombres_cajas = Object.fromEntries(act1.partes.cajas.map((c) => [c.id, c.titulo]));
+    for (const item of act1.partes.items) {
+      await partes
+        .getByRole('group', { name: `Mover a una caja: ${item.texto}` })
+        .getByRole('button', { name: nombres_cajas[item.caja], exact: true })
+        .click();
+    }
+    await partes.getByRole('button', { name: 'Revisar' }).click();
+    await expect(partes.getByText(/Las 5 tarjetas están en su caja/)).toBeVisible();
+
+    // step 3: recipe in order. The stored order is written directly, as the arrows would leave it
+    await page.evaluate((orden) => {
+      localStorage.setItem('aventura_lectora:pasos:1:receta', JSON.stringify(orden));
+    }, act1.receta.pasos.map((p) => p.id));
+    await page.reload();
+    const receta = page.getByRole('region', { name: 'Ordena la receta' });
+    await hidratada(receta);
+    await receta.getByRole('button', { name: 'Revisar el orden' }).click();
+    await expect(receta.getByText(/La receta quedó en su orden/)).toBeVisible();
+
+    // step 4: the medal is not won yet
+    await page.goto('/unidad/1/cerrar');
+    const insignia = page.locator('[data-insignia-caso="1"]');
+    await hidratada(insignia);
+    await expect(insignia).toContainText('Haz estas cosas para ganarla');
+    const quiz = page.getByRole('region', { name: 'La idea más importante' });
+    await hidratada(quiz);
+    for (const pregunta of act1.quiz) {
+      const correcta = pregunta.opciones.find((o) => o.id === pregunta.correcta)?.texto ?? '';
+      await quiz.getByRole('button', { name: new RegExp(correcta.replace(/[.?]/g, '\\$&')) }).click();
+      await quiz.getByRole('button', { name: /Siguiente pregunta|Ver mi resultado/ }).click();
+    }
+    await expect(insignia).toContainText('¡Ganaste esta medalla!');
+
+    const guardado = await page.evaluate(() =>
+      JSON.parse(localStorage.getItem('aventura_lectora:ruta') ?? '{}'),
+    );
+    expect(guardado.resueltos).toEqual([1]);
+    expect(guardado.tareas).toEqual(['1:partes', '1:receta', '1:idea']);
+
+    await page.reload();
+    await expect(page.locator('[data-insignia-caso="1"]')).toContainText('¡Ganaste esta medalla!');
+    await page.goto('/cierre');
+    const medallas = page.locator('[data-pasaporte-medallas] [data-insignia]');
+    await expect(medallas).toHaveCount(4);
+    await expect(medallas.nth(0)).toHaveAttribute('data-ganada', 'true');
+    await expect(medallas.nth(1)).toHaveAttribute('data-ganada', 'false');
+  });
+});
+
+test.describe('reto familiar y libreta de campo', () => {
+  test('el formulario de tres campos registra el relato y cuenta para la Lupa de Plata', async ({
+    page,
+  }) => {
+    await page.goto('/unidad/2/cerrar');
+    const reto = page.getByRole('region', { name: 'Cuéntame, abuelo' });
+    await hidratada(reto);
+    for (const campo of act2.abuelo.campos) await expect(reto.getByLabel(campo.etiqueta)).toBeVisible();
+    await expect(reto.locator('textarea, input[type="text"]')).toHaveCount(3);
+    await reto.getByLabel(act2.abuelo.campos[0].etiqueta).fill('Mi abuelo Chepe');
+    await reto.getByLabel(act2.abuelo.campos[1].etiqueta).fill('Una copla sobre la molienda y el trapiche.');
+    await reto.getByLabel(act2.abuelo.campos[2].etiqueta).fill('Nos enseña a trabajar con calma.');
+    await expect(reto.getByText(/Tu historia quedó guardada/)).toBeVisible();
+    const tareas = await page.evaluate(
+      () => JSON.parse(localStorage.getItem('aventura_lectora:ruta') ?? '{}').tareas,
+    );
+    expect(tareas).toContain('2:abuelo');
   });
 
-  test('el paginador pone la pagina siguiente primero en celular', async ({ page }) => {
-    await page.setViewportSize({ width: 390, height: 844 });
-    await page.goto('/unidad/1');
-    const enlaces = page.getByRole('navigation', { name: 'Páginas del libro' }).getByRole('link');
-    await expect(enlaces.first()).toHaveAttribute('rel', 'next');
+  test('el boton destacado abre la ficha de la Libreta de campo de Mateo', async ({ page }) => {
+    await page.goto('/unidad/2/cerrar');
+    const enlace = page.locator('[data-libreta]');
+    await hidratada(enlace);
+    await expect(enlace).toContainText(
+      'Ficha de papel para la casa: Libreta de campo de Mateo (sin internet)',
+    );
+    await enlace.click();
+    await expect(page).toHaveURL(/\/libreta$/);
+    const ficha = page.locator('[data-ficha="1"]');
+    for (const campo of act2.abuelo.campos) await expect(ficha).toContainText(campo.etiqueta);
+    await expect(page.getByRole('button', { name: 'Imprimir una ficha (media carta)' })).toBeVisible();
+  });
+
+  test('al imprimir solo queda la ficha, en media carta', async ({ page }) => {
+    await page.goto('/libreta');
+    const regla = await page.locator('#pagina-impresion').textContent();
+    expect(regla).toContain('5.5in 8.5in');
+    await page.emulateMedia({ media: 'print' });
+    await expect(page.locator('[data-ficha="1"]')).toBeVisible();
+    await expect(page.locator('[data-cabecera]')).toBeHidden();
+    await expect(page.locator('[data-pie]')).toBeHidden();
+    await expect(page.getByRole('heading', { level: 1 })).toBeHidden();
+    await expect(page.locator('[data-ficha="2"]')).toBeHidden();
+  });
+});
+
+test.describe('reto final: torre de ideas', () => {
+  test('la torre se arma con frases iniciadoras y el autochequeo gana la Voz de Detective', async ({
+    page,
+  }) => {
+    await page.goto('/unidad/4/cerrar');
+    const torre = page.getByRole('region', { name: 'Arma tu torre de ideas' });
+    await hidratada(torre);
+    // no free text area: only short guided lines
+    await expect(torre.locator('textarea')).toHaveCount(0);
+    for (const frase of [
+      'Yo pienso que en nuestra escuela...',
+      'Yo pienso que en nuestra vereda...',
+      'Por ejemplo, cuando en la finca...',
+      'Por ejemplo, cuando en el salón...',
+    ]) {
+      await expect(torre.getByText(frase, { exact: true }).first()).toBeVisible();
+    }
+    const chequeo = torre.getByRole('checkbox');
+    await expect(chequeo).toHaveCount(3);
+    await expect(chequeo.first()).toBeDisabled();
+
+    await torre.getByText('¿Hay que cuidar más la quebrada de la vereda?').click();
+    await torre.getByText('Yo pienso que en nuestra vereda...', { exact: true }).click();
+    const linea = (inicio: string) => torre.getByRole('textbox', { name: `Termina la frase: ${inicio}...` });
+    await linea('Yo pienso que en nuestra vereda').fill('hay que cuidar la quebrada');
+    await linea('Porque en primer lugar,').fill('de ahí sale el agua de las fincas');
+    await linea('Además, he visto que').fill('la gente bota basura cerca');
+    await linea('Por ejemplo, cuando en la finca').fill('llovió duro, el agua bajó sucia');
+
+    await expect(torre.locator('[data-torre-texto]')).toHaveText(
+      'Yo pienso que en nuestra vereda hay que cuidar la quebrada. Porque en primer lugar, de ahí sale el agua de las fincas. Además, he visto que la gente bota basura cerca. Por ejemplo, cuando en la finca llovió duro, el agua bajó sucia.',
+    );
+    for (const punto of [
+      '1. Dije claramente qué pienso',
+      '2. Expliqué por qué con dos razones',
+      '3. Puse un ejemplo real de mi vereda o colegio',
+    ]) {
+      await torre.getByText(punto).click();
+    }
+    await expect(torre.getByText(/Tu torre quedó firme/)).toBeVisible();
+    const insignia = page.locator('[data-insignia-caso="4"]');
+    await hidratada(insignia);
+    await expect(insignia).toContainText('¡Ganaste esta medalla!');
+  });
+});
+
+test.describe('cierre del expediente', () => {
+  test('muestra las cuatro medallas, el relato familiar y el certificado con el nombre de la pareja', async ({
+    page,
+  }) => {
+    await sembrar(page, PROGRESO_COMPLETO);
+    await page.goto('/cierre');
+    const medallas = page.locator('[data-pasaporte-medallas] [data-insignia]');
+    await hidratada(medallas.first());
+    await expect(medallas).toHaveCount(4);
+    for (let i = 0; i < 4; i += 1) await expect(medallas.nth(i)).toHaveAttribute('data-ganada', 'true');
+    for (const nombre of ['Lupa de Bronce', 'Lupa de Plata', 'Detector de Verdades', 'Voz de Detective']) {
+      await expect(page.locator('[data-pasaporte-medallas]')).toContainText(nombre);
+    }
+
+    await page.locator('#relato').scrollIntoViewIfNeeded();
+    const relato = page.locator('[data-relato-familiar]');
+    await expect(relato).toContainText('Mi abuela Rosa');
+    await expect(relato).toContainText('círculo de lectura');
+
+    const certificado = page.locator('[data-certificado]');
+    await hidratada(certificado);
+    await expect(certificado).toContainText('Diploma de Detective Lector');
+    await expect(certificado).toContainText(
+      'Institución Educativa Jorge Eliécer Gaitán (Maripí, Boyacá)',
+    );
+    await expect(page.locator('[data-certificado-nombre]')).toHaveText('Ana y Luis');
+    await expect(certificado).toContainText('Luz Marina Castillo Cuadrado');
+    await expect(certificado).toContainText('Ingrid Yuliana González Flores');
+  });
+
+  test('el boton de impresion imprime solo el certificado', async ({ page }) => {
+    await sembrar(page, PROGRESO_COMPLETO);
+    await page.addInitScript(() => {
+      (window as unknown as { __impresiones: number }).__impresiones = 0;
+      window.print = () => {
+        (window as unknown as { __impresiones: number }).__impresiones += 1;
+      };
+    });
+    await page.goto('/cierre');
+    const boton = page.getByRole('button', { name: 'Imprimir diploma' });
+    await hidratada(boton);
+    await expect(boton).toBeEnabled();
+    await boton.click();
+    await expect
+      .poll(() => page.evaluate(() => (window as unknown as { __impresiones: number }).__impresiones))
+      .toBe(1);
+    await page.emulateMedia({ media: 'print' });
+    await expect(page.locator('[data-certificado]')).toBeVisible();
+    await expect(page.locator('#pasaporte')).toBeHidden();
+    await expect(page.locator('#relato')).toBeHidden();
+    await expect(page.locator('[data-cabecera]')).toBeHidden();
+    await expect(boton).toBeHidden();
+  });
+
+  test('el certificado tambien se descarga en PDF', async ({ page }) => {
+    await sembrar(page, PROGRESO_COMPLETO);
+    await page.goto('/cierre');
+    const boton = page.getByRole('button', { name: 'Descargar diploma' });
+    await hidratada(boton);
+    const [descarga] = await Promise.all([page.waitForEvent('download'), boton.click()]);
+    expect(descarga.suggestedFilename()).toBe('diploma_detective_lector.pdf');
+  });
+
+  test('en un celular compartido la docente puede borrar el progreso', async ({ page }) => {
+    await sembrar(page, PROGRESO_COMPLETO);
+    await page.goto('/docentes');
+    const boton = page.locator('[data-reiniciar]');
+    await boton.scrollIntoViewIfNeeded();
+    await boton.click();
+    await expect(page.locator('[data-reiniciar-estado]')).toContainText('Pulsa otra vez');
+    await boton.click();
+    await expect(page.locator('[data-reiniciar-estado]')).toContainText('Progreso borrado');
+    const quedan = await page.evaluate(() =>
+      Object.keys(localStorage).filter((k) => k.startsWith('aventura_lectora:') && !k.endsWith(':ajustes')),
+    );
+    expect(quedan).toEqual([]);
+  });
+});
+
+test.describe('sin recursos externos', () => {
+  test('el recorrido no pide nada a otros servidores', async ({ page }) => {
+    const externas: string[] = [];
+    page.on('request', (r) => {
+      const url = new URL(r.url());
+      if (url.protocol.startsWith('http') && url.hostname !== 'localhost') externas.push(r.url());
+    });
+    for (const ruta of RECORRIDO) {
+      await page.goto(ruta);
+      await page.waitForLoadState('networkidle');
+      await expect(page.locator('iframe, video, audio')).toHaveCount(0);
+    }
+    expect(externas).toEqual([]);
   });
 });
 
 test.describe('portada como libro', () => {
   const tamanos = [
     { nombre: 'escritorio', ancho: 1440, alto: 900, largo: 1 },
-    { nombre: 'tableta', ancho: 768, alto: 1024, largo: 1.5 },
     { nombre: 'celular', ancho: 390, alto: 844, largo: 1.5 },
     { nombre: 'celular pequeno', ancho: 360, alto: 640, largo: 1.5 },
   ];
@@ -494,9 +756,9 @@ test.describe('portada como libro', () => {
       await page.goto('/');
       await page.waitForLoadState('networkidle');
       await expect(page.locator('.apertura-activa')).toHaveCount(1);
-      await expect(page.getByRole('link', { name: 'Empezar el caso 1' }).first()).toHaveAttribute(
+      await expect(page.getByRole('link', { name: 'Empezar la aventura' }).first()).toHaveAttribute(
         'href',
-        '/unidad/1',
+        '/agencia',
       );
       await page.evaluate((y) => window.scrollTo(0, y), Math.round(t.alto * t.largo));
       await page.waitForTimeout(1600);
@@ -509,26 +771,20 @@ test.describe('portada como libro', () => {
     });
   }
 
-  test('al abrir el libro el enlace Empezar el caso 1 de la portadilla es cliqueable y navega', async ({
-    page,
-  }) => {
+  test('la portadilla nombra a las autoras y lleva a la Agencia', async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
     await page.goto('/');
     await page.waitForLoadState('networkidle');
     await page.evaluate(() => window.scrollTo(0, 900));
     await page.waitForTimeout(1600);
-    const boton = page.locator('#portadilla').getByRole('link', { name: 'Empezar el caso 1' });
+    const portadilla = page.locator('#portadilla');
+    await expect(portadilla).toContainText('Luz Marina Castillo Cuadrado');
+    await expect(portadilla).toContainText('Ingrid Yuliana González Flores');
+    await expect(portadilla).toContainText('Gustavo Alberto Orozco Bohórquez');
+    const boton = portadilla.getByRole('link', { name: 'Empezar la aventura' });
     await expect(boton).toBeVisible();
     await boton.click();
-    await expect(page).toHaveURL(/.*\/unidad\/1/);
-  });
-
-  test('en horizontal de celular la portada es una pila de paginas simple', async ({ page }) => {
-    await page.setViewportSize({ width: 844, height: 390 });
-    await page.goto('/');
-    await page.waitForLoadState('networkidle');
-    await expect(page.locator('.apertura-activa')).toHaveCount(0);
-    await expect(page.locator('#portadilla')).toBeAttached();
+    await expect(page).toHaveURL(/.*\/agencia/);
   });
 
   test('un clic en el boton O baja para abrir el libro lo abre', async ({ page }) => {
@@ -538,54 +794,23 @@ test.describe('portada como libro', () => {
     await page.getByRole('button', { name: /baja para abrir el libro/ }).click();
     await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(500);
   });
-});
 
-test.describe('pendientes', () => {
-  test('no queda ningun PENDIENTE visible en todo el sitio', async ({ page }) => {
-    const encontrados: string[] = [];
-    for (const ruta of RUTAS) {
-      await page.goto(ruta);
-      const texto = await page.evaluate(() => document.body.innerText);
-      if (texto.includes('[PENDIENTE')) encontrados.push(ruta);
-    }
-    expect(encontrados).toEqual([]);
-    await page.goto('/unidad/1/cerrar');
-    await expect(page.getByText(/Adaptación revisada por Selene María Caballero Valle/)).toBeVisible();
-  });
-
-  test('el reto del caso 4 muestra la noticia con su fuente y enlace', async ({ page }) => {
-    await page.goto('/unidad/4/cerrar');
-    const noticia = page.getByRole('region', { name: /De Bogotá al espacio/ });
-    await expect(noticia).toBeVisible();
-    await expect(noticia).toContainText('City TV Noticias');
-    await expect(noticia).toContainText('25 de septiembre de 2026');
-    await expect(noticia.getByRole('link', { name: /Leer la noticia/ })).toHaveAttribute(
+  test('la portada recuerda donde iba el estudiante', async ({ page }) => {
+    await sembrar(page, {
+      'aventura_lectora:ruta': {
+        resueltos: [],
+        visitados: [2],
+        paginas_leidas: [],
+        tareas: [],
+        ultimo: { ruta: '/unidad/2/lupa', seccion: 'practica' },
+      },
+    });
+    await page.goto('/');
+    const caja = page.locator('#indice [data-seguir-caja]');
+    await expect(caja).toContainText('Misión 2: Pistas y "Cuéntame, abuelo", entrenar la lupa');
+    await expect(caja.locator('[data-seguir-enlace]')).toHaveAttribute(
       'href',
-      /citytv\.eltiempo\.com/,
+      '/unidad/2/lupa#practica',
     );
-  });
-
-  test('el poema del caso 2 explica como se verifico y las referencias lo citan', async ({
-    page,
-  }) => {
-    await page.goto('/unidad/2/pistas');
-    const detalle = page.locator('details', { hasText: 'Cómo se verificó este texto' }).first();
-    await expect(detalle).toBeAttached();
-    await expect(detalle).toContainText('54 versos');
-    await page.goto('/referencias');
-    await expect(
-      page.getByText(/Biblioteca Luis Ángel Arango, Banco de la República/),
-    ).toBeVisible();
-    await expect(page.getByText(/City TV Noticias/)).toBeVisible();
-    await expect(page.getByText(/Andika \(SIL International\)/)).toBeVisible();
-  });
-
-  test('docentes lista las verificaciones del curso completas', async ({ page }) => {
-    await page.goto('/docentes');
-    const tabla = page.getByRole('table', { name: 'Verificaciones del curso' });
-    await expect(tabla).toBeAttached();
-    await expect(tabla.locator('tbody tr')).toHaveCount(6);
-    await expect(tabla.getByText('Pendiente', { exact: true })).toHaveCount(0);
-    await expect(tabla.getByText('Listo', { exact: true })).toHaveCount(6);
   });
 });

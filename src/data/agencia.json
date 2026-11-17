@@ -1,0 +1,36 @@
+{
+  "relato": [
+    "Un lunes por la mañana, en el salón de quinto de la Institución Educativa Jorge Eliécer Gaitán, entre las lomas de caña y cacao de Maripí, pasó algo muy raro.",
+    "Sofía y Mateo abrieron los cuentos de la biblioteca y vieron que las ideas más importantes se estaban borrando solas. Los pasos de las recetas del campo aparecían revueltos.",
+    "Al culpable lo llaman el Borracuentos. Cada vez que alguien lee corriendo, sin entender, los libros pierden un pedazo de su historia y los abuelos olvidan sus coplas y leyendas. Y a los celulares de las familias llegan chismes que nadie firma.",
+    "Sofía sacó su lupa azul, Mateo alistó su libreta verde y entre los dos armaron el Club de Detectives Lectores. ¡Necesitan tu ayuda!"
+  ],
+  "personajes": [
+    {
+      "id": "sofia",
+      "nombre": "Sofía",
+      "apodo": "La Guardiana de la Lupa",
+      "texto": "Tiene 10 años y lee con calma. Si no entiende algo, vuelve a leer antes de contestar. Cuando una pregunta se pone difícil, te da una pista.",
+      "compania": "La acompañan el conejo de la bufanda roja y la tortuga."
+    },
+    {
+      "id": "mateo",
+      "nombre": "Mateo",
+      "apodo": "El Rastreador de Pistas",
+      "texto": "Tiene 11 años y anota todo en su libreta. Antes leía muy rápido y creía todo lo que llegaba al celular. Ahora siempre mira quién escribió cada mensaje.",
+      "compania": "Lo acompaña la oruga del sombrero de copa."
+    }
+  ],
+  "prueba": {
+    "nota": "En la puerta del salón apareció esta nota: \"Las ideas no se fueron lejos. Están donde se lee despacio y con calma\".",
+    "pregunta": "Según la nota, ¿dónde están las ideas?",
+    "opciones": [
+      { "id": "calma", "texto": "Donde se lee despacio y con calma" },
+      { "id": "tienda", "texto": "En la tienda del pueblo" },
+      { "id": "pupitre", "texto": "Debajo de un pupitre" }
+    ],
+    "correcta": "calma",
+    "acierto": "¡Resolviste tu primera pista! Así es toda la aventura: lees, contestas y, si te equivocas, vuelves a leer con una pista.",
+    "pista": "No pasa nada por equivocarse. Vuelve a leer la nota despacio: la respuesta está en la segunda frase."
+  }
+}

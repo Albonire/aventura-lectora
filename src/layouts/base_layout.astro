@@ -10,8 +10,10 @@ interface Props {
   descripcion?: string;
 }
 
-const { titulo, descripcion = `${sitio.nombre_largo}. Curso virtual para ${sitio.grado}.` } =
-  Astro.props;
+const {
+  titulo,
+  descripcion = `${sitio.nombre_largo}. Ruta gamificada de comprensión lectora para ${sitio.grado}, ${sitio.institucion_corta}.`,
+} = Astro.props;
 
 const titulo_pagina = titulo === sitio.nombre_curso ? titulo : `${titulo} | ${sitio.nombre_curso}`;
 ---
@@ -21,7 +23,7 @@ const titulo_pagina = titulo === sitio.nombre_curso ? titulo : `${titulo} | ${si
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#f5f1e4" />
+    <meta name="theme-color" content="#faf6ee" />
     <meta name="description" content={descripcion} />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -45,7 +47,6 @@ const titulo_pagina = titulo === sitio.nombre_curso ? titulo : `${titulo} | ${si
         const mov = typeof a.movimiento === 'boolean' ? a.movimiento : !reduce;
         if (!mov) d.setAttribute('data-movimiento', 'no');
         if (a.letra_grande) d.setAttribute('data-letra', 'grande');
-        if (a.voz) d.setAttribute('data-voz', 'si');
       })();
     </script>
   </head>

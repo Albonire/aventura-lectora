@@ -1,0 +1,270 @@
+---
+// "Libreta de campo de Mateo": half letter paper sheet of the family challenge of mission 2.
+// Four of the thirteen homes have no mobile data, so those children fill it in on paper at home
+// and register it in the classroom the next day. The page prints only the sheet.
+import CursoLayout from '../layouts/curso_layout.astro';
+import EncabezadoPagina from '../components/curso/encabezado_pagina.astro';
+import Mateo from '../components/ilustraciones/mateo.astro';
+import Oruga from '../components/ilustraciones/oruga.astro';
+import { Printer } from '@phosphor-icons/react/ssr';
+import { ruta_seccion } from '../config/paginas';
+import { sitio } from '../config/sitio';
+import act from '../data/actividades/unidad_2.json';
+
+const campos = act.abuelo.campos;
+// ruled lines of each answer on paper
+const lineas: Record<string, number> = { quien: 1, trama: 7, ensenanza: 3 };
+const copias = [1, 2];
+---
+
+<CursoLayout
+  titulo="Libreta de campo de Mateo"
+  descripcion="Ficha imprimible en media carta del reto familiar Cuéntame, abuelo, para los hogares sin datos móviles."
+  titulo_cabecera="Libreta de campo de Mateo"
+  sin_paginador
+>
+  <div class="no-imprimir">
+    <EncabezadoPagina
+      etiqueta="Misión 2: reto familiar sin internet"
+      titulo="Libreta de campo de Mateo"
+      color="coral-pop"
+    >
+      <p>
+        Ficha de papel para llenar en la casa con un abuelo o un familiar. Al otro día se copia en el
+        salón.
+      </p>
+    </EncabezadoPagina>
+
+    <div class="contenedor pb-6">
+      <div class="hidden flex-wrap gap-3 [.js_&]:flex">
+        <button
+          type="button"
+          data-imprimir-ficha="1"
+          class="interfaz inline-flex min-h-12 items-center gap-2.5 rounded-pill border-2 border-ink-black bg-fresh-grass px-6 text-body-sm font-bold hover:bg-ink-black hover:text-cream-paper"
+        >
+          <Printer size={22} weight="bold" aria-hidden="true" />
+          Imprimir una ficha (media carta)
+        </button>
+        <button
+          type="button"
+          data-imprimir-ficha="2"
+          class="interfaz inline-flex min-h-12 items-center gap-2.5 rounded-pill border-2 border-ink-black bg-pure-white px-6 text-body-sm font-medium hover:bg-sandstone"
+        >
+          <Printer size={22} weight="bold" aria-hidden="true" />
+          Imprimir dos fichas en una hoja carta
+        </button>
+      </div>
+      <p class="mt-3 max-w-reading text-body-sm text-stone-text">
+        Para las profesoras: cuatro de los trece hogares no tienen datos móviles. Entreguen esta
+        ficha a esos estudiantes al terminar el paso 3 de la Misión 2. Si en casa sí hay internet, la
+        historia se escribe en{' '}
+        <a
+          class="font-medium text-ink-black underline decoration-2 underline-offset-4"
+          href={ruta_seccion(2, 'reto')}>el reto familiar de la Misión 2</a
+        >.
+      </p>
+    </div>
+  </div>
+
+  <div class="contenedor pb-10">
+    <div class="fichas" data-fichas>
+      {
+        copias.map((copia) => (
+          <article
+            class:list={['ficha', copia === 2 && 'ficha-copia']}
+            data-ficha={copia}
+            aria-hidden={copia === 2 ? 'true' : undefined}
+          >
+            <header class="ficha-cabecera">
+              <div class="ficha-dibujo" aria-hidden="true">
+                <Mateo size={92} pose="libreta" />
+                <Oruga size={34} />
+              </div>
+              <div>
+                {copia === 1 ? (
+                  <h2 class="ficha-titulo">Libreta de campo de Mateo</h2>
+                ) : (
+                  <p class="ficha-titulo">Libreta de campo de Mateo</p>
+                )}
+                <p class="ficha-sub">Misión 2: Cuéntame, abuelo</p>
+                <p class="ficha-dato">
+                  {sitio.institucion_corta}, {sitio.municipio_corto}. Quinto grado.
+                </p>
+              </div>
+            </header>
+
+            <p class="ficha-linea-dato">
+              <span>Detective:</span>
+              <span class="ficha-raya" />
+              <span>Fecha:</span>
+              <span class="ficha-raya ficha-raya-corta" />
+            </p>
+
+            <p class="ficha-instruccion">
+              Pídele a un abuelo, una abuela o alguien mayor de tu casa que te cuente un mito, una
+              leyenda o una copla de Maripí. Escucha con calma y después escribe.
+            </p>
+
+            {campos.map((c) => (
+              <section class="ficha-campo">
+                <p class="ficha-pregunta">{c.etiqueta}</p>
+                {Array.from({ length: lineas[c.id] ?? 2 }).map(() => (
+                  <div class="ficha-renglon" />
+                ))}
+              </section>
+            ))}
+
+            <p class="ficha-pie">
+              Mañana llevo esta ficha al salón y copio mi historia con la profesora para ganar la
+              medalla Lupa de Plata.
+            </p>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</CursoLayout>
+
+<style is:inline id="pagina-impresion">
+  @page {
+    size: 5.5in 8.5in;
+    margin: 8mm;
+  }
+</style>
+
+<style is:global>
+  .fichas {
+    display: flex;
+    justify-content: center;
+  }
+  .ficha {
+    display: flex;
+    width: 100%;
+    max-width: 5.5in;
+    min-height: 8.1in;
+    flex-direction: column;
+    border: 2px solid var(--color-ink-black);
+    border-radius: 0.75rem;
+    background: #ffffff;
+    padding: 0.3in;
+    font-family: var(--font-lectura);
+    color: var(--color-ink-black);
+  }
+  .ficha-copia {
+    display: none;
+  }
+  .ficha-cabecera {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    border-bottom: 2px solid var(--color-ink-black);
+    padding-bottom: 0.4rem;
+  }
+  .ficha-dibujo {
+    display: flex;
+    flex-shrink: 0;
+    align-items: flex-end;
+  }
+  .ficha-titulo {
+    font-size: 1.35rem;
+    font-weight: 700;
+    line-height: 1.15;
+  }
+  .ficha-sub {
+    font-size: 1rem;
+    font-weight: 700;
+  }
+  .ficha-dato {
+    font-size: 0.75rem;
+    color: var(--color-stone-text);
+  }
+  .ficha-linea-dato {
+    display: flex;
+    align-items: flex-end;
+    gap: 0.4rem;
+    margin-top: 0.7rem;
+    font-size: 0.9rem;
+    font-weight: 700;
+  }
+  .ficha-raya {
+    flex: 1;
+    border-bottom: 1.5px solid var(--color-ink-black);
+  }
+  .ficha-raya-corta {
+    flex: 0 0 26%;
+  }
+  .ficha-instruccion {
+    margin-top: 0.6rem;
+    font-size: 0.9rem;
+    line-height: 1.35;
+  }
+  .ficha-campo {
+    margin-top: 0.7rem;
+    break-inside: avoid;
+  }
+  .ficha-pregunta {
+    font-size: 0.95rem;
+    font-weight: 700;
+    line-height: 1.3;
+  }
+  .ficha-renglon {
+    height: 0.36in;
+    border-bottom: 1.5px solid var(--color-stone-gray);
+  }
+  .ficha-pie {
+    margin-top: auto;
+    border-top: 2px dashed var(--color-ink-black);
+    padding-top: 0.4rem;
+    font-size: 0.8rem;
+    line-height: 1.3;
+  }
+
+  @media print {
+    .contenedor {
+      max-width: none;
+      padding: 0;
+    }
+    .contenedor {
+      padding-bottom: 0 !important;
+    }
+    /* the whole sheet fits one half letter page: 8.5in minus the 8mm margins */
+    .ficha {
+      max-width: none;
+      height: calc(8.5in - 16mm - 1mm);
+      min-height: 0;
+      overflow: hidden;
+      border-radius: 0.5rem;
+      padding: 0.22in;
+      print-color-adjust: exact;
+      -webkit-print-color-adjust: exact;
+    }
+    .ficha-renglon {
+      height: 0.33in;
+    }
+    html[data-fichas='2'] .fichas {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12mm;
+    }
+    html[data-fichas='2'] .ficha-copia {
+      display: flex;
+    }
+  }
+</style>
+
+<script>
+  // one sheet on half letter paper, or two side by side on a letter sheet to cut in half
+  const estilo = document.getElementById('pagina-impresion');
+  const tamanos: Record<string, string> = {
+    '1': '@page { size: 5.5in 8.5in; margin: 8mm; }',
+    '2': '@page { size: 11in 8.5in; margin: 8mm; }',
+  };
+  document.querySelectorAll<HTMLButtonElement>('[data-imprimir-ficha]').forEach((boton) => {
+    boton.addEventListener('click', () => {
+      const fichas = boton.dataset.imprimirFicha ?? '1';
+      document.documentElement.dataset.fichas = fichas;
+      if (estilo) estilo.textContent = tamanos[fichas] ?? tamanos['1'];
+      window.print();
+    });
+  });
+</script>

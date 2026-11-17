@@ -1,15 +1,18 @@
 import Seccion from '../../../components/ui/seccion.astro';
-import { ChallengeCard } from '../../../components/islas/challenge_card';
-import datos_retos from '../../../data/retos.json';
-import { MuroDetective } from '../../../components/islas/muro_detective';
+import Releer from '../../../components/ui/releer.astro';
+import { QuizCard } from '../../../components/islas/quiz_card';
+import { Burbuja } from '../../../components/islas/personajes';
+import act from '../../../data/actividades/unidad_3.json';
 
-<Seccion id="reto" titulo="Reto del caso" etiqueta="Actividad sumativa">
+<Seccion id="reto" titulo="Reto del caso" etiqueta="Revisa antes de compartir">
 
 <div class="flex flex-col gap-8">
 
-<MuroDetective client:visible muro_id="caso_3" titulo="Muro de preguntas del caso 3" etiqueta="Recurso propio" pregunta="Publica una pregunta de cada lupa y responde la de un compañero." columnas={[{ id: 'lupa1', titulo: 'Lupa 1: literal' }, { id: 'lupa2', titulo: 'Lupa 2: inferencial' }, { id: 'lupa3', titulo: 'Lupa 3: crítico' }]} ayuda_publicar="Escribe una pregunta en la columna de su nivel." />
+{act.mensajes.map((m) => <Releer titulo={m.nombre} parrafos={m.lineas} etiqueta_parrafo="Línea" />)}
 
-<ChallengeCard client:visible reto={datos_retos.retos[2]} unidad={3} titulo_caso={props.unidad.titulo} />
+<QuizCard client:visible preguntas={act.quiz} unidad={3} id="verificar" tarea="verificar" titulo="¿Lo comparto o no?" />
+
+<Burbuja quien="mateo"><span class="interfaz mr-2 inline-block rounded-pill border-2 border-ink-black bg-sunshine-pop px-3 py-0.5 text-body-sm font-bold">{act.argumento.estrategia}</span><span>{act.argumento.texto}</span></Burbuja>
 
 </div>
 

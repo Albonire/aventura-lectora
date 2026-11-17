@@ -1,0 +1,22 @@
+---
+// reading strategy labels of a case ("predigo", "pregunto", "opino") with what each one means
+interface Props {
+  items: { etiqueta: string; texto: string }[];
+}
+const { items } = Astro.props;
+---
+
+{
+  items.length > 0 && (
+    <ul class="flex flex-col gap-2" data-estrategias>
+      {items.map((e) => (
+        <li class="flex flex-wrap items-baseline gap-x-3 gap-y-1 text-body">
+          <span class="interfaz inline-block rounded-pill border-2 border-ink-black bg-sunshine-pop px-3 py-0.5 text-body-sm font-bold">
+            {e.etiqueta}
+          </span>
+          <span class="min-w-0 flex-1">{e.texto}</span>
+        </li>
+      ))}
+    </ul>
+  )
+}

@@ -12,20 +12,20 @@ import {
 } from '../../lib/empatizar';
 
 export const PALETA_PIXEL: Record<string, string> = {
-  K: '#2c2e2a', // ink-black
+  K: '#1e293b', // ink-black
   W: '#ffffff', // pure-white
-  C: '#f5f1e4', // cream-paper
-  S: '#e0dbce', // sandstone
+  C: '#faf6ee', // cream-paper
+  S: '#ece5d6', // sandstone
   M: '#b8b2a3', // stone shadow
-  Y: '#f5e211', // sunshine-pop
+  Y: '#facc15', // sunshine-pop
   y: '#d4c208', // dark yellow
-  G: '#8ed462', // fresh-grass
+  G: '#84cc16', // fresh-grass
   g: '#5aa03a', // mid green
   E: '#3e7a29', // deep green
-  B: '#2ba0ff', // sky-pop
+  B: '#0284c7', // sky-pop
   b: '#8ccbff', // light sky
   L: '#dbeefb', // pale sky
-  R: '#ff705d', // coral-pop
+  R: '#f43f5e', // coral-pop
   r: '#c94a38', // dark coral / terracotta
   P: '#e5b88b', // light skin
   p: '#c48b5c', // tan skin
@@ -57,7 +57,7 @@ export function MatrizPixel({
       {filas.map((fila, idx_y) => {
         const segmentos = compactar_fila_pixel(fila);
         return segmentos.map((seg, idx_s) => {
-          const fill = paleta[seg.c] ?? '#2c2e2a';
+          const fill = paleta[seg.c] ?? '#1e293b';
           return (
             <rect
               key={`${idx_y}-${idx_s}`}
@@ -139,15 +139,15 @@ const SPRITES_ESTUDIANTE_MINI: string[][][] = [
 
 const PALETA_INACTIVA: Record<string, string> = {
   ...PALETA_PIXEL,
-  Y: '#e0dbce',
-  B: '#e0dbce',
-  R: '#e0dbce',
-  G: '#e0dbce',
-  P: '#f5f1e4',
-  p: '#f5f1e4',
-  C: '#e0dbce',
-  W: '#f5f1e4',
-  K: '#80827f',
+  Y: '#ece5d6',
+  B: '#ece5d6',
+  R: '#ece5d6',
+  G: '#ece5d6',
+  P: '#faf6ee',
+  p: '#faf6ee',
+  C: '#ece5d6',
+  W: '#faf6ee',
+  K: '#94a3b8',
 };
 
 export function EstudiantePixelMini({
@@ -392,37 +392,37 @@ export function EscenaPersonaPixel({ id }: { id: PerfilPersona['id'] }) {
         aria-hidden="true"
       >
         {/* Pared del aula y mesa de madera */}
-        <rect width="60" height="26" fill="#f5f1e4" />
+        <rect width="60" height="26" fill="#faf6ee" />
         <rect y="20" width="60" height="6" fill="#dcae82" />
-        <rect y="20" width="60" height="1" fill="#2c2e2a" />
+        <rect y="20" width="60" height="1" fill="#1e293b" />
 
         {/* Tablero escolar verde en pixel art (izquierda) */}
-        <rect x="3" y="3" width="18" height="12" fill="#2c2e2a" />
-        <rect x="4" y="4" width="16" height="10" fill="#4f9a34" />
+        <rect x="3" y="3" width="18" height="12" fill="#1e293b" />
+        <rect x="4" y="4" width="16" height="10" fill="#4d7c0f" />
         <rect x="6" y="6" width="8" height="1" fill="#ffffff" />
         <rect x="6" y="9" width="11" height="1" fill="#ffffff" />
-        <rect x="6" y="12" width="6" height="1" fill="#f5e211" />
+        <rect x="6" y="12" width="6" height="1" fill="#facc15" />
 
         {/* Bloque de signo de pregunta pixel-art */}
-        <rect x="17" y="2" width="5" height="5" fill="#2c2e2a" />
-        <rect x="18" y="3" width="3" height="3" fill="#f5e211" />
-        <rect x="19" y="4" width="1" height="1" fill="#2c2e2a" />
+        <rect x="17" y="2" width="5" height="5" fill="#1e293b" />
+        <rect x="18" y="3" width="3" height="3" fill="#facc15" />
+        <rect x="19" y="4" width="1" height="1" fill="#1e293b" />
 
         {/* Sofía en pixel art en el centro */}
         <MatrizPixel filas={personaje_sofia} x={23} y={9} escala={1} />
 
         {/* Lupa pixel-art junto a Sofía */}
-        <rect x="19" y="13" width="4" height="4" fill="#2c2e2a" />
+        <rect x="19" y="13" width="4" height="4" fill="#1e293b" />
         <rect x="20" y="14" width="2" height="2" fill="#dbeefb" />
-        <rect x="21" y="17" width="1" height="3" fill="#8ed462" />
+        <rect x="21" y="17" width="1" height="3" fill="#84cc16" />
 
         {/* Libro abierto sobre la mesa (derecha) */}
-        <rect x="41" y="15" width="15" height="6" fill="#2c2e2a" />
+        <rect x="41" y="15" width="15" height="6" fill="#1e293b" />
         <rect x="42" y="16" width="6" height="4" fill="#ffffff" />
         <rect x="49" y="16" width="6" height="4" fill="#ffffff" />
-        <rect x="43" y="17" width="4" height="1" fill="#f5e211" />
-        <rect x="50" y="17" width="4" height="1" fill="#2c2e2a" />
-        <rect x="50" y="19" width="3" height="1" fill="#ff705d" />
+        <rect x="43" y="17" width="4" height="1" fill="#facc15" />
+        <rect x="50" y="17" width="4" height="1" fill="#1e293b" />
+        <rect x="50" y="19" width="3" height="1" fill="#f43f5e" />
       </svg>
     );
   }
@@ -452,31 +452,31 @@ export function EscenaPersonaPixel({ id }: { id: PerfilPersona['id'] }) {
         {/* Cielo de atardecer campesino y montañas escalonadas en pixel-art */}
         <rect width="60" height="26" fill="#fcf6c5" />
         {/* Sol pixelado */}
-        <rect x="6" y="4" width="6" height="6" fill="#f5e211" />
-        <rect x="5" y="5" width="8" height="4" fill="#f5e211" />
+        <rect x="6" y="4" width="6" height="6" fill="#facc15" />
+        <rect x="5" y="5" width="8" height="4" fill="#facc15" />
         {/* Montañas de Maripí */}
         <rect x="0" y="14" width="60" height="12" fill="#5aa03a" />
         <rect x="8" y="12" width="18" height="2" fill="#5aa03a" />
         <rect x="38" y="11" width="16" height="3" fill="#5aa03a" />
-        <rect x="0" y="18" width="60" height="8" fill="#8ed462" />
+        <rect x="0" y="18" width="60" height="8" fill="#84cc16" />
 
         {/* Arbusto de café con cerezas rojas (izquierda) */}
         <rect x="7" y="16" width="2" height="6" fill="#5c442c" />
         <rect x="5" y="13" width="6" height="5" fill="#3e7a29" />
-        <rect x="6" y="14" width="1" height="1" fill="#ff705d" />
-        <rect x="9" y="15" width="1" height="1" fill="#ff705d" />
-        <rect x="7" y="16" width="1" height="1" fill="#f5e211" />
+        <rect x="6" y="14" width="1" height="1" fill="#f43f5e" />
+        <rect x="9" y="15" width="1" height="1" fill="#f43f5e" />
+        <rect x="7" y="16" width="1" height="1" fill="#facc15" />
 
         {/* Julián con sombrero campesino y ruana */}
         <MatrizPixel filas={personaje_julian} x={23} y={8} escala={1} />
 
         {/* Insignia pixel de tradición oral y señal de celular (derecha) */}
-        <rect x="43" y="4" width="13" height="10" fill="#2c2e2a" />
+        <rect x="43" y="4" width="13" height="10" fill="#1e293b" />
         <rect x="44" y="5" width="11" height="8" fill="#ffffff" />
-        <rect x="46" y="9" width="1" height="3" fill="#8ed462" />
-        <rect x="48" y="7" width="1" height="5" fill="#8ed462" />
-        <rect x="50" y="6" width="1" height="6" fill="#8ed462" />
-        <rect x="52" y="7" width="2" height="2" fill="#f5e211" />
+        <rect x="46" y="9" width="1" height="3" fill="#84cc16" />
+        <rect x="48" y="7" width="1" height="5" fill="#84cc16" />
+        <rect x="50" y="6" width="1" height="6" fill="#84cc16" />
+        <rect x="52" y="7" width="2" height="2" fill="#facc15" />
       </svg>
     );
   }
@@ -505,19 +505,19 @@ export function EscenaPersonaPixel({ id }: { id: PerfilPersona['id'] }) {
       >
         <rect width="60" height="26" fill="#dbeefb" />
         <rect y="20" width="60" height="6" fill="#dcae82" />
-        <rect y="20" width="60" height="1" fill="#2c2e2a" />
+        <rect y="20" width="60" height="1" fill="#1e293b" />
 
         {/* Reloj de turnos en pixel-art (izquierda) */}
-        <rect x="5" y="5" width="9" height="9" fill="#2c2e2a" />
-        <rect x="6" y="6" width="7" height="7" fill="#f5e211" />
-        <rect x="9" y="7" width="1" height="3" fill="#2c2e2a" />
-        <rect x="9" y="9" width="3" height="1" fill="#2c2e2a" />
+        <rect x="5" y="5" width="9" height="9" fill="#1e293b" />
+        <rect x="6" y="6" width="7" height="7" fill="#facc15" />
+        <rect x="9" y="7" width="1" height="3" fill="#1e293b" />
+        <rect x="9" y="9" width="3" height="1" fill="#1e293b" />
 
         {/* Valentina con dos moños y celular compartido */}
         <MatrizPixel filas={personaje_valentina} x={21} y={8} escala={1} />
 
         {/* Cuadrícula de sopa de letras en pixel-art (derecha) */}
-        <rect x="41" y="3" width="15" height="15" fill="#2c2e2a" />
+        <rect x="41" y="3" width="15" height="15" fill="#1e293b" />
         <rect x="42" y="4" width="13" height="13" fill="#ffffff" />
         {[0, 1, 2].map((r) =>
           [0, 1, 2].map((c) => (
@@ -527,7 +527,7 @@ export function EscenaPersonaPixel({ id }: { id: PerfilPersona['id'] }) {
               y={5 + r * 4}
               width="3"
               height="3"
-              fill={r === 1 ? '#f5e211' : '#e0dbce'}
+              fill={r === 1 ? '#facc15' : '#ece5d6'}
             />
           )),
         )}
@@ -557,28 +557,28 @@ export function EscenaPersonaPixel({ id }: { id: PerfilPersona['id'] }) {
         shapeRendering="crispEdges"
         aria-hidden="true"
       >
-        <rect width="60" height="26" fill="#f5f1e4" />
+        <rect width="60" height="26" fill="#faf6ee" />
         <rect y="20" width="60" height="6" fill="#dcae82" />
-        <rect y="20" width="60" height="1" fill="#2c2e2a" />
+        <rect y="20" width="60" height="1" fill="#1e293b" />
 
         {/* Estante con pocos libros (izquierda) */}
-        <rect x="4" y="4" width="14" height="12" fill="#2c2e2a" />
-        <rect x="5" y="5" width="12" height="10" fill="#e0dbce" />
-        <rect x="6" y="7" width="2" height="7" fill="#ff705d" />
-        <rect x="9" y="8" width="2" height="6" fill="#2ba0ff" />
-        <rect x="12" y="7" width="2" height="7" fill="#f5e211" />
+        <rect x="4" y="4" width="14" height="12" fill="#1e293b" />
+        <rect x="5" y="5" width="12" height="10" fill="#ece5d6" />
+        <rect x="6" y="7" width="2" height="7" fill="#f43f5e" />
+        <rect x="9" y="8" width="2" height="6" fill="#0284c7" />
+        <rect x="12" y="7" width="2" height="7" fill="#facc15" />
 
         {/* Docente rural con gafas y bata blanca */}
         <MatrizPixel filas={personaje_docente} x={23} y={8} escala={1} />
 
         {/* Portátil y rayo de energía (derecha) */}
-        <rect x="42" y="13" width="11" height="7" fill="#2c2e2a" />
-        <rect x="43" y="14" width="9" height="5" fill="#2ba0ff" />
-        <rect x="40" y="20" width="15" height="1" fill="#2c2e2a" />
+        <rect x="42" y="13" width="11" height="7" fill="#1e293b" />
+        <rect x="43" y="14" width="9" height="5" fill="#0284c7" />
+        <rect x="40" y="20" width="15" height="1" fill="#1e293b" />
         {/* Rayo pixel */}
-        <rect x="48" y="4" width="3" height="2" fill="#f5e211" />
-        <rect x="47" y="6" width="4" height="2" fill="#f5e211" />
-        <rect x="48" y="8" width="2" height="3" fill="#f5e211" />
+        <rect x="48" y="4" width="3" height="2" fill="#facc15" />
+        <rect x="47" y="6" width="4" height="2" fill="#facc15" />
+        <rect x="48" y="8" width="2" height="3" fill="#facc15" />
       </svg>
     );
   }
@@ -605,26 +605,26 @@ export function EscenaPersonaPixel({ id }: { id: PerfilPersona['id'] }) {
       shapeRendering="crispEdges"
       aria-hidden="true"
     >
-      <rect width="60" height="26" fill="#f5f1e4" />
+      <rect width="60" height="26" fill="#faf6ee" />
       <rect y="20" width="60" height="6" fill="#dcae82" />
-      <rect y="20" width="60" height="1" fill="#2c2e2a" />
+      <rect y="20" width="60" height="1" fill="#1e293b" />
 
       {/* Ventana campesina con montañas (izquierda) */}
-      <rect x="4" y="4" width="14" height="12" fill="#2c2e2a" />
+      <rect x="4" y="4" width="14" height="12" fill="#1e293b" />
       <rect x="5" y="5" width="12" height="10" fill="#dbeefb" />
-      <rect x="5" y="11" width="12" height="4" fill="#8ed462" />
-      <rect x="10" y="5" width="1" height="10" fill="#2c2e2a" />
-      <rect x="5" y="9" width="12" height="1" fill="#2c2e2a" />
+      <rect x="5" y="11" width="12" height="4" fill="#84cc16" />
+      <rect x="10" y="5" width="1" height="10" fill="#1e293b" />
+      <rect x="5" y="9" width="12" height="1" fill="#1e293b" />
 
       {/* Doña Rosa en el centro */}
       <MatrizPixel filas={personaje_rosa} x={23} y={8} escala={1} />
 
       {/* Pocillo de café y único celular de la casa (derecha) */}
-      <rect x="43" y="15" width="5" height="5" fill="#ff705d" />
-      <rect x="44" y="12" width="1" height="2" fill="#80827f" />
-      <rect x="46" y="11" width="1" height="2" fill="#80827f" />
-      <rect x="50" y="9" width="6" height="11" fill="#2c2e2a" />
-      <rect x="51" y="10" width="4" height="8" fill="#f5e211" />
+      <rect x="43" y="15" width="5" height="5" fill="#f43f5e" />
+      <rect x="44" y="12" width="1" height="2" fill="#94a3b8" />
+      <rect x="46" y="11" width="1" height="2" fill="#94a3b8" />
+      <rect x="50" y="9" width="6" height="11" fill="#1e293b" />
+      <rect x="51" y="10" width="4" height="8" fill="#facc15" />
     </svg>
   );
 }
@@ -746,8 +746,8 @@ export function MapaRecorridoPixel({
 
       {/* Sol pixel-art sobre la escuela (izquierda) */}
       <g transform="translate(18 14)">
-        <rect x="4" y="0" width="16" height="24" fill="#f5e211" />
-        <rect x="0" y="4" width="24" height="16" fill="#f5e211" />
+        <rect x="4" y="0" width="16" height="24" fill="#facc15" />
+        <rect x="0" y="4" width="24" height="16" fill="#facc15" />
         <rect x="4" y="4" width="16" height="16" fill="#ffffff" opacity="0.3" />
       </g>
 
@@ -773,70 +773,70 @@ export function MapaRecorridoPixel({
       </g>
 
       {/* Colina intermedia y prado donde corre el sendero */}
-      <g fill="#6fbb47">
+      <g fill="#65a30d">
         <rect x="0" y="168" width="700" height="74" />
         <rect x="0" y="156" width="240" height="12" />
         <rect x="460" y="156" width="240" height="12" />
       </g>
-      <rect x="0" y="200" width="700" height="42" fill="#8ed462" />
+      <rect x="0" y="200" width="700" height="42" fill="#84cc16" />
 
       {/* 3. Hitos arquitectónicos del paisaje en Pixel-Art */}
       {/* ZONA 1 (Izquierda): Escuela Rural Sede 5.º */}
       <g transform="translate(8 64)">
         {/* Techo escalonado de teja */}
-        <rect x="8" y="0" width="44" height="4" fill="#2c2e2a" />
-        <rect x="4" y="4" width="52" height="4" fill="#ff705d" />
-        <rect x="0" y="8" width="60" height="6" fill="#ff705d" />
+        <rect x="8" y="0" width="44" height="4" fill="#1e293b" />
+        <rect x="4" y="4" width="52" height="4" fill="#f43f5e" />
+        <rect x="0" y="8" width="60" height="6" fill="#f43f5e" />
         {/* Pared blanca y zócalo azul */}
-        <rect x="4" y="14" width="52" height="30" fill="#2c2e2a" />
+        <rect x="4" y="14" width="52" height="30" fill="#1e293b" />
         <rect x="6" y="14" width="48" height="22" fill="#ffffff" />
-        <rect x="6" y="36" width="48" height="6" fill="#2ba0ff" />
+        <rect x="6" y="36" width="48" height="6" fill="#0284c7" />
         {/* Puerta y ventanas */}
         <rect x="26" y="24" width="8" height="18" fill="#8b6b4a" />
-        <rect x="10" y="20" width="10" height="10" fill="#4f9a34" />
+        <rect x="10" y="20" width="10" height="10" fill="#4d7c0f" />
         <rect x="40" y="20" width="10" height="10" fill="#dbeefb" />
         {/* Bandera de Colombia */}
-        <rect x="64" y="-8" width="2" height="52" fill="#2c2e2a" />
-        <rect x="66" y="-8" width="12" height="4" fill="#f5e211" />
-        <rect x="66" y="-4" width="12" height="2" fill="#2ba0ff" />
-        <rect x="66" y="-2" width="12" height="2" fill="#ff705d" />
+        <rect x="64" y="-8" width="2" height="52" fill="#1e293b" />
+        <rect x="66" y="-8" width="12" height="4" fill="#facc15" />
+        <rect x="66" y="-4" width="12" height="2" fill="#0284c7" />
+        <rect x="66" y="-2" width="12" height="2" fill="#f43f5e" />
       </g>
 
       {/* ZONA 2 (Centro, Valle de preguntas difíciles y sopa de letras): Bloques de reto */}
       <g transform="translate(304 188)">
-        <rect x="0" y="0" width="20" height="20" fill="#2c2e2a" />
-        <rect x="2" y="2" width="16" height="16" fill="#ff705d" />
+        <rect x="0" y="0" width="20" height="20" fill="#1e293b" />
+        <rect x="2" y="2" width="16" height="16" fill="#f43f5e" />
         <text x="10" y="15" textAnchor="middle" fontSize="12" fontWeight="700" fill="#ffffff">
           ?
         </text>
       </g>
       <g transform="translate(476 184)">
-        <rect x="0" y="0" width="22" height="22" fill="#2c2e2a" />
+        <rect x="0" y="0" width="22" height="22" fill="#1e293b" />
         <rect x="2" y="2" width="18" height="18" fill="#ffffff" />
-        <rect x="4" y="4" width="4" height="4" fill="#f5e211" />
-        <rect x="9" y="4" width="4" height="4" fill="#e0dbce" />
-        <rect x="14" y="4" width="4" height="4" fill="#e0dbce" />
-        <rect x="4" y="9" width="4" height="4" fill="#f5e211" />
-        <rect x="9" y="9" width="4" height="4" fill="#f5e211" />
-        <rect x="14" y="9" width="4" height="4" fill="#f5e211" />
+        <rect x="4" y="4" width="4" height="4" fill="#facc15" />
+        <rect x="9" y="4" width="4" height="4" fill="#ece5d6" />
+        <rect x="14" y="4" width="4" height="4" fill="#ece5d6" />
+        <rect x="4" y="9" width="4" height="4" fill="#facc15" />
+        <rect x="9" y="9" width="4" height="4" fill="#facc15" />
+        <rect x="14" y="9" width="4" height="4" fill="#facc15" />
       </g>
 
       {/* ZONA 3 (Estación 6): Poste de luz rural y rayo */}
       <g transform="translate(502 68)">
         <rect x="10" y="0" width="4" height="68" fill="#5c442c" />
-        <rect x="0" y="8" width="24" height="4" fill="#2c2e2a" />
-        <rect x="4" y="18" width="16" height="4" fill="#2c2e2a" />
-        <rect x="24" y="2" width="6" height="4" fill="#f5e211" />
-        <rect x="22" y="6" width="6" height="4" fill="#f5e211" />
-        <rect x="24" y="10" width="4" height="4" fill="#f5e211" />
+        <rect x="0" y="8" width="24" height="4" fill="#1e293b" />
+        <rect x="4" y="18" width="16" height="4" fill="#1e293b" />
+        <rect x="24" y="2" width="6" height="4" fill="#facc15" />
+        <rect x="22" y="6" width="6" height="4" fill="#facc15" />
+        <rect x="24" y="10" width="4" height="4" fill="#facc15" />
       </g>
 
       {/* ZONA 4 (Derecha, Estación 7): Finca campesina y cafetales en casa */}
       <g transform="translate(592 98)">
-        <rect x="8" y="0" width="36" height="4" fill="#2c2e2a" />
-        <rect x="4" y="4" width="44" height="6" fill="#ff705d" />
-        <rect x="8" y="10" width="36" height="24" fill="#2c2e2a" />
-        <rect x="10" y="10" width="32" height="22" fill="#f5f1e4" />
+        <rect x="8" y="0" width="36" height="4" fill="#1e293b" />
+        <rect x="4" y="4" width="44" height="6" fill="#f43f5e" />
+        <rect x="8" y="10" width="36" height="24" fill="#1e293b" />
+        <rect x="10" y="10" width="32" height="22" fill="#faf6ee" />
         <rect x="22" y="18" width="8" height="14" fill="#8b6b4a" />
         <rect x="13" y="14" width="6" height="6" fill="#dbeefb" />
         <rect x="33" y="14" width="6" height="6" fill="#dbeefb" />
@@ -847,7 +847,7 @@ export function MapaRecorridoPixel({
         <path
           d={sendero_escalonado}
           fill="none"
-          stroke="#2c2e2a"
+          stroke="#1e293b"
           strokeWidth="14"
           strokeLinecap="square"
           strokeLinejoin="miter"
@@ -855,7 +855,7 @@ export function MapaRecorridoPixel({
         <path
           d={sendero_escalonado}
           fill="none"
-          stroke="#f5f1e4"
+          stroke="#faf6ee"
           strokeWidth="8"
           strokeLinecap="square"
           strokeLinejoin="miter"
@@ -877,7 +877,7 @@ export function MapaRecorridoPixel({
         const resalta_fuente =
           fuente_activa !== 'TODAS' && coincide_fuente(r.fuente, fuente_activa);
         const color_bloque =
-          r.emocion >= 4 ? '#8ed462' : r.emocion <= 2 ? '#ff705d' : '#f5e211';
+          r.emocion >= 4 ? '#84cc16' : r.emocion <= 2 ? '#f43f5e' : '#facc15';
 
         return (
           <g
@@ -886,7 +886,7 @@ export function MapaRecorridoPixel({
             className="cursor-pointer"
           >
             {/* Sombra del bloque */}
-            <rect x={cx - 14} y={cy - 10} width="30" height="24" fill="#2c2e2a" />
+            <rect x={cx - 14} y={cy - 10} width="30" height="24" fill="#1e293b" />
             {/* Borde exterior de selección */}
             {(es_activo || resalta_fuente) && (
               <rect
@@ -906,7 +906,7 @@ export function MapaRecorridoPixel({
               width="30"
               height="24"
               fill={color_bloque}
-              stroke="#2c2e2a"
+              stroke="#1e293b"
               strokeWidth="2.5"
             />
             <rect x={cx - 13} y={cy - 10} width="26" height="3" fill="#ffffff" opacity="0.45" />
@@ -916,7 +916,7 @@ export function MapaRecorridoPixel({
               textAnchor="middle"
               fontSize="11"
               fontWeight="700"
-              fill="#2c2e2a"
+              fill="#1e293b"
             >
               {i + 1}
             </text>
@@ -935,22 +935,22 @@ export function MapaRecorridoPixel({
           {/* Efectos animados sobre la cabeza del personaje */}
           {estado_anim === 'salto_estrellas' && (
             <g className="pixel-fx-sparkle">
-              <rect x="-8" y="-4" width="6" height="6" fill="#f5e211" stroke="#2c2e2a" strokeWidth="1.2" />
-              <rect x="30" y="-4" width="6" height="6" fill="#f5e211" stroke="#2c2e2a" strokeWidth="1.2" />
-              <rect x="11" y="-10" width="6" height="6" fill="#ff705d" stroke="#2c2e2a" strokeWidth="1.2" />
+              <rect x="-8" y="-4" width="6" height="6" fill="#facc15" stroke="#1e293b" strokeWidth="1.2" />
+              <rect x="30" y="-4" width="6" height="6" fill="#facc15" stroke="#1e293b" strokeWidth="1.2" />
+              <rect x="11" y="-10" width="6" height="6" fill="#f43f5e" stroke="#1e293b" strokeWidth="1.2" />
             </g>
           )}
           {estado_anim === 'alivio_escudo' && (
             <g className="pixel-fx-sparkle" transform="translate(8 -12)">
-              <rect x="0" y="0" width="12" height="10" fill="#8ed462" stroke="#2c2e2a" strokeWidth="1.5" />
-              <rect x="3" y="5" width="2" height="2" fill="#2c2e2a" />
-              <rect x="5" y="7" width="2" height="2" fill="#2c2e2a" />
-              <rect x="7" y="3" width="2" height="4" fill="#2c2e2a" />
+              <rect x="0" y="0" width="12" height="10" fill="#84cc16" stroke="#1e293b" strokeWidth="1.5" />
+              <rect x="3" y="5" width="2" height="2" fill="#1e293b" />
+              <rect x="5" y="7" width="2" height="2" fill="#1e293b" />
+              <rect x="7" y="3" width="2" height="4" fill="#1e293b" />
             </g>
           )}
           {estado_anim === 'bloqueo_pregunta' && (
             <g transform="translate(7 -14)">
-              <rect x="0" y="0" width="14" height="12" fill="#ff705d" stroke="#2c2e2a" strokeWidth="1.5" />
+              <rect x="0" y="0" width="14" height="12" fill="#f43f5e" stroke="#1e293b" strokeWidth="1.5" />
               <text x="7" y="9" textAnchor="middle" fontSize="9" fontWeight="700" fill="#ffffff">
                 ?
               </text>
@@ -958,7 +958,7 @@ export function MapaRecorridoPixel({
           )}
           {estado_anim === 'cansado_sudor' && (
             <g className="pixel-fx-sweat">
-              <rect x="28" y="2" width="4" height="6" fill="#2ba0ff" stroke="#2c2e2a" strokeWidth="1" />
+              <rect x="28" y="2" width="4" height="6" fill="#0284c7" stroke="#1e293b" strokeWidth="1" />
             </g>
           )}
 
@@ -976,14 +976,14 @@ export function MapaRecorridoPixel({
 
       {/* 7. Cinta inferior de zonas del recorrido */}
       <g transform="translate(0 242)">
-        <rect x="0" y="0" width="700" height="22" fill="#2c2e2a" />
-        <text x="90" y="15" fontSize="10" fontWeight="700" fill="#f5e211">
+        <rect x="0" y="0" width="700" height="22" fill="#1e293b" />
+        <text x="90" y="15" fontSize="10" fontWeight="700" fill="#facc15">
           AULA RURAL · INICIO
         </text>
-        <text x="350" y="15" textAnchor="middle" fontSize="10" fontWeight="700" fill="#ff705d">
+        <text x="350" y="15" textAnchor="middle" fontSize="10" fontWeight="700" fill="#f43f5e">
           VALLE DE DIFICULTAD · PREGUNTAS Y SOPA
         </text>
-        <text x="684" y="15" textAnchor="end" fontSize="10" fontWeight="700" fill="#8ed462">
+        <text x="684" y="15" textAnchor="end" fontSize="10" fontWeight="700" fill="#84cc16">
           CORTE DE LUZ Y FINCA EN CASA
         </text>
       </g>

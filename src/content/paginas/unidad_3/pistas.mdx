@@ -1,33 +1,21 @@
 import Seccion from '../../../components/ui/seccion.astro';
-import Subseccion from '../../../components/ui/subseccion.astro';
-import Video from '../../../components/ui/video.astro';
-import TresLupas from '../../../components/libro/tres_lupas.astro';
-import LecturaConPausas from '../../../components/libro/lectura_con_pausas.astro';
-import { DragSort } from '../../../components/islas/drag_sort';
+import MensajesCelular from '../../../components/libro/mensajes_celular.astro';
+import DetectorVerdades from '../../../components/libro/detector_verdades.astro';
+import { EleccionRapida } from '../../../components/islas/eleccion_rapida';
 import act from '../../../data/actividades/unidad_3.json';
 
-<Seccion id="desarrollo" titulo="Sigue las pistas" etiqueta="Desarrollo y materiales de estudio" titulo_visible={false}>
+<Seccion id="desarrollo" titulo="Sigue las pistas" etiqueta="Compara los mensajes" titulo_visible={false}>
 
-<Video id="c3_video" descripcion="Con un caso de la vereda El Roble, Sofía y Mateo muestran cómo se usa cada lupa." />
+<div class="flex flex-col gap-8">
 
-<Subseccion id="las-lupas" etiqueta="Las tres lupas" titulo="Baja de nivel: de lo que dice a lo que pienso">
+<p class="lectura">Al celular de la familia de Mateo llegaron estos dos mensajes sobre el colegio. Léelos despacio, línea por línea.</p>
 
-<p class="lectura">Mientras bajas por la página, cada lupa te lleva un nivel más adentro del texto.</p>
+<MensajesCelular mensajes={act.mensajes} marca={act.marca} />
 
-<TresLupas lupas={act.lupas} />
+<DetectorVerdades preguntas={act.detector} />
 
-</Subseccion>
+<EleccionRapida client:visible unidad={3} id="comparo" quien="mateo" estrategia={act.comparo.estrategia} pregunta={act.comparo.pregunta} opciones={act.comparo.opciones} correcta={act.comparo.correcta} acierto={act.comparo.acierto} pista={act.comparo.pista} />
 
-<Subseccion id="lectura" etiqueta="Lectura" titulo="Lee con las tres lupas: Los libros viajeros de la vereda">
-
-<LecturaConPausas id="libros-viajeros" unidad={3} titulo={act.lectura.titulo} autoria={act.lectura.autoria} parrafos={act.lectura.parrafos} modo="panel" />
-
-</Subseccion>
-
-<Subseccion id="semaforo" etiqueta="Semáforo de preguntas" titulo="¿Con qué lupa se responde?">
-
-<DragSort client:visible items={act.semaforo.items} cajas={act.semaforo.cajas} unidad={3} id="semaforo" etiqueta="Recurso propio" instruccion="Pon cada pregunta en la lupa que se necesita para responderla." />
-
-</Subseccion>
+</div>
 
 </Seccion>

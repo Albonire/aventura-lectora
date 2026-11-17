@@ -1,0 +1,54 @@
+---
+// a finished argument tower as a model: the example on top, the two reasons in the middle, the stance at the base
+import { ReadAloud } from '../islas/read_aloud';
+import BloqueCabecera from '../ui/bloque_cabecera.astro';
+
+interface Piso {
+  piso: string;
+  nombre: string;
+  frases: string[];
+}
+interface Props {
+  titulo: string;
+  situacion: string;
+  // top floor first, as the tower is drawn
+  pisos: Piso[];
+}
+const { titulo, situacion, pisos } = Astro.props;
+const fondos: Record<string, string> = {
+  base: 'bg-coral-soft',
+  centro: 'bg-sky-soft',
+  cima: 'bg-sunshine-pop',
+};
+const anchos: Record<string, string> = { cima: 'md:w-4/5', centro: 'md:w-11/12', base: 'md:w-full' };
+// read from the base to the top, the order in which a tower is built
+const texto_voz = [...pisos]
+  .reverse()
+  .flatMap((p) => p.frases)
+  .join(' ');
+---
+
+<article
+  data-lectura
+  class="rounded-card border-2 border-ink-black bg-pure-white p-5 text-ink-black md:p-8"
+>
+  <BloqueCabecera tipo="lee" etiqueta={situacion} titulo={titulo} />
+  <ReadAloud client:idle texto={texto_voz} />
+  <p class="mt-4 text-body">Lee la torre de abajo hacia arriba, como se construye.</p>
+  <ol class="mx-auto mt-4 flex max-w-reading flex-col items-center gap-2" reversed>
+    {
+      pisos.map((p) => (
+        <li
+          class:list={[
+            'w-full rounded-soft border-2 border-ink-black p-4',
+            fondos[p.piso],
+            anchos[p.piso],
+          ]}
+        >
+          <p class="interfaz text-body-sm font-bold">{p.nombre}</p>
+          {p.frases.map((f) => <p class="mt-1 text-reading">{f}</p>)}
+        </li>
+      ))
+    }
+  </ol>
+</article>

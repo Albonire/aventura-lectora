@@ -5,13 +5,13 @@ export type TipoBloque =
 
 export const bloques: Record<TipoBloque, { verbo: string; fondo: string }> = {
   lee: { verbo: 'Lee', fondo: 'bg-sunshine-pop' },
-  mira: { verbo: 'Mira', fondo: 'bg-sky-pop' },
-  escucha: { verbo: 'Escucha', fondo: 'bg-sky-pop' },
+  mira: { verbo: 'Mira', fondo: 'bg-sky-soft' },
+  escucha: { verbo: 'Escucha', fondo: 'bg-sky-soft' },
   practica: { verbo: 'Practica', fondo: 'bg-fresh-grass' },
   escribe: { verbo: 'Escribe', fondo: 'bg-sunshine-pop' },
   conversa: { verbo: 'Conversa', fondo: 'bg-fresh-grass' },
   web: { verbo: 'Explora en la web', fondo: 'bg-sandstone' },
-  reto: { verbo: 'Reto del caso', fondo: 'bg-coral-pop' },
+  reto: { verbo: 'Reto del caso', fondo: 'bg-coral-soft' },
 };
 
 export const clase_pastilla =

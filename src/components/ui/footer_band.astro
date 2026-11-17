@@ -1,31 +1,38 @@
 ---
-// thin colophon at the end of every page
-import { sitio } from '../../config/sitio';
+// colophon at the end of every page: school, authors and the academic data of the module
+import { autoras, sitio } from '../../config/sitio';
 ---
 
-<footer class="mx-auto w-full max-w-[62rem] px-5 py-10 text-body-sm text-stone-text md:px-8">
-  <p class="font-medium text-ink-black">{sitio.nombre_curso}</p>
-  <p class="mt-2 max-w-2xl">
-    {sitio.pie_portada}. Hecho por el equipo de la {sitio.programa}, {sitio.universidad}.
+<footer
+  class="mx-auto w-full max-w-[62rem] px-5 py-10 text-body-sm text-stone-text md:px-8"
+  data-pie
+>
+  <p class="font-medium text-ink-black">
+    {sitio.nombre_curso}: {sitio.subtitulo}
   </p>
   <p class="mt-2 max-w-2xl">
-    Los podcasts, videos, infografías y tarjetas se elaboraron con herramientas digitales a partir de textos del equipo y se revisaron antes de publicarse.
+    {sitio.institucion} ({sitio.sector.toLowerCase()}), {sitio.municipio}. Quinto grado de primaria,
+    10 y 11 años.
+  </p>
+  <p class="mt-2 max-w-2xl">Docentes autoras: {autoras.join(' e ')}.</p>
+  <p class="mt-2 max-w-2xl">
+    {sitio.universidad}, {sitio.sede} | {sitio.programa} ({sitio.anio}). Espacio académico: {
+      sitio.espacio_academico
+    } | Docente: {sitio.docente}. Asesora de proyecto de grado: {sitio.asesora}.
   </p>
   <nav aria-label="Pie de página" class="mt-4">
     <ul class="flex flex-wrap gap-x-6 gap-y-1 font-medium text-ink-black">
       <li>
-        <a class="underline decoration-2 underline-offset-4" href="/referencias">
-          Referencias
+        <a class="underline decoration-2 underline-offset-4" href="/">Portada</a>
+      </li>
+      <li>
+        <a class="underline decoration-2 underline-offset-4" href="/libreta">
+          Libreta de campo de Mateo
         </a>
       </li>
       <li>
         <a class="underline decoration-2 underline-offset-4" href="/docentes">
-          Para docentes
-        </a>
-      </li>
-      <li>
-        <a class="underline decoration-2 underline-offset-4" href="/ficha">
-          Ficha de diseño
+          Ficha docente y prototipado 2.2
         </a>
       </li>
       <li>
@@ -34,9 +41,7 @@ import { sitio } from '../../config/sitio';
         </a>
       </li>
       <li>
-        <a class="underline decoration-2 underline-offset-4" href="/">
-          Portada
-        </a>
+        <a class="underline decoration-2 underline-offset-4" href="/referencias">Referencias</a>
       </li>
     </ul>
   </nav>

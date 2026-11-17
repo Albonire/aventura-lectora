@@ -1,0 +1,63 @@
+---
+// the reading caterpillar: green body, black top hat with a red band and red bow tie.
+// Companion of Mateo in missions 2 and 3 (guide 2.1, figure 2). It looks up to the left.
+interface Props {
+  size?: number;
+  class?: string;
+}
+const { size = 80, class: clase = '' } = Astro.props;
+const TINTA = '#1e293b';
+const CLARO = '#a3e635';
+const VERDE = '#84cc16';
+const ROJO = '#f43f5e';
+// tail first so each segment overlaps the one behind it: [cx, cy, r]
+const segmentos: [number, number, number][] = [
+  [160, 108, 11],
+  [140, 110, 14],
+  [118, 106, 16],
+  [94, 110, 17],
+  [70, 106, 18],
+];
+---
+
+<svg
+  viewBox="0 0 176 134"
+  height={size}
+  width={(size * 176) / 134}
+  class={clase}
+  aria-hidden="true"
+  focusable="false"
+>
+  <g stroke={TINTA} stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round">
+    <!-- little feet -->
+    <path d="M66 122 V130 M92 126 V132 M118 122 V130 M140 123 V130" fill="none"></path>
+    <!-- body -->
+    {segmentos.map(([cx, cy, r], i) => <circle cx={cx} cy={cy} r={r} fill={i % 2 === 0 ? VERDE : CLARO} />)}
+    <!-- head -->
+    <circle cx="44" cy="82" r="27" fill={CLARO}></circle>
+    <!-- red bow tie -->
+    <path d="M52 110 L38 104 L40 122 Z" fill={ROJO} stroke-width="3"></path>
+    <path d="M52 110 L66 106 L64 124 Z" fill={ROJO} stroke-width="3"></path>
+    <circle cx="52" cy="112" r="4.5" fill="#e11d48" stroke-width="3"></circle>
+    <!-- black top hat with a red band -->
+    <g transform="rotate(-10 44 54)">
+      <rect x="29" y="18" width="30" height="34" rx="3" fill="#111827"></rect>
+      <rect x="29" y="40" width="30" height="8" fill={ROJO} stroke-width="3"></rect>
+      <rect x="18" y="50" width="52" height="8" rx="4" fill="#111827"></rect>
+    </g>
+    <!-- face -->
+    <g stroke="none">
+      <ellipse cx="24" cy="92" rx="6" ry="4.5" fill="#fb7185" opacity="0.55"></ellipse>
+      <ellipse cx="60" cy="90" rx="6" ry="4.5" fill="#fb7185" opacity="0.55"></ellipse>
+    </g>
+    <circle cx="32" cy="78" r="8.5" fill="#ffffff" stroke-width="2.5"></circle>
+    <circle cx="52" cy="76" r="8.5" fill="#ffffff" stroke-width="2.5"></circle>
+    <g stroke="none">
+      <circle cx="30" cy="76" r="4.2" fill={TINTA}></circle>
+      <circle cx="50" cy="74" r="4.2" fill={TINTA}></circle>
+      <circle cx="31.2" cy="74.4" r="1.4" fill="#ffffff"></circle>
+      <circle cx="51.2" cy="72.4" r="1.4" fill="#ffffff"></circle>
+    </g>
+    <path d="M32 94 Q42 102 52 93" fill="none" stroke-width="3"></path>
+  </g>
+</svg>

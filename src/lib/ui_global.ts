@@ -11,7 +11,6 @@ import {
 export interface Ajustes {
   movimiento: boolean;
   letra_grande: boolean;
-  voz: boolean;
 }
 
 const html = document.documentElement;
@@ -22,7 +21,6 @@ function ajustes_iniciales(): Ajustes {
   return {
     movimiento: typeof guardados.movimiento === 'boolean' ? guardados.movimiento : !reduce,
     letra_grande: guardados.letra_grande === true,
-    voz: guardados.voz === true,
   };
 }
 
@@ -33,8 +31,6 @@ function aplicar(a: Ajustes) {
   else html.setAttribute('data-movimiento', 'no');
   if (a.letra_grande) html.setAttribute('data-letra', 'grande');
   else html.removeAttribute('data-letra');
-  if (a.voz) html.setAttribute('data-voz', 'si');
-  else html.removeAttribute('data-voz');
   document.querySelectorAll<HTMLElement>('[data-ajuste]').forEach((boton) => {
     const clave = boton.dataset.ajuste as keyof Ajustes;
     boton.setAttribute('aria-checked', String(a[clave]));
@@ -73,7 +69,7 @@ function iniciar_menu() {
   });
 }
 
-const TEXTO_ESTADO = { sin_empezar: '', en_curso: 'En curso', resuelto: 'Resuelto' } as const;
+const TEXTO_ESTADO = { sin_empezar: '', en_curso: 'En curso', resuelto: 'Insignia ganada' } as const;
 
 function pintar_estados() {
   const progreso = leer_progreso();
@@ -91,25 +87,23 @@ function pintar_estados() {
     const leida = progreso.paginas_leidas.includes(enlace.dataset.pagina ?? '');
     enlace.dataset.leida = String(leida);
     const marca = enlace.querySelector<HTMLElement>('.estado-pagina');
-    if (marca) marca.textContent = leida ? 'Leída' : '';
+    if (marca) marca.textContent = leida ? 'Leído' : '';
   });
   const seguir = document.querySelector<HTMLAnchorElement>('[data-seguir]');
   if (seguir && progreso.ultimo) {
     seguir.href = `${progreso.ultimo.ruta}#${progreso.ultimo.seccion}`;
     seguir.hidden = false;
   }
-  // "sigues en el caso N" cards (cover and index of the home): text built from the index that is on the page
+  // "sigues en..." cards of the cover: the text comes from the route map that is on the page
   if (progreso.ultimo) {
     const m = progreso.ultimo.ruta.match(/^\/unidad\/(\d)(?:\/([a-z]+))?\/?$/);
     const clave = m ? `${m[1]}/${m[2] ?? 'abrir'}` : '';
     const enlace_pagina = clave
       ? document.querySelector<HTMLAnchorElement>(`[data-indice-libro] a[data-pagina="${clave}"]`)
       : null;
-    const titulo_caso = enlace_pagina
-      ?.closest<HTMLElement>('[data-caso]')
-      ?.querySelector('h3')?.textContent;
-    if (enlace_pagina && titulo_caso) {
-      const texto = `Caso ${m?.[1]}: ${titulo_caso.trim()}, ${enlace_pagina.dataset.titulo ?? ''}`;
+    const estacion = enlace_pagina?.closest<HTMLElement>('[data-caso]')?.dataset.estacion;
+    if (enlace_pagina && estacion) {
+      const texto = `${estacion}, ${(enlace_pagina.dataset.titulo ?? '').toLowerCase()}`;
       document.querySelectorAll<HTMLElement>('[data-seguir-caja]').forEach((caja) => {
         const t = caja.querySelector<HTMLElement>('[data-seguir-texto]');
         const a = caja.querySelector<HTMLAnchorElement>('[data-seguir-enlace]');
@@ -161,35 +155,6 @@ function iniciar_avance() {
   actualizar();
 }
 
-// highlights, in the index beside the page, the part of the page that is being read
-function iniciar_subindice() {
-  const enlaces = Array.from(document.querySelectorAll<HTMLAnchorElement>('a[data-sub]'));
-  if (!enlaces.length || !('IntersectionObserver' in window)) return;
-  const destinos = new Map<Element, HTMLAnchorElement>();
-  enlaces.forEach((enlace) => {
-    const destino = document.getElementById(enlace.dataset.sub ?? '');
-    if (destino) destinos.set(destino, enlace);
-  });
-  const visibles = new Set<Element>();
-  const marcar = () => {
-    const primero = Array.from(destinos.keys())
-      .filter((el) => visibles.has(el))
-      .sort((a, b) => a.getBoundingClientRect().top - b.getBoundingClientRect().top)[0];
-    enlaces.forEach((enlace) => enlace.removeAttribute('aria-current'));
-    if (primero) destinos.get(primero)?.setAttribute('aria-current', 'location');
-  };
-  const observador = new IntersectionObserver(
-    (entradas) => {
-      entradas.forEach((e) =>
-        e.isIntersecting ? visibles.add(e.target) : visibles.delete(e.target),
-      );
-      marcar();
-    },
-    { rootMargin: '-15% 0px -55% 0px' },
-  );
-  destinos.forEach((_enlace, el) => observador.observe(el));
-}
-
 // remembers the case, the page and the section, and marks a page as read when its end is reached
 function recordar_lugar() {
   const match = location.pathname.match(/^\/unidad\/(\d)(?:\/([a-z]+))?\/?$/);
@@ -206,7 +171,7 @@ function recordar_lugar() {
       const era_nueva = !leer_progreso().paginas_leidas.includes(id);
       marcar_pagina_leida(id);
       pintar_estados();
-      if (era_nueva) avisar(`Página leída: ${fin.dataset.tituloPagina ?? ''}`.trim());
+      if (era_nueva) avisar(`Paso leído: ${fin.dataset.tituloPagina ?? ''}`.trim());
       vigia.disconnect();
     });
     vigia.observe(fin);
@@ -236,5 +201,4 @@ iniciar_interruptores();
 iniciar_menu();
 pintar_estados();
 iniciar_avance();
-iniciar_subindice();
 recordar_lugar();

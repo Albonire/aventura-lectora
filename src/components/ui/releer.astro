@@ -1,0 +1,36 @@
+---
+// the reading again, folded, on the pages where Sofía's hints send the student back to a paragraph
+interface Props {
+  titulo: string;
+  // numbered paragraphs or lines of the text
+  parrafos: string[];
+  etiqueta_parrafo?: string;
+  cierre?: string;
+}
+const { titulo, parrafos, etiqueta_parrafo = 'Párrafo', cierre } = Astro.props;
+---
+
+<details class="group rounded-soft border-2 border-ink-black bg-pure-white" data-releer>
+  <summary
+    class="interfaz flex min-h-12 cursor-pointer list-none items-center justify-between gap-3 px-4 text-body-sm font-bold [&::-webkit-details-marker]:hidden"
+  >
+    Volver a leer: {titulo}
+    <span class="font-medium text-stone-text group-open:hidden" aria-hidden="true">Abrir</span>
+    <span class="hidden font-medium text-stone-text group-open:inline" aria-hidden="true"
+      >Cerrar</span
+    >
+  </summary>
+  <ol class="flex max-w-reading flex-col gap-3 border-t-2 border-hairline-mist px-4 py-4">
+    {
+      parrafos.map((p, i) => (
+        <li>
+          <p class="interfaz text-micro font-medium text-stone-text">
+            {etiqueta_parrafo} {i + 1}
+          </p>
+          <p class="text-body">{p}</p>
+        </li>
+      ))
+    }
+    {cierre && <li class="text-body font-bold">{cierre}</li>}
+  </ol>
+</details>

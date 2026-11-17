@@ -1,23 +1,13 @@
 import Seccion from '../../../components/ui/seccion.astro';
-import ListaPistas from '../../../components/ui/lista_pistas.astro';
-import InfographicViewer from '../../../components/ui/infographic_viewer.astro';
+import { EleccionRapida } from '../../../components/islas/eleccion_rapida';
+import act from '../../../data/actividades/unidad_2.json';
 
-<Seccion id="introduccion" titulo="Introducción" etiqueta="Antes de empezar">
+<Seccion id="introduccion" titulo="Pistas escondidas" etiqueta="Primera parada">
 
-<div class="lectura">
+<p class="lectura mb-6">{props.unidad.introduccion}</p>
 
-¡Bienvenidos! En esta unidad descubriremos las distintas formas de leer un texto, ya que no es lo mismo contar un cuento que dar una receta. Identificaremos las distintas características que puede tener cada texto, aprenderemos a reconocerlos a simple vista y a usar cada uno de ellos según nuestra intención comunicativa.
+<p class="mb-4 max-w-reading rounded-soft border-2 border-ink-black bg-pure-white p-4 text-reading">{act.ejemplo.frase}</p>
 
-</div>
-
-</Seccion>
-
-<Seccion id="contenidos" titulo="Las pistas del caso" etiqueta="Contenidos">
-
-<ListaPistas items={props.unidad.contenidos} unidad={props.unidad.numero} />
-
-<div class="mt-14">
-  <InfographicViewer id="c2_infografia" />
-</div>
+<EleccionRapida client:visible unidad={2} id="ejemplo" quien="sofia" pregunta={act.ejemplo.pregunta} opciones={act.ejemplo.opciones} correcta={act.ejemplo.correcta} acierto={act.ejemplo.acierto} pista={act.ejemplo.pista} />
 
 </Seccion>

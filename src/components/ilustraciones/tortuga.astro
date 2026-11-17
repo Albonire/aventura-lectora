@@ -1,59 +1,49 @@
 ---
-// the tortoise: green shell with hexagons and yellow dots
+// the tortoise of the fables: lime body and dark green shell with lighter plates.
+// Companion of Sofía in mission 1 (guide 2.1, figure 2). It looks to the left.
 interface Props {
   size?: number;
   class?: string;
 }
 const { size = 80, class: clase = '' } = Astro.props;
-const hex = (cx: number, cy: number, r: number) =>
-  Array.from({ length: 6 }, (_, i) => {
-    const a = (Math.PI / 3) * i + Math.PI / 6;
-    return `${(cx + r * Math.cos(a)).toFixed(1)},${(cy + r * Math.sin(a)).toFixed(1)}`;
-  }).join(' ');
-const centros: [number, number][] = [
-  [48, 52],
-  [68, 44],
-  [88, 52],
-  [58, 64],
-  [78, 64],
-];
+const TINTA = '#1e293b';
+const CUERPO = '#84cc16';
+const CAPARAZON = '#4d7c0f';
+const PLACA = '#65a30d';
 ---
 
 <svg
-  viewBox="0 0 146 92"
+  viewBox="0 0 164 112"
   height={size}
-  width={(size * 146) / 92}
+  width={(size * 164) / 112}
   class={clase}
   aria-hidden="true"
   focusable="false"
 >
-  <path d="M10 74 L22 68 L22 78 Z" fill="#8ed462" />
-  <path d="M12 74 L20 70 L20 76 Z" fill="#6db841" />
-  <path d="M34 70 Q42 66 50 70 L48 86 Q40 90 34 86 Z" fill="#8ed462" />
-  <path d="M36 78 L46 78" stroke="#4f9a34" stroke-width="2" stroke-linecap="round" />
-  <path d="M86 70 Q94 66 102 70 L100 86 Q92 90 86 86 Z" fill="#8ed462" />
-  <path d="M88 78 L98 78" stroke="#4f9a34" stroke-width="2" stroke-linecap="round" />
-  <path d="M106 60 Q114 55 120 60 L120 72 Q112 76 106 72 Z" fill="#8ed462" />
-  <circle cx="126" cy="58" r="14" fill="#8ed462" />
-  <circle cx="128" cy="52" r="3" fill="#ffffff" />
-  <circle cx="131" cy="55" r="3.5" fill="#2c2e2a" />
-  <circle cx="132" cy="54" r="1" fill="#ffffff" />
-  <path d="M126 64 Q131 69 136 64" stroke="#2c2e2a" stroke-width="2.5" stroke-linecap="round" fill="none" />
-  <circle cx="122" cy="62" r="3" fill="#6db841" opacity="0.5" />
-  <path d="M20 72 C20 20 108 20 112 72 Z" fill="#4f9a34" />
-  <path d="M24 70 C28 30 104 30 108 70 Z" fill="#58ad3a" />
-  {centros.map(([x, y]) => (
-    <polygon points={hex(x, y, 10.5)} fill="#4f9a34" />
-  ))}
-  {centros.map(([x, y]) => (
-    <polygon points={hex(x, y, 9)} fill="#8ed462" />
-  ))}
-  {centros.map(([x, y]) => (
-    <circle cx={x} cy={y} r="3.5" fill="#d6c800" />
-  ))}
-  {centros.map(([x, y]) => (
-    <circle cx={x - 0.5} cy={y - 0.5} r="2" fill="#f5e211" />
-  ))}
-  <rect x="18" y="70" width="96" height="8" rx="4" fill="#e0dbce" />
-  <rect x="18" y="74" width="96" height="4" rx="2" fill="#d1cbbd" />
+  <g stroke={TINTA} stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round">
+    <!-- tail and legs -->
+    <path d="M140 84 L156 80 L144 94 Z" fill={CUERPO}></path>
+    <path d="M52 84 H74 V98 C74 104 68 106 62 106 C56 106 52 102 52 98 Z" fill={CUERPO}></path>
+    <path d="M108 84 H130 V98 C130 104 124 106 118 106 C112 106 108 102 108 98 Z" fill={CUERPO}></path>
+    <!-- neck and head -->
+    <path d="M36 72 C46 74 52 82 52 90 L40 92 C34 88 30 82 30 76 Z" fill={CUERPO}></path>
+    <path
+      d="M8 62 C8 48 20 40 32 42 C44 44 50 54 48 66 C46 76 36 82 26 80 C16 78 8 72 8 62 Z"
+      fill={CUERPO}></path>
+    <!-- shell -->
+    <path d="M40 86 C40 32 144 32 146 86 Z" fill={CAPARAZON}></path>
+    <path d="M78 52 L92 44 L108 52 L108 68 L92 76 L78 68 Z" fill={PLACA} stroke-width="3"></path>
+    <path d="M54 64 L66 58 L74 66 L72 80 L54 80 Z" fill={PLACA} stroke-width="3"></path>
+    <path d="M112 66 L122 58 L134 66 L136 80 L114 80 Z" fill={PLACA} stroke-width="3"></path>
+    <path d="M36 82 H150 C154 82 154 92 150 92 H36 C32 92 32 82 36 82 Z" fill={PLACA}></path>
+    <!-- face -->
+    <g stroke="none">
+      <ellipse cx="36" cy="68" rx="6" ry="4.5" fill="#fb7185" opacity="0.5"></ellipse>
+      <circle cx="24" cy="58" r="6.5" fill="#ffffff"></circle>
+      <circle cx="22.5" cy="58.5" r="3.6" fill={TINTA}></circle>
+      <circle cx="23.6" cy="57" r="1.2" fill="#ffffff"></circle>
+    </g>
+    <circle cx="24" cy="58" r="6.5" fill="none" stroke-width="2.5"></circle>
+    <path d="M14 70 Q22 77 32 72" fill="none" stroke-width="3"></path>
+  </g>
 </svg>

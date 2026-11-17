@@ -7,29 +7,23 @@ export interface Opcion {
 
 export interface Pregunta {
   id: string;
+  // short label of what the question trains ("Idea principal", "Verifico")
   nivel: string;
   pregunta: string;
   opciones: Opcion[];
   correcta: string;
+  // shown when the answer is right
   retro: string;
-  // optional context shown above the question (a clue sentence or a made-up headline)
-  frase?: string;
-  ficha?: string;
-  marca?: string;
-}
-
-export interface Pista {
-  id: string;
-  frase: string;
-  opciones: Opcion[];
-  correcta: string;
-  explicacion: string;
+  // graded hints of Sofía, shown after each wrong try
+  pistas?: string[];
 }
 
 export interface ItemClasificar {
   id: string;
   texto: string;
   caja: string;
+  // hint of Sofía when the card is in the wrong box
+  pista?: string;
 }
 
 export interface CajaClasificar {
@@ -38,43 +32,22 @@ export interface CajaClasificar {
   descripcion?: string;
 }
 
-export interface Tarjeta {
-  frente: string;
-  reverso: string;
+// the family story of mission 2 ("Cuéntame, abuelo"), kept in localStorage under "abuelo"
+export interface RelatoFamiliar {
+  quien: string;
+  trama: string;
+  ensenanza: string;
+  // true when the story came on the paper sheet and was typed in the classroom the next day
+  en_papel?: boolean;
+  guardado?: boolean;
 }
 
-export interface CriterioRubrica {
-  criterio: string;
-  superior: string;
-  alto: string;
-  basico: string;
-  bajo: string;
-}
-
-export interface CampoReto {
-  id: string;
-  grupo?: string;
-  etiqueta: string;
-  ayuda?: string;
-  tipo: 'texto' | 'texto_largo' | 'clasificacion';
-  // for "clasificacion": storage key of the DragSort that holds the student's answer
-  origen?: string;
-}
-
-export interface Reto {
-  id: string;
-  caso: number;
-  pendientes?: string[];
-  titulo: string;
-  duracion: string;
-  pasos: string[];
-  producto: string;
-  campos: CampoReto[];
-  rubrica: CriterioRubrica[];
-}
-
-// what the student wrote for one challenge, kept in localStorage under "reto:N"
-export interface RetoGuardado {
-  valores: Record<string, string>;
-  imagen?: string;
+// the argument tower of the final challenge, kept in localStorage under "torre"
+export interface TorreGuardada {
+  situacion: string;
+  // chosen sentence starter of each field
+  iniciadores: Record<string, string>;
+  // what the student wrote after the starter
+  textos: Record<string, string>;
+  chequeo: string[];
 }

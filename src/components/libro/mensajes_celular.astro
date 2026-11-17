@@ -1,0 +1,49 @@
+---
+// two short messages as they arrive to the family phone, side by side to compare them.
+// They are made up for practice and say so.
+import { ReadAloud } from '../islas/read_aloud';
+import BloqueCabecera from '../ui/bloque_cabecera.astro';
+
+interface Mensaje {
+  id: string;
+  nombre: string;
+  remitente: string;
+  lineas: string[];
+}
+interface Props {
+  mensajes: Mensaje[];
+  marca: string;
+}
+const { mensajes, marca } = Astro.props;
+---
+
+<div class="rounded-card border-2 border-ink-black bg-pure-white p-5 text-ink-black md:p-8">
+  <BloqueCabecera tipo="lee" etiqueta={marca} titulo="Dos mensajes en el celular de la familia" />
+  <div class="grid gap-5 md:grid-cols-2">
+    {
+      mensajes.map((m) => (
+        <article
+          id={`mensaje-${m.id}`}
+          data-lectura
+          class="flex flex-col rounded-soft border-2 border-ink-black bg-cream-paper"
+        >
+          <header class="interfaz flex items-center justify-between gap-2 rounded-t-[1.1rem] border-b-2 border-ink-black bg-sandstone px-4 py-2">
+            <h4 class="text-body font-bold">{m.nombre}</h4>
+            <p class="text-body-sm text-stone-text">{m.remitente}</p>
+          </header>
+          <ol class="flex flex-1 flex-col gap-2 p-4">
+            {m.lineas.map((l, i) => (
+              <li class="rounded-soft border-2 border-ink-black bg-pure-white px-3 py-2 text-reading">
+                <span class="sr-only">Línea {i + 1}: </span>
+                {l}
+              </li>
+            ))}
+          </ol>
+          <div class="px-4 pb-4">
+            <ReadAloud client:idle texto={`${m.nombre}. ${m.lineas.join(' ')}`} tamano="chico" />
+          </div>
+        </article>
+      ))
+    }
+  </div>
+</div>
