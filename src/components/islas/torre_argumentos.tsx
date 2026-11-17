@@ -155,6 +155,7 @@ export function TorreArgumentos({ unidad, situaciones, pisos, autochequeo }: Pro
                     </fieldset>
                   ) : null}
                   <label htmlFor={`torre-${c.id}`} className="mt-3 block text-body font-bold">
+                    <span className="sr-only">Termina la frase: </span>
                     {inicio}...
                   </label>
                   <input

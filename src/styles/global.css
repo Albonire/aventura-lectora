@@ -429,7 +429,7 @@ html[data-movimiento='no']::view-transition-new(*) {
   [data-cabecera],
   .curso-indice,
   [data-pie],
-  [data-fin-pagina],
+  [data-paginador],
   [data-aviso-pagina],
   .no-imprimir {
     display: none !important;

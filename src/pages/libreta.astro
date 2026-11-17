@@ -224,20 +224,27 @@ const copias = [1, 2];
       max-width: none;
       padding: 0;
     }
+    .contenedor {
+      padding-bottom: 0 !important;
+    }
+    /* the whole sheet fits one half letter page: 8.5in minus the 8mm margins */
     .ficha {
       max-width: none;
-      min-height: calc(8.5in - 16mm - 2px);
+      height: calc(8.5in - 16mm - 1mm);
+      min-height: 0;
+      overflow: hidden;
       border-radius: 0.5rem;
+      padding: 0.22in;
       print-color-adjust: exact;
       -webkit-print-color-adjust: exact;
+    }
+    .ficha-renglon {
+      height: 0.33in;
     }
     html[data-fichas='2'] .fichas {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 12mm;
-    }
-    html[data-fichas='2'] .ficha {
-      min-height: calc(8.5in - 16mm - 2px);
     }
     html[data-fichas='2'] .ficha-copia {
       display: flex;

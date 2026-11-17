@@ -406,7 +406,7 @@ export function RecorridoInteractivo() {
     actual.emocion >= 4
       ? 'bg-fresh-grass'
       : actual.emocion <= 2
-        ? 'bg-coral-pop'
+        ? 'bg-coral-soft'
         : 'bg-sunshine-pop';
 
   return (

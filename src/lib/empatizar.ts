@@ -183,7 +183,7 @@ export const mapa: CuadranteMapa[] = [
   {
     id: 'piensa',
     titulo: 'Piensa',
-    color: 'bg-sky-pop',
+    color: 'bg-sky-soft',
     tipo_evidencia: 'Inferencia del equipo',
     resumen: 'Leer es una tarea del colegio. Inferencia del equipo.',
     items: [
@@ -194,7 +194,7 @@ export const mapa: CuadranteMapa[] = [
   {
     id: 'siente',
     titulo: 'Siente',
-    color: 'bg-coral-pop',
+    color: 'bg-coral-soft',
     tipo_evidencia: 'Inferencia del equipo',
     resumen: 'Entusiasmo con lo lúdico, frustración con lo difícil. Inferencia del equipo.',
     items: [

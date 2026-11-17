@@ -81,7 +81,7 @@ export function Certificate() {
 
       <div
         data-certificado
-        className="certificado relative mt-8 overflow-hidden rounded-card border-2 border-ink-black bg-cream-paper p-6 text-center md:p-10"
+        className="certificado relative mt-8 overflow-hidden rounded-card border-2 border-ink-black bg-cream-paper p-6 pb-24 text-center md:p-10"
       >
         <p className="interfaz inline-block rounded-pill border-2 border-ink-black bg-sunshine-pop px-4 py-1 text-body-sm font-bold">
           {sitio.nombre_curso}: {sitio.subtitulo}
@@ -130,7 +130,7 @@ export function Certificate() {
         </p>
         <div
           key={sello}
-          className={`pointer-events-none absolute right-3 top-3 md:right-6 md:top-6 ${sello > 0 && movimiento ? 'sello-estampa' : ''}`}
+          className={`pointer-events-none absolute bottom-3 right-3 md:bottom-5 md:right-6 ${sello > 0 && movimiento ? 'sello-estampa' : ''}`}
           aria-hidden="true"
         >
           {ganadas === total && <Insignia caso={4} size={64} />}
