@@ -1,6 +1,6 @@
-// data of the teacher sheet: diagnosis of the group, pilot findings and the adjustments made to the prototype.
-// Sources: design document of activity 2.1 (diagnosis of 5 May 2026, tables 4 and 6) and the pilot notes
-// of 10 October 2026 that are detailed on /empatizar. No figure here is estimated.
+// data of the teacher sheet: diagnosis of the group and the adjustments made to the prototype.
+// Sources: design document of activity 2.1 (diagnosis of 5 May 2026, tables 4 and 6) and the review of the teachers.
+// No figure here is estimated.
 
 export interface DatoDiagnostico {
   id: string;
@@ -62,8 +62,8 @@ export const ajustes: Ajuste[] = [
     id: 'extension',
     aspecto: 'Extensión del recorrido',
     hallazgo:
-      'La ruta de cinco casos extensos resultó demasiado larga: quienes leen despacio se quedaban atrás y se cansaban.',
-    fuente: 'Pilotaje y revisión de las docentes',
+      'La ruta de cinco casos extensos resultaba demasiado larga para quienes leen despacio.',
+    fuente: 'Revisión de las docentes',
     ajuste:
       'Seis partes de 15 a 20 minutos, con lecturas de 150 a 250 palabras divididas en paradas breves.',
     donde: { texto: 'El camino de la aventura', href: '/#indice' },
@@ -72,8 +72,8 @@ export const ajustes: Ajuste[] = [
     id: 'pistas',
     aspecto: 'Riesgo de bloqueo o de responder al azar',
     hallazgo:
-      '"Algunas preguntas están difíciles". Cuando una pregunta los superaba, se detenían o adivinaban.',
-    fuente: 'Pilotaje',
+      'Cuando una pregunta los supera, se detienen. Hay que decirles dónde volver a leer sin darles la respuesta.',
+    fuente: 'Entrevista a la docente',
     ajuste:
       'Pistas graduadas de Sofía: tras un error aparece una burbuja que dice qué párrafo o frase volver a leer. Nunca solo "incorrecto".',
     donde: { texto: 'Misión 1, paso 4', href: '/unidad/1/cerrar#reto' },
@@ -81,8 +81,8 @@ export const ajustes: Ajuste[] = [
   {
     id: 'voz',
     aspecto: 'Lectura silábica y menor manejo digital',
-    hallazgo: 'Cerca de 3 de 13 estudiantes necesitaron instrucción para usar la plataforma.',
-    fuente: 'Pilotaje y diagnóstico',
+    hallazgo: '3 de 13 estudiantes necesitan guía paso a paso para manejar una pantalla.',
+    fuente: 'Diagnóstico',
     ajuste:
       'Parte de inicio en parejas con una pista de prueba, cuatro pasos fijos en cada misión y botón "Escuchar con voz pausada" en cada lectura y consigna.',
     donde: { texto: 'Inicio', href: '/agencia' },
@@ -110,10 +110,10 @@ export const ajustes: Ajuste[] = [
     id: 'datos',
     aspecto: 'Celular compartido y tiempo de clase',
     hallazgo:
-      'Los aparatos se usan por turnos y la sopa de letras tomó mucho tiempo. Los datos del celular familiar son limitados.',
-    fuente: 'Pilotaje y diagnóstico',
+      'Los aparatos se comparten y los datos del celular familiar son limitados: 9 de 13 tienen un celular con datos en casa, para toda la familia.',
+    fuente: 'Diagnóstico',
     ajuste:
-      'Se retiraron la sopa de letras, los videos y los podcasts. Quedan actividades cortas de tocar y ordenar, y páginas livianas que cargan con pocos datos.',
+      'Sin videos ni podcasts: quedan actividades cortas de tocar y ordenar, y páginas livianas que cargan con pocos datos.',
     donde: { texto: 'Misión 1, paso 3', href: '/unidad/1/lupa' },
   },
   {
@@ -129,10 +129,10 @@ export const ajustes: Ajuste[] = [
   {
     id: 'progreso',
     aspecto: 'Cortes de luz y señal débil',
-    hallazgo: 'Se fue la luz, volvió y el progreso seguía ahí. Fue un acierto de la primera versión.',
-    fuente: 'Pilotaje',
+    hallazgo: 'En la sede hay señal débil y cortes de luz, y el celular se comparte entre varios.',
+    fuente: 'Entrevista a la docente',
     ajuste:
-      'Se conserva: el álbum, las respuestas y las medallas se guardan en el aparato, sin registro y sin enviar datos.',
+      'El álbum, las respuestas y las medallas se guardan en el aparato, sin registro y sin enviar datos.',
     donde: { texto: 'Álbum de medallas', href: '/cierre#pasaporte' },
   },
 ];

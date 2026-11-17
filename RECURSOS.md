@@ -47,4 +47,4 @@ Las ilustraciones (Sofía, Mateo, conejo, tortuga, oruga, portadas e insignias) 
 ## 4. Datos del grupo
 
 - Diagnóstico del 5 de mayo de 2026 (n = 13): Guía 2.1, sección 1 y figura 1. En `src/data/prototipado.ts`.
-- Pilotaje del 10 de octubre de 2026 sobre el primer caso de la versión anterior: en `src/lib/empatizar.ts` (fuente "P") y en `/empatizar`.
+- Trabajo de campo de Empatizar y definir (bitácora de aula del 5 de mayo, entrevista a la docente, comentarios de las familias y revisión documental): en `src/lib/empatizar.ts` y en `/empatizar`.

@@ -1,5 +1,6 @@
 // pdf of the diploma (certificate), made in the browser. jspdf is loaded only when the student presses the button.
 import { autoras, sitio } from '../config/sitio';
+import { DIPLOMA_FONDO_ALTO, DIPLOMA_FONDO_ANCHO, diploma_fondo_url } from './diploma_fondo';
 
 const CREMA: [number, number, number] = [250, 246, 238];
 const TINTA: [number, number, number] = [30, 41, 59];
@@ -38,6 +39,23 @@ export function nombre_archivo(base: string): string {
   );
 }
 
+// the background drawing as data for the pdf; null when it cannot be read (no connection), and the diploma goes without it
+async function cargar_fondo(): Promise<string | null> {
+  try {
+    const respuesta = await fetch(diploma_fondo_url);
+    if (!respuesta.ok) return null;
+    const blob = await respuesta.blob();
+    return await new Promise<string | null>((resolver) => {
+      const lector = new FileReader();
+      lector.onload = () => resolver(typeof lector.result === 'string' ? lector.result : null);
+      lector.onerror = () => resolver(null);
+      lector.readAsDataURL(blob);
+    });
+  } catch {
+    return null;
+  }
+}
+
 export async function descargar_certificado(nombre: string) {
   const { jsPDF: JsPDF } = await import('jspdf');
   const doc = new JsPDF({ orientation: 'l', unit: 'mm', format: 'letter' });
@@ -46,6 +64,12 @@ export async function descargar_certificado(nombre: string) {
 
   doc.setFillColor(...CREMA);
   doc.rect(0, 0, w, h, 'F');
+  // drawing behind everything, as tall as the page; what is left over on the sides falls outside the sheet
+  const fondo = await cargar_fondo();
+  if (fondo) {
+    const ancho_fondo = (h * DIPLOMA_FONDO_ANCHO) / DIPLOMA_FONDO_ALTO;
+    doc.addImage(fondo, 'JPEG', (w - ancho_fondo) / 2, 0, ancho_fondo, h);
+  }
   doc.setDrawColor(...TINTA);
   doc.setLineWidth(1.2);
   doc.roundedRect(12, 12, w - 24, h - 24, 8, 8, 'S');

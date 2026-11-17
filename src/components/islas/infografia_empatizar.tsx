@@ -12,7 +12,6 @@ import {
   mapa,
   patrones,
   personas,
-  recorrido,
   resumen_por_fuente,
   texto_desafio,
   type FiltroFuente,
@@ -23,7 +22,6 @@ import {
   EstudiantePixelMini,
   IconoCuadrantePixel,
   IconoVozPixel,
-  MapaRecorridoPixel,
   RetratoEstudianteMapaPixel,
 } from './pixel_art_empatizar';
 
@@ -113,7 +111,7 @@ export function BarraFiltroFuentes() {
               : 'bg-cream-paper text-ink-black hover:bg-sandstone'
           }`}
         >
-          Todas (5)
+          Todas (4)
         </button>
         {claves_fuentes.map((clave) => {
           const info = resumen_por_fuente(clave);
@@ -146,8 +144,8 @@ export function BarraFiltroFuentes() {
             {resumen_actual.clave} ({resumen_actual.nombre})
           </span>
           : {resumen_actual.cifras} en datos clave, {resumen_actual.citas} en voces,{' '}
-          {resumen_actual.evidencias_mapa} en mapa de empatía, {resumen_actual.pasos_recorrido} en
-          recorrido y {resumen_actual.patrones} en patrones.
+          {resumen_actual.evidencias_mapa} en mapa de empatía y {resumen_actual.patrones} en
+          patrones.
         </p>
       )}
     </div>
@@ -327,6 +325,7 @@ export function MapaEmpatiaInteractivo() {
               </div>
             </div>
 
+            {m.items.length > 0 && (
             <ul className="mt-4 space-y-2.5 border-t border-hairline-mist pt-4">
               {m.items.map(([t, f], idx) => {
                 const resalta =
@@ -346,6 +345,7 @@ export function MapaEmpatiaInteractivo() {
                 );
               })}
             </ul>
+            )}
           </article>
         ))}
       </div>
@@ -373,7 +373,7 @@ export function MapaEmpatiaInteractivo() {
           <div className="flex items-center justify-between gap-2">
             <h3 className="text-subheading font-medium">Ganancias</h3>
             <span className="interfaz text-micro font-medium text-stone-text">
-              6 motores de motivación
+              5 motores de motivación
             </span>
           </div>
           <ul className="mt-3 flex flex-wrap gap-2">
@@ -392,119 +392,6 @@ export function MapaEmpatiaInteractivo() {
       <p className="mt-6 max-w-3xl text-body-sm text-stone-text">
         Dice y hace salen de lo observado. Piensa y siente son inferencias del equipo a partir de
         esa evidencia.
-      </p>
-    </div>
-  );
-}
-
-export function RecorridoInteractivo() {
-  const [fuente_activa] = useFuenteCompartida();
-  const [paso_activo, setPasoActivo] = useState<number>(1);
-  const actual = recorrido[paso_activo] ?? recorrido[0];
-
-  const color_insignia =
-    actual.emocion >= 4
-      ? 'bg-fresh-grass'
-      : actual.emocion <= 2
-        ? 'bg-coral-soft'
-        : 'bg-sunshine-pop';
-
-  return (
-    <div>
-      {/* Barra de estado del paso activo en el camino pixel-art */}
-      <div
-        role="region"
-        aria-label="Detalle del paso seleccionado en el recorrido"
-        className="mb-4 flex flex-col justify-between gap-4 rounded-soft border-2 border-ink-black bg-pure-white p-5 md:flex-row md:items-center"
-      >
-        <div className="flex items-start gap-4">
-          <span
-            className={`interfaz flex size-12 shrink-0 items-center justify-center rounded-chip border-2 border-ink-black text-subheading font-bold tabular-nums ${color_insignia}`}
-          >
-            {actual.emocion}/5
-          </span>
-          <div>
-            <p className="interfaz text-micro font-medium text-stone-text">
-              Estación {paso_activo + 1} de {recorrido.length} · {actual.etiqueta_emocion} · Fuente:{' '}
-              {fuentes[actual.fuente]} ({actual.fuente})
-            </p>
-            <h3 className="mt-0.5 text-subheading font-medium">
-              Paso {paso_activo + 1}: {actual.paso}
-            </h3>
-            <p className="mt-1 text-body">{actual.hace}</p>
-          </div>
-        </div>
-        <div className="flex shrink-0 items-center gap-2">
-          <button
-            type="button"
-            onClick={() =>
-              setPasoActivo((p) => (p - 1 + recorrido.length) % recorrido.length)
-            }
-            className="interfaz min-h-10 rounded-pill border-2 border-ink-black bg-cream-paper px-4 py-1.5 text-body-sm font-medium hover:bg-sandstone"
-          >
-            Paso anterior
-          </button>
-          <button
-            type="button"
-            onClick={() => setPasoActivo((p) => (p + 1) % recorrido.length)}
-            className="interfaz min-h-10 rounded-pill border-2 border-ink-black bg-sunshine-pop px-4 py-1.5 text-body-sm font-medium hover:bg-fresh-grass"
-          >
-            Paso siguiente
-          </button>
-        </div>
-      </div>
-
-      {/* Escenario horizontal desplazable en Pixel-Art con personaje animado */}
-      <div
-        className="overflow-x-auto rounded-card border-2 border-ink-black bg-pure-white p-4 md:p-6"
-        tabIndex={0}
-        role="region"
-        aria-label="Recorrido en pixel-art con desplazamiento horizontal"
-      >
-        <div className="min-w-[44rem]">
-          <MapaRecorridoPixel
-            paso_activo={paso_activo}
-            fuente_activa={fuente_activa}
-            onSelectPaso={setPasoActivo}
-          />
-
-          <ol className="mt-4 grid grid-cols-7 gap-2.5">
-            {recorrido.map((r, i) => {
-              const es_activo = paso_activo === i;
-              const coincide_f =
-                fuente_activa !== 'TODAS' && coincide_fuente(r.fuente, fuente_activa);
-              return (
-                <li key={r.paso} className="text-body-sm">
-                  <button
-                    type="button"
-                    aria-pressed={es_activo}
-                    onClick={() => setPasoActivo(i)}
-                    className={`flex h-full w-full flex-col rounded-soft border-2 p-2.5 text-left transition-colors ${
-                      es_activo
-                        ? 'border-ink-black bg-sunshine-pop/50'
-                        : coincide_f
-                          ? 'border-ink-black bg-cream-paper'
-                          : 'border-hairline-mist bg-pure-white hover:border-ink-black hover:bg-cream-paper'
-                    }`}
-                  >
-                    <span className="interfaz block text-micro font-medium text-stone-text">
-                      Paso {i + 1} · {r.fuente}
-                    </span>
-                    <span className="mt-0.5 block font-medium leading-snug">{r.paso}</span>
-                    <span className="mt-1 block text-micro leading-snug text-stone-text">
-                      {r.hace}
-                    </span>
-                  </button>
-                </li>
-              );
-            })}
-          </ol>
-        </div>
-      </div>
-
-      <p className="mt-6 max-w-3xl text-body-sm text-stone-text">
-        Toca cualquier estación (1 a 7) para mover al estudiante por el sendero desde la escuela
-        rural hasta la finca. Verde: momento alto; amarillo: medio; coral: bajo.
       </p>
     </div>
   );

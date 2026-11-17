@@ -10,7 +10,7 @@ Documento maestro del sitio. Léelo completo antes de escribir código. Reemplaz
 | `RECURSOS.md` | Referencias de la Guía 2.1 con su estado de verificación y lista de recursos propios. |
 | `gemini_notebook/01_guia_de_estilo.md` | Ficha de personajes y estilo de las ilustraciones. |
 
-Regla de oro: el sitio muestra solo lo que está en `CONTENIDO.md` y cita solo lo que está verificado en `RECURSOS.md`. Los datos del grupo (diagnóstico, pilotaje) no se estiman ni se redondean.
+Regla de oro: el sitio muestra solo lo que está en `CONTENIDO.md` y cita solo lo que está verificado en `RECURSOS.md`. Los datos del grupo (diagnóstico del 5 de mayo de 2026) no se estiman ni se redondean.
 
 ---
 
@@ -67,11 +67,11 @@ Trucos de detective (etiquetas de estrategia): Misión 1 `imagino`, `pregunto`, 
 |---|---|
 | `/` | Tapa del libro, bienvenida y mapa de la ruta con el estado de cada estación. |
 | `/libreta` | Ficha imprimible "Libreta de campo de Mateo" en media carta (una por hoja, o dos en una hoja carta). En el menú principal y en la Misión 2. |
-| `/docentes` | Ficha docente y prototipado 2.2: contexto, diagnóstico, las 7 etapas, ajustes tras el pilotaje, evaluación del prototipo y uso en el aula. |
+| `/docentes` | Ficha docente y prototipado 2.2: contexto, diagnóstico, las 7 etapas, ajustes de refinamiento, tabla de nombres del documento 2.1 y de la web, evaluación del prototipo y uso en el aula. |
 | `/empatizar` | Infografía de la Actividad 1.2 (empatizar y definir) con el trabajo de campo. |
 | `/referencias` | Referencias verificadas en APA 7 y créditos. |
 
-## 3. Ajustes tras la prueba piloto (deben verse funcionando)
+## 3. Ajustes de refinamiento (deben verse funcionando)
 
 0. **Vocabulario de niño de 10 años.** Lo que leen los estudiantes usa palabras de todos los días; los nombres del documento de diseño se tradujeron así: agencia por club, estación por parte o misión, insignia por medalla, pasaporte por álbum, certificado por diploma, torre de argumentos por torre de ideas, postura por lo que pienso, hecho comprobable por dato real, rumor por chisme, verificar por revisar, relato por historia y desafío final por reto final. Las páginas para docentes conservan los términos pedagógicos.
 
@@ -105,7 +105,7 @@ Trucos de detective (etiquetas de estrategia): Misión 1 `imagino`, `pregunto`, 
 | Contenido | Colección `unidades` (datos de cada caso), colección `paginas` (MDX por paso) y JSON de actividades. |
 | Movimiento | GSAP y ScrollTrigger solo en la tapa del libro, dentro de `gsap.matchMedia()`. |
 | Arrastrar y soltar | `@dnd-kit`, siempre con botones "Mover a" y flechas como alternativa. |
-| Voz | Web Speech API del navegador. Sin servicios externos. |
+| Voz | Web Speech API del navegador, eligiendo la mejor voz en español instalada y leyendo por frases. Opcional: voz natural de un Worker propio de Cloudflare (`worker_tts/`, Workers AI y KV), activada con `PUBLIC_TTS_URL`. Solo sale el código (hash) de las lecturas fijas, solo al tocar el botón; si falla, vuelve a la voz del aparato. |
 | Impresión | CSS de impresión (`@page`): media carta para la libreta, carta horizontal para el certificado. |
 | PDF | `jspdf` con import dinámico, solo para descargar el certificado. |
 | Iconos y letra | Phosphor. Andika para lecturas, Inter para la interfaz, autoalojadas. |
@@ -128,6 +128,10 @@ Ilustraciones de libro infantil pintadas a mano con código (SVG): contorno con 
 | `stone-text` | `#475569` | Texto secundario |
 
 Contraste (WCAG 2.2 AA, calculado): tinta sobre crema 13.6:1, sobre amarillo 9.6:1, sobre verde 7.4:1. Tinta sobre azul cielo (3.6:1) y sobre coral (4.0:1) no pasa: esos dos colores nunca llevan texto encima; para eso están sus versiones suaves (11.0:1 y 7.7:1). El texto secundario no se usa sobre verde ni sobre coral suave.
+
+### Imágenes en crayón
+
+Además del arte pintado en código, el sitio usa tres imágenes en crayón aportadas por las autoras: la portada de la tapa del libro (`portada_libro.astro`; el dibujo en código quedó en `portada_libro_vectorial.astro`), el fondo del diploma (horneado al 26 % de intensidad para que el texto se lea, igual en pantalla, impresión y PDF) y 19 sprites con fondo transparente. Los sprites se agregan solo en fondos claros: encabezado de `/cierre`, tarjeta de cada misión (pantallas anchas) y acierto de los retos. `/libreta` y la impresión de `/cierre` no llevan sprites.
 
 ## 7. Componentes
 
@@ -159,7 +163,7 @@ src/content/unidades/unidad_N.mdx      misión, guía, estrategias, aprendizajes
 src/content/paginas/unidad_N/{abrir,pistas,lupa,cerrar}.mdx
 src/data/actividades/unidad_N.json     lecturas, preguntas, pistas y clasificaciones
 src/data/agencia.json        relato de apertura, guías y pista de prueba
-src/data/prototipado.ts      diagnóstico y ajustes tras el pilotaje
+src/data/prototipado.ts      diagnóstico y ajustes de refinamiento
 src/data/referencias.ts      referencias con su estado de verificación
 ```
 
@@ -183,7 +187,7 @@ Claves de `localStorage` (prefijo `aventura_lectora:`): `ruta` (progreso), `pasa
 - [ ] El progreso del pasaporte se guarda en el navegador y sobrevive a recargar.
 - [ ] La libreta se abre desde la Misión 2 y desde el menú, e imprime solo la ficha.
 - [ ] El certificado lleva el nombre del estudiante o de la pareja e imprime solo el certificado.
-- [ ] `/docentes` muestra las cinco cifras del diagnóstico y los ajustes del pilotaje.
+- [ ] `/docentes` muestra las cinco cifras del diagnóstico y los ajustes de refinamiento.
 - [ ] Ningún texto con raya larga, emojis, otras docentes, otras ciudades u otros colegios.
 - [ ] axe sin violaciones serias en todas las rutas.
 

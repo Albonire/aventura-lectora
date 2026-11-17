@@ -6,7 +6,7 @@ Docentes autoras (únicas): Luz Marina Castillo Cuadrado e Ingrid Yuliana Gonzá
 
 ## Antes de escribir código
 1. Lee `SPECS.md` completo. Es la especificación.
-2. El contenido sale de `CONTENIDO.md`. Las referencias salen de `RECURSOS.md`. No inventes textos, preguntas, datos, enlaces ni citas. Los datos del grupo (diagnóstico del 5 de mayo de 2026, pilotaje) no se estiman.
+2. El contenido sale de `CONTENIDO.md`. Las referencias salen de `RECURSOS.md`. No inventes textos, preguntas, datos, enlaces ni citas. Los datos del grupo (diagnóstico del 5 de mayo de 2026) no se estiman.
 3. Los personajes y el estilo de las ilustraciones siguen `gemini_notebook/01_guia_de_estilo.md`.
 4. Al terminar un bloque de trabajo: commit, resumen de lo hecho y lista de pendientes para revisión.
 
@@ -39,6 +39,7 @@ Docentes autoras (únicas): Luz Marina Castillo Cuadrado e Ingrid Yuliana Gonzá
 - Contenido visible sin JS. Las animaciones no ocultan texto por defecto.
 - `localStorage` con prefijo `aventura_lectora:` y siempre en `try/catch`.
 - Sin analítica, sin cookies de terceros, sin envío de datos (usuarios menores de edad).
+- Excepción aprobada por las autoras: la voz natural de la lectura. Si la variable `PUBLIC_TTS_URL` está definida, `ReadAloud` pide el audio a un Worker propio de Cloudflare (`worker_tts/`) solo al tocar el botón y solo con el código (hash) del texto, nunca con datos ni escritura de los estudiantes. Sin la variable, o si el Worker falla, se usa la voz del aparato. No agregues otra llamada externa.
 - Sin videos, podcasts ni recursos externos insertados: los celulares son compartidos y los datos, limitados.
 - Papel solo donde el diagnóstico lo pide: la ficha "Libreta de campo de Mateo" (`/libreta`, media carta) para los 4 hogares sin datos móviles y el certificado. El resto es digital.
 - Texto secundario con `stone-text`, nunca sobre verde ni sobre coral. El azul cielo y el coral fuertes no llevan texto encima: usa `sky-soft` y `coral-soft`.
@@ -47,7 +48,7 @@ Docentes autoras (únicas): Luz Marina Castillo Cuadrado e Ingrid Yuliana Gonzá
 ## Qué no hacer
 - No publicar referencias con `verificado: false` en `src/data/referencias.ts`.
 - No presentar los textos escritos para el prototipo como tradición oral recogida en Maripí.
-- No copiar ilustraciones, logos ni composiciones de otros sitios. Ilustraciones propias en SVG.
+- No copiar ilustraciones, logos ni composiciones de otros sitios. Ilustraciones propias: SVG pintado a mano en código y las imágenes en crayón aportadas por las autoras (tapa del libro, fondo del diploma y sprites), preparadas con `scripts/preparar_imagenes.mjs` desde `gemini_notebook/imagenes_origen/` y guardadas en `src/assets/`. Los sprites tienen fondo transparente, van solo sobre fondos claros, sin texto encima, con `alt=""` y `loading="lazy"`, y se agregan sin reemplazar arte existente (`src/lib/sprites.ts`, componente `sprite.astro`).
 - Arte pintado a mano: todo color del arte sale de `src/lib/arte/paleta.ts`, una sola luz arriba a la izquierda, y ningún componente define `id` ni `<defs>` (los degradados, tramas y el filtro viven en `pintura_defs.astro`, que se monta una vez en `base_layout.astro`). El filtro `al-pintado` solo va en escenas grandes y quietas, nunca en la tapa 3D, el sello ni lo que se anima. El arte decorativo lleva `aria-hidden`.
 - No subir la carpeta `gemini_notebook/` al sitio publicado (son insumos de trabajo).
 - Al escribir archivos, no uses secuencias `\uXXXX` dentro de comandos de shell: se convierten en el carácter real. Para rayas largas o marcas de acento en expresiones regulares, arma el carácter con `String.fromCharCode` o escribe el archivo con la herramienta de edición.

@@ -13,6 +13,7 @@ import { marcar_tarea } from '../../lib/progreso';
 import { usar_almacen } from './hooks';
 import { Burbuja } from './personajes';
 import { ReadAloud } from './read_aloud';
+import { Sprite } from './sprite';
 import { Chip, Superficie, boton, boton_primario } from './ui';
 
 interface Props {
@@ -185,7 +186,10 @@ export function QuizCard({
 
             <div role="status" aria-live="polite" className="mt-5 min-h-7">
               {resuelta && (
-                <p className="text-body font-medium">¡Muy bien, detective! {pregunta.retro}</p>
+                <div className="flex items-center gap-3">
+                  <Sprite nombre="conejo_guina" alto={64} />
+                  <p className="text-body font-medium">¡Muy bien, detective! {pregunta.retro}</p>
+                </div>
               )}
               {!resuelta && pista && (
                 <Burbuja

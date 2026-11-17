@@ -1,45 +1,21 @@
 ---
-// art of the book cover (it turns in 3D, so it never gets the pen filter): the two detectives beside a big open book, with the animals of the fables
-import EscenaBase from './escena_base.astro';
-import Plantas from './plantas.astro';
-import Sofia from './sofia.astro';
-import Mateo from './mateo.astro';
-import Conejo from './conejo.astro';
-import Tortuga from './tortuga.astro';
-import Oruga from './oruga.astro';
-import Pieza from './pieza.astro';
-import { PLACA_TAPA } from '../../lib/arte/piezas/escena';
-import Libro from './libro.astro';
+// art of the book cover: the crayon drawing of the two detectives beside a big open book, with the animals of the
+// fables. It is an image (two sizes), not an svg: the cover turns in 3D, so it never gets the pen filter.
+// The drawing made with code is kept in portada_libro_vectorial.astro.
+// Decorative: the title and the buttons of the cover already say everything.
+import chica from '../../assets/ilustraciones/tapa_portada_480.webp';
+import grande from '../../assets/ilustraciones/tapa_portada_900.webp';
 ---
 
-<svg
-  viewBox="0 0 560 440"
-  class="mx-auto block h-full max-h-full w-auto max-w-full"
+<img
+  src={grande.src}
+  srcset={`${chica.src} ${chica.width}w, ${grande.src} ${grande.width}w`}
+  sizes="(min-width: 768px) 560px, 90vw"
+  width={grande.width}
+  height={grande.height}
+  alt=""
   aria-hidden="true"
-  focusable="false"
->
-  <Pieza formas={PLACA_TAPA} escala={1.4} />
-  <EscenaBase nubes={false} sol={false} loma={false} />
-  <Plantas tipo="hojas" x={0} y={296} escala={1.05} />
-  <Plantas tipo="mata" x={468} y={306} escala={0.95} espejo />
-  <Plantas tipo="flor" x={236} y={356} escala={0.46} color="coral" />
-  <Plantas tipo="flor" x={300} y={362} escala={0.4} color="amarillo" />
-  <g transform="translate(176 232)">
-    <Libro size={150} />
-  </g>
-  <g transform="translate(222 150)">
-    <Conejo size={112} />
-  </g>
-  <g transform="translate(300 208)">
-    <Tortuga size={56} />
-  </g>
-  <g transform="translate(250 352)">
-    <Oruga size={58} />
-  </g>
-  <g transform="translate(-6 96)">
-    <Sofia size={312} pose="lupa" />
-  </g>
-  <g transform="translate(338 96)">
-    <Mateo size={312} pose="libreta" />
-  </g>
-</svg>
+  decoding="async"
+  fetchpriority="high"
+  class="mx-auto block h-full max-h-full w-auto max-w-full rounded-soft border-2 border-ink-black object-contain"
+/>
