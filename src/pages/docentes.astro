@@ -20,15 +20,15 @@ const fondos: Record<string, string> = {
 const mecanicas = [
   [
     'Narrativa',
-    'El misterio de los relatos desvanecidos en Maripí: el Efecto Lectura Rápida borra ideas, desordena recetas y hace olvidar coplas. Cada estación devuelve algo al Gran Libro de la escuela.',
+    'El misterio de los cuentos que se borran en Maripí: el Borracuentos (el Efecto Lectura Rápida de la Guía 2.1) borra ideas, desordena recetas y hace olvidar coplas. Cada misión devuelve algo al Gran Libro de la escuela.',
   ],
   [
     'Personajes guía',
     'Sofía modela la lectura pausada y da pistas. Mateo modela la verificación y lleva la libreta de campo. Los acompañan el conejo, la tortuga y la oruga de las fábulas del salón.',
   ],
   [
-    'Pasaporte e insignias',
-    'Cuatro medallas ligadas a logros reales de lectura. Cada una muestra qué pasos faltan para ganarla.',
+    'Álbum de medallas',
+    'Cuatro medallas ligadas a logros reales de lectura. Cada una muestra qué falta para ganarla.',
   ],
   [
     'Retos cortos con retroalimentación',
@@ -40,7 +40,7 @@ const mecanicas = [
   ],
   [
     'Cierre con reconocimiento',
-    'Certificado con el nombre del estudiante o de la pareja y socialización en el círculo de lectura.',
+    'Diploma con el nombre del estudiante o de la pareja y socialización en el círculo de lectura.',
   ],
 ];
 
@@ -52,9 +52,9 @@ const fortalezas = [
 ];
 const mejoras = [
   'La voz pausada depende de las voces en español instaladas en cada aparato: hay que probarla en los celulares reales del grupo.',
-  'El progreso vive en cada aparato: si dos parejas comparten un celular, hay que reiniciar el pasaporte entre turnos (botón más abajo).',
+  'El progreso vive en cada aparato: si dos parejas comparten un celular, hay que reiniciar el álbum entre turnos (botón más abajo).',
   'El relato de la Misión 2 es un texto escrito para el curso. Conviene reemplazarlo por relatos recogidos por los propios niños cuando existan.',
-  'Las insignias premian completar los retos. La calidad de la torre de argumentos la valora la docente con la lista de tres puntos.',
+  'Las medallas premian completar los retos. La calidad de la torre de ideas la valora la docente con la lista de tres puntos.',
 ];
 const recomendaciones = [
   'Probar la ruta completa con los 13 estudiantes y anotar el tiempo real de cada estación.',
@@ -293,8 +293,8 @@ const etapas = [
         <p class="mt-2 max-w-reading text-body">
           El prototipo está hecho para cambiarlo rápido después de cada prueba. Las lecturas, las
           preguntas y las pistas de Sofía viven en archivos de datos separados de los componentes:
-          una docente puede cambiar un texto o una pista sin tocar el diseño. Cada insignia declara
-          sus tareas, así que agregar o quitar un reto no rompe el pasaporte.
+          una docente puede cambiar un texto o una pista sin tocar el diseño. Cada medalla declara
+          sus tareas, así que agregar o quitar un reto no rompe el álbum de medallas.
         </p>
       </article>
 
@@ -407,7 +407,7 @@ const etapas = [
   <Seccion id="aula" titulo="Cómo usarlo en el aula" etiqueta="Orientaciones">
     <ol class="max-w-reading list-decimal space-y-3 pl-6 text-body">
       <li>
-        Hagan la Estación 00 y la Misión 1 en parejas dentro del salón. Ubiquen con un compañero a
+        Hagan el Inicio y la Misión 1 en parejas dentro del salón. Ubiquen con un compañero a
         los tres estudiantes que necesitan guía paso a paso.
       </li>
       <li>
@@ -419,7 +419,7 @@ const etapas = [
         estudiantes sin datos en casa. Al día siguiente, ellos registran el relato en el salón.
       </li>
       <li>
-        En el Desafío final, pidan leer la torre de argumentos en voz alta y que otro compañero
+        En el Reto final, pidan leer la torre de ideas en voz alta y que otro compañero
         responda con una razón.
       </li>
       <li>
@@ -428,7 +428,7 @@ const etapas = [
       </li>
     </ol>
 
-    <h3 class="mt-8 text-subheading font-medium">Insignias y qué demuestra cada una</h3>
+    <h3 class="mt-8 text-subheading font-medium">Medallas y qué demuestra cada una</h3>
     <ul class="mt-3 grid gap-3 md:grid-cols-2">
       {
         insignias.map((i) => (
@@ -447,7 +447,7 @@ const etapas = [
     <div class="mt-8 hidden max-w-reading rounded-soft border-2 border-ink-black bg-pure-white p-5 [.js_&]:block">
       <h3 class="text-subheading font-medium">Celular compartido: empezar de nuevo</h3>
       <p class="mt-2 text-body">
-        El pasaporte se guarda en cada aparato. Si otro estudiante u otra pareja va a usar este mismo
+        El álbum de medallas se guarda en cada aparato. Si otro estudiante u otra pareja va a usar este mismo
         celular, borren aquí el progreso antes de empezar.
       </p>
       <button
@@ -473,7 +473,7 @@ const etapas = [
     if (!confirmando) {
       confirmando = true;
       boton.textContent = 'Sí, borrar todo el progreso';
-      if (estado) estado.textContent = 'Se borran el pasaporte, las respuestas y las insignias. Pulsa otra vez para confirmar.';
+      if (estado) estado.textContent = 'Se borran el álbum, las respuestas y las medallas. Pulsa otra vez para confirmar.';
       return;
     }
     claves_con_prefijo('')
@@ -481,7 +481,7 @@ const etapas = [
       .forEach((clave) => borrar(clave));
     confirmando = false;
     boton.textContent = 'Borrar el progreso de este aparato';
-    if (estado) estado.textContent = 'Progreso borrado. El siguiente detective puede empezar por la Estación 00.';
+    if (estado) estado.textContent = 'Progreso borrado. El siguiente detective puede empezar por el Inicio.';
     document.dispatchEvent(new CustomEvent('progreso:cambio'));
   });
 </script>

@@ -16,18 +16,18 @@ const estacion = estaciones[0];
 
 <CursoLayout
   titulo={`${estacion.etiqueta}: ${estacion.titulo}`}
-  descripcion="Estación 00 de Aventura lectora: conoce a Sofía y a Mateo, resuelve una pista de prueba y activa tu pasaporte de detective."
+  descripcion="Inicio de Aventura lectora: conoce a Sofía y a Mateo, resuelve una pista de prueba y haz tu tarjeta de detective."
   ubicacion={{ tipo: 'agencia' }}
 >
   <EncabezadoPagina
-    etiqueta={`Estación ${estacion.codigo}: ${estacion.etiqueta}`}
+    etiqueta={estacion.etiqueta}
     titulo={estacion.titulo}
     color="sunshine-pop"
   >
     <p>Trabaja con tu pareja de detectives del salón. Aquí nadie pierde por equivocarse.</p>
   </EncabezadoPagina>
 
-  <Seccion id="misterio" titulo="El misterio de los relatos desvanecidos" etiqueta="La historia">
+  <Seccion id="misterio" titulo="El misterio de los cuentos que se borran" etiqueta="La historia">
     <ReadAloud client:idle texto={datos.relato.join(' ')} />
     <div class="lectura mt-5">
       {datos.relato.map((p) => <p>{p}</p>)}
@@ -84,7 +84,7 @@ const estacion = estaciones[0];
     />
   </Seccion>
 
-  <Seccion id="pasaporte" titulo="Tu pasaporte" etiqueta="Carné de detective">
+  <Seccion id="pasaporte" titulo="Tu tarjeta de detective" etiqueta="Para empezar">
     <PasaporteAgencia
       client:visible
       clave_prueba="eleccion:0:prueba"

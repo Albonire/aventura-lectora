@@ -7,11 +7,11 @@ import act from '../../../data/actividades/unidad_2.json';
 
 <div class="flex flex-col gap-8">
 
-<p class="lectura">Las respuestas no están escritas con esas palabras. Junta las pistas del relato. Si algo falla, Sofía te dice qué párrafo volver a leer.</p>
+<p class="lectura">Las respuestas no están escritas tal cual. Junta las pistas de la historia. Si te equivocas, Sofía te dice qué párrafo volver a leer.</p>
 
 <Releer titulo={act.relato.titulo} parrafos={act.relato.parrafos.map((p) => p.texto)} />
 
-<QuizCard client:visible preguntas={act.quiz} unidad={2} id="inferencias" tarea="inferencias" titulo="Lo que el relato sugiere" />
+<QuizCard client:visible preguntas={act.quiz} unidad={2} id="inferencias" tarea="inferencias" titulo="Lo que la historia no dice" />
 
 </div>
 

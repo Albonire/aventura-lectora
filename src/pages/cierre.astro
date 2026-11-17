@@ -14,21 +14,21 @@ const estacion = estaciones[estaciones.length - 1];
 
 <CursoLayout
   titulo={`${estacion.etiqueta}: ${estacion.titulo}`}
-  descripcion={`Estación 05 de Aventura lectora: pasaporte con las cuatro medallas, relato familiar y certificado de Detective Lector de la ${sitio.institucion_corta}.`}
+  descripcion={`Final de Aventura lectora: álbum con las cuatro medallas, historia de la familia y diploma de Detective Lector de la ${sitio.institucion_corta}.`}
   ubicacion={{ tipo: 'cierre' }}
 >
   <EncabezadoPagina
-    etiqueta={`Estación ${estacion.codigo}: ${estacion.etiqueta}`}
-    titulo="Cierre del expediente y certificado"
+    etiqueta={estacion.etiqueta}
+    titulo="¡Caso resuelto!"
     color="sunshine-pop"
   >
     <p class="no-imprimir">
-      Los cuentos del colegio y los relatos de los abuelos quedan a salvo en el Gran Libro de la
+      Los cuentos del colegio y las historias de los abuelos quedan a salvo en el Gran Libro de la
       escuela.
     </p>
   </EncabezadoPagina>
 
-  <Seccion id="pasaporte" titulo="Tu pasaporte de detective" etiqueta="Las cuatro medallas">
+  <Seccion id="pasaporte" titulo="Tu álbum de medallas" etiqueta="Las cuatro medallas">
     <BadgeTracker client:visible modo="pasaporte" />
   </Seccion>
 
@@ -36,7 +36,7 @@ const estacion = estaciones[estaciones.length - 1];
     <RelatoFamiliar client:visible />
   </Seccion>
 
-  <Seccion id="certificado" titulo="Tu logro" etiqueta="Certificado">
+  <Seccion id="certificado" titulo="Tu diploma" etiqueta="Diploma">
     <Certificate client:visible />
   </Seccion>
 </CursoLayout>

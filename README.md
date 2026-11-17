@@ -1,6 +1,6 @@
 # Aventura lectora
 
-Prototipo web de una experiencia gamificada de comprensión lectora para los 13 estudiantes de 5.º de primaria de la Institución Educativa Jorge Eliécer Gaitán (sector oficial rural), en Maripí, Boyacá, Colombia. Los niños son detectives de la lectura: recorren seis estaciones cortas, ganan cuatro insignias para su pasaporte y reciben un certificado.
+Prototipo web de una experiencia gamificada de comprensión lectora para los 13 estudiantes de 5.º de primaria de la Institución Educativa Jorge Eliécer Gaitán (sector oficial rural), en Maripí, Boyacá, Colombia. Los niños son detectives de la lectura: recorren seis partes cortas, ganan cuatro medallas para su álbum y reciben un diploma.
 
 Docentes autoras: Luz Marina Castillo Cuadrado e Ingrid Yuliana González Flores.
 
@@ -10,12 +10,12 @@ Universidad Santo Tomás, Sede Principal | Maestría en Tecnología e Innovació
 
 | Estación | Qué pasa | Recompensa |
 |---|---|---|
-| 00 Inicio: Apertura de la Agencia | Conocer a Sofía y a Mateo, pista de prueba, pasaporte | Carné y pasaporte |
-| 01 Misión 1: Leo y comprendo el rastro | Fábula y receta campesina (nivel literal) | Lupa de Bronce |
+| 00 Inicio: Entra al club de detectives | Conocer a Sofía y a Mateo, pista de prueba, tarjeta de detective | Tarjeta y álbum de medallas |
+| 01 Misión 1: Leo con calma | Cuento y receta del campo (nivel literal) | Lupa de Bronce |
 | 02 Misión 2: Pistas y "Cuéntame, abuelo" | Relato y reto familiar (nivel inferencial) | Lupa de Plata |
-| 03 Misión 3: Detectives de noticias | Dos mensajes del celular (nivel crítico) | Detector de Verdades |
-| 04 Desafío final: Mi voz cuenta en Maripí | Torre de argumentos guiada | Voz de Detective |
-| 05 Logro: Cierre del expediente | Pasaporte, relato familiar y certificado | Certificado de Detective Lector |
+| 03 Misión 3: ¿Verdad o chisme? | Dos mensajes del celular (nivel crítico) | Detector de Verdades |
+| 04 Reto final: Mi voz cuenta en Maripí | Torre de ideas guiada | Voz de Detective |
+| 05 Final: ¡Caso resuelto! | Álbum de medallas, historia de la familia y diploma | Diploma de Detective Lector |
 
 Cada misión tiene los mismos cuatro pasos: abrir el caso, seguir las pistas, entrenar la lupa y cerrar el caso.
 

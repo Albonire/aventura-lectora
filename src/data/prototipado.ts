@@ -65,8 +65,8 @@ export const ajustes: Ajuste[] = [
       'La ruta de cinco casos extensos resultó demasiado larga: quienes leen despacio se quedaban atrás y se cansaban.',
     fuente: 'Pilotaje y revisión de las docentes',
     ajuste:
-      'Seis estaciones de 15 a 20 minutos, con lecturas de 150 a 250 palabras divididas en paradas breves.',
-    donde: { texto: 'Mapa de la ruta', href: '/#indice' },
+      'Seis partes de 15 a 20 minutos, con lecturas de 150 a 250 palabras divididas en paradas breves.',
+    donde: { texto: 'El camino de la aventura', href: '/#indice' },
   },
   {
     id: 'pistas',
@@ -84,8 +84,8 @@ export const ajustes: Ajuste[] = [
     hallazgo: 'Cerca de 3 de 13 estudiantes necesitaron instrucción para usar la plataforma.',
     fuente: 'Pilotaje y diagnóstico',
     ajuste:
-      'Estación de inicio en parejas con una pista de prueba, cuatro pasos fijos en cada misión y botón "Escuchar con voz pausada" en cada lectura y consigna.',
-    donde: { texto: 'Estación 00', href: '/agencia' },
+      'Parte de inicio en parejas con una pista de prueba, cuatro pasos fijos en cada misión y botón "Escuchar con voz pausada" en cada lectura y consigna.',
+    donde: { texto: 'Inicio', href: '/agencia' },
   },
   {
     id: 'libreta',
@@ -103,8 +103,8 @@ export const ajustes: Ajuste[] = [
       '10 de 13 escribieron frases sueltas cuando se les pidió justificar una idea desde cero.',
     fuente: 'Diagnóstico',
     ajuste:
-      'Torre de argumentos guiada: tres pisos con frases iniciadoras para elegir, ejemplos y una lista de autochequeo de tres puntos. Sin área de texto vacía.',
-    donde: { texto: 'Desafío final, paso 4', href: '/unidad/4/cerrar#reto' },
+      'Torre de ideas guiada: tres pisos con frases iniciadoras para elegir, ejemplos y una lista de autochequeo de tres puntos. Sin área de texto vacía.',
+    donde: { texto: 'Reto final, paso 4', href: '/unidad/4/cerrar#reto' },
   },
   {
     id: 'datos',
@@ -117,12 +117,22 @@ export const ajustes: Ajuste[] = [
     donde: { texto: 'Misión 1, paso 3', href: '/unidad/1/lupa' },
   },
   {
+    id: 'vocabulario',
+    aspecto: 'Vocabulario para niños de 10 y 11 años',
+    hallazgo:
+      'Los nombres del documento de diseño (agencia, estación, expediente, postura, argumentos, rumor, verificar) son palabras de adultos.',
+    fuente: 'Revisión de las docentes',
+    ajuste:
+      'Palabras de todos los días: Club de Detectives Lectores, misión, medalla, álbum, diploma, torre de ideas, lo que pienso, dato real, chisme y revisar. El villano se llama el Borracuentos.',
+    donde: { texto: 'Inicio', href: '/agencia' },
+  },
+  {
     id: 'progreso',
     aspecto: 'Cortes de luz y señal débil',
     hallazgo: 'Se fue la luz, volvió y el progreso seguía ahí. Fue un acierto de la primera versión.',
     fuente: 'Pilotaje',
     ajuste:
-      'Se conserva: el pasaporte, las respuestas y las insignias se guardan en el aparato, sin registro y sin enviar datos.',
-    donde: { texto: 'Pasaporte de detective', href: '/cierre#pasaporte' },
+      'Se conserva: el álbum, las respuestas y las medallas se guardan en el aparato, sin registro y sin enviar datos.',
+    donde: { texto: 'Álbum de medallas', href: '/cierre#pasaporte' },
   },
 ];

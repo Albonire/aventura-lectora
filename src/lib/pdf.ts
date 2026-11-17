@@ -1,4 +1,4 @@
-// pdf of the certificate, made in the browser. jspdf is loaded only when the student presses the button.
+// pdf of the diploma (certificate), made in the browser. jspdf is loaded only when the student presses the button.
 import { autoras, sitio } from '../config/sitio';
 
 const CREMA: [number, number, number] = [250, 246, 238];
@@ -58,7 +58,7 @@ export async function descargar_certificado(nombre: string) {
   doc.text(limpiar(`${sitio.nombre_curso}: ${sitio.subtitulo}`), w / 2, 22.5, { align: 'center' });
 
   doc.setFontSize(30);
-  doc.text('Certificado Oficial de Detective Lector', w / 2, 52, { align: 'center' });
+  doc.text('Diploma de Detective Lector', w / 2, 52, { align: 'center' });
   doc.setFont('helvetica', 'normal');
   doc.setFontSize(14);
   doc.text(limpiar(`${sitio.institucion} (${sitio.municipio_corto})`), w / 2, 62, {
@@ -76,7 +76,7 @@ export async function descargar_certificado(nombre: string) {
   doc.setFontSize(13);
   const cuerpo = doc.splitTextToSize(
     limpiar(
-      'por resolver las tres misiones de lectura y el desafío final, leer con calma, descubrir pistas entre líneas, verificar antes de compartir y defender su voz con razones.',
+      'por resolver las tres misiones de lectura y el reto final, leer con calma, descubrir pistas escondidas, revisar antes de compartir y decir lo que piensa con razones.',
     ),
     190,
   );
@@ -123,5 +123,5 @@ export async function descargar_certificado(nombre: string) {
   doc.text('DETECTIVE', cx, cy - 0.5, { align: 'center' });
   doc.text('LECTOR', cx, cy + 3.5, { align: 'center' });
 
-  doc.save(nombre_archivo('certificado_detective_lector'));
+  doc.save(nombre_archivo('diploma_detective_lector'));
 }

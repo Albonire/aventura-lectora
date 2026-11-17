@@ -57,7 +57,7 @@ export function TorreArgumentos({ unidad, situaciones, pisos, autochequeo }: Pro
   }
 
   return (
-    <Superficie tipo="escribe" id="constructor" titulo="Arma tu torre de argumentos">
+    <Superficie tipo="escribe" id="constructor" titulo="Arma tu torre de ideas">
       <fieldset>
         <legend className="text-body font-medium">Primero, elige de qué vas a opinar</legend>
         <div className="mt-3 grid gap-2 md:grid-cols-2">
@@ -232,7 +232,7 @@ export function TorreArgumentos({ unidad, situaciones, pisos, autochequeo }: Pro
         {revisada && (
           <Burbuja quien="mateo">
             <p className="font-medium">
-              ¡Tu torre quedó firme! Tiene una postura, dos razones y un ejemplo. Léela en voz alta a
+              ¡Tu torre quedó firme! Dice lo que piensas, tiene dos razones y un ejemplo. Léela en voz alta a
               tus compañeros.
             </p>
           </Burbuja>

@@ -1,67 +1,93 @@
 {
   "situaciones": [
-    { "id": "relatos", "texto": "¿Hace falta un rincón en el salón para los relatos de los abuelos?" },
-    { "id": "huerta", "texto": "¿Hace falta una huerta en el patio de la escuela?" },
-    { "id": "mensajes", "texto": "¿Hay que confirmar los mensajes del celular antes de reenviarlos?" },
-    { "id": "quebrada", "texto": "¿Hay que cuidar más la quebrada de la vereda?" }
+    {
+      "id": "relatos",
+      "texto": "¿Hace falta un rincón en el salón para las historias de los abuelos?"
+    },
+    {
+      "id": "huerta",
+      "texto": "¿Hace falta una huerta en el patio de la escuela?"
+    },
+    {
+      "id": "mensajes",
+      "texto": "¿Hay que revisar los mensajes del celular antes de mandarlos a otros?"
+    },
+    {
+      "id": "quebrada",
+      "texto": "¿Hay que cuidar más la quebrada de la vereda?"
+    }
   ],
   "modelo": {
     "titulo": "La torre de Mateo",
-    "situacion": "¿Hace falta un rincón en el salón para los relatos de los abuelos?",
+    "situacion": "¿Hace falta un rincón en el salón para las historias de los abuelos?",
     "pisos": [
       {
         "piso": "cima",
-        "nombre": "Cima: mi ejemplo de Maripí",
+        "nombre": "Arriba: mi ejemplo de Maripí",
         "frases": [
           "Por ejemplo, cuando en el salón leímos la copla del abuelo de una compañera, todos quisimos copiarla."
         ]
       },
       {
         "piso": "centro",
-        "nombre": "Piso central: mis dos razones",
+        "nombre": "En el medio: mis dos razones",
         "frases": [
-          "Porque en primer lugar, esos relatos no están en ningún libro del salón.",
+          "Porque en primer lugar, esas historias no están en ningún libro del salón.",
           "Además, he visto que leemos con más ganas cuando la historia habla de la vereda."
         ]
       },
       {
         "piso": "base",
-        "nombre": "Base: mi postura",
-        "frases": ["Yo pienso que en nuestra escuela hace falta un rincón para los relatos de los abuelos."]
+        "nombre": "Abajo: lo que pienso",
+        "frases": [
+          "Yo pienso que en nuestra escuela hace falta un rincón para las historias de los abuelos."
+        ]
       }
     ]
   },
   "practica": {
     "instruccion": "Estas frases son de otra torre. Pon cada una en su piso.",
     "cajas": [
-      { "id": "base", "titulo": "Base", "descripcion": "Mi postura: lo que pienso" },
-      { "id": "centro", "titulo": "Piso central", "descripcion": "Mis razones: por qué lo pienso" },
-      { "id": "cima", "titulo": "Cima", "descripcion": "Mi ejemplo: algo real que he visto" }
+      {
+        "id": "base",
+        "titulo": "Abajo",
+        "descripcion": "Lo que pienso"
+      },
+      {
+        "id": "centro",
+        "titulo": "En el medio",
+        "descripcion": "Por qué lo pienso"
+      },
+      {
+        "id": "cima",
+        "titulo": "Arriba",
+        "descripcion": "Un ejemplo que he visto"
+      }
     ],
     "items": [
       {
         "id": "t1",
         "texto": "Yo pienso que en nuestra escuela hace falta una huerta.",
         "caja": "base",
-        "pista": "Fíjate en cómo empieza: \"Yo pienso que\". Así se dice una postura, y la postura es la base."
+        "pista": "Fíjate en cómo empieza: \"Yo pienso que\". Así se dice lo que uno piensa, y eso va abajo."
       },
       {
         "id": "t2",
         "texto": "Porque en primer lugar, aprenderíamos a sembrar lo que comemos.",
         "caja": "centro",
-        "pista": "La palabra \"porque\" anuncia una razón. Las razones van en el piso central."
+        "pista": "La palabra \"porque\" anuncia una razón. Las razones van en el medio."
       },
       {
         "id": "t3",
         "texto": "Además, he visto que el patio de atrás está vacío.",
         "caja": "centro",
-        "pista": "\"Además\" suma otra razón a la primera. Las dos razones van juntas en el piso central."
+        "pista": "\"Además\" suma otra razón a la primera. Las dos razones van juntas en el medio."
       },
       {
         "id": "t4",
         "texto": "Por ejemplo, cuando en la finca sembramos cilantro, salió en pocas semanas.",
         "caja": "cima",
-        "pista": "Mira las dos primeras palabras: \"Por ejemplo\". El ejemplo corona la torre, en la cima."
+        "pista": "Mira las dos primeras palabras: \"Por ejemplo\". El ejemplo va arriba, en la punta de la torre."
       }
     ]
   },
@@ -69,53 +95,72 @@
     "pisos": [
       {
         "id": "base",
-        "nombre": "Base",
-        "funcion": "Mi postura",
+        "nombre": "Abajo",
+        "funcion": "Lo que pienso",
         "pregunta": "¿Qué piensas tú?",
         "campos": [
           {
             "id": "postura",
-            "iniciadores": ["Yo pienso que en nuestra escuela", "Yo pienso que en nuestra vereda"],
+            "iniciadores": [
+              "Yo pienso que en nuestra escuela",
+              "Yo pienso que en nuestra vereda"
+            ],
             "ejemplo": "Yo pienso que en nuestra escuela hace falta una huerta."
           }
         ]
       },
       {
         "id": "centro",
-        "nombre": "Piso central",
+        "nombre": "En el medio",
         "funcion": "Mis dos razones",
         "pregunta": "¿Por qué lo piensas?",
         "campos": [
           {
             "id": "razon_1",
-            "iniciadores": ["Porque en primer lugar,"],
+            "iniciadores": [
+              "Porque en primer lugar,"
+            ],
             "ejemplo": "Porque en primer lugar, aprenderíamos a sembrar lo que comemos."
           },
           {
             "id": "razon_2",
-            "iniciadores": ["Además, he visto que"],
+            "iniciadores": [
+              "Además, he visto que"
+            ],
             "ejemplo": "Además, he visto que el patio de atrás está vacío."
           }
         ]
       },
       {
         "id": "cima",
-        "nombre": "Cima",
+        "nombre": "Arriba",
         "funcion": "Mi ejemplo de Maripí",
         "pregunta": "¿Dónde lo has visto?",
         "campos": [
           {
             "id": "ejemplo",
-            "iniciadores": ["Por ejemplo, cuando en la finca", "Por ejemplo, cuando en el salón"],
+            "iniciadores": [
+              "Por ejemplo, cuando en la finca",
+              "Por ejemplo, cuando en el salón"
+            ],
             "ejemplo": "Por ejemplo, cuando en la finca sembramos cilantro, salió en pocas semanas."
           }
         ]
       }
     ],
     "autochequeo": [
-      { "id": "postura", "texto": "Dije claramente qué pienso" },
-      { "id": "razones", "texto": "Expliqué por qué con dos razones" },
-      { "id": "ejemplo", "texto": "Puse un ejemplo real de mi vereda o colegio" }
+      {
+        "id": "postura",
+        "texto": "Dije claramente qué pienso"
+      },
+      {
+        "id": "razones",
+        "texto": "Expliqué por qué con dos razones"
+      },
+      {
+        "id": "ejemplo",
+        "texto": "Puse un ejemplo real de mi vereda o colegio"
+      }
     ]
   }
 }

@@ -61,11 +61,11 @@ export function CuentameAbuelo({ unidad, titulo, instruccion, campos, ruta_libre
       <div className="mt-6 rounded-soft border-2 border-ink-black bg-cream-paper p-4 md:p-5">
         <p className="text-body font-bold">¿En tu casa no hay internet?</p>
         <p className="mt-1 text-body">
-          Lleva la ficha de papel, llénala con tu familia y regístrala aquí mañana en el salón.
+          Lleva la ficha de papel, llénala con tu familia y mañana la copias aquí en el salón.
         </p>
         <a href={ruta_libreta} className={`${boton_reto} mt-3 text-left`} data-libreta>
           <Printer size={22} weight="bold" aria-hidden="true" />
-          <span>Imprimir o ver la ficha: Libreta de campo de Mateo (sin internet)</span>
+          <span>Ficha de papel para la casa: Libreta de campo de Mateo (sin internet)</span>
         </a>
       </div>
 
@@ -118,11 +118,11 @@ export function CuentameAbuelo({ unidad, titulo, instruccion, campos, ruta_libre
         {completo ? (
           <span className="flex items-start gap-2">
             <CheckCircle size={24} weight="fill" aria-hidden="true" className="mt-0.5 shrink-0" />
-            Relato registrado. Se guarda solo en este aparato y lo vas a compartir en el círculo de
+            ¡Listo! Tu historia quedó guardada en este celular o computador. La vas a compartir en el círculo de
             lectura.
           </span>
         ) : (
-          'Responde las tres preguntas para registrar tu relato.'
+          'Contesta las tres preguntas para guardar tu historia.'
         )}
       </p>
     </Superficie>

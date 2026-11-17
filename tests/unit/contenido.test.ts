@@ -91,8 +91,8 @@ describe('retos de cada estacion', () => {
 
   it('classifies sentences as checkable fact or opinion or rumor, half and half', () => {
     expect(act3.clasificar.cajas.map((c) => c.titulo)).toEqual([
-      'Hecho comprobable',
-      'Opinión o rumor',
+      'Dato real',
+      'Opinión o chisme',
     ]);
     const hechos = act3.clasificar.items.filter((i) => i.caja === 'hecho');
     expect(hechos).toHaveLength(3);
@@ -195,6 +195,41 @@ describe('textos del proyecto', () => {
       const texto = readFileSync(ruta, 'utf8');
       expect(texto.includes(raya_larga), ruta).toBe(false);
       for (const palabra of prohibidos) expect(texto.includes(palabra), `${ruta}: ${palabra}`).toBe(false);
+    }
+  });
+});
+
+describe('palabras para ninos de 10 y 11 anos', () => {
+  // words of the design document that are too hard for the children; they stay only in teacher pages
+  const dificiles =
+    /\b(agencia|expediente|estaci[oó]n(es)?|postura|argumentos?|rumor(es)?|verific\w*|relatos?|registr\w*|pasaporte|insignias?|desaf[ií]o|certificado|carn[eé]|deducci[oó]n|reenvi\w*|desvanecidos?|estrategias?|comprobable)\b/i;
+
+  // only the values a child reads: ids, keys and hidden ids are skipped
+  function textos(valor: unknown, clave = ''): string[] {
+    if (typeof valor === 'string') return /^(id|caja|correcta|piso)$/.test(clave) ? [] : [valor];
+    if (Array.isArray(valor)) return valor.flatMap((v) => textos(v, clave));
+    if (valor && typeof valor === 'object')
+      return Object.entries(valor).flatMap(([k, v]) => textos(v, k));
+    return [];
+  }
+
+  it('the readings, questions and hints of the missions use everyday words', () => {
+    for (const [nombre, datos] of Object.entries({ act1, act2, act3, act4, agencia })) {
+      for (const texto of textos(datos)) expect(texto, nombre).not.toMatch(dificiles);
+    }
+  });
+
+  it('the names of the route and the medals use everyday words', async () => {
+    const { estaciones } = await import('../../src/config/paginas');
+    for (const e of estaciones) {
+      for (const texto of [e.etiqueta, e.titulo, e.resumen, e.recompensa]) {
+        expect(texto).not.toMatch(dificiles);
+      }
+    }
+    for (const i of insignias) {
+      for (const texto of [i.descripcion, ...i.tareas.map((t) => t.texto)]) {
+        expect(texto).not.toMatch(dificiles);
+      }
     }
   });
 });

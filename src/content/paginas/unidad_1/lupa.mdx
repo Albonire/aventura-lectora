@@ -8,7 +8,7 @@ import act from '../../../data/actividades/unidad_1.json';
 
 <div class="flex flex-col gap-8">
 
-<p class="lectura">Aquí puedes equivocarte. Si algo falla, Sofía te dice qué parte volver a leer.</p>
+<p class="lectura">Aquí puedes equivocarte. Si pasa, Sofía te dice qué parte volver a leer.</p>
 
 <Releer titulo={act.fabula.titulo} parrafos={act.fabula.parrafos.map((p) => p.texto)} cierre={`Moraleja: ${act.fabula.moraleja}`} />
 
@@ -16,7 +16,7 @@ import act from '../../../data/actividades/unidad_1.json';
 
 <Releer titulo={act.receta.titulo} parrafos={act.receta.pasos.map((p) => p.texto)} etiqueta_parrafo="Paso" />
 
-<StepOrderer client:visible pasos={act.receta.pasos} unidad={1} id="receta" tarea="receta" titulo="Ordena la receta" instruccion="El Efecto Lectura Rápida revolvió los pasos del chocolate. Ponlos en orden con las flechas." retro_error={act.receta.pista_orden} retro_acierto={act.receta.acierto_orden} />
+<StepOrderer client:visible pasos={act.receta.pasos} unidad={1} id="receta" tarea="receta" titulo="Ordena la receta" instruccion="El Borracuentos revolvió los pasos del chocolate. Ponlos en orden con las flechas." retro_error={act.receta.pista_orden} retro_acierto={act.receta.acierto_orden} />
 
 </div>
 

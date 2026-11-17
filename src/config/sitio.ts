@@ -10,8 +10,8 @@ export type IntegranteId = (typeof integrantes)[number]['id'];
 
 export const sitio = {
   nombre_curso: 'Aventura lectora',
-  subtitulo: 'Agencia Escolar de Detectives de la Lectura',
-  nombre_largo: 'Aventura lectora: el misterio de los relatos desvanecidos en Maripí',
+  subtitulo: 'Club de Detectives Lectores',
+  nombre_largo: 'Aventura lectora: el misterio de los cuentos que se borran en Maripí',
   grado: '5.º de primaria',
   pie_portada: 'Quinto grado, I.E. Jorge Eliécer Gaitán, Maripí',
   anio: 2026,

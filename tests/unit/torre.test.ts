@@ -28,7 +28,7 @@ const llena: TorreGuardada = {
   chequeo: [],
 };
 
-describe('torre de argumentos', () => {
+describe('torre de ideas', () => {
   it('has three floors with the sentence starters of the design', () => {
     expect(pisos.map((p) => p.id)).toEqual(['base', 'centro', 'cima']);
     expect(base.campos[0].iniciadores).toEqual([

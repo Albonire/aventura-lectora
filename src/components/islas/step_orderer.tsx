@@ -225,7 +225,7 @@ export function StepOrderer({
       <div role="status" aria-live="polite" className="mt-4 min-h-7">
         {revisado && acierto && (
           <p className="text-body font-medium">
-            {retro_acierto ?? '¡Excelente deducción! El orden de los pasos es correcto.'}
+            {retro_acierto ?? '¡Muy bien, detective! Los pasos quedaron en orden.'}
           </p>
         )}
         {revisado && !acierto && (

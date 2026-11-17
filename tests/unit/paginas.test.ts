@@ -22,16 +22,16 @@ describe('las seis estaciones', () => {
       '01 Misión 1',
       '02 Misión 2',
       '03 Misión 3',
-      '04 Desafío final',
-      '05 Logro',
+      '04 Reto final',
+      '05 Final',
     ]);
     expect(estaciones.map((e) => e.titulo)).toEqual([
-      'Apertura de la Agencia',
-      'Leo y comprendo el rastro',
+      'Entra al club de detectives',
+      'Leo con calma',
       'Pistas y "Cuéntame, abuelo"',
-      'Detectives de noticias',
+      '¿Verdad o chisme?',
       'Mi voz cuenta en Maripí',
-      'Cierre del expediente',
+      '¡Caso resuelto!',
     ]);
   });
 
@@ -40,8 +40,8 @@ describe('las seis estaciones', () => {
     expect(TOTAL_CASOS).toBe(4);
     expect(estaciones[0].href).toBe('/agencia');
     expect(estaciones[5].href).toBe('/cierre');
-    expect(etiqueta_caso(4)).toBe('Desafío final');
-    expect(estacion_de_caso(2).recompensa).toBe('Insignia Lupa de Plata');
+    expect(etiqueta_caso(4)).toBe('Reto final');
+    expect(estacion_de_caso(2).recompensa).toBe('Medalla Lupa de Plata');
     expect(() => estacion_de_caso(5)).toThrow();
   });
 });

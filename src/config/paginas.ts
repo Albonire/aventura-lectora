@@ -33,14 +33,14 @@ export const paginas_caso: PaginaCaso[] = [
     slug: 'lupa',
     segmento: '/lupa',
     titulo: 'Entrenar la lupa',
-    descripcion: 'Practicamos. Si algo falla, Sofía da una pista y volvemos a intentar.',
+    descripcion: 'Practicamos. Si te equivocas, Sofía te da una pista y vuelves a intentar.',
     secciones: ['practica'],
   },
   {
     slug: 'cerrar',
     segmento: '/cerrar',
     titulo: 'Cerrar el caso',
-    descripcion: 'Resolvemos el reto y ganamos la insignia.',
+    descripcion: 'Resolvemos el reto y ganamos la medalla.',
     secciones: ['reto', 'cierre-caso'],
   },
 ];
@@ -66,19 +66,19 @@ export const estaciones: Estacion[] = [
   {
     codigo: '00',
     etiqueta: 'Inicio',
-    titulo: 'Apertura de la Agencia',
-    resumen: 'Conoces a Sofía y a Mateo, pruebas una pista corta y activas tu pasaporte.',
-    nivel: 'Parejas en el aula y carné',
-    recompensa: 'Pasaporte de detective',
+    titulo: 'Entra al club de detectives',
+    resumen: 'Conoces a Sofía y a Mateo, resuelves una pista de prueba y recibes tu álbum de medallas.',
+    nivel: 'Parejas en el aula y tarjeta de detective',
+    recompensa: 'Álbum de medallas',
     href: '/agencia',
   },
   {
     codigo: '01',
     etiqueta: 'Misión 1',
-    titulo: 'Leo y comprendo el rastro',
-    resumen: 'Lees una fábula y una receta campesina con paradas antes, durante y después.',
+    titulo: 'Leo con calma',
+    resumen: 'Lees un cuento y una receta del campo, parando para pensar.',
     nivel: 'Nivel literal: cuentos y recetas',
-    recompensa: 'Insignia Lupa de Bronce',
+    recompensa: 'Medalla Lupa de Bronce',
     caso: 1,
     href: '/unidad/1',
   },
@@ -86,39 +86,39 @@ export const estaciones: Estacion[] = [
     codigo: '02',
     etiqueta: 'Misión 2',
     titulo: 'Pistas y "Cuéntame, abuelo"',
-    resumen: 'Descubres lo que el texto sugiere y recoges un relato de tu familia.',
-    nivel: 'Nivel inferencial y relato en casa',
-    recompensa: 'Insignia Lupa de Plata',
+    resumen: 'Descubres lo que la historia no dice y traes una historia de tu familia.',
+    nivel: 'Nivel inferencial e historia de la familia',
+    recompensa: 'Medalla Lupa de Plata',
     caso: 2,
     href: '/unidad/2',
   },
   {
     codigo: '03',
     etiqueta: 'Misión 3',
-    titulo: 'Detectives de noticias',
-    resumen: 'Comparas dos mensajes del celular y separas los hechos de los rumores.',
-    nivel: 'Nivel crítico: hecho y opinión',
-    recompensa: 'Insignia Detector de Verdades',
+    titulo: '¿Verdad o chisme?',
+    resumen: 'Miras dos mensajes del celular y descubres cuál dice la verdad.',
+    nivel: 'Nivel crítico: dato real y opinión',
+    recompensa: 'Medalla Detector de Verdades',
     caso: 3,
     href: '/unidad/3',
   },
   {
     codigo: '04',
-    etiqueta: 'Desafío final',
+    etiqueta: 'Reto final',
     titulo: 'Mi voz cuenta en Maripí',
-    resumen: 'Armas tu torre de argumentos con una postura, dos razones y un ejemplo.',
-    nivel: 'Torre de argumentos propia',
-    recompensa: 'Insignia Voz de Detective',
+    resumen: 'Armas tu torre de ideas: lo que piensas, dos razones y un ejemplo.',
+    nivel: 'Torre de ideas propia',
+    recompensa: 'Medalla Voz de Detective',
     caso: 4,
     href: '/unidad/4',
   },
   {
     codigo: '05',
-    etiqueta: 'Logro',
-    titulo: 'Cierre del expediente',
-    resumen: 'Miras tu pasaporte completo, compartes tu relato y recibes tu certificado.',
-    nivel: 'Círculo de lectura familiar',
-    recompensa: 'Certificado de Detective Lector',
+    etiqueta: 'Final',
+    titulo: '¡Caso resuelto!',
+    resumen: 'Ves tus cuatro medallas, compartes la historia de tu familia y recibes tu diploma.',
+    nivel: 'Círculo de lectura con la familia',
+    recompensa: 'Diploma de Detective Lector',
     href: '/cierre',
   },
 ];
@@ -129,7 +129,7 @@ export function estacion_de_caso(caso: number): Estacion {
   return estacion;
 }
 
-// "Misión 1", "Desafío final"
+// "Misión 1", "Reto final"
 export function etiqueta_caso(caso: number): string {
   return estacion_de_caso(caso).etiqueta;
 }
@@ -190,19 +190,19 @@ export function orden_libro(total_casos: number = TOTAL_CASOS): Ubicacion[] {
 export function destino_de(ubicacion: Ubicacion): Destino {
   switch (ubicacion.tipo) {
     case 'inicio':
-      return { href: '/', titulo: 'Mapa de la ruta', contexto: 'Portada' };
+      return { href: '/', titulo: 'El camino de la aventura', contexto: 'Portada' };
     case 'agencia':
       return {
         href: '/agencia',
         titulo: estaciones[0].titulo,
-        contexto: `Estación 00: ${estaciones[0].etiqueta}`,
+        contexto: estaciones[0].etiqueta,
       };
     case 'cierre': {
       const ultima = estaciones[estaciones.length - 1];
       return {
         href: '/cierre',
         titulo: ultima.titulo,
-        contexto: `Estación ${ultima.codigo}: ${ultima.etiqueta}`,
+        contexto: ultima.etiqueta,
       };
     }
     case 'caso': {

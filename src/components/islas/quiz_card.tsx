@@ -185,7 +185,7 @@ export function QuizCard({
 
             <div role="status" aria-live="polite" className="mt-5 min-h-7">
               {resuelta && (
-                <p className="text-body font-medium">¡Excelente deducción! {pregunta.retro}</p>
+                <p className="text-body font-medium">¡Muy bien, detective! {pregunta.retro}</p>
               )}
               {!resuelta && pista && (
                 <Burbuja

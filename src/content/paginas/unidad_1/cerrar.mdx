@@ -10,7 +10,7 @@ import act from '../../../data/actividades/unidad_1.json';
 
 <Releer titulo={act.fabula.titulo} parrafos={act.fabula.parrafos.map((p) => p.texto)} cierre={`Moraleja: ${act.fabula.moraleja}`} />
 
-<QuizCard client:visible preguntas={act.quiz} unidad={1} id="idea" tarea="idea" titulo="La idea principal y los detalles" />
+<QuizCard client:visible preguntas={act.quiz} unidad={1} id="idea" tarea="idea" titulo="La idea más importante" />
 
 <Burbuja quien="sofia"><span class="interfaz mr-2 inline-block rounded-pill border-2 border-ink-black bg-sunshine-pop px-3 py-0.5 text-body-sm font-bold">{act.opino.estrategia}</span><span>{act.opino.texto}</span></Burbuja>
 

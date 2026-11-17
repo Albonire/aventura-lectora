@@ -26,16 +26,16 @@ export function BadgeTracker({ modo, unidad }: Props) {
         data-insignia-caso={dato.caso}
       >
         <div className="flex flex-wrap items-center gap-5">
-          <Insignia caso={dato.caso} size={104} ganada={ganada} titulo={`Insignia ${dato.nombre}`} />
+          <Insignia caso={dato.caso} size={104} ganada={ganada} titulo={`Medalla ${dato.nombre}`} />
           <div className="min-w-0 flex-1">
             <p className="interfaz text-body-sm font-medium text-stone-text">
-              Insignia de la {dato.estacion === 'Desafío final' ? 'estación' : 'misión'}
+              Medalla de la misión
             </p>
             <p className="text-heading-sm font-bold leading-tight">{dato.nombre}</p>
             <p role="status" aria-live="polite" className="mt-1 text-body">
               {ganada
-                ? `¡Ganaste esta insignia! ${dato.descripcion}`
-                : 'Completa estos pasos para ganarla:'}
+                ? `¡Ganaste esta medalla! ${dato.descripcion}`
+                : 'Haz estas cosas para ganarla:'}
             </p>
           </div>
         </div>
@@ -63,7 +63,7 @@ export function BadgeTracker({ modo, unidad }: Props) {
                     href={ruta_pagina(dato.caso, t.pagina)}
                     className="interfaz shrink-0 text-body-sm font-medium underline decoration-2 underline-offset-4"
                   >
-                    Ir al paso 3
+                    Ir a practicar
                   </a>
                 )}
               </li>
@@ -78,8 +78,8 @@ export function BadgeTracker({ modo, unidad }: Props) {
   const nombres = nombres_detectives(pasaporte);
   return (
     <Superficie
-      titulo={nombres ? `Pasaporte de ${nombres}` : 'Pasaporte de detective'}
-      etiqueta={`${total} de ${insignias.length} insignias`}
+      titulo={nombres ? `Álbum de medallas de ${nombres}` : 'Tu álbum de medallas'}
+      etiqueta={`${total} de ${insignias.length} medallas`}
     >
       <ul className="grid grid-cols-2 gap-5 lg:grid-cols-4" data-pasaporte-medallas>
         {insignias.map((i) => {

@@ -4,7 +4,7 @@
     "opciones": [
       {
         "id": "reenvio",
-        "texto": "Lo reenvío rápido"
+        "texto": "Se lo mando rápido a otros"
       },
       {
         "id": "pregunto",
@@ -32,12 +32,12 @@
     {
       "id": "m2",
       "nombre": "Mensaje 2",
-      "remitente": "Reenviado muchas veces",
+      "remitente": "Mandado muchas veces, sin nombre",
       "lineas": [
         "¡¡URGENTE!!",
         "Dicen que mañana cierran el colegio toda la semana porque se cayó el puente de la quebrada.",
         "Nadie ha dicho nada, pero es verdad.",
-        "Reenvíalo ya a todos tus contactos."
+        "Mándalo ya a todos tus contactos."
       ]
     }
   ],
@@ -50,13 +50,13 @@
     },
     {
       "id": "comprobar",
-      "pregunta": "¿Se puede comprobar?",
-      "detalle": "Busca datos como el día, la hora y el lugar, y dónde revisarlos."
+      "pregunta": "¿Lo puedo revisar?",
+      "detalle": "Busca el día, la hora y el lugar, y dónde preguntar si es cierto."
     },
     {
       "id": "afan",
-      "pregunta": "¿Me mete miedo o afán?",
-      "detalle": "Desconfía si grita \"urgente\" o pide reenviarlo ya."
+      "pregunta": "¿Me quiere asustar o apurar?",
+      "detalle": "Ten cuidado si grita \"urgente\" o te pide mandarlo ya."
     }
   ],
   "comparo": {
@@ -77,7 +77,7 @@
       }
     ],
     "correcta": "m1",
-    "acierto": "Bien comparado. El mensaje 1 dice que escribe la profesora del grupo. El mensaje 2 solo dice \"dicen que\".",
+    "acierto": "¡Bien hecho! El mensaje 1 dice que escribe la profesora del grupo. El mensaje 2 solo dice \"dicen que\".",
     "pista": "Vuelve a leer la segunda línea de cada mensaje. Solo uno dice quién escribe."
   },
   "clasificar": {
@@ -85,13 +85,13 @@
     "cajas": [
       {
         "id": "hecho",
-        "titulo": "Hecho comprobable",
+        "titulo": "Dato real",
         "descripcion": "Se puede revisar si es cierto"
       },
       {
         "id": "rumor",
-        "titulo": "Opinión o rumor",
-        "descripcion": "Lo que alguien piensa o repite sin pruebas"
+        "titulo": "Opinión o chisme",
+        "descripcion": "Lo que alguien piensa, o algo que se repite sin pruebas"
       }
     ],
     "items": [
@@ -111,7 +111,7 @@
         "id": "f3",
         "texto": "El aviso está en la cartelera del colegio.",
         "caja": "hecho",
-        "pista": "Puedes ir a la cartelera y mirar si el aviso está. Lo que se puede revisar es un hecho comprobable."
+        "pista": "Puedes ir a la cartelera y mirar si el aviso está. Lo que se puede revisar es un dato real."
       },
       {
         "id": "f4",
@@ -136,7 +136,7 @@
   "quiz": [
     {
       "id": "autor_m2",
-      "nivel": "Verifico",
+      "nivel": "Reviso",
       "pregunta": "¿Quién escribió el mensaje 2, el del puente?",
       "opciones": [
         {
@@ -153,7 +153,7 @@
         }
       ],
       "correcta": "a",
-      "retro": "Un mensaje sin autor no tiene quién responda por lo que dice.",
+      "retro": "Si un mensaje no dice quién lo escribió, nadie responde por lo que dice.",
       "pistas": [
         "Vuelve a leer el mensaje 2 de arriba abajo y busca un nombre o una firma.",
         "Mira cómo empieza la segunda línea: \"Dicen que\". ¿Aparece el nombre de alguien?"
@@ -161,7 +161,7 @@
     },
     {
       "id": "antes_compartir",
-      "nivel": "Verifico",
+      "nivel": "Reviso",
       "pregunta": "A Mateo le llega el mensaje 2 al celular de la familia. ¿Qué debe hacer primero?",
       "opciones": [
         {
@@ -170,7 +170,7 @@
         },
         {
           "id": "b",
-          "texto": "Reenviarlo rápido a todos los contactos."
+          "texto": "Mandarlo rápido a todos los contactos."
         },
         {
           "id": "c",
@@ -178,7 +178,7 @@
         }
       ],
       "correcta": "a",
-      "retro": "Primero se verifica con quien sí sabe. Después se decide si vale la pena compartir.",
+      "retro": "Primero se pregunta a quien sí sabe. Después se decide si vale la pena compartirlo.",
       "pistas": [
         "Recuerda la primera pregunta del Detector de Verdades: ¿quién lo escribió? Si no se sabe, falta un paso antes de compartir.",
         "Piensa quién sí sabe si el colegio cierra. A esa persona hay que preguntarle."
@@ -186,12 +186,12 @@
     },
     {
       "id": "confianza",
-      "nivel": "Argumento",
+      "nivel": "Doy razones",
       "pregunta": "¿Cuál mensaje se puede compartir con confianza y por qué?",
       "opciones": [
         {
           "id": "a",
-          "texto": "El mensaje 1, porque dice quién lo escribe y se puede comprobar en la cartelera."
+          "texto": "El mensaje 1, porque dice quién lo escribe y se puede revisar en la cartelera."
         },
         {
           "id": "b",
@@ -199,19 +199,19 @@
         },
         {
           "id": "c",
-          "texto": "El mensaje 2, porque lo han reenviado muchas veces."
+          "texto": "El mensaje 2, porque lo han mandado muchas veces."
         }
       ],
       "correcta": "a",
-      "retro": "Diste una razón con pruebas: tiene autor y un lugar donde comprobarlo.",
+      "retro": "Diste una razón con pruebas: dice quién lo escribe y dónde revisarlo.",
       "pistas": [
-        "Que un mensaje grite \"urgente\" o llegue muchas veces no lo vuelve cierto. Vuelve a mirar las tres preguntas del Detector de Verdades.",
-        "Busca el mensaje que tiene las dos cosas: quién escribe y dónde se puede comprobar."
+        "Que un mensaje grite \"urgente\" o llegue muchas veces no lo vuelve verdad. Vuelve a mirar las tres preguntas del Detector de Verdades.",
+        "Busca el mensaje que tiene las dos cosas: quién escribe y dónde se puede revisar."
       ]
     }
   ],
   "argumento": {
-    "estrategia": "argumento",
-    "texto": "Ahora argumenta. Dile a tu pareja de detectives: \"Yo no compartiría el mensaje 2 porque...\"."
+    "estrategia": "explico",
+    "texto": "Ahora da tus razones. Dile a tu pareja de detectives: \"Yo no compartiría el mensaje 2 porque...\"."
   }
 }

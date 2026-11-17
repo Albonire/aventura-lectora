@@ -41,12 +41,12 @@ Cada estación dura de 15 a 20 minutos. Las lecturas tienen de 150 a 250 palabra
 
 | Estación | Ruta | Nivel y referentes | Reto | Recompensa |
 |---|---|---|---|---|
-| 00 Inicio: Apertura de la Agencia | `/agencia` | Ubicación, trabajo en parejas | Conocer a Sofía y a Mateo, elegir solo o en pareja, resolver la pista de prueba, activar el pasaporte | Carné y pasaporte de detective |
-| 01 Misión 1: Leo y comprendo el rastro | `/unidad/1` | Literal. DBA 5 y 6 | Inicio, nudo y desenlace; ordenar la receta; idea principal y detalles | Lupa de Bronce |
+| 00 Inicio: Entra al club de detectives | `/agencia` | Ubicación, trabajo en parejas | Conocer a Sofía y a Mateo, elegir solo o en pareja, resolver la pista de prueba, hacer la tarjeta de detective | Tarjeta y álbum de medallas |
+| 01 Misión 1: Leo con calma | `/unidad/1` | Literal. DBA 5 y 6 | Inicio, nudo y desenlace; ordenar la receta; idea principal y detalles | Lupa de Bronce |
 | 02 Misión 2: Pistas y "Cuéntame, abuelo" | `/unidad/2` | Inferencial. DBA 6 y 5 | Preguntas inferenciales; reto familiar en pantalla o en papel | Lupa de Plata |
-| 03 Misión 3: Detectives de noticias | `/unidad/3` | Crítico. DBA 1 y 5 (ver nota) | Hecho comprobable u opinión o rumor; verificar quién escribió | Detector de Verdades |
-| 04 Desafío final: Mi voz cuenta en Maripí | `/unidad/4` | Argumentación. DBA 1, 7 y 8 | Torre de argumentos guiada y autochequeo | Voz de Detective |
-| 05 Logro: Cierre del expediente | `/cierre` | Autoevaluación | Pasaporte con 4 medallas, relato familiar, certificado | Certificado de Detective Lector |
+| 03 Misión 3: ¿Verdad o chisme? | `/unidad/3` | Crítico. DBA 1 y 5 (ver nota) | Dato real u opinión o chisme; revisar quién escribió | Detector de Verdades |
+| 04 Reto final: Mi voz cuenta en Maripí | `/unidad/4` | Argumentación. DBA 1, 7 y 8 | Torre de ideas guiada y autochequeo | Voz de Detective |
+| 05 Final: ¡Caso resuelto! | `/cierre` | Autoevaluación | Álbum con 4 medallas, historia de la familia, diploma | Diploma de Detective Lector |
 
 Nota sobre la Misión 3: la Guía 2.1 la asocia al "DBA 3 de Lenguaje". En el documento oficial (MEN, 2016, V.2), el DBA 3 de grado 5.º trata de los roles de los personajes en las obras literarias. Los enunciados que sí hablan de mensajes de los medios son el DBA 1 y la evidencia del DBA 5 ("Asume una postura crítica y respetuosa frente a los mensajes que circulan en su medio"), y son los que cita el sitio. Pendiente del equipo: confirmar o corregir el referente en el documento de entrega.
 
@@ -59,7 +59,7 @@ Las estaciones 01 a 04 tienen siempre las mismas cuatro páginas, con una barra 
 3. `3. Entrenar la lupa` (`/unidad/N/lupa`): práctica con pistas de Sofía.
 4. `4. Cerrar el caso` (`/unidad/N/cerrar`): reto, insignia y autoevaluación.
 
-Etiquetas de estrategia: Misión 1 `predigo`, `pregunto`, `opino`; Misión 3 `comparo`, `verifico`, `argumento`.
+Trucos de detective (etiquetas de estrategia): Misión 1 `imagino`, `pregunto`, `opino`; Misión 3 `comparo`, `reviso`, `explico`. La Guía 2.1 los llama `predigo`, `verifico` y `argumento`; se cambiaron por palabras más fáciles.
 
 ### Otras páginas
 
@@ -73,6 +73,8 @@ Etiquetas de estrategia: Misión 1 `predigo`, `pregunto`, `opino`; Misión 3 `co
 
 ## 3. Ajustes tras la prueba piloto (deben verse funcionando)
 
+0. **Vocabulario de niño de 10 años.** Lo que leen los estudiantes usa palabras de todos los días; los nombres del documento de diseño se tradujeron así: agencia por club, estación por parte o misión, insignia por medalla, pasaporte por álbum, certificado por diploma, torre de argumentos por torre de ideas, postura por lo que pienso, hecho comprobable por dato real, rumor por chisme, verificar por revisar, relato por historia y desafío final por reto final. Las páginas para docentes conservan los términos pedagógicos.
+
 1. **Botón "Escuchar con voz pausada".** `ReadAloud` con `speechSynthesis`, voz `es-CO`, luego `es-419`, luego cualquier `es`, a `rate: 0.9`. En cada lectura y en cada consigna (misión, cuestionarios, clasificaciones, reto familiar, torre). Se oculta si el navegador no tiene la API.
 2. **Pistas graduadas de Sofía.** Una respuesta incorrecta nunca muestra solo "incorrecto": aparece una burbuja de Sofía con una pista que nombra el párrafo, la línea o la frase que hay que volver a leer. Cada pregunta tiene al menos dos pistas, cada una más concreta (`pista_para` en `src/lib/quiz.ts`). Las tarjetas mal clasificadas también tienen pista. En las páginas de práctica y de reto la lectura está plegada en "Volver a leer".
 3. **Libreta de campo de Mateo.** Modalidad dual del reto familiar: formulario de 3 campos en pantalla y ficha de papel para los 4 hogares sin datos móviles.
@@ -82,12 +84,12 @@ Etiquetas de estrategia: Misión 1 `predigo`, `pregunto`, `opino`; Misión 3 `co
 
 ## 4. Gamificación
 
-- Narrativa: "El misterio de los relatos desvanecidos en Maripí". El Efecto Lectura Rápida borra ideas principales, desordena recetas y hace olvidar coplas y leyendas.
+- Narrativa: "El misterio de los cuentos que se borran en Maripí". El Borracuentos (el "Efecto Lectura Rápida" de la Guía 2.1) borra las ideas más importantes, desordena recetas y hace olvidar coplas y leyendas.
 - Personajes (ver `gemini_notebook/01_guia_de_estilo.md`): Sofía, "la Guardiana de la Lupa", con el conejo de la bufanda roja y la tortuga; Mateo, "el Rastreador de Pistas", con la oruga del sombrero de copa.
-- Pasaporte de detective: se activa en la estación 00 con el nombre del estudiante o de la pareja.
+- Tarjeta de detective y álbum de medallas (el "pasaporte" de la Guía 2.1): se hace en el Inicio con el nombre del estudiante o de la pareja.
 - Insignias: cada una declara sus tareas en `src/lib/insignias.ts`. Una insignia se gana cuando todas las tareas de su caso están hechas (`marcar_tarea` en `src/lib/progreso.ts`). El panel "Gana tu insignia" muestra qué falta.
 
-| Insignia | Tareas |
+| Medalla | Tareas |
 |---|---|
 | Lupa de Bronce | `partes`, `receta` (paso 3) e `idea` (paso 4) |
 | Lupa de Plata | `inferencias` (paso 3) y `abuelo` (paso 4) |

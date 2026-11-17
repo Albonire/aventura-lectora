@@ -13,7 +13,7 @@ export function RelatoFamiliar() {
   const texto = `Me lo contó ${datos.quien}. ${datos.trama} La enseñanza que nos deja: ${datos.ensenanza}`;
 
   return (
-    <Superficie tipo="conversa" titulo="Mi relato de Cuéntame, abuelo">
+    <Superficie tipo="conversa" titulo="Mi historia de Cuéntame, abuelo">
       {completo ? (
         <div data-relato-familiar>
           <dl className="flex flex-col gap-4">
@@ -36,14 +36,14 @@ export function RelatoFamiliar() {
           </dl>
           <ReadAloud texto={texto} className="mt-5" />
           <p className="mt-4 text-body">
-            Léelo en voz alta en el círculo de lectura del salón y escucha los relatos de tus
+            Léelo en voz alta en el círculo de lectura del salón y escucha las historias de tus
             compañeros.
           </p>
         </div>
       ) : (
         <div>
           <p className="max-w-reading text-body">
-            Todavía no has registrado tu relato familiar. Cuando lo hagas en la Misión 2, aparece
+            Todavía no has escrito la historia de tu familia. Cuando la escribas en la Misión 2, aparece
             aquí para compartirlo en el círculo de lectura.
           </p>
           <a href={ruta_seccion(2, 'reto')} className={`${boton} mt-4`}>

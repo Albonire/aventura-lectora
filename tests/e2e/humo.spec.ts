@@ -169,7 +169,7 @@ test.describe('contexto, autoria y textos', () => {
     for (const [id, valor] of Object.entries(cifras)) {
       await expect(page.locator(`[data-cifra="${id}"]`)).toContainText(valor);
     }
-    await expect(page.locator('[data-ajustes] > li')).toHaveCount(7);
+    await expect(page.locator('[data-ajustes] > li')).toHaveCount(8);
     await expect(page.locator('[data-tabla-estaciones] tbody tr')).toHaveCount(6);
     for (let etapa = 1; etapa <= 7; etapa += 1) {
       await expect(page.locator(`#etapa-${etapa}`)).toBeVisible();
@@ -263,12 +263,12 @@ test.describe('ruta de seis estaciones', () => {
     const estaciones = page.locator('[data-indice-libro] > li');
     await expect(estaciones).toHaveCount(6);
     const esperado = [
-      ['00', 'Apertura de la Agencia', 'Pasaporte de detective'],
-      ['01', 'Leo y comprendo el rastro', 'Lupa de Bronce'],
+      ['00', 'Entra al club de detectives', 'Álbum de medallas'],
+      ['01', 'Leo con calma', 'Lupa de Bronce'],
       ['02', 'Pistas y "Cuéntame, abuelo"', 'Lupa de Plata'],
-      ['03', 'Detectives de noticias', 'Detector de Verdades'],
+      ['03', '¿Verdad o chisme?', 'Detector de Verdades'],
       ['04', 'Mi voz cuenta en Maripí', 'Voz de Detective'],
-      ['05', 'Cierre del expediente', 'Certificado de Detective Lector'],
+      ['05', '¡Caso resuelto!', 'Diploma de Detective Lector'],
     ];
     for (const [i, [codigo, titulo, premio]] of esperado.entries()) {
       const li = estaciones.nth(i);
@@ -329,13 +329,13 @@ test.describe('ruta de seis estaciones', () => {
     }
   });
 
-  test('las etiquetas de estrategia aparecen en las misiones 1 y 3', async ({ page }) => {
+  test('los trucos de detective aparecen en las misiones 1 y 3', async ({ page }) => {
     await page.goto('/unidad/1');
     const uno = page.locator('[data-estrategias]');
-    for (const etiqueta of ['predigo', 'pregunto', 'opino']) await expect(uno).toContainText(etiqueta);
+    for (const etiqueta of ['imagino', 'pregunto', 'opino']) await expect(uno).toContainText(etiqueta);
     await page.goto('/unidad/3');
     const tres = page.locator('[data-estrategias]');
-    for (const etiqueta of ['comparo', 'verifico', 'argumento']) {
+    for (const etiqueta of ['comparo', 'reviso', 'explico']) {
       await expect(tres).toContainText(etiqueta);
     }
   });
@@ -421,7 +421,7 @@ test.describe('pistas graduadas de Sofía', () => {
     page,
   }) => {
     await page.goto('/unidad/1/cerrar');
-    const quiz = page.getByRole('region', { name: 'La idea principal y los detalles' });
+    const quiz = page.getByRole('region', { name: 'La idea más importante' });
     await hidratada(quiz);
     const pregunta = act1.quiz[0];
     const incorrectas = pregunta.opciones.filter((o) => o.id !== pregunta.correcta);
@@ -439,7 +439,7 @@ test.describe('pistas graduadas de Sofía', () => {
 
     const correcta = pregunta.opciones.find((o) => o.id === pregunta.correcta)?.texto ?? '';
     await quiz.getByRole('button', { name: new RegExp(correcta) }).click();
-    await expect(quiz.getByText(/Excelente deducción/)).toBeVisible();
+    await expect(quiz.getByText(/Muy bien, detective/)).toBeVisible();
     await expect(quiz.locator('[data-pista-sofia]')).toHaveCount(0);
   });
 
@@ -453,7 +453,7 @@ test.describe('pistas graduadas de Sofía', () => {
     for (const item of act3.clasificar.items) {
       await actividad
         .getByRole('group', { name: `Mover a una caja: ${item.texto}` })
-        .getByRole('button', { name: 'Hecho comprobable' })
+        .getByRole('button', { name: 'Dato real' })
         .click();
     }
     await actividad.getByRole('button', { name: 'Revisar' }).click();
@@ -472,7 +472,7 @@ test.describe('pistas graduadas de Sofía', () => {
     await prueba.getByRole('button', { name: 'En la tienda del pueblo' }).click();
     await expect(prueba.locator('[data-pista-sofia]')).toContainText('Vuelve a leer la nota');
     await prueba.getByRole('button', { name: 'Donde se lee despacio y con calma' }).click();
-    await expect(prueba.getByText(/Primera pista resuelta/)).toBeVisible();
+    await expect(prueba.getByText(/Resolviste tu primera pista/)).toBeVisible();
   });
 });
 
@@ -481,14 +481,14 @@ test.describe('pasaporte e insignias', () => {
     await page.goto('/agencia');
     const prueba = page.locator('#prueba');
     const pasaporte = page.locator('#pasaporte');
-    await hidratada(pasaporte.getByRole('button', { name: 'Activar mi pasaporte' }));
-    await expect(pasaporte.getByRole('button', { name: 'Activar mi pasaporte' })).toBeDisabled();
+    await hidratada(pasaporte.getByRole('button', { name: 'Hacer mi tarjeta' }));
+    await expect(pasaporte.getByRole('button', { name: 'Hacer mi tarjeta' })).toBeDisabled();
     await hidratada(prueba.getByRole('button', { name: 'Donde se lee despacio y con calma' }));
     await prueba.getByRole('button', { name: 'Donde se lee despacio y con calma' }).click();
     await pasaporte.getByText('Trabajo en pareja de detectives').click();
     await pasaporte.getByLabel('Nombre del primer detective').fill('Ana');
     await pasaporte.getByLabel('Nombre del segundo detective').fill('Luis');
-    await pasaporte.getByRole('button', { name: 'Activar mi pasaporte' }).click();
+    await pasaporte.getByRole('button', { name: 'Hacer mi tarjeta' }).click();
     const carne = pasaporte.locator('[data-carne]');
     await expect(carne).toContainText('Ana y Luis');
     await expect(carne).toContainText('Pareja de detectives lectores');
@@ -529,15 +529,15 @@ test.describe('pasaporte e insignias', () => {
     await page.goto('/unidad/1/cerrar');
     const insignia = page.locator('[data-insignia-caso="1"]');
     await hidratada(insignia);
-    await expect(insignia).toContainText('Completa estos pasos para ganarla');
-    const quiz = page.getByRole('region', { name: 'La idea principal y los detalles' });
+    await expect(insignia).toContainText('Haz estas cosas para ganarla');
+    const quiz = page.getByRole('region', { name: 'La idea más importante' });
     await hidratada(quiz);
     for (const pregunta of act1.quiz) {
       const correcta = pregunta.opciones.find((o) => o.id === pregunta.correcta)?.texto ?? '';
       await quiz.getByRole('button', { name: new RegExp(correcta.replace(/[.?]/g, '\\$&')) }).click();
       await quiz.getByRole('button', { name: /Siguiente pregunta|Ver mi resultado/ }).click();
     }
-    await expect(insignia).toContainText('¡Ganaste esta insignia!');
+    await expect(insignia).toContainText('¡Ganaste esta medalla!');
 
     const guardado = await page.evaluate(() =>
       JSON.parse(localStorage.getItem('aventura_lectora:ruta') ?? '{}'),
@@ -546,7 +546,7 @@ test.describe('pasaporte e insignias', () => {
     expect(guardado.tareas).toEqual(['1:partes', '1:receta', '1:idea']);
 
     await page.reload();
-    await expect(page.locator('[data-insignia-caso="1"]')).toContainText('¡Ganaste esta insignia!');
+    await expect(page.locator('[data-insignia-caso="1"]')).toContainText('¡Ganaste esta medalla!');
     await page.goto('/cierre');
     const medallas = page.locator('[data-pasaporte-medallas] [data-insignia]');
     await expect(medallas).toHaveCount(4);
@@ -567,7 +567,7 @@ test.describe('reto familiar y libreta de campo', () => {
     await reto.getByLabel(act2.abuelo.campos[0].etiqueta).fill('Mi abuelo Chepe');
     await reto.getByLabel(act2.abuelo.campos[1].etiqueta).fill('Una copla sobre la molienda y el trapiche.');
     await reto.getByLabel(act2.abuelo.campos[2].etiqueta).fill('Nos enseña a trabajar con calma.');
-    await expect(reto.getByText(/Relato registrado/)).toBeVisible();
+    await expect(reto.getByText(/Tu historia quedó guardada/)).toBeVisible();
     const tareas = await page.evaluate(
       () => JSON.parse(localStorage.getItem('aventura_lectora:ruta') ?? '{}').tareas,
     );
@@ -579,7 +579,7 @@ test.describe('reto familiar y libreta de campo', () => {
     const enlace = page.locator('[data-libreta]');
     await hidratada(enlace);
     await expect(enlace).toContainText(
-      'Imprimir o ver la ficha: Libreta de campo de Mateo (sin internet)',
+      'Ficha de papel para la casa: Libreta de campo de Mateo (sin internet)',
     );
     await enlace.click();
     await expect(page).toHaveURL(/\/libreta$/);
@@ -601,12 +601,12 @@ test.describe('reto familiar y libreta de campo', () => {
   });
 });
 
-test.describe('desafio final: torre de argumentos', () => {
+test.describe('reto final: torre de ideas', () => {
   test('la torre se arma con frases iniciadoras y el autochequeo gana la Voz de Detective', async ({
     page,
   }) => {
     await page.goto('/unidad/4/cerrar');
-    const torre = page.getByRole('region', { name: 'Arma tu torre de argumentos' });
+    const torre = page.getByRole('region', { name: 'Arma tu torre de ideas' });
     await hidratada(torre);
     // no free text area: only short guided lines
     await expect(torre.locator('textarea')).toHaveCount(0);
@@ -643,7 +643,7 @@ test.describe('desafio final: torre de argumentos', () => {
     await expect(torre.getByText(/Tu torre quedó firme/)).toBeVisible();
     const insignia = page.locator('[data-insignia-caso="4"]');
     await hidratada(insignia);
-    await expect(insignia).toContainText('¡Ganaste esta insignia!');
+    await expect(insignia).toContainText('¡Ganaste esta medalla!');
   });
 });
 
@@ -668,7 +668,7 @@ test.describe('cierre del expediente', () => {
 
     const certificado = page.locator('[data-certificado]');
     await hidratada(certificado);
-    await expect(certificado).toContainText('Certificado Oficial de Detective Lector');
+    await expect(certificado).toContainText('Diploma de Detective Lector');
     await expect(certificado).toContainText(
       'Institución Educativa Jorge Eliécer Gaitán (Maripí, Boyacá)',
     );
@@ -686,7 +686,7 @@ test.describe('cierre del expediente', () => {
       };
     });
     await page.goto('/cierre');
-    const boton = page.getByRole('button', { name: 'Imprimir certificado' });
+    const boton = page.getByRole('button', { name: 'Imprimir diploma' });
     await hidratada(boton);
     await expect(boton).toBeEnabled();
     await boton.click();
@@ -704,10 +704,10 @@ test.describe('cierre del expediente', () => {
   test('el certificado tambien se descarga en PDF', async ({ page }) => {
     await sembrar(page, PROGRESO_COMPLETO);
     await page.goto('/cierre');
-    const boton = page.getByRole('button', { name: 'Descargar en PDF' });
+    const boton = page.getByRole('button', { name: 'Descargar diploma' });
     await hidratada(boton);
     const [descarga] = await Promise.all([page.waitForEvent('download'), boton.click()]);
-    expect(descarga.suggestedFilename()).toBe('certificado_detective_lector.pdf');
+    expect(descarga.suggestedFilename()).toBe('diploma_detective_lector.pdf');
   });
 
   test('en un celular compartido la docente puede borrar el progreso', async ({ page }) => {
@@ -756,7 +756,7 @@ test.describe('portada como libro', () => {
       await page.goto('/');
       await page.waitForLoadState('networkidle');
       await expect(page.locator('.apertura-activa')).toHaveCount(1);
-      await expect(page.getByRole('link', { name: 'Abrir la Agencia' }).first()).toHaveAttribute(
+      await expect(page.getByRole('link', { name: 'Empezar la aventura' }).first()).toHaveAttribute(
         'href',
         '/agencia',
       );
@@ -781,7 +781,7 @@ test.describe('portada como libro', () => {
     await expect(portadilla).toContainText('Luz Marina Castillo Cuadrado');
     await expect(portadilla).toContainText('Ingrid Yuliana González Flores');
     await expect(portadilla).toContainText('Gustavo Alberto Orozco Bohórquez');
-    const boton = portadilla.getByRole('link', { name: 'Abrir la Agencia' });
+    const boton = portadilla.getByRole('link', { name: 'Empezar la aventura' });
     await expect(boton).toBeVisible();
     await boton.click();
     await expect(page).toHaveURL(/.*\/agencia/);

@@ -46,7 +46,7 @@ export function PasaporteAgencia({ clave_prueba, correcta_prueba }: Props) {
   ];
 
   return (
-    <Superficie tipo="escribe" titulo="Activa tu pasaporte de detective">
+    <Superficie tipo="escribe" titulo="Haz tu tarjeta de detective">
       <fieldset>
         <legend className="text-body font-medium">¿Cómo vas a trabajar?</legend>
         <div className="mt-3 grid gap-3 sm:grid-cols-2">
@@ -104,7 +104,7 @@ export function PasaporteAgencia({ clave_prueba, correcta_prueba }: Props) {
         )}
       </div>
       <p className="mt-2 text-body-sm text-stone-text">
-        Los nombres se guardan solo en este aparato. No se envían a ninguna parte.
+        Los nombres se guardan solo en este celular o computador. No se mandan a ninguna parte.
       </p>
 
       {!datos.activo && (
@@ -116,13 +116,13 @@ export function PasaporteAgencia({ clave_prueba, correcta_prueba }: Props) {
             disabled={!listo || faltan_nombres || !prueba_lista}
           >
             <IdentificationCard size={22} weight="bold" aria-hidden="true" />
-            Activar mi pasaporte
+            Hacer mi tarjeta
           </button>
           <p className="text-body-sm text-stone-text" role="status" aria-live="polite">
             {!prueba_lista
               ? 'Primero resuelve la pista de prueba de arriba.'
               : faltan_nombres
-                ? 'Escribe el nombre para activar el pasaporte.'
+                ? 'Escribe tu nombre para hacer la tarjeta.'
                 : 'Todo listo.'}
           </p>
         </div>
@@ -141,7 +141,7 @@ export function PasaporteAgencia({ clave_prueba, correcta_prueba }: Props) {
               </div>
               <div className="min-w-0 flex-1">
                 <p className="interfaz text-body-sm font-medium text-stone-text">
-                  Carné de la Agencia Escolar de Detectives de la Lectura
+                  Tarjeta del Club de Detectives Lectores
                 </p>
                 <p className="break-words text-heading-sm font-bold leading-tight">{nombres}</p>
                 <p className="text-body">
@@ -153,7 +153,7 @@ export function PasaporteAgencia({ clave_prueba, correcta_prueba }: Props) {
                 </p>
               </div>
             </div>
-            <ul className="mt-5 grid grid-cols-4 gap-2" aria-label="Espacios para las cuatro medallas">
+            <ul className="mt-5 grid grid-cols-4 gap-2" aria-label="Tu álbum: espacio para cuatro medallas">
               {insignias.map((i) => {
                 const ganada = progreso.resueltos.includes(i.caso);
                 return (
@@ -169,7 +169,7 @@ export function PasaporteAgencia({ clave_prueba, correcta_prueba }: Props) {
             </ul>
           </div>
           <p className="mt-3 text-body font-medium">
-            ¡Pasaporte activado! Ya puedes empezar la Misión 1.
+            ¡Ya tienes tu tarjeta y tu álbum de medallas! Puedes empezar la Misión 1.
           </p>
         </div>
       )}

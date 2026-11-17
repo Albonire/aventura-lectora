@@ -9,7 +9,7 @@ import { sitio } from '../config/sitio';
 
 const discos = ['bg-sandstone', 'bg-fresh-grass', 'bg-sky-soft', 'bg-sunshine-pop', 'bg-coral-soft', 'bg-sandstone'];
 const bienvenida =
-  'En el salón de quinto apareció el Efecto Lectura Rápida: borra las ideas principales de los cuentos, desordena las recetas y hace que se olviden las coplas de los abuelos. Sofía y Mateo abrieron la Agencia Escolar de Detectives de la Lectura y necesitan tu ayuda. Son seis estaciones cortas. En cada misión ganas una insignia para tu pasaporte.';
+  'En el salón de quinto apareció el Borracuentos: borra las ideas más importantes de los cuentos, revuelve las recetas y hace que se olviden las coplas de los abuelos. Sofía y Mateo armaron el Club de Detectives Lectores y necesitan tu ayuda. La aventura tiene seis partes cortas. En cada misión ganas una medalla para tu álbum.';
 ---
 
 <CursoLayout titulo="Aventura lectora" modo="portada" ubicacion={{ tipo: 'inicio' }}>
@@ -21,11 +21,11 @@ const bienvenida =
       <ReadAloud client:idle texto={bienvenida} />
     </div>
     <div class="mt-6">
-      <ButtonGhost href="/agencia" color="grass">Empezar por la Agencia</ButtonGhost>
+      <ButtonGhost href="/agencia" color="grass">Empezar la aventura</ButtonGhost>
     </div>
   </Seccion>
 
-  <Seccion id="indice" titulo="Mapa de la ruta" etiqueta="Seis estaciones de 15 a 20 minutos">
+  <Seccion id="indice" titulo="El camino de la aventura" etiqueta="Seis partes cortas, de 15 a 20 minutos cada una">
     <div
       data-seguir-caja
       hidden

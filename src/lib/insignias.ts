@@ -12,7 +12,7 @@ export interface TareaInsignia {
 export interface DatoInsignia {
   caso: number;
   nombre: string;
-  // where it is won: "Misión 1", "Desafío final"
+  // where it is won: "Misión 1", "Reto final"
   estacion: string;
   nivel: string;
   descripcion: string;
@@ -25,11 +25,11 @@ export const insignias: DatoInsignia[] = [
     nombre: 'Lupa de Bronce',
     estacion: 'Misión 1',
     nivel: 'Nivel literal',
-    descripcion: 'Por leer con calma y encontrar lo que el texto dice.',
+    descripcion: 'Por leer con calma y encontrar lo que dice la lectura.',
     tareas: [
       { id: 'partes', texto: 'Encontré el inicio, el nudo y el desenlace', pagina: 'lupa' },
       { id: 'receta', texto: 'Ordené los pasos de la receta', pagina: 'lupa' },
-      { id: 'idea', texto: 'Separé la idea principal de los detalles', pagina: 'cerrar' },
+      { id: 'idea', texto: 'Encontré la idea más importante', pagina: 'cerrar' },
     ],
   },
   {
@@ -37,10 +37,10 @@ export const insignias: DatoInsignia[] = [
     nombre: 'Lupa de Plata',
     estacion: 'Misión 2',
     nivel: 'Nivel inferencial',
-    descripcion: 'Por descubrir pistas escondidas y guardar un relato de tu familia.',
+    descripcion: 'Por descubrir pistas escondidas y guardar una historia de tu familia.',
     tareas: [
-      { id: 'inferencias', texto: 'Descubrí lo que el relato no dice de frente', pagina: 'lupa' },
-      { id: 'abuelo', texto: 'Registré el relato de "Cuéntame, abuelo"', pagina: 'cerrar' },
+      { id: 'inferencias', texto: 'Descubrí lo que la historia no dice', pagina: 'lupa' },
+      { id: 'abuelo', texto: 'Escribí la historia de "Cuéntame, abuelo"', pagina: 'cerrar' },
     ],
   },
   {
@@ -48,21 +48,21 @@ export const insignias: DatoInsignia[] = [
     nombre: 'Detector de Verdades',
     estacion: 'Misión 3',
     nivel: 'Nivel crítico',
-    descripcion: 'Por separar los hechos de los rumores antes de compartir.',
+    descripcion: 'Por separar la verdad de los chismes antes de compartir.',
     tareas: [
-      { id: 'clasificar', texto: 'Separé los hechos de las opiniones y los rumores', pagina: 'lupa' },
-      { id: 'verificar', texto: 'Revisé quién escribió el mensaje antes de compartirlo', pagina: 'cerrar' },
+      { id: 'clasificar', texto: 'Separé los datos reales de las opiniones y los chismes', pagina: 'lupa' },
+      { id: 'verificar', texto: 'Miré quién escribió el mensaje antes de compartirlo', pagina: 'cerrar' },
     ],
   },
   {
     caso: 4,
     nombre: 'Voz de Detective',
-    estacion: 'Desafío final',
+    estacion: 'Reto final',
     nivel: 'Argumentación',
-    descripcion: 'Por defender tu postura con dos razones y un ejemplo de Maripí.',
+    descripcion: 'Por decir lo que piensas con dos razones y un ejemplo de Maripí.',
     tareas: [
-      { id: 'torre', texto: 'Armé los tres pisos de mi torre de argumentos', pagina: 'cerrar' },
-      { id: 'autochequeo', texto: 'Revisé mi torre con la lista de tres puntos', pagina: 'cerrar' },
+      { id: 'torre', texto: 'Armé los tres pisos de mi torre de ideas', pagina: 'cerrar' },
+      { id: 'autochequeo', texto: 'Revisé mi torre con las tres preguntas', pagina: 'cerrar' },
     ],
   },
 ];

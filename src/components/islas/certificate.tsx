@@ -7,7 +7,7 @@ import { usar_almacen, usar_movimiento, usar_pasaporte, usar_progreso } from './
 import { Insignia } from './insignia';
 import { Superficie, boton, boton_primario, campo_texto } from './ui';
 
-export const TITULO_CERTIFICADO = 'Certificado Oficial de Detective Lector';
+export const TITULO_CERTIFICADO = 'Diploma de Detective Lector';
 
 // certificate of the closing station with the name of the student or the pair and a print button.
 // Printing shows only the certificate (see the print rules in global.css).
@@ -37,7 +37,7 @@ export function Certificate() {
 
   function imprimir() {
     set_sello((n) => n + 1);
-    set_mensaje('Se abrió la ventana para imprimir tu certificado.');
+    set_mensaje('Se abrió la ventana para imprimir tu diploma.');
     window.setTimeout(() => window.print(), 80);
   }
 
@@ -48,22 +48,22 @@ export function Certificate() {
     try {
       const { descargar_certificado } = await import('../../lib/pdf');
       await descargar_certificado(mostrado);
-      set_mensaje('Tu certificado se descargó como PDF.');
+      set_mensaje('Tu diploma se descargó.');
     } catch {
-      set_mensaje('No se pudo crear el PDF. Vuelve a intentarlo o usa el botón de imprimir.');
+      set_mensaje('No se pudo descargar. Vuelve a intentarlo o usa el botón de imprimir.');
     } finally {
       set_generando(false);
     }
   }
 
   return (
-    <Superficie titulo="Tu certificado" etiqueta="Detective lector">
+    <Superficie titulo="Tu diploma" etiqueta="Detective lector">
       <div className="no-imprimir">
         <p className="max-w-reading text-body">
           Revisa cómo quedó escrito tu nombre, o el de tu pareja de detectives, e imprime el
-          certificado.
+          diploma.
           {ganadas < total &&
-            ` Llevas ${ganadas} de ${total} insignias: imprímelo cuando tengas las cuatro.`}
+            ` Llevas ${ganadas} de ${total} medallas: imprímelo cuando tengas las cuatro.`}
         </p>
         <label htmlFor="cert-nombre" className="mt-5 block text-body font-medium">
           Nombre del detective o de la pareja
@@ -100,11 +100,11 @@ export function Certificate() {
           {mostrado || 'Tu nombre'}
         </p>
         <p className="mx-auto mt-5 max-w-lg text-body">
-          por resolver las tres misiones de lectura y el desafío final, leer con calma, descubrir
-          pistas entre líneas, verificar antes de compartir y defender su voz con razones.
+          por resolver las tres misiones de lectura y el reto final, leer con calma, descubrir
+          pistas escondidas, revisar antes de compartir y decir lo que piensa con razones.
         </p>
 
-        <ul className="mx-auto mt-5 flex max-w-md justify-center gap-3" aria-label="Insignias ganadas">
+        <ul className="mx-auto mt-5 flex max-w-md justify-center gap-3" aria-label="Medallas ganadas">
           {insignias.map((i) => (
             <li key={i.caso}>
               <Insignia
@@ -140,7 +140,7 @@ export function Certificate() {
       <div className="no-imprimir mt-6 flex flex-wrap items-center gap-3">
         <button type="button" className={boton_primario} onClick={imprimir} disabled={!mostrado}>
           <Printer size={20} weight="bold" aria-hidden="true" />
-          Imprimir certificado
+          Imprimir diploma
         </button>
         <button
           type="button"
@@ -149,7 +149,7 @@ export function Certificate() {
           disabled={generando || !mostrado}
         >
           <FilePdf size={20} weight="bold" aria-hidden="true" />
-          {generando ? 'Preparando...' : 'Descargar en PDF'}
+          {generando ? 'Preparando...' : 'Descargar diploma'}
         </button>
         {!mostrado && (
           <p className="text-body-sm text-stone-text">Escribe el nombre para imprimirlo.</p>

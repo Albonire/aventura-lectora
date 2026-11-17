@@ -1,19 +1,28 @@
 {
   "ejemplo": {
     "frase": "Mateo llegó al salón con las botas mojadas y una sombrilla cerrada.",
-    "pregunta": "El texto no dice cómo está el clima. ¿Qué puedes deducir?",
+    "pregunta": "La frase no dice cómo está el clima. Con las pistas, ¿qué crees que pasa afuera?",
     "opciones": [
-      { "id": "lluvia", "texto": "Que afuera está lloviendo" },
-      { "id": "sol", "texto": "Que hace mucho sol" },
-      { "id": "noche", "texto": "Que ya es de noche" }
+      {
+        "id": "lluvia",
+        "texto": "Que afuera está lloviendo"
+      },
+      {
+        "id": "sol",
+        "texto": "Que hace mucho sol"
+      },
+      {
+        "id": "noche",
+        "texto": "Que ya es de noche"
+      }
     ],
     "correcta": "lluvia",
-    "acierto": "¡Eso es deducir! Las botas mojadas y la sombrilla son pistas, aunque nadie diga la palabra lluvia.",
+    "acierto": "¡Así se descubre lo que no está escrito! Las botas mojadas y la sombrilla son pistas, aunque nadie diga la palabra lluvia.",
     "pista": "Mira otra vez las dos pistas de la frase: las botas mojadas y la sombrilla. ¿Cuándo las usas tú?"
   },
   "relato": {
     "titulo": "El duende del trapiche",
-    "autoria": "Relato escrito por las profesoras para esta misión, al estilo de los que cuentan los abuelos en el campo",
+    "autoria": "Historia escrita por las profesoras para esta misión, parecida a las que cuentan los abuelos en el campo",
     "parrafos": [
       {
         "texto": "Cuentan los abuelos que en un trapiche viejo, al lado de la quebrada, vivía un duende pequeño con un sombrero más grande que él. Nadie lo veía, pero todos sabían cuándo andaba cerca: amanecían trenzadas las crines de las mulas y las totumas cambiadas de lugar."
@@ -43,15 +52,24 @@
   "quiz": [
     {
       "id": "por_que_duende",
-      "nivel": "¿Por qué actúa así?",
-      "pregunta": "El relato no lo dice de frente. ¿Por qué crees que el duende escondió las cosas de Tobías?",
+      "nivel": "¿Por qué lo hizo?",
+      "pregunta": "La historia no lo dice. ¿Por qué crees que el duende escondió las cosas de Tobías?",
       "opciones": [
-        { "id": "a", "texto": "Porque Tobías trabajó de afán y no pensó en los demás." },
-        { "id": "b", "texto": "Porque el duende quería quedarse con el sombrero." },
-        { "id": "c", "texto": "Porque Tobías llegó tarde a la molienda." }
+        {
+          "id": "a",
+          "texto": "Porque Tobías trabajó de afán y no pensó en los demás."
+        },
+        {
+          "id": "b",
+          "texto": "Porque el duende quería quedarse con el sombrero."
+        },
+        {
+          "id": "c",
+          "texto": "Porque Tobías llegó tarde a la molienda."
+        }
       ],
       "correcta": "a",
-      "retro": "Lo dedujiste juntando dos pistas: cómo trabajó Tobías y qué pasó cuando cambió.",
+      "retro": "Lo descubriste juntando dos pistas: cómo trabajó Tobías y qué pasó cuando cambió.",
       "pistas": [
         "Vuelve a leer el párrafo 2 y fíjate en cómo trabajó Tobías esa noche.",
         "Ahora mira el párrafo 4: cuando Tobías trabaja despacio y comparte, sus cosas vuelven. ¿Qué le molestaba al duende?"
@@ -62,12 +80,21 @@
       "nivel": "¿Qué quiere decir?",
       "pregunta": "Tobías estaba \"rojo como un tomate\". ¿Qué quiere decir esa expresión?",
       "opciones": [
-        { "id": "a", "texto": "Que sentía mucha vergüenza." },
-        { "id": "b", "texto": "Que se había quemado con el sol." },
-        { "id": "c", "texto": "Que tenía la cara pintada." }
+        {
+          "id": "a",
+          "texto": "Que le dio mucha pena."
+        },
+        {
+          "id": "b",
+          "texto": "Que se había quemado con el sol."
+        },
+        {
+          "id": "c",
+          "texto": "Que tenía la cara pintada."
+        }
       ],
       "correcta": "a",
-      "retro": "La expresión no se toma al pie de la letra: la cara se pone roja cuando da pena.",
+      "retro": "Esa frase no se toma al pie de la letra: la cara se pone roja cuando da pena.",
       "pistas": [
         "No lo tomes al pie de la letra. Vuelve a leer el párrafo 3: ¿qué hacían los vecinos mientras Tobías buscaba?",
         "Mira la última frase del párrafo 3: los vecinos se aguantaban la risa. ¿Cómo se te pone la cara cuando se ríen de algo que hiciste?"
@@ -78,9 +105,18 @@
       "nivel": "¿Qué quiere decir?",
       "pregunta": "¿Qué quiso decir el abuelo Chepe con \"el que trabaja de afán trabaja dos veces\"?",
       "opciones": [
-        { "id": "a", "texto": "Que lo que se hace a las carreras queda mal y toca repetirlo." },
-        { "id": "b", "texto": "Que hay que trabajar el doble de horas." },
-        { "id": "c", "texto": "Que es mejor trabajar solo de noche." }
+        {
+          "id": "a",
+          "texto": "Que lo que se hace a las carreras queda mal y toca hacerlo otra vez."
+        },
+        {
+          "id": "b",
+          "texto": "Que hay que trabajar el doble de horas."
+        },
+        {
+          "id": "c",
+          "texto": "Que es mejor trabajar solo de noche."
+        }
       ],
       "correcta": "a",
       "retro": "Tobías tuvo que moler otra vez y limpiar la paila: hizo el trabajo dos veces.",
@@ -92,7 +128,7 @@
   ],
   "abuelo": {
     "titulo": "Cuéntame, abuelo",
-    "instruccion": "Siéntate con un abuelo, una abuela o alguien mayor de tu casa. Pídele que te cuente un mito, una leyenda o una copla de Maripí. Escucha con calma y luego responde.",
+    "instruccion": "Siéntate con un abuelo, una abuela o una persona mayor de tu casa. Pídele que te cuente un mito, una leyenda o una copla de Maripí. Escucha con calma y después contesta.",
     "campos": [
       {
         "id": "quien",

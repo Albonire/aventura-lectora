@@ -24,6 +24,7 @@ Docentes autoras (únicas): Luz Marina Castillo Cuadrado e Ingrid Yuliana Gonzá
 - Nunca uses la raya larga (em dash) en textos, comentarios ni commits. Usa dos puntos, coma o guion corto. Los diálogos de las lecturas van entre comillas.
 - Nada de colores neón. Solo los tokens de `src/styles/design_tokens.css`.
 - Textos de interfaz en español de Colombia, tuteo, mayúscula inicial solamente, sin flechas pegadas a los botones.
+- Vocabulario de niño de 10 años en todo lo que leen los estudiantes: palabras de todos los días y frases cortas. Club de Detectives Lectores (no agencia), parte o misión (no estación), medalla y álbum (no insignia ni pasaporte), diploma (no certificado), torre de ideas y lo que pienso (no argumentos ni postura), dato real y chisme (no hecho comprobable ni rumor), revisar (no verificar), historia (no relato), mandar a otros (no reenviar). El villano es el Borracuentos. Los nombres técnicos del documento de diseño solo van en las páginas para docentes. `tests/unit/contenido.test.ts` lo vigila.
 - Commits sin co-autor.
 
 ## Reglas de implementación

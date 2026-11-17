@@ -1,17 +1,26 @@
 {
   "prediccion": {
-    "estrategia": "predigo",
+    "estrategia": "imagino",
     "pregunta": "Mira el título y el dibujo. ¿Qué crees que va a pasar con el recado?",
     "opciones": [
-      { "id": "completo", "texto": "Va a llegar completo" },
-      { "id": "mitad", "texto": "Va a llegar a medias" },
-      { "id": "perdido", "texto": "Se va a perder por el camino" }
+      {
+        "id": "completo",
+        "texto": "Va a llegar completo"
+      },
+      {
+        "id": "mitad",
+        "texto": "Va a llegar a medias"
+      },
+      {
+        "id": "perdido",
+        "texto": "Se va a perder por el camino"
+      }
     ],
-    "respuesta": "Guarda tu idea. Cuando leas la fábula vas a saber si acertaste."
+    "respuesta": "Guarda tu idea. Cuando leas el cuento vas a saber si acertaste."
   },
   "fabula": {
     "titulo": "El recado del trapiche",
-    "autoria": "Fábula escrita por las profesoras para esta misión",
+    "autoria": "Cuento escrito por las profesoras para esta misión",
     "parrafos": [
       {
         "parte": "Inicio",
@@ -46,7 +55,7 @@
   },
   "receta": {
     "titulo": "Chocolate campesino con panela",
-    "autoria": "Receta campesina con cacao y panela, dos cultivos de las fincas de Maripí",
+    "autoria": "Receta del campo con cacao y panela, dos cosas que se cultivan en las fincas de Maripí",
     "entrada": "En muchas fincas el día empieza con una taza de chocolate. Prepara esta receta siempre con una persona adulta.",
     "ingredientes": [
       "2 pocillos de agua",
@@ -54,21 +63,48 @@
       "1 pedazo pequeño de panela"
     ],
     "pasos": [
-      { "id": "fogon", "texto": "Primero, pídele a una persona adulta que prenda el fogón." },
-      { "id": "agua", "texto": "Pon el agua en la olleta y espera a que hierva." },
-      { "id": "panela", "texto": "Luego, agrega la panela y revuelve hasta que se deshaga." },
-      { "id": "chocolate", "texto": "Después, echa el chocolate y deja que se derrita." },
-      { "id": "batir", "texto": "Al final, bate con el molinillo hasta que salga espuma y sirve." }
+      {
+        "id": "fogon",
+        "texto": "Primero, pídele a una persona adulta que prenda el fogón."
+      },
+      {
+        "id": "agua",
+        "texto": "Pon el agua en la olleta y espera a que hierva."
+      },
+      {
+        "id": "panela",
+        "texto": "Luego, agrega la panela y revuelve hasta que se deshaga."
+      },
+      {
+        "id": "chocolate",
+        "texto": "Después, echa el chocolate y deja que se derrita."
+      },
+      {
+        "id": "batir",
+        "texto": "Al final, bate con el molinillo hasta que salga espuma y sirve."
+      }
     ],
     "pista_orden": "Mira las palabras que ordenan: primero, luego, después y al final. Vuelve a leer la receta y busca qué se hace antes de batir.",
     "acierto_orden": "¡Excelente, detective! La receta quedó en su orden: así sí sale el chocolate."
   },
   "partes": {
-    "instruccion": "Lee cada tarjeta y ponla en la parte de la fábula donde ocurre.",
+    "instruccion": "Lee cada tarjeta y ponla en la parte del cuento donde pasa.",
     "cajas": [
-      { "id": "inicio", "titulo": "Inicio", "descripcion": "Cómo empieza" },
-      { "id": "nudo", "titulo": "Nudo", "descripcion": "El problema" },
-      { "id": "desenlace", "titulo": "Desenlace", "descripcion": "Cómo termina" }
+      {
+        "id": "inicio",
+        "titulo": "Inicio",
+        "descripcion": "Cómo empieza"
+      },
+      {
+        "id": "nudo",
+        "titulo": "Nudo",
+        "descripcion": "El problema"
+      },
+      {
+        "id": "desenlace",
+        "titulo": "Desenlace",
+        "descripcion": "Cómo termina"
+      }
     ],
     "items": [
       {
@@ -81,7 +117,7 @@
         "id": "p2",
         "texto": "El conejo sale corriendo y solo lleva la mitad del recado.",
         "caja": "nudo",
-        "pista": "Vuelve a leer el párrafo 3: ahí aparece el problema de la fábula."
+        "pista": "Vuelve a leer el párrafo 3: ahí aparece el problema del cuento."
       },
       {
         "id": "p3",
@@ -106,55 +142,82 @@
   "quiz": [
     {
       "id": "idea_principal",
-      "nivel": "Idea principal",
-      "pregunta": "¿Cuál es la idea principal de la fábula?",
+      "nivel": "Idea más importante",
+      "pregunta": "¿Cuál es la idea más importante del cuento?",
       "opciones": [
-        { "id": "a", "texto": "Quien escucha con calma lleva el recado completo." },
-        { "id": "b", "texto": "El conejo tiene una bufanda roja." },
-        { "id": "c", "texto": "El trapiche huele a miel." }
+        {
+          "id": "a",
+          "texto": "Quien escucha con calma lleva el recado completo."
+        },
+        {
+          "id": "b",
+          "texto": "El conejo tiene una bufanda roja."
+        },
+        {
+          "id": "c",
+          "texto": "El trapiche huele a miel."
+        }
       ],
       "correcta": "a",
-      "retro": "La idea principal resume toda la historia. La bufanda y el olor a miel son detalles.",
+      "retro": "La idea más importante cuenta de qué trata todo el cuento. La bufanda y el olor a miel son detalles.",
       "pistas": [
-        "Un detalle es un dato pequeño. La idea principal resume todo el cuento. Vuelve a leer la moraleja, al final de la fábula.",
-        "Fíjate en lo que aprende el conejo en el párrafo 5. Esa enseñanza es la idea principal."
+        "Un detalle es un dato pequeño. La idea más importante cuenta de qué trata todo el cuento. Vuelve a leer la moraleja, al final del cuento.",
+        "Fíjate en lo que aprende el conejo en el párrafo 5. Esa enseñanza es la idea más importante."
       ]
     },
     {
       "id": "detalle",
-      "nivel": "Detalle suelto",
-      "pregunta": "¿Cuál de estas frases es un detalle suelto?",
+      "nivel": "Detalle",
+      "pregunta": "¿Cuál de estas frases es solo un detalle?",
       "opciones": [
-        { "id": "a", "texto": "El otro camino estaba embarrado." },
-        { "id": "b", "texto": "Por correr, el conejo llevó el recado a medias." },
-        { "id": "c", "texto": "La tortuga escuchó completo y por eso lo contó bien." }
+        {
+          "id": "a",
+          "texto": "El otro camino estaba embarrado."
+        },
+        {
+          "id": "b",
+          "texto": "Por correr, el conejo llevó el recado a medias."
+        },
+        {
+          "id": "c",
+          "texto": "La tortuga escuchó completo y por eso lo contó bien."
+        }
       ],
       "correcta": "a",
       "retro": "El barro del camino es un dato pequeño. Las otras dos frases cuentan lo más importante.",
       "pistas": [
-        "Si quitas un detalle, la historia se sigue entendiendo. Prueba quitar cada frase y mira cuál no hace falta.",
+        "Si quitas un detalle, el cuento se sigue entendiendo. Prueba quitar cada frase y mira cuál no hace falta.",
         "Vuelve a leer el párrafo 2. Una de estas frases es solo un dato del recado de don Abel."
       ]
     },
     {
       "id": "hora",
-      "nivel": "Lo que dice el texto",
+      "nivel": "Lo que dice la lectura",
       "pregunta": "¿A qué hora iba a estar lista la panela?",
       "opciones": [
-        { "id": "a", "texto": "Al mediodía" },
-        { "id": "b", "texto": "Al amanecer" },
-        { "id": "c", "texto": "Por la noche" }
+        {
+          "id": "a",
+          "texto": "Al mediodía"
+        },
+        {
+          "id": "b",
+          "texto": "Al amanecer"
+        },
+        {
+          "id": "c",
+          "texto": "Por la noche"
+        }
       ],
       "correcta": "a",
       "retro": "Don Abel lo dice con esas palabras en su recado.",
       "pistas": [
-        "La respuesta está escrita en la fábula. Vuelve a leer el párrafo 2, donde habla don Abel.",
+        "La respuesta está escrita en el cuento. Vuelve a leer el párrafo 2, donde habla don Abel.",
         "Busca en el párrafo 2 la frase que empieza con \"La panela estará lista\"."
       ]
     }
   ],
   "opino": {
     "estrategia": "opino",
-    "texto": "Ahora opina. Cuéntale a tu pareja de detectives: ¿quién llevó mejor el recado y por qué?"
+    "texto": "Ahora di lo que piensas. Cuéntale a tu pareja de detectives: ¿quién llevó mejor el recado y por qué?"
   }
 }
